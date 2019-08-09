@@ -1,0 +1,292 @@
+*******92  ==> 12 79 98  #SUP: 35 #CONF: 0.875*******
+92 class extends class DTO
+12 is public class
+79 class defines constructor with no parameters
+98 class has empty-body constructor
+
+******************************************************
+******************************************************
+
+98  ==> 12 34 79  #SUP: 54 #CONF: 0.8571428571428571
+98 class has empty-body constructor
+12 is public class
+79 class defines constructor with no parameters
+34 class has member field of type String
+
+1 34  ==> 12  #SUP: 62 #CONF: 1.0
+1 class has non-empty-body constructor
+34 class has member field of type String
+12 is public class
+
+34  ==> 12  #SUP: 74 #CONF: 1.0
+34 class has member field of type String
+12 is public class
+
+1  ==> 12  #SUP: 78 #CONF: 1.0
+1 class has non-empty-body constructor
+12 is public class
+
+98  ==> 12 79  #SUP: 63 #CONF: 1.0
+98 class has empty-body constructor
+12 is public class
+79 class defines constructor with no parameters
+
+79  ==> 12  #SUP: 65 #CONF: 1.0
+12 is public class
+79 class defines constructor with no parameters
+
+79  ==> 12 98  #SUP: 63 #CONF: 0.9692307692307692
+98 class has empty-body constructor
+12 is public class
+79 class defines constructor with no parameters
+
+34 79  ==> 12  #SUP: 55 #CONF: 1.0
+12 is public class
+79 class defines constructor with no parameters
+34 class has member field of type String
+
+1 34  ==> 12 108  #SUP: 57 #CONF: 0.9193548387096774
+12 is public class
+34 class has member field of type String
+1 class has non-empty-body constructor
+108 class defines constructor with parameter of type String
+
+
+108  ==> 1 12  #SUP: 59 #CONF: 1.0
+12 is public class
+1 class has non-empty-body constructor
+108 class defines constructor with parameter of type String
+
+34  ==> 1 12  #SUP: 62 #CONF: 0.8378378378378378
+12 is public class
+34 class has member field of type String
+1 class has non-empty-body constructor
+
+108  ==> 1 12 34  #SUP: 57 #CONF: 0.9661016949152542
+12 is public class
+34 class has member field of type String
+1 class has non-empty-body constructor
+108 class defines constructor with parameter of type String
+
+34 108  ==> 1 12  #SUP: 57 #CONF: 1.0
+12 is public class
+34 class has member field of type String
+1 class has non-empty-body constructor
+108 class defines constructor with parameter of type String
+
+1 79  ==> 12  #SUP: 54 #CONF: 1.0
+1 class has non-empty-body constructor
+79 class defines constructor with no parameters
+12 is public class
+
+34 79  ==> 12 98  #SUP: 54 #CONF: 0.9818181818181818
+79 class defines constructor with no parameters
+12 is public class
+34 class has member field of type String
+98 class has empty-body constructor
+
+79  ==> 12 34  #SUP: 55 #CONF: 0.8461538461538461
+79 class defines constructor with no parameters
+12 is public class
+34 class has member field of type String
+
+34 98  ==> 12 79  #SUP: 54 #CONF: 1.0
+79 class defines constructor with no parameters
+12 is public class
+98 class has empty-body constructor
+
+------------------------------
+79  ==> 12 34 98  #SUP: 54 #CONF: 0.8307692307692308
+1 79  ==> 12 34 98  #SUP: 45 #CONF: 0.8333333333333334
+1 79  ==> 12 34  #SUP: 46 #CONF: 0.8518518518518519
+79  ==> 1 12 98  #SUP: 52 #CONF: 0.8
+1 79  ==> 12 98  #SUP: 52 #CONF: 0.9629629629629629
+79  ==> 1 12  #SUP: 54 #CONF: 0.8307692307692308
+1 98  ==> 12 79  #SUP: 52 #CONF: 1.0
+1 98  ==> 12 79 108  #SUP: 46 #CONF: 0.8846153846153846
+1 34 79  ==> 12  #SUP: 46 #CONF: 1.0
+98  ==> 1 12 79  #SUP: 52 #CONF: 0.8253968253968254
+
+79 class defines constructor with no parameters
+12 is public class
+34 class has member field of type String
+98 class has empty-body constructor
+1 class has non-empty-body constructor
+------------------------------
+
+98 108  ==> 1 12 79  #SUP: 46 #CONF: 1.0
+1 79  ==> 12 98 108  #SUP: 46 #CONF: 0.8518518518518519
+79 108  ==> 1 12 98  #SUP: 46 #CONF: 1.0
+
+79 class defines constructor with no parameters
+12 is public class
+98 class has empty-body constructor
+1 class has non-empty-body constructor
+108 class defines constructor with parameter of type String
+------------------------------
+
+
+34 79  ==> 1 12  #SUP: 46 #CONF: 0.8363636363636363
+1 34 79  ==> 12 98  #SUP: 45 #CONF: 0.9782608695652174
+1 34 98  ==> 12 79  #SUP: 45 #CONF: 1.0
+1 98  ==> 12 34 79  #SUP: 45 #CONF: 0.8653846153846154
+34 79  ==> 1 12 98  #SUP: 45 #CONF: 0.8181818181818182
+34 98  ==> 1 12 79  #SUP: 45 #CONF: 0.8333333333333334
+
+79 class defines constructor with no parameters
+34 class has member field of type String
+12 is public class
+98 class has empty-body constructor
+1 class has non-empty-body constructor
+-------------------------------------------------------
+
+34 98 108  ==> 1 12 79  #SUP: 44 #CONF: 1.0
+34 79 108  ==> 1 12 98  #SUP: 44 #CONF: 1.0
+1 34 79  ==> 12 98 108  #SUP: 44 #CONF: 0.9565217391304348
+1 34 98  ==> 12 79 108  #SUP: 44 #CONF: 0.9777777777777777
+
+1 class has non-empty-body constructor
+12 is public class
+34 class has member field of type String
+79 class defines constructor with no parameters
+98 class has empty-body constructor
+108 class defines constructor with parameter of type String
+1 79  ==> 12 34 98 108  #SUP: 44 #CONF: 0.8148148148148148
+34 98  ==> 1 12 79 108  #SUP: 44 #CONF: 0.8148148148148148
+34 79  ==> 1 12 98 108  #SUP: 44 #CONF: 0.8
+98 108  ==> 1 12 34 79  #SUP: 44 #CONF: 0.9565217391304348
+1 98  ==> 12 34 79 108  #SUP: 44 #CONF: 0.8461538461538461
+79 108  ==> 1 12 34 98  #SUP: 44 #CONF: 0.9565217391304348
+-------------------------------------------------------
+
+92  ==> 12  #SUP: 40 #CONF: 1.0
+92 class extends class DTO
+12 is public class
+
+92  ==> 12 79  #SUP: 36 #CONF: 0.9
+79 92  ==> 12  #SUP: 36 #CONF: 1.0
+79 92  ==> 12 98  #SUP: 35 #CONF: 0.9722222222222222
+92 98  ==> 12 79  #SUP: 35 #CONF: 1.0
+
+12 is public class
+92 class extends class DTO
+79 class defines constructor with no parameters
+98 class has empty-body constructor
+--------------------------
+
+540  ==> 12 34  #SUP: 24 #CONF: 0.8571428571428571
+540  ==> 12  #SUP: 28 #CONF: 1.0
+
+540 class has member field of type long
+12 is public class
+34 class has member field of type String
+-------------------------------
+
+98 100  ==> 12 79  #SUP: 29 #CONF: 1.0
+100  ==> 12  #SUP: 31 #CONF: 1.0
+
+98 class has empty-body constructor
+12 is public class
+79 class defines constructor with no parameters
+100 class has member field of type List
+-------------------------------
+
+34 92  ==> 12  #SUP: 32 #CONF: 1.0
+34 class has member field of type String
+92 class extends class DTO
+12 is public class
+
+5  ==> 1 12  #SUP: 34 #CONF: 1.0
+12 is public class
+1 class has non-empty-body constructor
+5 constructor stores all parameters as member variables
+
+92  ==> 12 34  #SUP: 32 #CONF: 0.8
+92 class extends class DTO
+12 is public class
+34 class has member field of type String
+
+-------------------------------
+79 92  ==> 12 34  #SUP: 29 #CONF: 0.8055555555555556
+34 79 92  ==> 12  #SUP: 29 #CONF: 1.0
+
+92 class extends class DTO
+12 is public class
+34 class has member field of type String
+79 class defines constructor with no parameters
+-------------------------------
+
+79 100  ==> 12 98  #SUP: 29 #CONF: 1.0
+34 100  ==> 12  #SUP: 24 #CONF: 1.0
+92 100  ==> 12  #SUP: 23 #CONF: 1.0
+
+12 is public class
+34 class has member field of type String
+92 class extends class DTO
+98 class has empty-body constructor
+100 class has member field of type List
+
+-------------------------------
+34 92  ==> 12 79  #SUP: 29 #CONF: 0.90625
+34 92 98  ==> 12 79  #SUP: 28 #CONF: 1.0
+100  ==> 12 79 98  #SUP: 29 #CONF: 0.9354838709677419
+92 98  ==> 12 34 79  #SUP: 28 #CONF: 0.8
+34 79 92  ==> 12 98  #SUP: 28 #CONF: 0.9655172413793104
+34 92  ==> 12 79 98  #SUP: 28 #CONF: 0.875
+1 92  ==> 12 79 98  #SUP: 24 #CONF: 0.96
+5 98  ==> 1 12 79  #SUP: 27 #CONF: 1.0
+5 79  ==> 1 12 98  #SUP: 27 #CONF: 1.0
+1 92  ==> 12 79  #SUP: 25 #CONF: 1.0
+1 92 98  ==> 12 79  #SUP: 24 #CONF: 1.0
+
+1 class has non-empty-body constructor
+5 constructor stores all parameters as member variables
+12 is public class
+34 class has member field of type String
+79 class defines constructor with no parameters
+92 class extends class DTO
+98 class has empty-body constructor
+100 class has member field of type List
+--------------------------------
+
+5 34  ==> 1 12  #SUP: 24 #CONF: 1.0
+5 108  ==> 1 12 34  #SUP: 23 #CONF: 1.0
+5 34  ==> 1 12 108  #SUP: 23 #CONF: 0.9583333333333334
+
+1 class has non-empty-body constructor
+5 constructor stores all parameters as member variables
+12 is public class
+34 class has member field of type String
+--------------------------------
+
+161  ==> 12 34  #SUP: 24 #CONF: 1.0
+98 161  ==> 12 34 79  #SUP: 23 #CONF: 1.0
+79 161  ==> 12 34 98  #SUP: 23 #CONF: 1.0
+161  ==> 12 34 79 98  #SUP: 23 #CONF: 0.9583333333333334
+
+12 is public class
+34 class has member field of type String
+79 class defines constructor with no parameters
+98 class has empty-body constructor
+161 class has member field of type int
+--------------------------------
+
+34 540  ==> 12 79 98  #SUP: 23 #CONF: 0.9583333333333334
+34 79 540  ==> 12 98  #SUP: 23 #CONF: 1.0
+98 540  ==> 12 79  #SUP: 24 #CONF: 1.0
+79 540  ==> 12 98  #SUP: 24 #CONF: 1.0
+540  ==> 12 79 98  #SUP: 24 #CONF: 0.8571428571428571
+34 540  ==> 12  #SUP: 24 #CONF: 1.0
+98 540  ==> 12 34 79  #SUP: 23 #CONF: 0.9583333333333334
+34 98 540  ==> 12 79  #SUP: 23 #CONF: 1.0
+540  ==> 12 34 79 98  #SUP: 23 #CONF: 0.8214285714285714
+79 540  ==> 12 34 98  #SUP: 23 #CONF: 0.9583333333333334
+540  ==> 1 12  #SUP: 23 #CONF: 0.8214285714285714
+
+1 class has non-empty-body constructor
+12 is public class
+34 class has member field of type String
+79 class defines constructor with no parameters
+98 class has empty-body constructor
+540 class has member field of type long
+--------------------------------
