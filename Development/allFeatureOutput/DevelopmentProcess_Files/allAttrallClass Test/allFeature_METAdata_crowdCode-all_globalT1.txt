@@ -1,0 +1,1706 @@
+1 class defines constructor with parameter of type A
+2 class defines constructor with parameter of type B
+3 class has non-empty-body constructor
+4 class has member field called a
+5 class has member field of type A
+6 class has member field a of type A
+7 class has member field called b
+8 class has member field of type B
+9 class has member field b of type B
+10 is public class
+11 class does not define constructor
+12 has public function convertStreamToString()
+13 convertStreamToString() function calls constructor in return statement
+14 convertStreamToString() function returns output from function call
+15 convertStreamToString() function returns output from function call to Scanner
+16 convertStreamToString() function has parameter of type InputStream
+17 convertStreamToString() function returns type String
+18 class implements Filter
+19 has public function doFilter()
+20 doFilter() function has parameter of type ServletRequest
+21 doFilter() function has parameter of type ServletResponse
+22 doFilter() function has parameter of type FilterChain
+23 class has void function doFilter()
+24 has public function destroy()
+25 class has void function destroy()
+26 has public function init()
+27 init() function has parameter of type FilterConfig
+28 class has void function init()
+29 class defines constructor with parameter of type Artifact
+30 class has member field called eventType
+31 class has member field of type String
+32 class has member field eventType of type String
+33 class extends class HistoryEvent
+34 has public function getEventType()
+35 getEventType() function returns type String
+36 class has member field called commandsList
+37 class has member field of type Queue
+38 class has member field commandsList of type Queue
+39 class has member field called firebaseWritesList
+40 class has member field of type ConcurrentLinkedQueue
+41 class has member field firebaseWritesList of type ConcurrentLinkedQueue
+42 class has member field called eventList
+43 class has member field eventList of type ConcurrentLinkedQueue
+44 class has member field called threadLocal
+45 class has member field of type ThreadLocal
+46 class has member field threadLocal of type ThreadLocal
+47 has public function get()
+48 get() function returns output from function call
+49 get() function returns type ThreadContext
+50 has public function reset()
+51 class has void function reset()
+52 has public function addCommand()
+53 addCommand() function has parameter of type Command
+54 class has void function addCommand()
+55 has public function getCommands()
+56 getCommands() function returns type Queue
+57 has public function addfirebaseWrite()
+58 addfirebaseWrite() function has parameter of type FirebaseWrite
+59 class has void function addfirebaseWrite()
+60 has public function getFirebaseWritesList()
+61 getFirebaseWritesList() function returns type ConcurrentLinkedQueue
+62 has public function addEventList()
+63 addEventList() function has parameter of type EventNode
+64 class has void function addEventList()
+65 has public function getEventList()
+66 getEventList() function returns type ConcurrentLinkedQueue
+67 has protected function initialValue()
+68 initialValue() function calls constructor in return statement
+69 initialValue() function returns output from function call
+70 initialValue() function returns output from function call to ThreadContext
+71 initialValue() function returns type ThreadContext
+72 initialValue() function has annotation @Override
+73 class defines constructor with no parameters
+74 class has member field called parentID
+75 class has member field parentID of type String
+76 class has member field called artifactType
+77 class has member field artifactType of type String
+78 class has member field called artifactID
+79 class has member field artifactID of type String
+80 class has member field called artifactName
+81 class has member field artifactName of type String
+82 class has member field called timestamp
+83 class has member field timestamp of type String
+84 class has member field called timeInMillis
+85 class has member field timeInMillis of type String
+86 class extends class DTO
+87 has protected function setArtifact()
+88 setArtifact() function has parameter of type Artifact
+89 class has void function setArtifact()
+90 has public function generateID()
+91 generateID() function returns type String
+92 class has member field called events
+93 class has member field of type List
+94 class has member field events of type List
+95 has public function addEvent()
+96 addEvent() function has parameter of type HistoryEvent
+97 class has void function addEvent()
+98 has public function toString()
+99 toString() function returns type String
+100 class has member field called historyLog
+101 class has member field of type HistoryLog
+102 class has member field historyLog of type HistoryLog
+103 class has member field called projectId
+104 class has member field projectId of type String
+105 has public function Init()
+106 Init() function has parameter of type String
+107 Init() function returns type HistoryLog
+108 class defines constructor with parameter of type HistoryEvent
+109 class has member field called children
+110 class has member field children of type List
+111 class has member field called event
+112 class has member field of type HistoryEvent
+113 class has member field event of type HistoryEvent
+114 class defines constructor with parameter of type String
+115 class has member field called messageType
+116 class has member field messageType of type String
+117 class defines constructor with parameter of type Microtask
+118 class has member field called workerID
+119 class has member field workerID of type String
+120 class extends class MicrotaskEvent
+121 class has member field called microtaskType
+122 class has member field microtaskType of type String
+123 class has member field called microtaskKey
+124 class has member field microtaskKey of type String
+125 class has member field called timeWorkedOn
+126 class has member field timeWorkedOn of type String
+127 class defines constructor with parameter of type Project
+128 class has member field called projectID
+129 class has member field projectID of type String
+130 class has member field called propertyName
+131 class has member field propertyName of type String
+132 class has member field called propertyValue
+133 class has member field propertyValue of type String
+134 class defines constructor with parameter of type Long
+135 class has member field called questionId
+136 class has member field questionId of type String
+137 class has member field called workerId
+138 class has member field workerId of type String
+139 class has member field called condition
+140 class has member field condition of type String
+141 class has member field called message
+142 class has member field called title
+143 class has member field called requirement
+144 class has member field of type int
+145 class has member field requirement of type int
+146 class has member field called current
+147 class has member field called isUnlocked
+148 class has member field of type Boolean
+149 class has member field isUnlocked of type Boolean
+150 has public function getMessage()
+151 getMessage() function returns type String
+152 has public function getCondition()
+153 getCondition() function returns type String
+154 has public function updateCurrent()
+155 updateCurrent() function has parameter of type int
+156 updateCurrent() function modifies member variablethis
+157 class has void function updateCurrent()
+158 has public function getRequirement()
+159 getRequirement() function returns type int
+160 @Entity on class
+161 class has member field called userId
+162 class has member field called userId with annotation @Id
+163 class has member field userId of type String
+164 class has member field called image
+165 class has member field of type Blob
+166 class has member field image of type Blob
+167 has public function getImage()
+168 getImage() function returns type Blob
+169 has public function setImage()
+170 setImage() function has parameter of type Blob
+171 setImage() function modifies member variablethis
+172 class has void function setImage()
+173 has private function writeData()
+174 writeData() function has parameter of type String
+175 writeData() function has parameter of type HTTPMethod
+176 class has void function writeData()
+177 has private function writeDataAbsolute()
+178 writeDataAbsolute() function has parameter of type String
+179 writeDataAbsolute() function has parameter of type HTTPMethod
+180 class has void function writeDataAbsolute()
+181 has private function readDataAbsolute()
+182 readDataAbsolute() function has parameter of type String
+183 readDataAbsolute() function returns type String
+184 has private function getBaseURL()
+185 getBaseURL() function has parameter of type String
+186 getBaseURL() function returns type String
+187 has public function enqueueWrite()
+188 enqueueWrite() function has parameter of type String
+189 enqueueWrite() function has parameter of type HTTPMethod
+190 class has void function enqueueWrite()
+191 has public function publish()
+192 class has void function publish()
+193 has public function writeMicrotaskCreated()
+194 writeMicrotaskCreated() function has parameter of type MicrotaskInFirebase
+195 writeMicrotaskCreated() function has parameter of type String
+196 class has void function writeMicrotaskCreated()
+197 has public function writeMicrotaskSubmission()
+198 writeMicrotaskSubmission() function has parameter of type String
+199 class has void function writeMicrotaskSubmission()
+200 has public function writeMicrotaskAssigned()
+201 writeMicrotaskAssigned() function has parameter of type String
+202 writeMicrotaskAssigned() function has parameter of type boolean
+203 class has void function writeMicrotaskAssigned()
+204 has public function writeMicrotaskExcludedWorkers()
+205 writeMicrotaskExcludedWorkers() function has parameter of type String
+206 class has void function writeMicrotaskExcludedWorkers()
+207 has public function writeMicrotaskWaitingReview()
+208 writeMicrotaskWaitingReview() function has parameter of type String
+209 writeMicrotaskWaitingReview() function has parameter of type boolean
+210 class has void function writeMicrotaskWaitingReview()
+211 has public function writeMicrotaskCompleted()
+212 writeMicrotaskCompleted() function has parameter of type String
+213 writeMicrotaskCompleted() function has parameter of type boolean
+214 class has void function writeMicrotaskCompleted()
+215 has public function writeMicrotaskDeleted()
+216 writeMicrotaskDeleted() function has parameter of type String
+217 class has void function writeMicrotaskDeleted()
+218 has public function writeMicrotaskReissuedFrom()
+219 writeMicrotaskReissuedFrom() function has parameter of type String
+220 writeMicrotaskReissuedFrom() function has parameter of type ReissueInFirebase
+221 class has void function writeMicrotaskReissuedFrom()
+222 has public function writeMicrotaskCanceled()
+223 writeMicrotaskCanceled() function has parameter of type String
+224 writeMicrotaskCanceled() function has parameter of type boolean
+225 class has void function writeMicrotaskCanceled()
+226 has public function writeTestJobQueue()
+227 writeTestJobQueue() function has parameter of type long
+228 writeTestJobQueue() function has parameter of type int
+229 writeTestJobQueue() function has parameter of type String
+230 class has void function writeTestJobQueue()
+231 has public function getAllCode()
+232 getAllCode() function has parameter of type String
+233 getAllCode() function returns type String
+234 has public function isWorkerLoggedIn()
+235 isWorkerLoggedIn() function has parameter of type String
+236 isWorkerLoggedIn() function returns type boolean
+237 has public function writeWorkerLoggedIn()
+238 writeWorkerLoggedIn() function has parameter of type String
+239 class has void function writeWorkerLoggedIn()
+240 has public function writeWorkerLoggedOut()
+241 writeWorkerLoggedOut() function has parameter of type String
+242 class has void function writeWorkerLoggedOut()
+243 has public function writeMicrotaskQueue()
+244 writeMicrotaskQueue() function has parameter of type QueueInFirebase
+245 writeMicrotaskQueue() function has parameter of type String
+246 class has void function writeMicrotaskQueue()
+247 has public function writeReviewQueue()
+248 writeReviewQueue() function has parameter of type QueueInFirebase
+249 writeReviewQueue() function has parameter of type String
+250 class has void function writeReviewQueue()
+251 has public function incrementTestSuiteVersion()
+252 incrementTestSuiteVersion() function has parameter of type long
+253 incrementTestSuiteVersion() function has parameter of type int
+254 incrementTestSuiteVersion() function has parameter of type String
+255 class has void function incrementTestSuiteVersion()
+256 has public function writeFunction()
+257 writeFunction() function has parameter of type FunctionInFirebase
+258 writeFunction() function has parameter of type long
+259 writeFunction() function has parameter of type int
+260 writeFunction() function has parameter of type String
+261 class has void function writeFunction()
+262 has public function writeAdvancedTest()
+263 writeAdvancedTest() function has parameter of type AdvancedTestInFirebase
+264 writeAdvancedTest() function has parameter of type long
+265 writeAdvancedTest() function has parameter of type int
+266 writeAdvancedTest() function has parameter of type String
+267 class has void function writeAdvancedTest()
+268 has public function writeSimpleTest()
+269 writeSimpleTest() function has parameter of type SimpleTestInFirebase
+270 writeSimpleTest() function has parameter of type long
+271 writeSimpleTest() function has parameter of type int
+272 writeSimpleTest() function has parameter of type String
+273 class has void function writeSimpleTest()
+274 has public function writeADT()
+275 writeADT() function has parameter of type ADTInFirebase
+276 writeADT() function has parameter of type long
+277 writeADT() function has parameter of type int
+278 writeADT() function has parameter of type String
+279 class has void function writeADT()
+280 has public function deleteTest()
+281 deleteTest() function has parameter of type long
+282 deleteTest() function has parameter of type String
+283 class has void function deleteTest()
+284 has public function writeWorker()
+285 writeWorker() function has parameter of type WorkerInFirebase
+286 writeWorker() function has parameter of type String
+287 class has void function writeWorker()
+288 has public function writeReview()
+289 writeReview() function has parameter of type ReviewSubmissionInFirebase
+290 writeReview() function has parameter of type String
+291 class has void function writeReview()
+292 has public function writeSetting()
+293 writeSetting() function has parameter of type String
+294 class has void function writeSetting()
+295 has public function readADTs()
+296 readADTs() function has parameter of type String
+297 readADTs() function returns type String
+298 has public function copyADTs()
+299 copyADTs() function has parameter of type String
+300 class has void function copyADTs()
+301 has public function readClientRequest()
+302 readClientRequest() function has parameter of type String
+303 readClientRequest() function returns type String
+304 has public function setPoints()
+305 setPoints() function has parameter of type String
+306 setPoints() function has parameter of type int
+307 class has void function setPoints()
+308 has public function writeWorkerNotification()
+309 writeWorkerNotification() function has parameter of type NotificationInFirebase
+310 writeWorkerNotification() function has parameter of type String
+311 class has void function writeWorkerNotification()
+312 has public function writeLevelUpNotification()
+313 writeLevelUpNotification() function has parameter of type NotificationInFirebase
+314 writeLevelUpNotification() function has parameter of type String
+315 class has void function writeLevelUpNotification()
+316 has public function writeAchievementNotification()
+317 writeAchievementNotification() function has parameter of type NotificationInFirebase
+318 writeAchievementNotification() function has parameter of type String
+319 class has void function writeAchievementNotification()
+320 has public function microtaskAssigned()
+321 microtaskAssigned() function has parameter of type String
+322 class has void function microtaskAssigned()
+323 has public function writeMicrotaskPoints()
+324 writeMicrotaskPoints() function has parameter of type String
+325 writeMicrotaskPoints() function has parameter of type int
+326 class has void function writeMicrotaskPoints()
+327 has public function postToNewsfeed()
+328 postToNewsfeed() function has parameter of type String
+329 class has void function postToNewsfeed()
+330 has public function updateNewsfeed()
+331 updateNewsfeed() function has parameter of type String
+332 class has void function updateNewsfeed()
+333 has public function writeQuestion()
+334 writeQuestion() function has parameter of type QuestionInFirebase
+335 writeQuestion() function has parameter of type String
+336 class has void function writeQuestion()
+337 has public function writeQuestionVersion()
+338 writeQuestionVersion() function has parameter of type QuestionInFirebase
+339 writeQuestionVersion() function has parameter of type String
+340 class has void function writeQuestionVersion()
+341 has public function writeAnswerCreated()
+342 writeAnswerCreated() function has parameter of type AnswerInFirebase
+343 writeAnswerCreated() function has parameter of type String
+344 class has void function writeAnswerCreated()
+345 has public function writeCommentCreated()
+346 writeCommentCreated() function has parameter of type CommentInFirebase
+347 writeCommentCreated() function has parameter of type String
+348 class has void function writeCommentCreated()
+349 has public function updateQuestioningVoters()
+350 updateQuestioningVoters() function has parameter of type VotersIdInFirebase
+351 updateQuestioningVoters() function has parameter of type String
+352 class has void function updateQuestioningVoters()
+353 has public function updateQuestioningReporters()
+354 updateQuestioningReporters() function has parameter of type ReportersIdInFirebase
+355 updateQuestioningReporters() function has parameter of type String
+356 class has void function updateQuestioningReporters()
+357 has public function updateQuestioningScore()
+358 updateQuestioningScore() function has parameter of type int
+359 updateQuestioningScore() function has parameter of type String
+360 class has void function updateQuestioningScore()
+361 has public function updateQuestioningSubscribers()
+362 updateQuestioningSubscribers() function has parameter of type SubscribersInFirebase
+363 updateQuestioningSubscribers() function has parameter of type String
+364 class has void function updateQuestioningSubscribers()
+365 has public function updateQuestioningLinkedArtifacts()
+366 updateQuestioningLinkedArtifacts() function has parameter of type ArtifactsIdInFirebase
+367 updateQuestioningLinkedArtifacts() function has parameter of type String
+368 class has void function updateQuestioningLinkedArtifacts()
+369 has public function updateQuestioningClosed()
+370 updateQuestioningClosed() function has parameter of type boolean
+371 updateQuestioningClosed() function has parameter of type String
+372 class has void function updateQuestioningClosed()
+373 has public function writeHistoryEvent()
+374 writeHistoryEvent() function has parameter of type HistoryEvent
+375 writeHistoryEvent() function has parameter of type String
+376 class has void function writeHistoryEvent()
+377 has public function clear()
+378 clear() function has parameter of type String
+379 class has void function clear()
+380 has public function existsProject()
+381 existsProject() function returns output from function call
+382 existsProject() function has parameter of type String
+383 existsProject() function returns type boolean
+384 has public function existsClientRequest()
+385 existsClientRequest() function returns output from function call
+386 existsClientRequest() function has parameter of type String
+387 existsClientRequest() function returns type boolean
+388 class defines constructor with parameter of type HTTPMethod
+389 class has member field called data
+390 class has member field data of type String
+391 class has member field called relativeURL
+392 class has member field relativeURL of type String
+393 class has member field called operation
+394 class has member field of type HTTPMethod
+395 class has member field operation of type HTTPMethod
+396 @Subclass on class
+397 class has member field of type Long
+398 class has member field questionId of type Long
+399 class extends class Questioning
+400 class has member field called project
+401 class has member field called project with annotation @Parent
+402 class has member field of type Key
+403 class has member field project of type Key
+404 class has member field called nickname
+405 class has member field nickname of type String
+406 class has member field called userid
+407 class has member field called userid with annotation @Id
+408 class has member field userid of type String
+409 class has member field called microtaskHistory
+410 class has member field of type HashMap
+411 class has member field microtaskHistory of type HashMap
+412 class has member field called listOfAchievements
+413 class has member field listOfAchievements of type List
+414 class has member field called score
+415 class has member field score of type int
+416 class has member field called level
+417 class has member field level of type int
+418 has public function Create()
+419 Create() function has parameter of type User
+420 Create() function has parameter of type Project
+421 Create() function returns type Worker
+422 has public function getUserid()
+423 getUserid() function returns type String
+424 has public function getNickname()
+425 getNickname() function returns type String
+426 has public function allWorkers()
+427 allWorkers() function returns output from function call
+428 allWorkers() function returns output from function call to ofy
+429 allWorkers() function has parameter of type Project
+430 allWorkers() function returns type List
+431 has public function awardPoints()
+432 awardPoints() function has parameter of type int
+433 awardPoints() function has parameter of type String
+434 class has void function awardPoints()
+435 has private function setAchievements()
+436 setAchievements() function returns type List
+437 has public function checkNewAchievement()
+438 checkNewAchievement() function has parameter of type String
+439 class has void function checkNewAchievement()
+440 has public function increaseStat()
+441 increaseStat() function has parameter of type String
+442 increaseStat() function has parameter of type int
+443 class has void function increaseStat()
+444 has public function getKey()
+445 getKey() function returns output from function call
+446 getKey() function returns output from function call to getKey
+447 getKey() function returns type Key
+448 getKey() function has parameter of type Key
+449 getKey() function has parameter of type String
+450 has public function storeToFirebase()
+451 storeToFirebase() function has parameter of type String
+452 class has void function storeToFirebase()
+453 has public function hashCode()
+454 hashCode() function returns type int
+455 hashCode() function has annotation @Override
+456 has public function equals()
+457 equals() function has parameter of type Object
+458 equals() function returns type boolean
+459 equals() function has annotation @Override
+460 has public function getHistory()
+461 getHistory() function returns type HashMap
+462 has public function getAchievements()
+463 getAchievements() function returns type List
+464 has public function addAchievement()
+465 addAchievement() function has parameter of type Achievement
+466 addAchievement() function has parameter of type String
+467 class has void function addAchievement()
+468 class has member field called answerId
+469 class has member field answerId of type Long
+470 class has member field called id
+471 class has member field called id with annotation @Id
+472 class has member field id of type Long
+473 class has member field called projectId with annotation @Index
+474 class has member field called text
+475 class has member field text of type String
+476 class has member field called ownerId
+477 class has member field ownerId of type String
+478 class has member field called ownerHandle
+479 class has member field ownerHandle of type String
+480 class has member field called votersId
+481 class has member field votersId of type List
+482 class has member field called removedVotersId
+483 class has member field removedVotersId of type List
+484 class has member field called points
+485 class has member field points of type int
+486 class has member field called isReported
+487 class has member field of type boolean
+488 class has member field isReported of type boolean
+489 class has member field called reportersId
+490 class has member field reportersId of type List
+491 class has member field called subsribersId
+492 class has member field subsribersId of type List
+493 class has member field called firebasePath
+494 class has member field firebasePath of type String
+495 class has member field called createdAt
+496 class has member field of type long
+497 class has member field createdAt of type long
+498 class has member field called updatedAt
+499 class has member field updatedAt of type long
+500 getKey() function has parameter of type Long
+501 has public function getID()
+502 getID() function returns type long
+503 has public function addVote()
+504 addVote() function has parameter of type String
+505 class has void function addVote()
+506 has public function removeVote()
+507 removeVote() function has parameter of type String
+508 class has void function removeVote()
+509 has public function addReport()
+510 addReport() function has parameter of type String
+511 class has void function addReport()
+512 has public function removeReport()
+513 removeReport() function has parameter of type String
+514 class has void function removeReport()
+515 has private function updateScore()
+516 updateScore() function modifies member variablethis
+517 class has void function updateScore()
+518 has public function notifySubscribers()
+519 notifySubscribers() function has parameter of type NotificationInFirebase
+520 notifySubscribers() function has parameter of type String
+521 class has void function notifySubscribers()
+522 class has member field called artifactsId
+523 class has member field artifactsId of type List
+524 class has member field called tags
+525 class has member field tags of type List
+526 class has member field called answersCount
+527 class has member field answersCount of type long
+528 class has member field called commentsCount
+529 class has member field commentsCount of type long
+530 class has member field called version
+531 class has member field version of type int
+532 class has member field called closed
+533 class has member field closed of type boolean
+534 class has member field title of type String
+535 has public function getTitle()
+536 getTitle() function returns type String
+537 has public function setTitle()
+538 setTitle() function has parameter of type String
+539 setTitle() function modifies member variablethis
+540 class has void function setTitle()
+541 has public function setText()
+542 setText() function has parameter of type String
+543 setText() function modifies member variablethis
+544 class has void function setText()
+545 has public function setTags()
+546 setTags() function has parameter of type List
+547 setTags() function modifies member variablethis
+548 class has void function setTags()
+549 has public function addArtifactLink()
+550 addArtifactLink() function has parameter of type String
+551 class has void function addArtifactLink()
+552 has public function removeArtifactLink()
+553 removeArtifactLink() function has parameter of type String
+554 class has void function removeArtifactLink()
+555 has public function unsubscribeWorker()
+556 unsubscribeWorker() function has parameter of type String
+557 class has void function unsubscribeWorker()
+558 has public function subscribeWorker()
+559 subscribeWorker() function has parameter of type String
+560 class has void function subscribeWorker()
+561 has public function setClosed()
+562 setClosed() function has parameter of type boolean
+563 setClosed() function modifies member variablethis
+564 class has void function setClosed()
+565 has public function incrementAnswers()
+566 class has void function incrementAnswers()
+567 has public function incrementComments()
+568 class has void function incrementComments()
+569 has public function getUpdatedAt()
+570 getUpdatedAt() function returns type long
+571 has public function getAnswers()
+572 getAnswers() function returns type long
+573 has public function getComments()
+574 getComments() function returns type long
+575 has public function getVersion()
+576 getVersion() function returns type long
+577 has public function getTags()
+578 getTags() function returns type List
+579 has public function save()
+580 save() function modifies member variablethis
+581 class has void function save()
+582 has public function storeVersionToFirebase()
+583 class has void function storeVersionToFirebase()
+584 has private function storeToFirebase()
+585 class has member field called artifact
+586 class has member field called artifact with annotation @Parent
+587 class has member field called artifact with annotation @Load
+588 class has member field of type Ref
+589 class has member field artifact of type Ref
+590 class has member field called microtaskKeyUnderChallenge
+591 class has member field microtaskKeyUnderChallenge of type Key
+592 class has member field called challengeeWorkerId
+593 class has member field challengeeWorkerId of type String
+594 class has member field called challengerWorkerId
+595 class has member field challengerWorkerId of type String
+596 class has member field called challengeText
+597 class has member field challengeText of type String
+598 class has member field called reviewKeyUnderChallenge
+599 class has member field reviewKeyUnderChallenge of type Key
+600 class extends class Microtask
+601 has public function copy()
+602 copy() function calls constructor in return statement
+603 copy() function returns output from function call
+604 copy() function returns output from function call to ChallengeReview
+605 copy() function has parameter of type String
+606 copy() function has parameter of type Long
+607 copy() function returns type Microtask
+608 has protected function doSubmitWork()
+609 doSubmitWork() function has parameter of type DTO
+610 doSubmitWork() function has parameter of type String
+611 class has void function doSubmitWork()
+612 has protected function getDTOClass()
+613 getDTOClass() function returns type Class
+614 has public function getMicrotaskUnderChallengeKey()
+615 getMicrotaskUnderChallengeKey() function returns type Key
+616 has public function getOwningArtifact()
+617 getOwningArtifact() function returns output from function call
+618 getOwningArtifact() function returns type Artifact
+619 has public function microtaskTitle()
+620 microtaskTitle() function returns type String
+621 has public function microtaskDescription()
+622 microtaskDescription() function returns type String
+623 class has member field called functionRef
+624 class has member field called functionRef with annotation @Parent
+625 class has member field called functionRef with annotation @Load
+626 class has member field functionRef of type Ref
+627 class has member field called functionId
+628 class has member field functionId of type Long
+629 class has member field called functionName
+630 class has member field functionName of type String
+631 class has member field called promptType
+632 class has member field of type PromptType
+633 class has member field promptType of type PromptType
+634 class has member field called oldFunctionVersion
+635 class has member field oldFunctionVersion of type int
+636 class has member field called oldADTVersion
+637 class has member field oldADTVersion of type int
+638 class has member field called ADTId
+639 class has member field ADTId of type long
+640 class has member field called disputedTests
+641 class has member field disputedTests of type List
+642 class has member field called oldCalleeVersion
+643 class has member field oldCalleeVersion of type int
+644 class has member field called calleeId
+645 class has member field calleeId of type long
+646 has private function describeFunctionBehavior()
+647 describeFunctionBehavior() function has parameter of type Ref
+648 describeFunctionBehavior() function has parameter of type long
+649 describeFunctionBehavior() function has parameter of type String
+650 describeFunctionBehavior() function modifies member variablethis
+651 class has void function describeFunctionBehavior()
+652 copy() function returns output from function call to DescribeFunctionBehavior
+653 has public function getPromptType()
+654 getPromptType() function returns type PromptType
+655 class has member field of type Project
+656 class has member field project of type Project
+657 class has member field id of type String
+658 class has member field called reviewsEnabled
+659 class has member field reviewsEnabled of type Boolean
+660 class has member field called tutorialsEnabled
+661 class has member field tutorialsEnabled of type Boolean
+662 class has member field called loggedInWorkers
+663 class has member field called loggedInWorkers with annotation @Serialize
+664 class has member field of type HashSet
+665 class has member field loggedInWorkers of type HashSet
+666 class has member field called microtaskQueue
+667 class has member field of type LinkedList
+668 class has member field microtaskQueue of type LinkedList
+669 class has member field called reviewQueue
+670 class has member field reviewQueue of type LinkedList
+671 class has member field called microtaskAssignments
+672 class has member field called microtaskAssignments with annotation @Serialize
+673 class has member field of type Map
+674 class has member field microtaskAssignments of type Map
+675 class has member field called excludedWorkers
+676 class has member field called excludedWorkers with annotation @Serialize
+677 class has member field excludedWorkers of type Map
+678 class has member field called permanentlyExcludedWorkers
+679 class has member field called permanentlyExcludedWorkers with annotation @Serialize
+680 class has member field permanentlyExcludedWorkers of type Map
+681 getID() function returns type String
+682 has public function Construct()
+683 Construct() function calls constructor in return statement
+684 Construct() function returns output from function call
+685 Construct() function returns output from function call to Project
+686 Construct() function has parameter of type String
+687 Construct() function returns type Project
+688 Create() function has parameter of type String
+689 Create() function returns type Project
+690 has public function Clear()
+691 Clear() function has parameter of type String
+692 class has void function Clear()
+693 has public function queueMicrotask()
+694 queueMicrotask() function has parameter of type Key
+695 queueMicrotask() function has parameter of type String
+696 class has void function queueMicrotask()
+697 has public function queueReviewMicrotask()
+698 queueReviewMicrotask() function has parameter of type Key
+699 queueReviewMicrotask() function has parameter of type String
+700 class has void function queueReviewMicrotask()
+701 has public function queueChellengeReviewMicrotask()
+702 queueChellengeReviewMicrotask() function has parameter of type Key
+703 queueChellengeReviewMicrotask() function has parameter of type String
+704 class has void function queueChellengeReviewMicrotask()
+705 has private function addPermExcludedWorkerForMicrotask()
+706 addPermExcludedWorkerForMicrotask() function has parameter of type Key
+707 addPermExcludedWorkerForMicrotask() function has parameter of type String
+708 class has void function addPermExcludedWorkerForMicrotask()
+709 has private function addExcludedWorkerForMicrotask()
+710 addExcludedWorkerForMicrotask() function has parameter of type Key
+711 addExcludedWorkerForMicrotask() function has parameter of type String
+712 class has void function addExcludedWorkerForMicrotask()
+713 has private function excludedWorkersToString()
+714 excludedWorkersToString() function has parameter of type HashSet
+715 excludedWorkersToString() function returns type String
+716 has public function lookupMicrotaskAssignment()
+717 lookupMicrotaskAssignment() function returns output from function call
+718 lookupMicrotaskAssignment() function has parameter of type String
+719 lookupMicrotaskAssignment() function returns type Key
+720 has public function unassignMicrotask()
+721 unassignMicrotask() function has parameter of type String
+722 class has void function unassignMicrotask()
+723 has public function assignMicrotask()
+724 assignMicrotask() function has parameter of type String
+725 assignMicrotask() function returns type Key
+726 has public function assignSpecificMicrotask()
+727 assignSpecificMicrotask() function has parameter of type String
+728 assignSpecificMicrotask() function returns type Key
+729 has private function assignmentIsValid()
+730 assignmentIsValid() function has parameter of type String
+731 assignmentIsValid() function returns type boolean
+732 has public function submitMicrotask()
+733 submitMicrotask() function has parameter of type Key
+734 submitMicrotask() function has parameter of type String
+735 submitMicrotask() function has parameter of type Project
+736 class has void function submitMicrotask()
+737 has public function skipMicrotask()
+738 skipMicrotask() function has parameter of type Key
+739 skipMicrotask() function has parameter of type String
+740 skipMicrotask() function has parameter of type Boolean
+741 class has void function skipMicrotask()
+742 has private function resetIfAllSkipped()
+743 resetIfAllSkipped() function has parameter of type Key
+744 class has void function resetIfAllSkipped()
+745 has public function logoutInactiveWorkers()
+746 class has void function logoutInactiveWorkers()
+747 has public function logoutWorker()
+748 logoutWorker() function has parameter of type String
+749 class has void function logoutWorker()
+750 has public function enableReviews()
+751 enableReviews() function has parameter of type Boolean
+752 enableReviews() function modifies member variablethis
+753 class has void function enableReviews()
+754 has public function getLoggedInWorkers()
+755 getLoggedInWorkers() function returns type HashSet
+756 has public function enableTutorials()
+757 enableTutorials() function has parameter of type Boolean
+758 enableTutorials() function modifies member variablethis
+759 class has void function enableTutorials()
+760 class has member field called function
+761 class has member field called function with annotation @Parent
+762 class has member field called function with annotation @Load
+763 class has member field function of type Ref
+764 class has member field called testId
+765 class has member field testId of type long
+766 class has member field called disputeText
+767 class has member field disputeText of type String
+768 class has member field called disputeId
+769 class has member field disputeId of type long
+770 copy() function returns output from function call to ImplementBehavior
+771 has private function implementBehavior()
+772 implementBehavior() function has parameter of type Function
+773 implementBehavior() function has parameter of type String
+774 implementBehavior() function modifies member variablethis
+775 class has void function implementBehavior()
+776 has public function getFunction()
+777 getFunction() function returns output from function call
+778 getFunction() function returns type Function
+779 class has member field called DEFAULT_SUBMIT_VALUE
+780 class has member field DEFAULT_SUBMIT_VALUE of type int
+781 class has member field called assigned
+782 class has member field assigned of type boolean
+783 class has member field called completed
+784 class has member field completed of type boolean
+785 class has member field called queued
+786 class has member field queued of type boolean
+787 class has member field called reissuedFrom
+788 class has member field reissuedFrom of type String
+789 class has member field called submitValue
+790 class has member field submitValue of type int
+791 class has member field called assignmentTimeInMillis
+792 class has member field assignmentTimeInMillis of type long
+793 has static function keyToString()
+794 keyToString() function has parameter of type Key
+795 keyToString() function returns type String
+796 has static function stringToKey()
+797 stringToKey() function has parameter of type String
+798 stringToKey() function returns type Key
+799 has public function getWorkerId()
+800 getWorkerId() function returns type String
+801 has public function getFunctionId()
+802 getFunctionId() function returns type Long
+803 has public function setWorkerId()
+804 setWorkerId() function has parameter of type String
+805 setWorkerId() function modifies member variablethis
+806 class has void function setWorkerId()
+807 has protected function isStillNeeded()
+808 isStillNeeded() function has parameter of type Project
+809 isStillNeeded() function returns type boolean
+810 has public function submit()
+811 submit() function has parameter of type String
+812 submit() function has parameter of type int
+813 class has void function submit()
+814 has public function revise()
+815 revise() function has parameter of type String
+816 revise() function has parameter of type int
+817 revise() function modifies member variablethis
+818 class has void function revise()
+819 has public function skip()
+820 skip() function has parameter of type String
+821 skip() function has parameter of type boolean
+822 skip() function modifies member variablethis
+823 class has void function skip()
+824 has public function getUIURL()
+825 getUIURL() function returns type String
+826 has public function microtaskName()
+827 microtaskName() function returns output from function call
+828 microtaskName() function returns type String
+829 has public function assignmentTimeInMillis()
+830 assignmentTimeInMillis() function returns type long
+831 has public function setReissuedFrom()
+832 setReissuedFrom() function has parameter of type String
+833 setReissuedFrom() function modifies member variablethis
+834 class has void function setReissuedFrom()
+835 has public function getSubmitValue()
+836 getSubmitValue() function returns type int
+837 has public function find()
+838 find() function returns output from function call
+839 find() function returns output from function call to ofy
+840 find() function has parameter of type Key
+841 find() function returns type LoadResult
+842 has public function toJSON()
+843 toJSON() function returns output from function call
+844 toJSON() function returns output from function call to toJSON
+845 toJSON() function returns type String
+846 toJSON() function has parameter of type JSONObject
+847 has public function isAssignedTo()
+848 isAssignedTo() function has parameter of type String
+849 isAssignedTo() function returns type boolean
+850 @SuppressWarnings on class
+851 class has member field called microtaskTypes
+852 class has member field microtaskTypes of type HashMap
+853 class extends class HttpServlet
+854 has public function doPost()
+855 doPost() function has parameter of type HttpServletRequest
+856 doPost() function has parameter of type HttpServletResponse
+857 class has void function doPost()
+858 has public function doGet()
+859 doGet() function has parameter of type HttpServletRequest
+860 doGet() function has parameter of type HttpServletResponse
+861 class has void function doGet()
+862 has private function doAction()
+863 doAction() function has parameter of type HttpServletRequest
+864 doAction() function has parameter of type HttpServletResponse
+865 class has void function doAction()
+866 has private function doUser()
+867 doUser() function has parameter of type HttpServletRequest
+868 doUser() function has parameter of type HttpServletResponse
+869 doUser() function has parameter of type User
+870 doUser() function has parameter of type String
+871 class has void function doUser()
+872 has private function doAjax()
+873 doAjax() function has parameter of type HttpServletRequest
+874 doAjax() function has parameter of type HttpServletResponse
+875 doAjax() function has parameter of type String
+876 doAjax() function has parameter of type User
+877 class has void function doAjax()
+878 has private function doTutorialCompleted()
+879 doTutorialCompleted() function has parameter of type HttpServletRequest
+880 doTutorialCompleted() function has parameter of type HttpServletResponse
+881 doTutorialCompleted() function has parameter of type User
+882 doTutorialCompleted() function has parameter of type boolean
+883 class has void function doTutorialCompleted()
+884 has private function doQuestionAchievement()
+885 doQuestionAchievement() function has parameter of type HttpServletRequest
+886 doQuestionAchievement() function has parameter of type HttpServletResponse
+887 doQuestionAchievement() function has parameter of type User
+888 doQuestionAchievement() function has parameter of type boolean
+889 class has void function doQuestionAchievement()
+890 has private function doFetchSpecificMicrotask()
+891 doFetchSpecificMicrotask() function has parameter of type HttpServletRequest
+892 doFetchSpecificMicrotask() function has parameter of type HttpServletResponse
+893 doFetchSpecificMicrotask() function has parameter of type User
+894 doFetchSpecificMicrotask() function has parameter of type boolean
+895 class has void function doFetchSpecificMicrotask()
+896 has private function doQuestioning()
+897 doQuestioning() function has parameter of type HttpServletRequest
+898 doQuestioning() function has parameter of type HttpServletResponse
+899 doQuestioning() function has parameter of type String
+900 doQuestioning() function has parameter of type User
+901 class has void function doQuestioning()
+902 has private function doAdmin()
+903 doAdmin() function has parameter of type HttpServletRequest
+904 doAdmin() function has parameter of type HttpServletResponse
+905 doAdmin() function has parameter of type String
+906 class has void function doAdmin()
+907 has private function getUserPicture()
+908 getUserPicture() function has parameter of type HttpServletRequest
+909 getUserPicture() function has parameter of type HttpServletResponse
+910 class has void function getUserPicture()
+911 has private function changeUserPicture()
+912 changeUserPicture() function has parameter of type User
+913 changeUserPicture() function has parameter of type HttpServletRequest
+914 changeUserPicture() function has parameter of type HttpServletResponse
+915 class has void function changeUserPicture()
+916 has private function doSubmitTestResult()
+917 doSubmitTestResult() function has parameter of type HttpServletRequest
+918 doSubmitTestResult() function has parameter of type HttpServletResponse
+919 class has void function doSubmitTestResult()
+920 has public function doInsertQuestioning()
+921 doInsertQuestioning() function has parameter of type HttpServletRequest
+922 doInsertQuestioning() function has parameter of type HttpServletResponse
+923 doInsertQuestioning() function has parameter of type User
+924 class has void function doInsertQuestioning()
+925 has public function doUpdateQuestion()
+926 doUpdateQuestion() function has parameter of type HttpServletRequest
+927 doUpdateQuestion() function has parameter of type HttpServletResponse
+928 doUpdateQuestion() function has parameter of type User
+929 class has void function doUpdateQuestion()
+930 has public function doViewQuestion()
+931 doViewQuestion() function has parameter of type HttpServletRequest
+932 doViewQuestion() function has parameter of type HttpServletResponse
+933 doViewQuestion() function has parameter of type User
+934 class has void function doViewQuestion()
+935 has public function doReportQuestioning()
+936 doReportQuestioning() function has parameter of type HttpServletRequest
+937 doReportQuestioning() function has parameter of type HttpServletResponse
+938 doReportQuestioning() function has parameter of type User
+939 class has void function doReportQuestioning()
+940 has public function doSubscribeQuestioning()
+941 doSubscribeQuestioning() function has parameter of type HttpServletRequest
+942 doSubscribeQuestioning() function has parameter of type HttpServletResponse
+943 doSubscribeQuestioning() function has parameter of type User
+944 class has void function doSubscribeQuestioning()
+945 has public function doLinkQuestioning()
+946 doLinkQuestioning() function has parameter of type HttpServletRequest
+947 doLinkQuestioning() function has parameter of type HttpServletResponse
+948 doLinkQuestioning() function has parameter of type User
+949 class has void function doLinkQuestioning()
+950 has public function doCloseQuestion()
+951 doCloseQuestion() function has parameter of type HttpServletRequest
+952 doCloseQuestion() function has parameter of type HttpServletResponse
+953 doCloseQuestion() function has parameter of type User
+954 class has void function doCloseQuestion()
+955 has public function doVoteQuestioning()
+956 doVoteQuestioning() function has parameter of type HttpServletRequest
+957 doVoteQuestioning() function has parameter of type HttpServletResponse
+958 doVoteQuestioning() function has parameter of type User
+959 class has void function doVoteQuestioning()
+960 has public function doFetchMicrotask()
+961 doFetchMicrotask() function has parameter of type HttpServletRequest
+962 doFetchMicrotask() function has parameter of type HttpServletResponse
+963 doFetchMicrotask() function has parameter of type User
+964 class has void function doFetchMicrotask()
+965 unassignMicrotask() function has parameter of type HttpServletRequest
+966 unassignMicrotask() function has parameter of type HttpServletResponse
+967 unassignMicrotask() function has parameter of type User
+968 doFetchMicrotask() function has parameter of type boolean
+969 has public function doChallengeReview()
+970 doChallengeReview() function has parameter of type HttpServletRequest
+971 doChallengeReview() function has parameter of type HttpServletResponse
+972 class has void function doChallengeReview()
+973 has public function doEnqueueSubmit()
+974 doEnqueueSubmit() function has parameter of type HttpServletRequest
+975 doEnqueueSubmit() function has parameter of type HttpServletResponse
+976 doEnqueueSubmit() function has parameter of type User
+977 class has void function doEnqueueSubmit()
+978 has public function doExecuteSubmit()
+979 doExecuteSubmit() function has parameter of type HttpServletRequest
+980 doExecuteSubmit() function has parameter of type HttpServletResponse
+981 class has void function doExecuteSubmit()
+982 has private function renderJson()
+983 renderJson() function has parameter of type HttpServletResponse
+984 renderJson() function has parameter of type String
+985 class has void function renderJson()
+986 has private function renderCode()
+987 renderCode() function has parameter of type HttpServletResponse
+988 renderCode() function has parameter of type String
+989 class has void function renderCode()
+990 has public function doLogout()
+991 doLogout() function has parameter of type HttpServletRequest
+992 doLogout() function has parameter of type HttpServletResponse
+993 doLogout() function has parameter of type String
+994 class has void function doLogout()
+995 has public function doUserLogout()
+996 doUserLogout() function has parameter of type String
+997 class has void function doUserLogout()
+998 has private function executeCommands()
+999 executeCommands() function has parameter of type String
+1000 class has void function executeCommands()
+1001 has private function writeResponseString()
+1002 writeResponseString() function has parameter of type HttpServletResponse
+1003 writeResponseString() function has parameter of type String
+1004 class has void function writeResponseString()
+1005 has public function run()
+1006 run() function returns type String
+1007 has public function vrun()
+1008 class has void function vrun()
+1009 class has member field called description
+1010 class has member field description of type String
+1011 class has member field called name
+1012 class has member field name of type String
+1013 class has member field called structure
+1014 class has member field structure of type HashMap
+1015 class has member field called examples
+1016 class has member field examples of type HashMap
+1017 class has member field called functionsId
+1018 class has member field functionsId of type List
+1019 class extends class Artifact
+1020 has public function getDescription()
+1021 getDescription() function returns type String
+1022 has public function getName()
+1023 getName() function returns type String
+1024 has public function delete()
+1025 delete() function modifies member variablethis
+1026 class has void function delete()
+1027 has public function update()
+1028 update() function has parameter of type String
+1029 update() function has parameter of type HashMap
+1030 update() function modifies member variablethis
+1031 class has void function update()
+1032 has public function addFunction()
+1033 addFunction() function has parameter of type long
+1034 class has void function addFunction()
+1035 has public function removeFunction()
+1036 removeFunction() function has parameter of type long
+1037 class has void function removeFunction()
+1038 has public function load()
+1039 load() function returns output from function call
+1040 load() function returns output from function call to ofy
+1041 load() function has parameter of type Ref
+1042 load() function returns type ADT
+1043 find() function has parameter of type long
+1044 find() function returns type ADT
+1045 class has member field called isAPIArtifact
+1046 class has member field isAPIArtifact of type boolean
+1047 class has member field called isReadOnly
+1048 class has member field isReadOnly of type boolean
+1049 class has member field called isDeleted
+1050 class has member field isDeleted of type boolean
+1051 has public function getId()
+1052 getId() function returns type long
+1053 has public function getRef()
+1054 getRef() function returns output from function call
+1055 getRef() function returns type Ref
+1056 has public function deleteArtifact()
+1057 class has void function deleteArtifact()
+1058 has public function unDeleteArtifact()
+1059 unDeleteArtifact() function modifies member variablethis
+1060 class has void function unDeleteArtifact()
+1061 has public function isDeleted()
+1062 isDeleted() function returns type boolean
+1063 has public function getArtifactType()
+1064 getArtifactType() function returns output from function call
+1065 getArtifactType() function returns type String
+1066 has protected function incrementVersion()
+1067 class has void function incrementVersion()
+1068 class has member field called functions
+1069 class has member field functions of type List
+1070 class has member field called ADTs
+1071 class has member field ADTs of type List
+1072 class has member field called microtaskKeyUnderReview
+1073 class has member field microtaskKeyUnderReview of type Key
+1074 class has member field called workerOfReviewedWork
+1075 class has member field workerOfReviewedWork of type String
+1076 class has member field called initiallySubmittedDTO
+1077 class has member field initiallySubmittedDTO of type String
+1078 copy() function returns output from function call to Review
+1079 has public function getWorkerOfReviewedWork()
+1080 getWorkerOfReviewedWork() function returns type String
+1081 has public function getMicrotaskKeyUnderReview()
+1082 getMicrotaskKeyUnderReview() function returns type Key
+1083 class has member field called priority
+1084 class has member field called priority with annotation @JsonProperty
+1085 class has member field of type double
+1086 class has member field priority of type double
+1087 has public function json()
+1088 json() function returns output from function call
+1089 json() function returns output from function call to json
+1090 json() function returns type String
+1091 has protected function json()
+1092 json() function has parameter of type Object
+1093 has public function read()
+1094 read() function has parameter of type String
+1095 read() function has parameter of type Class
+1096 read() function returns type DTO
+1097 class has member field called queue
+1098 class has member field queue of type List
+1099 toString() function returns output from function call
+1100 class has member field called awardedPoints
+1101 class has member field awardedPoints of type int
+1102 class has member field called maxPoints
+1103 class has member field maxPoints of type int
+1104 class has member field called type
+1105 class has member field type of type String
+1106 class has member field called challengeStatus
+1107 class has member field challengeStatus of type String
+1108 class has member field called canBeChallenged
+1109 class has member field canBeChallenged of type boolean
+1110 class has member field id of type long
+1111 class has member field called commentsId
+1112 class has member field commentsId of type List
+1113 class has member field functionId of type long
+1114 class has member field called isSimple
+1115 class has member field isSimple of type boolean
+1116 class has member field called inputs
+1117 class has member field inputs of type List
+1118 class has member field called output
+1119 class has member field output of type String
+1120 class has member field called code
+1121 class has member field code of type String
+1122 class has member field called creationTime
+1123 class has member field creationTime of type double
+1124 getFunctionId() function returns type long
+1125 update() function has parameter of type TestDTO
+1126 load() function returns type Test
+1127 find() function returns type Test
+1128 class has member field called subscribersId
+1129 class has member field subscribersId of type List
+1130 class has member field message of type String
+1131 class extends class NotificationInFirebase
+1132 class has member field questionId of type long
+1133 class has member field called workerHandle
+1134 class has member field workerHandle of type String
+1135 class has member field version of type long
+1136 class has member field called answersId
+1137 class has member field answersId of type List
+1138 class has member field called microtaskId
+1139 class has member field microtaskId of type String
+1140 class has member field answerId of type long
+1141 class has member field called time
+1142 class has member field time of type long
+1143 class has member field microtaskKeyUnderChallenge of type String
+1144 class extends class MicrotaskInFirebase
+1145 class has member field promptType of type String
+1146 class has member field of type Integer
+1147 class has member field oldFunctionVersion of type Integer
+1148 class has member field oldADTVersion of type Integer
+1149 class has member field ADTId of type Long
+1150 class has member field calleeId of type Long
+1151 class has member field oldCalleeVersion of type Integer
+1152 class has member field called reissuedMicrotaskKey
+1153 class has member field reissuedMicrotaskKey of type String
+1154 class has member field called reissueMotivation
+1155 class has member field reissueMotivation of type String
+1156 class has member field called owningArtifactId
+1157 class has member field owningArtifactId of type Long
+1158 class has member field called owningArtifact
+1159 class has member field owningArtifact of type String
+1160 class has member field microtaskKeyUnderReview of type String
+1161 class has member field called qualityScore
+1162 class has member field qualityScore of type int
+1163 class has member field called reviewText
+1164 class has member field reviewText of type String
+1165 class has member field called reviewKey
+1166 class has member field reviewKey of type String
+1167 class has member field called isApiArtifact
+1168 class has member field isApiArtifact of type boolean
+1169 class has member field structure of type List
+1170 class has member field examples of type List
+1171 class has member field called areTestsPassed
+1172 class has member field areTestsPassed of type boolean
+1173 class has member field called failedTestId
+1174 class has member field failedTestId of type long
+1175 class has member field called passedTestsId
+1176 class has member field passedTestsId of type List
+1177 class has member field called name with annotation @Index
+1178 class has member field called returnType
+1179 class has member field returnType of type String
+1180 class has member field called paramNames
+1181 class has member field paramNames of type List
+1182 class has member field called paramTypes
+1183 class has member field paramTypes of type List
+1184 class has member field called paramDescriptions
+1185 class has member field paramDescriptions of type List
+1186 class has member field called header
+1187 class has member field header of type String
+1188 class has member field called linesOfCode
+1189 class has member field linesOfCode of type int
+1190 class has member field called isCompleted
+1191 class has member field isCompleted of type boolean
+1192 class has member field called testSuiteVersion
+1193 class has member field testSuiteVersion of type int
+1194 class has member field called testsId
+1195 class has member field testsId of type List
+1196 class has member field called ADTsId
+1197 class has member field ADTsId of type List
+1198 class has member field called calleesId
+1199 class has member field calleesId of type List
+1200 class has member field called callersId
+1201 class has member field callersId of type List
+1202 class has member field called queuedDescribeFunctionBehavior
+1203 class has member field queuedDescribeFunctionBehavior of type Queue
+1204 class has member field called describeFunctionBehaviorOut
+1205 class has member field describeFunctionBehaviorOut of type Ref
+1206 class has member field called queuedImplementBehavior
+1207 class has member field queuedImplementBehavior of type Queue
+1208 class has member field called isImplementationInProgress
+1209 class has member field isImplementationInProgress of type boolean
+1210 has public function getNumParams()
+1211 getNumParams() function returns output from function call
+1212 getNumParams() function returns type int
+1213 has public function getParamNames()
+1214 getParamNames() function returns type List
+1215 has public function getHeader()
+1216 getHeader() function returns type String
+1217 has public function getEscapedHeader()
+1218 getEscapedHeader() function returns output from function call
+1219 getEscapedHeader() function returns type String
+1220 has public function getCode()
+1221 getCode() function returns type String
+1222 has public function lookForWork()
+1223 class has void function lookForWork()
+1224 has private function onWorkEdit()
+1225 onWorkEdit() function has parameter of type FunctionDTO
+1226 onWorkEdit() function has parameter of type String
+1227 onWorkEdit() function modifies member variablethis
+1228 class has void function onWorkEdit()
+1229 has public function queueDescribeFunctionBehavior()
+1230 queueDescribeFunctionBehavior() function has parameter of type Microtask
+1231 class has void function queueDescribeFunctionBehavior()
+1232 has public function queueImplementFunctionBehavior()
+1233 queueImplementFunctionBehavior() function has parameter of type Microtask
+1234 class has void function queueImplementFunctionBehavior()
+1235 has private function newImplementBehavior()
+1236 newImplementBehavior() function has parameter of type long
+1237 class has void function newImplementBehavior()
+1238 has private function checkImplementationNeeded()
+1239 class has void function checkImplementationNeeded()
+1240 has public function describeFunctionBehaviorCompleted()
+1241 describeFunctionBehaviorCompleted() function has parameter of type DescribeFunctionBehaviorDTO
+1242 class has void function describeFunctionBehaviorCompleted()
+1243 has public function implementBehaviorCompleted()
+1244 implementBehaviorCompleted() function has parameter of type ImplementBehaviorDTO
+1245 implementBehaviorCompleted() function has parameter of type long
+1246 implementBehaviorCompleted() function has parameter of type String
+1247 class has void function implementBehaviorCompleted()
+1248 has private function checkIfNeeded()
+1249 class has void function checkIfNeeded()
+1250 has public function runTests()
+1251 class has void function runTests()
+1252 has public function submittedTestResult()
+1253 submittedTestResult() function has parameter of type String
+1254 class has void function submittedTestResult()
+1255 has public function addCaller()
+1256 addCaller() function has parameter of type long
+1257 class has void function addCaller()
+1258 has public function removeCaller()
+1259 removeCaller() function has parameter of type long
+1260 class has void function removeCaller()
+1261 has public function addCallee()
+1262 addCallee() function has parameter of type long
+1263 class has void function addCallee()
+1264 has public function calleeChangedInterface()
+1265 calleeChangedInterface() function has parameter of type long
+1266 calleeChangedInterface() function has parameter of type int
+1267 class has void function calleeChangedInterface()
+1268 has public function calleeBecomeDeactivated()
+1269 calleeBecomeDeactivated() function has parameter of type long
+1270 calleeBecomeDeactivated() function has parameter of type String
+1271 class has void function calleeBecomeDeactivated()
+1272 has public function addTest()
+1273 addTest() function has parameter of type long
+1274 class has void function addTest()
+1275 has private function deactivate()
+1276 deactivate() function has parameter of type String
+1277 class has void function deactivate()
+1278 has private function notifyDescriptionChanged()
+1279 class has void function notifyDescriptionChanged()
+1280 has private function reactivate()
+1281 class has void function reactivate()
+1282 has private function rebuildCalleeList()
+1283 rebuildCalleeList() function has parameter of type List
+1284 rebuildCalleeList() function modifies member variablethis
+1285 class has void function rebuildCalleeList()
+1286 has public function isDescriptionChanged()
+1287 isDescriptionChanged() function has parameter of type FunctionDTO
+1288 isDescriptionChanged() function returns type boolean
+1289 has public function createRequestedFunctions()
+1290 createRequestedFunctions() function has parameter of type List
+1291 class has void function createRequestedFunctions()
+1292 has private function processTest()
+1293 processTest() function has parameter of type TestDTO
+1294 class has void function processTest()
+1295 has private function createCalleeStubs()
+1296 createCalleeStubs() function has parameter of type List
+1297 class has void function createCalleeStubs()
+1298 find() function returns type Function
+1299 load() function returns type Function
+1300 class has member field called parameters
+1301 class has member field parameters of type List
+1302 class has member field called value
+1303 class has member field value of type String
+1304 class has member field called isChallengeWon
+1305 class has member field isChallengeWon of type Boolean
+1306 class has member field called artifactId
+1307 class has member field artifactId of type String
+1308 class has member field called functionVersion
+1309 class has member field functionVersion of type int
+1310 class has member field called tests
+1311 class has member field tests of type List
+1312 class has member field called isDescribeComplete
+1313 class has member field isDescribeComplete of type boolean
+1314 class has member field called disputeFunctionText
+1315 class has member field disputeFunctionText of type String
+1316 has public function getStructure()
+1317 getStructure() function returns type HashMap
+1318 has public function getExamples()
+1319 getExamples() function returns type HashMap
+1320 class has member field called callees
+1321 class has member field callees of type List
+1322 class has member field called fromDisputedMicrotask
+1323 class has member field fromDisputedMicrotask of type boolean
+1324 class has member field of type FunctionDTO
+1325 class has member field function of type FunctionDTO
+1326 class has member field called requestedADTs
+1327 class has member field requestedADTs of type List
+1328 class has member field called requestedFunctions
+1329 class has member field requestedFunctions of type List
+1330 class has member field called deleted
+1331 class has member field deleted of type boolean
+1332 class has member field called added
+1333 class has member field added of type boolean
+1334 class has member field called edited
+1335 class has member field edited of type boolean
+1336 class extends class Command
+1337 has public function create()
+1338 create() function calls constructor in return statement
+1339 create() function returns output from function call
+1340 create() function returns output from function call to Create
+1341 create() function has parameter of type String
+1342 create() function has parameter of type HashMap
+1343 create() function has parameter of type boolean
+1344 create() function returns type ADTCommand
+1345 update() function calls constructor in return statement
+1346 update() function returns output from function call
+1347 update() function returns output from function call to Update
+1348 update() function has parameter of type long
+1349 update() function returns type ADTCommand
+1350 delete() function calls constructor in return statement
+1351 delete() function returns output from function call
+1352 delete() function returns output from function call to Delete
+1353 delete() function has parameter of type long
+1354 delete() function returns type ADTCommand
+1355 has private function queueCommand()
+1356 queueCommand() function has parameter of type Command
+1357 class has void function queueCommand()
+1358 has public function execute()
+1359 execute() function has parameter of type String
+1360 class has void function execute()
+1361 class defines constructor with parameter of type HashMap
+1362 class defines constructor with parameter of type boolean
+1363 class extends class ADTCommand
+1364 is protected class
+1365 execute() function has parameter of type ADT
+1366 class defines constructor with parameter of type long
+1367 class defines constructor with parameter of type Key
+1368 class has member field microtaskKey of type Key
+1369 submit() function calls constructor in return statement
+1370 submit() function returns output from function call
+1371 submit() function returns output from function call to Submit
+1372 submit() function has parameter of type Key
+1373 submit() function returns type MicrotaskCommand
+1374 skip() function calls constructor in return statement
+1375 skip() function returns output from function call
+1376 skip() function returns output from function call to Skip
+1377 skip() function has parameter of type Key
+1378 skip() function returns type MicrotaskCommand
+1379 has public function createReview()
+1380 createReview() function calls constructor in return statement
+1381 createReview() function returns output from function call
+1382 createReview() function returns output from function call to CreateReview
+1383 createReview() function has parameter of type Key
+1384 createReview() function has parameter of type String
+1385 createReview() function returns type MicrotaskCommand
+1386 has public function createChallengeReview()
+1387 createChallengeReview() function calls constructor in return statement
+1388 createChallengeReview() function returns output from function call
+1389 createChallengeReview() function returns output from function call to CreateChallengeReview
+1390 createChallengeReview() function has parameter of type Key
+1391 createChallengeReview() function has parameter of type String
+1392 createChallengeReview() function returns type MicrotaskCommand
+1393 has public function reviseMicrotask()
+1394 reviseMicrotask() function calls constructor in return statement
+1395 reviseMicrotask() function returns output from function call
+1396 reviseMicrotask() function returns output from function call to ReviseMicrotask
+1397 reviseMicrotask() function has parameter of type Key
+1398 reviseMicrotask() function has parameter of type String
+1399 reviseMicrotask() function has parameter of type int
+1400 reviseMicrotask() function returns type MicrotaskCommand
+1401 has public function rejectMicrotask()
+1402 rejectMicrotask() function calls constructor in return statement
+1403 rejectMicrotask() function returns output from function call
+1404 rejectMicrotask() function returns output from function call to RejectMicrotask
+1405 rejectMicrotask() function has parameter of type Key
+1406 rejectMicrotask() function has parameter of type String
+1407 rejectMicrotask() function has parameter of type int
+1408 rejectMicrotask() function returns type MicrotaskCommand
+1409 has protected function find()
+1410 find() function returns type Microtask
+1411 class defines constructor with parameter of type int
+1412 class has member field called jsonDTOData
+1413 class has member field jsonDTOData of type String
+1414 class has member field called awardedPoint
+1415 class has member field awardedPoint of type int
+1416 class extends class MicrotaskCommand
+1417 execute() function has parameter of type Microtask
+1418 class has member field called disablePoint
+1419 class has member field disablePoint of type boolean
+1420 class has member field called microtaskKeyToReview
+1421 class has member field microtaskKeyToReview of type Key
+1422 class has member field called excludedWorkerID
+1423 class has member field excludedWorkerID of type String
+1424 class has member field called challengeTextDTO
+1425 class has member field challengeTextDTO of type String
+1426 reset() function calls constructor in return statement
+1427 reset() function returns output from function call
+1428 reset() function returns output from function call to Reset
+1429 reset() function has parameter of type String
+1430 reset() function returns type ProjectCommand
+1431 clear() function calls constructor in return statement
+1432 clear() function returns output from function call
+1433 clear() function returns output from function call to Clear
+1434 clear() function returns type ProjectCommand
+1435 has public function construct()
+1436 construct() function calls constructor in return statement
+1437 construct() function returns output from function call
+1438 construct() function returns output from function call to Construct
+1439 construct() function has parameter of type String
+1440 construct() function returns type ProjectCommand
+1441 enableReviews() function calls constructor in return statement
+1442 enableReviews() function returns output from function call
+1443 enableReviews() function returns output from function call to EnableReviews
+1444 enableReviews() function has parameter of type boolean
+1445 enableReviews() function returns type ProjectCommand
+1446 enableTutorials() function calls constructor in return statement
+1447 enableTutorials() function returns output from function call
+1448 enableTutorials() function returns output from function call to EnableTutorials
+1449 enableTutorials() function has parameter of type boolean
+1450 enableTutorials() function returns type ProjectCommand
+1451 queueMicrotask() function calls constructor in return statement
+1452 queueMicrotask() function returns output from function call
+1453 queueMicrotask() function returns output from function call to QueueMicrotask
+1454 queueMicrotask() function returns type ProjectCommand
+1455 queueReviewMicrotask() function calls constructor in return statement
+1456 queueReviewMicrotask() function returns output from function call
+1457 queueReviewMicrotask() function returns output from function call to QueueReviewMicrotask
+1458 queueReviewMicrotask() function returns type ProjectCommand
+1459 has public function queueChallengeReviewMicrotask()
+1460 queueChallengeReviewMicrotask() function calls constructor in return statement
+1461 queueChallengeReviewMicrotask() function returns output from function call
+1462 queueChallengeReviewMicrotask() function returns output from function call to QueueChallengeReviewMicrotask
+1463 queueChallengeReviewMicrotask() function has parameter of type Key
+1464 queueChallengeReviewMicrotask() function has parameter of type String
+1465 queueChallengeReviewMicrotask() function returns type ProjectCommand
+1466 skipMicrotask() function calls constructor in return statement
+1467 skipMicrotask() function returns output from function call
+1468 skipMicrotask() function returns output from function call to SkipMicrotask
+1469 skipMicrotask() function returns type ProjectCommand
+1470 submitMicrotask() function calls constructor in return statement
+1471 submitMicrotask() function returns output from function call
+1472 submitMicrotask() function returns output from function call to SubmitMicrotask
+1473 submitMicrotask() function returns type ProjectCommand
+1474 logoutWorker() function calls constructor in return statement
+1475 logoutWorker() function returns output from function call
+1476 logoutWorker() function returns output from function call to LogoutWorker
+1477 logoutWorker() function returns type ProjectCommand
+1478 logoutInactiveWorkers() function calls constructor in return statement
+1479 logoutInactiveWorkers() function returns output from function call
+1480 logoutInactiveWorkers() function returns output from function call to LogoutInactiveWorkers
+1481 logoutInactiveWorkers() function returns type ProjectCommand
+1482 has public function notifyLoggedInWorkers()
+1483 notifyLoggedInWorkers() function calls constructor in return statement
+1484 notifyLoggedInWorkers() function returns output from function call
+1485 notifyLoggedInWorkers() function returns output from function call to NotifyLoggedInWorkers
+1486 notifyLoggedInWorkers() function has parameter of type NotificationInFirebase
+1487 notifyLoggedInWorkers() function returns type ProjectCommand
+1488 class extends class ProjectCommand
+1489 execute() function has parameter of type Project
+1490 class has member field reviewsEnabled of type boolean
+1491 class has member field tutorialsEnabled of type boolean
+1492 class has member field called firstExcludedWorkerID
+1493 class has member field firstExcludedWorkerID of type String
+1494 class has member field called secondExcludedWorkerID
+1495 class has member field secondExcludedWorkerID of type String
+1496 class defines constructor with parameter of type Boolean
+1497 class has member field disablePoint of type Boolean
+1498 class defines constructor with parameter of type NotificationInFirebase
+1499 class has member field called notification
+1500 class has member field of type NotificationInFirebase
+1501 class has member field notification of type NotificationInFirebase
+1502 has public function addClientRequestsArtifacts()
+1503 addClientRequestsArtifacts() function calls constructor in return statement
+1504 addClientRequestsArtifacts() function returns output from function call
+1505 addClientRequestsArtifacts() function returns output from function call to AddClientRequestsArtifacts
+1506 addClientRequestsArtifacts() function has parameter of type FunctionDTO
+1507 addClientRequestsArtifacts() function returns type FunctionCommand
+1508 create() function has parameter of type FunctionDTO
+1509 create() function returns type FunctionCommand
+1510 has public function createRequestedFunction()
+1511 createRequestedFunction() function calls constructor in return statement
+1512 createRequestedFunction() function returns output from function call
+1513 createRequestedFunction() function returns output from function call to CreateRequestedFunction
+1514 createRequestedFunction() function has parameter of type long
+1515 createRequestedFunction() function has parameter of type FunctionDTO
+1516 createRequestedFunction() function returns type FunctionCommand
+1517 removeCaller() function calls constructor in return statement
+1518 removeCaller() function returns output from function call
+1519 removeCaller() function returns output from function call to RemoveCaller
+1520 removeCaller() function returns type FunctionCommand
+1521 addCaller() function calls constructor in return statement
+1522 addCaller() function returns output from function call
+1523 addCaller() function returns output from function call to AddCaller
+1524 addCaller() function returns type FunctionCommand
+1525 addCallee() function calls constructor in return statement
+1526 addCallee() function returns output from function call
+1527 addCallee() function returns output from function call to AddCaller
+1528 addCallee() function returns type FunctionCommand
+1529 runTests() function calls constructor in return statement
+1530 runTests() function returns output from function call
+1531 runTests() function returns output from function call to RunTests
+1532 runTests() function has parameter of type long
+1533 runTests() function returns type FunctionCommand
+1534 submittedTestResult() function calls constructor in return statement
+1535 submittedTestResult() function returns output from function call
+1536 submittedTestResult() function returns output from function call to SubmittedTestResult
+1537 submittedTestResult() function has parameter of type long
+1538 submittedTestResult() function returns type FunctionCommand
+1539 calleeChangedInterface() function calls constructor in return statement
+1540 calleeChangedInterface() function returns output from function call
+1541 calleeChangedInterface() function returns output from function call to CalleeChangedInterface
+1542 calleeChangedInterface() function returns type FunctionCommand
+1543 calleeBecomeDeactivated() function calls constructor in return statement
+1544 calleeBecomeDeactivated() function returns output from function call
+1545 calleeBecomeDeactivated() function returns output from function call to CalleeBecomeDeactivated
+1546 calleeBecomeDeactivated() function returns type FunctionCommand
+1547 addTest() function calls constructor in return statement
+1548 addTest() function returns output from function call
+1549 addTest() function returns output from function call to AddTest
+1550 addTest() function returns type FunctionCommand
+1551 has public function incrementTestSuite()
+1552 incrementTestSuite() function calls constructor in return statement
+1553 incrementTestSuite() function returns output from function call
+1554 incrementTestSuite() function returns output from function call to IncrementTestSuite
+1555 incrementTestSuite() function has parameter of type long
+1556 incrementTestSuite() function returns type FunctionCommand
+1557 lookForWork() function calls constructor in return statement
+1558 lookForWork() function returns output from function call
+1559 lookForWork() function returns output from function call to LookForWork
+1560 lookForWork() function has parameter of type long
+1561 lookForWork() function returns type FunctionCommand
+1562 class defines constructor with parameter of type FunctionDTO
+1563 class has member field called functionDTO
+1564 class has member field functionDTO of type FunctionDTO
+1565 class extends class FunctionCommand
+1566 execute() function has parameter of type Function
+1567 class has member field called requestedFunctionDTO
+1568 class has member field requestedFunctionDTO of type FunctionDTO
+1569 class has member field called requestingFunctionId
+1570 class has member field requestingFunctionId of type long
+1571 class has member field called callerFunctionID
+1572 class has member field callerFunctionID of type long
+1573 class has member field called calleeFunctionId
+1574 class has member field calleeFunctionId of type long
+1575 class has member field called jsonDto
+1576 class has member field jsonDto of type String
+1577 create() function has parameter of type TestDTO
+1578 create() function has parameter of type long
+1579 create() function returns type TestCommand
+1580 update() function returns type TestCommand
+1581 delete() function has parameter of type TestDTO
+1582 delete() function returns type TestCommand
+1583 class defines constructor with parameter of type TestDTO
+1584 class has member field called testDto
+1585 class has member field of type TestDTO
+1586 class has member field testDto of type TestDTO
+1587 class extends class TestCommand
+1588 execute() function has parameter of type Test
+1589 execute() function has annotation @Override
+1590 awardPoints() function calls constructor in return statement
+1591 awardPoints() function returns output from function call
+1592 awardPoints() function returns output from function call to AwardPoints
+1593 awardPoints() function returns type WorkerCommand
+1594 addAchievement() function calls constructor in return statement
+1595 addAchievement() function returns output from function call
+1596 addAchievement() function returns output from function call to AddAchievement
+1597 addAchievement() function returns type WorkerCommand
+1598 increaseStat() function calls constructor in return statement
+1599 increaseStat() function returns output from function call
+1600 increaseStat() function returns output from function call to IncreaseStat
+1601 increaseStat() function returns type WorkerCommand
+1602 find() function has parameter of type String
+1603 find() function has parameter of type Project
+1604 find() function returns type Worker
+1605 class extends class WorkerCommand
+1606 execute() function has parameter of type Worker
+1607 class has member field called label
+1608 class has member field label of type String
+1609 class has member field called increaseAmount
+1610 class has member field increaseAmount of type int
+1611 class defines constructor with parameter of type Achievement
+1612 class has member field called _achievement
+1613 class has member field of type Achievement
+1614 class has member field _achievement of type Achievement
+1615 class has member field called questioningId
+1616 class has member field questioningId of type long
+1617 has public function createQuestion()
+1618 createQuestion() function calls constructor in return statement
+1619 createQuestion() function returns output from function call
+1620 createQuestion() function returns output from function call to CreateQuestion
+1621 createQuestion() function has parameter of type String
+1622 createQuestion() function returns type QuestioningCommand
+1623 has public function createAnswer()
+1624 createAnswer() function calls constructor in return statement
+1625 createAnswer() function returns output from function call
+1626 createAnswer() function returns output from function call to CreateAnswer
+1627 createAnswer() function has parameter of type String
+1628 createAnswer() function returns type QuestioningCommand
+1629 has public function createComment()
+1630 createComment() function calls constructor in return statement
+1631 createComment() function returns output from function call
+1632 createComment() function returns output from function call to CreateComment
+1633 createComment() function has parameter of type String
+1634 createComment() function returns type QuestioningCommand
+1635 has public function incrementQuestionAnswers()
+1636 incrementQuestionAnswers() function calls constructor in return statement
+1637 incrementQuestionAnswers() function returns output from function call
+1638 incrementQuestionAnswers() function returns output from function call to IncrementQuestionAnswers
+1639 incrementQuestionAnswers() function has parameter of type long
+1640 incrementQuestionAnswers() function returns type QuestioningCommand
+1641 has public function incrementQuestionComments()
+1642 incrementQuestionComments() function calls constructor in return statement
+1643 incrementQuestionComments() function returns output from function call
+1644 incrementQuestionComments() function returns output from function call to IncrementQuestionComments
+1645 incrementQuestionComments() function has parameter of type long
+1646 incrementQuestionComments() function returns type QuestioningCommand
+1647 has public function addQuestionView()
+1648 addQuestionView() function calls constructor in return statement
+1649 addQuestionView() function returns output from function call
+1650 addQuestionView() function returns output from function call to AddQuestionView
+1651 addQuestionView() function has parameter of type long
+1652 addQuestionView() function has parameter of type String
+1653 addQuestionView() function returns type QuestioningCommand
+1654 has public function updateQuestion()
+1655 updateQuestion() function calls constructor in return statement
+1656 updateQuestion() function returns output from function call
+1657 updateQuestion() function returns output from function call to UpdateQuestion
+1658 updateQuestion() function has parameter of type long
+1659 updateQuestion() function has parameter of type String
+1660 updateQuestion() function returns type QuestioningCommand
+1661 has public function vote()
+1662 vote() function calls constructor in return statement
+1663 vote() function returns output from function call
+1664 vote() function returns output from function call to Vote
+1665 vote() function has parameter of type long
+1666 vote() function has parameter of type String
+1667 vote() function has parameter of type boolean
+1668 vote() function returns type QuestioningCommand
+1669 has public function report()
+1670 report() function calls constructor in return statement
+1671 report() function returns output from function call
+1672 report() function returns output from function call to Report
+1673 report() function has parameter of type long
+1674 report() function has parameter of type String
+1675 report() function has parameter of type boolean
+1676 report() function returns type QuestioningCommand
+1677 has public function linkArtifact()
+1678 linkArtifact() function calls constructor in return statement
+1679 linkArtifact() function returns output from function call
+1680 linkArtifact() function returns output from function call to LinkArtifact
+1681 linkArtifact() function has parameter of type long
+1682 linkArtifact() function has parameter of type String
+1683 linkArtifact() function has parameter of type boolean
+1684 linkArtifact() function returns type QuestioningCommand
+1685 subscribeWorker() function calls constructor in return statement
+1686 subscribeWorker() function returns output from function call
+1687 subscribeWorker() function returns output from function call to SubscribeWorker
+1688 subscribeWorker() function has parameter of type long
+1689 subscribeWorker() function has parameter of type boolean
+1690 subscribeWorker() function returns type QuestioningCommand
+1691 notifySubscribers() function calls constructor in return statement
+1692 notifySubscribers() function returns output from function call
+1693 notifySubscribers() function returns output from function call to NotifySubscribers
+1694 notifySubscribers() function has parameter of type long
+1695 notifySubscribers() function returns type QuestioningCommand
+1696 setClosed() function calls constructor in return statement
+1697 setClosed() function returns output from function call
+1698 setClosed() function returns output from function call to SetClosed
+1699 setClosed() function has parameter of type long
+1700 setClosed() function returns type QuestioningCommand
+1701 class extends class QuestioningCommand
+1702 execute() function has parameter of type Questioning
+1703 class has member field called jsonDTO
+1704 class has member field jsonDTO of type String
+1705 class has member field called remove
+1706 class has member field remove of type boolean
