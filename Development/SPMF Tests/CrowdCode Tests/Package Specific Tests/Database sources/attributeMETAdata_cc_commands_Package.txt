@@ -1,0 +1,607 @@
+1 class does not define constructor
+2 is public class
+3 class has non-empty-body constructor
+4 constructor sets member variables ADTId
+5 class defines constructor with parameter of type Long
+6 constructor stores all parameters as member variables
+7 class has member field called ADTId
+8 class has member field of type long
+9 class has member field ADTId of type long
+10 class extends class Command
+11 has public static function create()
+12 call to constructor of Create is made in create()
+13 create() function calls constructor in return statement
+14 create() function returns output from function call
+15 create() function returns output from function call to Create
+16 create() function has parameter of type String
+17 create() function has parameter of type HashMap
+18 create() function has parameter of type boolean
+19 create() function returns type ADTCommand
+20 has public static function update()
+21 call to constructor of Update is made in update()
+22 update() function calls constructor in return statement
+23 update() function returns output from function call
+24 update() function returns output from function call to Update
+25 update() function has parameter of type long
+26 update() function has parameter of type String
+27 update() function has parameter of type HashMap
+28 update() function returns type ADTCommand
+29 has public static function delete()
+30 call to constructor of Delete is made in delete()
+31 delete() function calls constructor in return statement
+32 delete() function returns output from function call
+33 delete() function returns output from function call to Delete
+34 delete() function has parameter of type long
+35 delete() function returns type ADTCommand
+36 has private static function queueCommand()
+37 queueCommand() function has parameter of type Command
+38 class has void function queueCommand()
+39 has public function execute()
+40 execute() function has parameter of type String
+41 class has void function execute()
+42 constructor sets member variables description, examples, isApiArtifact, isReadOnly, name, structure
+43 class defines constructor with parameter of type String
+44 class defines constructor with parameter of type HashMap
+45 class defines constructor with parameter of type boolean
+46 class has member field called description
+47 class has member field of type String
+48 class has member field description of type String
+49 class has member field called name
+50 class has member field name of type String
+51 class has member field called structure
+52 class has member field of type HashMap
+53 class has member field structure of type HashMap
+54 class has member field called examples
+55 class has member field examples of type HashMap
+56 class has member field called isApiArtifact
+57 class has member field of type boolean
+58 class has member field isApiArtifact of type boolean
+59 class has member field called isReadOnly
+60 class has member field isReadOnly of type boolean
+61 class extends class ADTCommand
+62 is protected class
+63 call to constructor of ADT is made in execute()
+64 execute() function has parameter of type ADT
+65 constructor sets member variables description, name, structure
+66 class defines constructor with parameter of type long
+67 class defines constructor with no parameters
+68 has public static function reset()
+69 call to constructor of Reset is made in reset()
+70 reset() function calls constructor in return statement
+71 reset() function returns output from function call
+72 reset() function returns output from function call to Reset
+73 reset() function has parameter of type String
+74 reset() function returns type ProjectCommand
+75 has public static function clear()
+76 call to constructor of Clear is made in clear()
+77 clear() function calls constructor in return statement
+78 clear() function returns output from function call
+79 clear() function returns output from function call to Clear
+80 clear() function has parameter of type String
+81 clear() function returns type ProjectCommand
+82 has public static function construct()
+83 call to constructor of Construct is made in construct()
+84 construct() function calls constructor in return statement
+85 construct() function returns output from function call
+86 construct() function returns output from function call to Construct
+87 construct() function has parameter of type String
+88 construct() function returns type ProjectCommand
+89 has public static function enableReviews()
+90 call to constructor of EnableReviews is made in enableReviews()
+91 enableReviews() function calls constructor in return statement
+92 enableReviews() function returns output from function call
+93 enableReviews() function returns output from function call to EnableReviews
+94 enableReviews() function has parameter of type boolean
+95 enableReviews() function returns type ProjectCommand
+96 has public static function enableTutorials()
+97 call to constructor of EnableTutorials is made in enableTutorials()
+98 enableTutorials() function calls constructor in return statement
+99 enableTutorials() function returns output from function call
+100 enableTutorials() function returns output from function call to EnableTutorials
+101 enableTutorials() function has parameter of type boolean
+102 enableTutorials() function returns type ProjectCommand
+103 has public static function queueMicrotask()
+104 call to constructor of QueueMicrotask is made in queueMicrotask()
+105 queueMicrotask() function calls constructor in return statement
+106 queueMicrotask() function returns output from function call
+107 queueMicrotask() function returns output from function call to QueueMicrotask
+108 queueMicrotask() function has parameter of type Key
+109 queueMicrotask() function has parameter of type String
+110 queueMicrotask() function returns type ProjectCommand
+111 has public static function queueReviewMicrotask()
+112 call to constructor of QueueReviewMicrotask is made in queueReviewMicrotask()
+113 queueReviewMicrotask() function calls constructor in return statement
+114 queueReviewMicrotask() function returns output from function call
+115 queueReviewMicrotask() function returns output from function call to QueueReviewMicrotask
+116 queueReviewMicrotask() function has parameter of type Key
+117 queueReviewMicrotask() function has parameter of type String
+118 queueReviewMicrotask() function returns type ProjectCommand
+119 has public static function queueChallengeReviewMicrotask()
+120 call to constructor of QueueChallengeReviewMicrotask is made in queueChallengeReviewMicrotask()
+121 queueChallengeReviewMicrotask() function calls constructor in return statement
+122 queueChallengeReviewMicrotask() function returns output from function call
+123 queueChallengeReviewMicrotask() function returns output from function call to QueueChallengeReviewMicrotask
+124 queueChallengeReviewMicrotask() function has parameter of type Key
+125 queueChallengeReviewMicrotask() function has parameter of type String
+126 queueChallengeReviewMicrotask() function returns type ProjectCommand
+127 has public static function skipMicrotask()
+128 call to constructor of SkipMicrotask is made in skipMicrotask()
+129 skipMicrotask() function calls constructor in return statement
+130 skipMicrotask() function returns output from function call
+131 skipMicrotask() function returns output from function call to SkipMicrotask
+132 skipMicrotask() function has parameter of type String
+133 skipMicrotask() function has parameter of type Boolean
+134 skipMicrotask() function returns type ProjectCommand
+135 has public static function submitMicrotask()
+136 call to constructor of SubmitMicrotask is made in submitMicrotask()
+137 submitMicrotask() function calls constructor in return statement
+138 submitMicrotask() function returns output from function call
+139 submitMicrotask() function returns output from function call to SubmitMicrotask
+140 submitMicrotask() function has parameter of type String
+141 submitMicrotask() function returns type ProjectCommand
+142 has public static function logoutWorker()
+143 call to constructor of LogoutWorker is made in logoutWorker()
+144 logoutWorker() function calls constructor in return statement
+145 logoutWorker() function returns output from function call
+146 logoutWorker() function returns output from function call to LogoutWorker
+147 logoutWorker() function has parameter of type String
+148 logoutWorker() function returns type ProjectCommand
+149 has public static function logoutInactiveWorkers()
+150 call to constructor of LogoutInactiveWorkers is made in logoutInactiveWorkers()
+151 logoutInactiveWorkers() function calls constructor in return statement
+152 logoutInactiveWorkers() function returns output from function call
+153 logoutInactiveWorkers() function returns output from function call to LogoutInactiveWorkers
+154 logoutInactiveWorkers() function returns type ProjectCommand
+155 has public static function notifyLoggedInWorkers()
+156 call to constructor of NotifyLoggedInWorkers is made in notifyLoggedInWorkers()
+157 notifyLoggedInWorkers() function calls constructor in return statement
+158 notifyLoggedInWorkers() function returns output from function call
+159 notifyLoggedInWorkers() function returns output from function call to NotifyLoggedInWorkers
+160 notifyLoggedInWorkers() function has parameter of type NotificationInFirebase
+161 notifyLoggedInWorkers() function returns type ProjectCommand
+162 constructor sets member variables projectID
+163 class has member field called projectID
+164 class has member field projectID of type String
+165 class extends class ProjectCommand
+166 execute() function has parameter of type Project
+167 constructor sets member variables reviewsEnabled
+168 class has member field called reviewsEnabled
+169 class has member field reviewsEnabled of type boolean
+170 constructor sets member variables tutorialsEnabled
+171 class has member field called tutorialsEnabled
+172 class has member field tutorialsEnabled of type boolean
+173 constructor sets member variables excludedWorkerID, microtaskKey
+174 class defines constructor with parameter of type Key
+175 class has member field called microtaskKey
+176 class has member field of type Key
+177 class has member field microtaskKey of type Key
+178 class has member field called excludedWorkerID
+179 class has member field excludedWorkerID of type String
+180 constructor sets member variables firstExcludedWorkerID, microtaskKey, secondExcludedWorkerID
+181 class has member field called firstExcludedWorkerID
+182 class has member field firstExcludedWorkerID of type String
+183 class has member field called secondExcludedWorkerID
+184 class has member field secondExcludedWorkerID of type String
+185 constructor sets member variables disablePoint, microtaskKey, workerID
+186 class defines constructor with parameter of type Boolean
+187 class has member field called workerID
+188 class has member field workerID of type String
+189 class has member field called disablePoint
+190 class has member field of type Boolean
+191 class has member field disablePoint of type Boolean
+192 constructor sets member variables jsonDTOData, microtaskKey, workerID
+193 class has member field called jsonDTOData
+194 class has member field jsonDTOData of type String
+195 constructor sets member variables workerID
+196 constructor sets member variables notification
+197 class defines constructor with parameter of type NotificationInFirebase
+198 class has member field called notification
+199 class has member field of type NotificationInFirebase
+200 class has member field notification of type NotificationInFirebase
+201 constructor sets member variables microtaskKey
+202 has public static function submit()
+203 call to constructor of Submit is made in submit()
+204 submit() function calls constructor in return statement
+205 submit() function returns output from function call
+206 submit() function returns output from function call to Submit
+207 submit() function has parameter of type Key
+208 submit() function has parameter of type String
+209 submit() function has parameter of type int
+210 submit() function returns type MicrotaskCommand
+211 has public static function skip()
+212 call to constructor of Skip is made in skip()
+213 skip() function calls constructor in return statement
+214 skip() function returns output from function call
+215 skip() function returns output from function call to Skip
+216 skip() function has parameter of type Key
+217 skip() function has parameter of type String
+218 skip() function has parameter of type boolean
+219 skip() function returns type MicrotaskCommand
+220 has public static function createReview()
+221 call to constructor of CreateReview is made in createReview()
+222 createReview() function calls constructor in return statement
+223 createReview() function returns output from function call
+224 createReview() function returns output from function call to CreateReview
+225 createReview() function has parameter of type Key
+226 createReview() function has parameter of type String
+227 createReview() function returns type MicrotaskCommand
+228 has public static function createChallengeReview()
+229 call to constructor of CreateChallengeReview is made in createChallengeReview()
+230 createChallengeReview() function calls constructor in return statement
+231 createChallengeReview() function returns output from function call
+232 createChallengeReview() function returns output from function call to CreateChallengeReview
+233 createChallengeReview() function has parameter of type Key
+234 createChallengeReview() function has parameter of type String
+235 createChallengeReview() function returns type MicrotaskCommand
+236 has public static function reviseMicrotask()
+237 call to constructor of ReviseMicrotask is made in reviseMicrotask()
+238 reviseMicrotask() function calls constructor in return statement
+239 reviseMicrotask() function returns output from function call
+240 reviseMicrotask() function returns output from function call to ReviseMicrotask
+241 reviseMicrotask() function has parameter of type Key
+242 reviseMicrotask() function has parameter of type String
+243 reviseMicrotask() function has parameter of type int
+244 reviseMicrotask() function returns type MicrotaskCommand
+245 has public static function rejectMicrotask()
+246 call to constructor of RejectMicrotask is made in rejectMicrotask()
+247 rejectMicrotask() function calls constructor in return statement
+248 rejectMicrotask() function returns output from function call
+249 rejectMicrotask() function returns output from function call to RejectMicrotask
+250 rejectMicrotask() function has parameter of type Key
+251 rejectMicrotask() function has parameter of type String
+252 rejectMicrotask() function has parameter of type int
+253 rejectMicrotask() function returns type MicrotaskCommand
+254 has protected function find()
+255 find() function returns output from function call
+256 find() function returns output from function call to ofy
+257 find() function has parameter of type Key
+258 find() function returns type Microtask
+259 constructor sets member variables awardedPoint, jsonDTOData, workerID
+260 class defines constructor with parameter of type int
+261 class has member field called awardedPoint
+262 class has member field of type int
+263 class has member field awardedPoint of type int
+264 class extends class MicrotaskCommand
+265 execute() function has parameter of type Microtask
+266 constructor sets member variables disablePoint, workerID
+267 class has member field disablePoint of type boolean
+268 constructor sets member variables excludedWorkerID, initiallySubmittedDTO, microtaskKeyToReview, workerOfReviewedWork
+269 class has member field called microtaskKeyToReview
+270 class has member field microtaskKeyToReview of type Key
+271 class has member field called initiallySubmittedDTO
+272 class has member field initiallySubmittedDTO of type String
+273 class has member field called workerOfReviewedWork
+274 class has member field workerOfReviewedWork of type String
+275 call to constructor of Review is made in execute()
+276 constructor sets member variables challengeTextDTO
+277 class has member field called challengeTextDTO
+278 class has member field challengeTextDTO of type String
+279 call to constructor of ChallengeReview is made in execute()
+280 constructor sets member variables awardedPoint, excludedWorkerID
+281 constructor sets member variables awardedPoint, excludedWorkerID, jsonDTOData, reissueMotivation
+282 class has member field called reissueMotivation
+283 class has member field reissueMotivation of type String
+284 constructor sets member variables functionId
+285 class has member field called functionId
+286 class has member field functionId of type long
+287 has public static function addClientRequestsArtifacts()
+288 call to constructor of AddClientRequestsArtifacts is made in addClientRequestsArtifacts()
+289 addClientRequestsArtifacts() function calls constructor in return statement
+290 addClientRequestsArtifacts() function returns output from function call
+291 addClientRequestsArtifacts() function returns output from function call to AddClientRequestsArtifacts
+292 addClientRequestsArtifacts() function has parameter of type FunctionDTO
+293 addClientRequestsArtifacts() function returns type FunctionCommand
+294 create() function has parameter of type FunctionDTO
+295 create() function returns type FunctionCommand
+296 has public static function createRequestedFunction()
+297 call to constructor of CreateRequestedFunction is made in createRequestedFunction()
+298 createRequestedFunction() function calls constructor in return statement
+299 createRequestedFunction() function returns output from function call
+300 createRequestedFunction() function returns output from function call to CreateRequestedFunction
+301 createRequestedFunction() function has parameter of type long
+302 createRequestedFunction() function has parameter of type FunctionDTO
+303 createRequestedFunction() function returns type FunctionCommand
+304 has public static function removeCaller()
+305 call to constructor of RemoveCaller is made in removeCaller()
+306 removeCaller() function calls constructor in return statement
+307 removeCaller() function returns output from function call
+308 removeCaller() function returns output from function call to RemoveCaller
+309 removeCaller() function has parameter of type long
+310 removeCaller() function returns type FunctionCommand
+311 has public static function addCaller()
+312 call to constructor of AddCaller is made in addCaller()
+313 addCaller() function calls constructor in return statement
+314 addCaller() function returns output from function call
+315 addCaller() function returns output from function call to AddCaller
+316 addCaller() function has parameter of type long
+317 addCaller() function returns type FunctionCommand
+318 has public static function addCallee()
+319 call to constructor of AddCaller is made in addCallee()
+320 addCallee() function calls constructor in return statement
+321 addCallee() function returns output from function call
+322 addCallee() function returns output from function call to AddCaller
+323 addCallee() function has parameter of type long
+324 addCallee() function returns type FunctionCommand
+325 has public static function runTests()
+326 call to constructor of RunTests is made in runTests()
+327 runTests() function calls constructor in return statement
+328 runTests() function returns output from function call
+329 runTests() function returns output from function call to RunTests
+330 runTests() function has parameter of type long
+331 runTests() function returns type FunctionCommand
+332 has public static function submittedTestResult()
+333 call to constructor of SubmittedTestResult is made in submittedTestResult()
+334 submittedTestResult() function calls constructor in return statement
+335 submittedTestResult() function returns output from function call
+336 submittedTestResult() function returns output from function call to SubmittedTestResult
+337 submittedTestResult() function has parameter of type long
+338 submittedTestResult() function has parameter of type String
+339 submittedTestResult() function returns type FunctionCommand
+340 has public static function calleeChangedInterface()
+341 call to constructor of CalleeChangedInterface is made in calleeChangedInterface()
+342 calleeChangedInterface() function calls constructor in return statement
+343 calleeChangedInterface() function returns output from function call
+344 calleeChangedInterface() function returns output from function call to CalleeChangedInterface
+345 calleeChangedInterface() function has parameter of type long
+346 calleeChangedInterface() function has parameter of type int
+347 calleeChangedInterface() function returns type FunctionCommand
+348 has public static function calleeBecomeDeactivated()
+349 call to constructor of CalleeBecomeDeactivated is made in calleeBecomeDeactivated()
+350 calleeBecomeDeactivated() function calls constructor in return statement
+351 calleeBecomeDeactivated() function returns output from function call
+352 calleeBecomeDeactivated() function returns output from function call to CalleeBecomeDeactivated
+353 calleeBecomeDeactivated() function has parameter of type long
+354 calleeBecomeDeactivated() function has parameter of type String
+355 calleeBecomeDeactivated() function returns type FunctionCommand
+356 has public static function addTest()
+357 call to constructor of AddTest is made in addTest()
+358 addTest() function calls constructor in return statement
+359 addTest() function returns output from function call
+360 addTest() function returns output from function call to AddTest
+361 addTest() function has parameter of type long
+362 addTest() function returns type FunctionCommand
+363 has public static function incrementTestSuite()
+364 call to constructor of IncrementTestSuite is made in incrementTestSuite()
+365 incrementTestSuite() function calls constructor in return statement
+366 incrementTestSuite() function returns output from function call
+367 incrementTestSuite() function returns output from function call to IncrementTestSuite
+368 incrementTestSuite() function has parameter of type long
+369 incrementTestSuite() function returns type FunctionCommand
+370 has public static function lookForWork()
+371 call to constructor of LookForWork is made in lookForWork()
+372 lookForWork() function calls constructor in return statement
+373 lookForWork() function returns output from function call
+374 lookForWork() function returns output from function call to LookForWork
+375 lookForWork() function has parameter of type long
+376 lookForWork() function returns type FunctionCommand
+377 constructor sets member variables functionDTO
+378 class defines constructor with parameter of type FunctionDTO
+379 class has member field called functionDTO
+380 class has member field of type FunctionDTO
+381 class has member field functionDTO of type FunctionDTO
+382 class extends class FunctionCommand
+383 call to constructor of Function is made in execute()
+384 execute() function has parameter of type Function
+385 constructor sets member variables functionDTO, isApiArtifact, isReadOnly
+386 constructor sets member variables requestedFunctionDTO, requestingFunctionId
+387 class has member field called requestedFunctionDTO
+388 class has member field requestedFunctionDTO of type FunctionDTO
+389 class has member field called requestingFunctionId
+390 class has member field requestingFunctionId of type long
+391 constructor sets member variables callerFunctionID
+392 class has member field called callerFunctionID
+393 class has member field callerFunctionID of type long
+394 constructor sets member variables calleeFunctionId
+395 class has member field called calleeFunctionId
+396 class has member field calleeFunctionId of type long
+397 constructor sets member variables calleeId, oldCalleeVersion
+398 class has member field called calleeId
+399 class has member field calleeId of type long
+400 class has member field called oldCalleeVersion
+401 class has member field oldCalleeVersion of type int
+402 constructor sets member variables calleeId, disputeText
+403 class has member field called disputeText
+404 class has member field disputeText of type String
+405 constructor sets member variables jsonDto
+406 class has member field called jsonDto
+407 class has member field jsonDto of type String
+408 constructor sets member variables testId
+409 class has member field called testId
+410 class has member field testId of type long
+411 constructor sets member variables isSimple, testId
+412 class has member field called isSimple
+413 class has member field isSimple of type boolean
+414 create() function has parameter of type TestDTO
+415 create() function has parameter of type long
+416 create() function returns type TestCommand
+417 update() function has parameter of type TestDTO
+418 update() function returns type TestCommand
+419 delete() function has parameter of type TestDTO
+420 delete() function returns type TestCommand
+421 constructor sets member variables functionId, isApiArtifact, isReadOnly, testDto
+422 class defines constructor with parameter of type TestDTO
+423 class has member field called testDto
+424 class has member field of type TestDTO
+425 class has member field testDto of type TestDTO
+426 class extends class TestCommand
+427 call to constructor of Test is made in execute()
+428 execute() function has parameter of type Test
+429 constructor sets member variables testDto
+430 function execute() has annotation @Override
+431 has public static function awardPoints()
+432 call to constructor of AwardPoints is made in awardPoints()
+433 awardPoints() function calls constructor in return statement
+434 awardPoints() function returns output from function call
+435 awardPoints() function returns output from function call to AwardPoints
+436 awardPoints() function has parameter of type String
+437 awardPoints() function has parameter of type int
+438 awardPoints() function returns type WorkerCommand
+439 has public static function addAchievement()
+440 call to constructor of AddAchievement is made in addAchievement()
+441 addAchievement() function calls constructor in return statement
+442 addAchievement() function returns output from function call
+443 addAchievement() function returns output from function call to AddAchievement
+444 addAchievement() function has parameter of type Achievement
+445 addAchievement() function has parameter of type String
+446 addAchievement() function returns type WorkerCommand
+447 has public static function increaseStat()
+448 call to constructor of IncreaseStat is made in increaseStat()
+449 increaseStat() function calls constructor in return statement
+450 increaseStat() function returns output from function call
+451 increaseStat() function returns output from function call to IncreaseStat
+452 increaseStat() function has parameter of type String
+453 increaseStat() function has parameter of type int
+454 increaseStat() function returns type WorkerCommand
+455 find() function has parameter of type String
+456 find() function has parameter of type Project
+457 find() function returns type Worker
+458 constructor sets member variables points
+459 class has member field called points
+460 class has member field points of type int
+461 class extends class WorkerCommand
+462 execute() function has parameter of type Worker
+463 constructor sets member variables increaseAmount, label
+464 class has member field called label
+465 class has member field label of type String
+466 class has member field called increaseAmount
+467 class has member field increaseAmount of type int
+468 constructor sets member variables _achievement
+469 class defines constructor with parameter of type Achievement
+470 class has member field called _achievement
+471 class has member field of type Achievement
+472 class has member field _achievement of type Achievement
+473 constructor sets member variables questioningId, workerId
+474 class has member field called questioningId
+475 class has member field questioningId of type long
+476 class has member field called workerId
+477 class has member field workerId of type String
+478 has public static function createQuestion()
+479 call to constructor of CreateQuestion is made in createQuestion()
+480 createQuestion() function calls constructor in return statement
+481 createQuestion() function returns output from function call
+482 createQuestion() function returns output from function call to CreateQuestion
+483 createQuestion() function has parameter of type String
+484 createQuestion() function returns type QuestioningCommand
+485 has public static function createAnswer()
+486 call to constructor of CreateAnswer is made in createAnswer()
+487 createAnswer() function calls constructor in return statement
+488 createAnswer() function returns output from function call
+489 createAnswer() function returns output from function call to CreateAnswer
+490 createAnswer() function has parameter of type String
+491 createAnswer() function returns type QuestioningCommand
+492 has public static function createComment()
+493 call to constructor of CreateComment is made in createComment()
+494 createComment() function calls constructor in return statement
+495 createComment() function returns output from function call
+496 createComment() function returns output from function call to CreateComment
+497 createComment() function has parameter of type String
+498 createComment() function returns type QuestioningCommand
+499 has public static function incrementQuestionAnswers()
+500 call to constructor of IncrementQuestionAnswers is made in incrementQuestionAnswers()
+501 incrementQuestionAnswers() function calls constructor in return statement
+502 incrementQuestionAnswers() function returns output from function call
+503 incrementQuestionAnswers() function returns output from function call to IncrementQuestionAnswers
+504 incrementQuestionAnswers() function has parameter of type long
+505 incrementQuestionAnswers() function returns type QuestioningCommand
+506 has public static function incrementQuestionComments()
+507 call to constructor of IncrementQuestionComments is made in incrementQuestionComments()
+508 incrementQuestionComments() function calls constructor in return statement
+509 incrementQuestionComments() function returns output from function call
+510 incrementQuestionComments() function returns output from function call to IncrementQuestionComments
+511 incrementQuestionComments() function has parameter of type long
+512 incrementQuestionComments() function returns type QuestioningCommand
+513 has public static function addQuestionView()
+514 call to constructor of AddQuestionView is made in addQuestionView()
+515 addQuestionView() function calls constructor in return statement
+516 addQuestionView() function returns output from function call
+517 addQuestionView() function returns output from function call to AddQuestionView
+518 addQuestionView() function has parameter of type long
+519 addQuestionView() function has parameter of type String
+520 addQuestionView() function returns type QuestioningCommand
+521 has public static function updateQuestion()
+522 call to constructor of UpdateQuestion is made in updateQuestion()
+523 updateQuestion() function calls constructor in return statement
+524 updateQuestion() function returns output from function call
+525 updateQuestion() function returns output from function call to UpdateQuestion
+526 updateQuestion() function has parameter of type long
+527 updateQuestion() function has parameter of type String
+528 updateQuestion() function returns type QuestioningCommand
+529 has public static function vote()
+530 call to constructor of Vote is made in vote()
+531 vote() function calls constructor in return statement
+532 vote() function returns output from function call
+533 vote() function returns output from function call to Vote
+534 vote() function has parameter of type long
+535 vote() function has parameter of type String
+536 vote() function has parameter of type boolean
+537 vote() function returns type QuestioningCommand
+538 has public static function report()
+539 call to constructor of Report is made in report()
+540 report() function calls constructor in return statement
+541 report() function returns output from function call
+542 report() function returns output from function call to Report
+543 report() function has parameter of type long
+544 report() function has parameter of type String
+545 report() function has parameter of type boolean
+546 report() function returns type QuestioningCommand
+547 has public static function linkArtifact()
+548 call to constructor of LinkArtifact is made in linkArtifact()
+549 linkArtifact() function calls constructor in return statement
+550 linkArtifact() function returns output from function call
+551 linkArtifact() function returns output from function call to LinkArtifact
+552 linkArtifact() function has parameter of type long
+553 linkArtifact() function has parameter of type String
+554 linkArtifact() function has parameter of type boolean
+555 linkArtifact() function returns type QuestioningCommand
+556 has public static function subscribeWorker()
+557 call to constructor of SubscribeWorker is made in subscribeWorker()
+558 subscribeWorker() function calls constructor in return statement
+559 subscribeWorker() function returns output from function call
+560 subscribeWorker() function returns output from function call to SubscribeWorker
+561 subscribeWorker() function has parameter of type long
+562 subscribeWorker() function has parameter of type String
+563 subscribeWorker() function has parameter of type boolean
+564 subscribeWorker() function returns type QuestioningCommand
+565 has public static function notifySubscribers()
+566 call to constructor of NotifySubscribers is made in notifySubscribers()
+567 notifySubscribers() function calls constructor in return statement
+568 notifySubscribers() function returns output from function call
+569 notifySubscribers() function returns output from function call to NotifySubscribers
+570 notifySubscribers() function has parameter of type long
+571 notifySubscribers() function has parameter of type NotificationInFirebase
+572 notifySubscribers() function has parameter of type String
+573 notifySubscribers() function returns type QuestioningCommand
+574 has public static function setClosed()
+575 call to constructor of SetClosed is made in setClosed()
+576 setClosed() function calls constructor in return statement
+577 setClosed() function returns output from function call
+578 setClosed() function returns output from function call to SetClosed
+579 setClosed() function has parameter of type long
+580 setClosed() function has parameter of type boolean
+581 setClosed() function returns type QuestioningCommand
+582 find() function has parameter of type long
+583 find() function returns type LoadResult
+584 constructor sets member variables jsonDTOData, workerHandle
+585 class has member field called workerHandle
+586 class has member field workerHandle of type String
+587 class extends class QuestioningCommand
+588 call to constructor of Question is made in execute()
+589 execute() function has parameter of type Questioning
+590 call to constructor of Answer is made in execute()
+591 call to constructor of Comment is made in execute()
+592 constructor sets member variables jsonDTO
+593 class has member field called jsonDTO
+594 class has member field jsonDTO of type String
+595 constructor sets member variables questionId
+596 class has member field called questionId
+597 class has member field questionId of type long
+598 call to constructor of QuestionViewed is made in execute()
+599 constructor sets member variables remove
+600 class has member field called remove
+601 class has member field remove of type boolean
+602 constructor sets member variables artifactId, remove
+603 class has member field called artifactId
+604 class has member field artifactId of type String
+605 constructor sets member variables closed
+606 class has member field called closed
+607 class has member field closed of type boolean
