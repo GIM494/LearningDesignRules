@@ -1,0 +1,278 @@
+Grouping: ADTCommand
+
+1 child class has non-empty-body constructor
+92 child constructor stores all parameters as member variables
+976 child class has public function execute()
+978 child class has void function execute()
+980 is protected class
+1441 child class overrides function execute() in parent class
+
+1 976 978 #SUP: 8
+1 92 976 978 #SUP: 5
+1 976 978 980 1441 #SUP: 7
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())*Could also be found within Command
+
+Commands should persist all data they are given	IF extends Command	THEN constructor stores all params as member variables
+*Not actually found here because grouping implies extends ADTCommand,
+not Command. ADTCommand extends Command.
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: Command
+
+1 child class has non-empty-body constructor
+976 child class has public function execute()
+978 child class has void function execute()
+980 is protected class
+
+1 976 978 #SUP: 61
+1 976 978 980 #SUP: 54
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())
+*Could also be found within ADTCommand, FunctionCommand, MicrotaskCommand,
+ProjectCommand, QuestioningCommand, or TestCommand
+
+Rules that /could/ be found:
+Commands should not be publicly visible
+	IF extends Command	THEN is protected class / “not public”Rules NOT found:Commands should persist all data they are given	IF extends Command	THEN constructor stores all params as member variables
+*Gets lost because it only occurs in children and some grandchildren.
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: FunctionCommand
+
+1 child class has non-empty-body constructor
+976 child class has public function execute()
+978 child class has void function execute()
+980 is protected class
+1255 execute() function has parameters of types Function, String
+1441 child class overrides function execute() in parent class
+
+1 976 978 #SUP: 16
+1 976 978 980 1441 #SUP: 15
+1 976 978 980 1255 1441 #SUP: 13
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())*Could also be found within Command
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: Microtask
+
+1 child class has non-empty-body constructor
+4 child class has member field of type String
+6 is public class
+12 child class defines constructor with no parameters
+63 child class has empty-body constructor
+94 child class has member field of type int
+140 child class has member field of type long
+352 child class with annotation @Subclass with 
+index = true
+372 child class has public function getKey()
+373 getKey() function returns output from function call
+374 getKey() function returns type Key
+471 child class has member field of type Ref
+481 child class has public function copy()
+483 copy() function calls constructor in return statement
+484 copy() function returns output from function call
+487 copy() function returns type Microtask
+488 child class has protected function doSubmitWork()
+490 doSubmitWork() function has parameters of types DTO, String
+491 child class has void function doSubmitWork()
+492 child class has protected function getDTOClass()
+493 getDTOClass() function returns type Class
+496 child class has public function getOwningArtifact()
+498 getOwningArtifact() function returns type Artifact
+499 child class has public function microtaskTitle()
+500 microtaskTitle() function returns type String
+501 child class has public function microtaskDescription()
+502 microtaskDescription() function returns type String
+503 child class overrides function copy() in parent class
+504 child class overrides function doSubmitWork() in parent class
+505 child class overrides function getDTOClass() in parent class
+506 child class overrides function getKey() in parent class
+507 child class overrides function getOwningArtifact() in parent class
+508 child class overrides function microtaskDescription() in parent class
+509 child class overrides function microtaskTitle() in parent class
+538 copy() function has parameters of types String
+
+1 4 6 12 63 372 374 481 487 488 490 491 492 493 496 498 499 500 501 502 #SUP: 5
+1 4 6 12 63 94 140 372 374 481 487 488 490 491 492 493 496 498 499 500 501 502 538 #SUP: 3
+1 4 6 12 63 352 372 373 374 471 481 483 484 487 488 490 491 492 493 496 497 498 499 500 501 502 503 504 505 506 507 508 509 #SUP: 4
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: MicrotaskCommand
+
+1 child class has non-empty-body constructor
+4 child class has member field of type String
+976 child class has public function execute()
+978 child class has void function execute()
+1038 execute() function has parameters of types Microtask, String
+1441 child class overrides function execute() in parent class
+
+1 976 978 #SUP: 7
+1 4 976 978 980 1038 1441 #SUP: 6
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())*Could also be found within Command
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: MicrotaskInFirebase
+
+1 child class has non-empty-body constructor
+4 child class has member field of type String
+6 is public class
+12 child class defines constructor with no parameters
+63 child class has empty-body constructor
+214 child class has member field of type Long
+
+1 4 6 12 63 #SUP: 5
+1 4 6 12 63 214 #SUP: 3
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: NotificationInFirebase
+
+1 child class has non-empty-body constructor
+4 child class has member field of type String
+6 is public class
+12 child class defines constructor with no parameters
+63 child class has empty-body constructor
+
+1 4 6 12 63 #SUP: 7
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: ProjectCommand
+
+1 child class has non-empty-body constructor
+4 child class has member field of type String
+976 child class has public function execute()
+978 child class has void function execute()
+980 is protected class
+1146 execute() function has parameters of types Project
+1441 child class overrides function execute() in parent class
+
+1 976 978 #SUP: 14
+1 4 976 978 980 1146 1441 #SUP: 9
+1 92 976 978 980 1146 1441 #SUP: 10
+1 976 978 980 1146 1441 #SUP: 13
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())*Could also be found within Command
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: QuestioningCommand
+
+1 child class has non-empty-body constructor
+976 child class has public function execute()
+978 child class has void function execute()
+980 is protected class
+1425 execute() function has parameters of types Questioning, String
+1441 child class overrides function execute() in parent class
+
+1 976 978 #SUP: 14
+1 976 978 980 1425 1441 #SUP: 13
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())*Could also be found within Command
+
+
+————————————————————————————————————————————————————————————————————
+
+
+Grouping: TestCommand
+
+1 child class has non-empty-body constructor
+92 child constructor stores all parameters as member variables
+976 child class has public function execute()
+978 child class has void function execute()
+980 is protected class
+1441 child class overrides function execute() in parent class
+
+1 976 978 #SUP: 8
+1 92 976 978 #SUP: 5
+1 976 978 980 1441 #SUP: 7
+
+Rules found:
+Commands must implement execute
+	IF extends Command
+	THEN has execute())*Could also be found within Command
+
+Commands should persist all data they are given	IF extends Command	THEN constructor stores all params as member variables
+*Not actually found here because grouping implies extends TestCommand,
+not Command. TestCommand extends Command.
+
+
+————————————————————————————————————————————————————————————————————
+————————————————————————————————————————————————————————————————————
+————————————————————————————————————————————————————————————————————
+
+Rules not found (that were previously found):
+
+(1)
+Artifacts should be marked as a data region with an @Entity annotation	IF an object is an artifact subclass	THEN it needs to be an entity.
+*There is no Artifact grouping because there aren’t enough classes that
+extend Artifact to make an actual grouping (4 classes).
+
+(2)
+Artifacts should be marked for persistence with an @Entity annotation	IF an object is an artifact subclass	THEN it needs to be an entity.*Same as above.
+
+(3)
+@Entity classes must have an @id field	IF a class has an @Entity annotation	THEN it must have a field annotated with @Id.*No features are reported about @Entity annotations within these groupings.
+
+(4)
+Subclasses of @Entity classes must be indexed	IF has @Subclass annotation	THEN has index ('index=true').*There’s no real way to model this… Might need grouping based on annotations
+(this is how we grouped them previously).
+
+(5)
+@Entity classes must have a zero-argument constructor	IF a class is an entity	THEN it needs to have a zero-argument constructor.*Again, no features are reported about @Entity annotations within these groupings.
+
+(6)
+DTOs must have a zero-argument constructor	IF a class is a DTO object	THEN it needs to have a zero-argument constructor with an empty body
+*There is no DTO grouping.
+
+------------------------------
+
+General Comments:
+
+(A) We lost several rules that we found previously because the attributes occurred few enough times in the original codebase that they could not be identified as frequent attributes when we have such low support. These rules largely had to do with annotations; one thing that mitigate this problem would be outputting databases where each row represents classes that have the same annotation. We also previously mentioned outputting databases based off of features in functions, which might also work well. Outputting attributes for all classes that share similar annotations may work better than outputting attributes for all classes that share a particular function.
+
+(B) While we didn't capture all the rules that we wished to capture from the example rule document, we still produced rules that were interesting/informative in general. We might need to add in different ways of searching/producing databases; however, this does demonstrate that we can find interesting rules outside the ones we expected, which is important to consider for not overfitting to our data.
+
+
+
+

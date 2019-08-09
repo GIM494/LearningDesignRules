@@ -1,0 +1,1444 @@
+1 child class has non-empty-body constructor
+2 child class defines constructor with parameters of types Artifact
+3 child class has member field called eventType
+4 child class has member field of type String
+5 child class has member field eventType of type String
+6 is public class
+7 child class has public function getEventType()
+8 getEventType() function returns type String
+9 child class overrides function getEventType() in parent class
+10 child constructor sets member variables artifactID, artifactName, artifactType, timeInMillis, timestamp
+11 call to constructor of Date is made in child class constructor
+12 child class defines constructor with no parameters
+13 child class has member field called parentID
+14 child class has member field parentID of type String
+15 child class has member field called artifactType
+16 child class has member field artifactType of type String
+17 child class has member field called artifactID
+18 child class has member field artifactID of type String
+19 child class has member field called artifactName
+20 child class has member field artifactName of type String
+21 child class has member field called timestamp
+22 child class has member field timestamp of type String
+23 child class has member field called timeInMillis
+24 child class has member field timeInMillis of type String
+25 child class has protected function setArtifact()
+26 setArtifact() function has parameters of types Artifact
+27 child class has void function setArtifact()
+28 child class has public function generateID()
+29 generateID() function returns type String
+30 child constructor sets member variables messageType
+31 child class defines constructor with parameters of types Artifact, String
+32 child class has member field called messageType
+33 child class has member field messageType of type String
+34 child constructor sets member variables workerID
+35 child class defines constructor with parameters of types Microtask, String
+36 child class has member field called workerID
+37 child class has member field workerID of type String
+38 child class defines constructor with parameters of types Microtask
+39 child class has member field called microtaskType
+40 child class has member field microtaskType of type String
+41 child class has member field called microtaskKey
+42 child class has member field microtaskKey of type String
+43 child constructor sets member variables timeWorkedOn, workerID
+44 child class has member field called timeWorkedOn
+45 child class has member field timeWorkedOn of type String
+46 child constructor sets member variables projectID
+47 child class defines constructor with parameters of types Project
+48 child class has member field called projectID
+49 child class has member field projectID of type String
+50 child constructor sets member variables propertyName, propertyValue
+51 child class has member field called propertyName
+52 child class has member field propertyName of type String
+53 child class has member field called propertyValue
+54 child class has member field propertyValue of type String
+55 child constructor sets member variables projectId, questionId, workerId
+56 child class defines constructor with parameters of types Long, String
+57 child class has member field called projectId
+58 child class has member field projectId of type String
+59 child class has member field called questionId
+60 child class has member field questionId of type String
+61 child class has member field called workerId
+62 child class has member field workerId of type String
+63 child class has empty-body constructor
+64 child class has member field called events
+65 child class has member field of type List
+66 child class has member field events of type List
+67 child class has public function addEvent()
+68 addEvent() function has parameters of types HistoryEvent
+69 child class has void function addEvent()
+70 child class has public function toString()
+71 toString() function returns type String
+72 child class has member field called challengeText
+73 child class has member field challengeText of type String
+74 child class has member field called functions
+75 child class has member field functions of type List
+76 child class has member field called ADTs
+77 child class has member field ADTs of type List
+78 child class does not define constructor
+79 child class has public function json()
+80 json() function returns output from function call
+81 json() function returns output from function call to json
+82 json() function returns type String
+83 child class has protected static function json()
+84 call to constructor of ObjectMapper is made in json()
+85 json() function has parameters of types Object
+86 child class has public static function read()
+87 call to constructor of ObjectMapper is made in read()
+88 read() function has parameters of types Class, String
+89 read() function returns type DTO
+90 child constructor sets member variables name, priority, score
+91 child class defines constructor with parameters of types String, int
+92 child constructor stores all parameters as member variables
+93 child class has member field called score
+94 child class has member field of type int
+95 child class has member field score of type int
+96 child class has member field called name
+97 child class has member field name of type String
+98 child class has member field called priority
+99 child class has member field called priority with annotation @JsonProperty with 
+".priority" 
+100 child class has member field of type double
+101 child class has member field priority of type double
+102 child constructor sets member variables queue
+103 child class defines constructor with parameters of types LinkedList
+104 child class has member field called queue
+105 child class has member field queue of type List
+106 toString() function returns output from function call
+107 child constructor sets member variables awardedPoints, canBeChallenged, challengeStatus, maxPoints, microtaskKey, microtaskType, score, timeInMillis, type
+108 child class defines constructor with parameters of types String, boolean, int
+109 child class has member field called awardedPoints
+110 child class has member field awardedPoints of type int
+111 child class has member field called maxPoints
+112 child class has member field maxPoints of type int
+113 child class has member field called type
+114 child class has member field type of type String
+115 child class has member field called challengeStatus
+116 child class has member field challengeStatus of type String
+117 child class has member field called canBeChallenged
+118 child class has member field of type boolean
+119 child class has member field canBeChallenged of type boolean
+120 child constructor sets member variables artifactsId
+121 child class defines constructor with parameters of types List
+122 child class has member field called artifactsId
+123 child class has member field artifactsId of type List
+124 child constructor sets member variables level, listOfAchievements, microtaskHistory, nickname, score, userid
+125 child class defines constructor with parameters of types HashMap, List, String, int
+126 child class has member field called nickname
+127 child class has member field nickname of type String
+128 child class has member field called userid
+129 child class has member field userid of type String
+130 child class has member field called listOfAchievements
+131 child class has member field listOfAchievements of type List
+132 child class has member field called microtaskHistory
+133 child class has member field of type HashMap
+134 child class has member field microtaskHistory of type HashMap
+135 child class has member field called level
+136 child class has member field level of type int
+137 child constructor sets member variables createdAt, id, ownerHandle, ownerId, score, text
+138 child class defines constructor with parameters of types String, int, long
+139 child class has member field called id
+140 child class has member field of type long
+141 child class has member field id of type long
+142 child class has member field called text
+143 child class has member field text of type String
+144 child class has member field called ownerId
+145 child class has member field ownerId of type String
+146 child class has member field called ownerHandle
+147 child class has member field ownerHandle of type String
+148 child class has member field called createdAt
+149 child class has member field createdAt of type long
+150 child class has member field called votersId
+151 child class has member field votersId of type List
+152 child class has member field called reportersId
+153 child class has member field reportersId of type List
+154 child class has member field called commentsId
+155 child class has member field commentsId of type List
+156 child constructor sets member variables reportersId
+157 child constructor sets member variables subscribersId
+158 child class has member field called subscribersId
+159 child class has member field subscribersId of type List
+160 child constructor sets member variables tags
+161 child class has member field called tags
+162 child class has member field tags of type List
+163 child constructor sets member variables votersId
+164 child constructor sets member variables questionId, text, workerHandle
+165 child class defines constructor with parameters of types String, long
+166 child class has member field questionId of type long
+167 child class has member field called workerHandle
+168 child class has member field workerHandle of type String
+169 child constructor sets member variables condition, message, requirement
+170 child class has member field called message
+171 child class has member field message of type String
+172 child class has member field called condition
+173 child class has member field condition of type String
+174 child class has member field called requirement
+175 child class has member field requirement of type int
+176 child constructor sets member variables answersCount, artifactsId, closed, commentsCount, createdAt, id, ownerHandle, ownerId, score, subscribersId, tags, text, title, updatedAt, version
+177 child class defines constructor with parameters of types List, String, boolean, int, long
+178 child class has member field called title
+179 child class has member field title of type String
+180 child class has member field called updatedAt
+181 child class has member field updatedAt of type long
+182 child class has member field called answersCount
+183 child class has member field answersCount of type long
+184 child class has member field called commentsCount
+185 child class has member field commentsCount of type long
+186 child class has member field called closed
+187 child class has member field closed of type boolean
+188 child class has member field called version
+189 child class has member field version of type long
+190 child class has member field called answersId
+191 child class has member field answersId of type List
+192 child constructor sets member variables artifactName, microtaskId, microtaskType
+193 child class defines constructor with parameters of types String
+194 child class has member field called microtaskId
+195 child class has member field microtaskId of type String
+196 child constructor sets member variables answerId, questionId, text, workerHandle
+197 child class has member field called answerId
+198 child class has member field answerId of type long
+199 child constructor sets member variables questionId, title
+200 child constructor sets member variables time, type
+201 child class has member field called time
+202 child class has member field time of type long
+203 child constructor sets member variables challengeText, microtaskKeyUnderChallenge
+204 child class defines constructor with parameters of types Key, Long, String, int, long
+205 child class has member field called microtaskKeyUnderChallenge
+206 child class has member field microtaskKeyUnderChallenge of type String
+207 child constructor sets member variables disputeText, promptType, testId
+208 child class defines constructor with parameters of types Long, String, int, long
+209 child class has member field called promptType
+210 child class has member field promptType of type String
+211 child class has member field called testId
+212 child class has member field testId of type long
+213 child class has member field called calleeId
+214 child class has member field of type Long
+215 child class has member field calleeId of type Long
+216 child class has member field called oldCalleeVersion
+217 child class has member field of type Integer
+218 child class has member field oldCalleeVersion of type Integer
+219 child class has member field called disputeText
+220 child class has member field disputeText of type String
+221 child constructor sets member variables disputedTests, promptType
+222 child class defines constructor with parameters of types List, Long, String, int, long
+223 child class has member field called oldFunctionVersion
+224 child class has member field oldFunctionVersion of type Integer
+225 child class has member field called oldADTVersion
+226 child class has member field oldADTVersion of type Integer
+227 child class has member field called ADTId
+228 child class has member field ADTId of type Long
+229 child class has member field called disputedTests
+230 child class has member field disputedTests of type List
+231 child constructor sets member variables completed, functionId, id, owningArtifact, owningArtifactId, points, title, type
+232 child class has member field called owningArtifactId
+233 child class has member field owningArtifactId of type Long
+234 child class has member field called owningArtifact
+235 child class has member field owningArtifact of type String
+236 child class has member field called completed
+237 child class has member field completed of type boolean
+238 child class has member field called points
+239 child class has member field points of type int
+240 child class has member field called functionId
+241 child class has member field functionId of type Long
+242 child constructor sets member variables reissueMotivation, reissuedMicrotaskKey
+243 child class has member field called reissuedMicrotaskKey
+244 child class has member field reissuedMicrotaskKey of type String
+245 child class has member field called reissueMotivation
+246 child class has member field reissueMotivation of type String
+247 child constructor sets member variables microtaskKeyUnderReview
+248 child class has member field called microtaskKeyUnderReview
+249 child class has member field microtaskKeyUnderReview of type String
+250 child constructor sets member variables qualityScore, reviewKey, reviewText
+251 child class defines constructor with parameters of types Key, String, int
+252 child class has member field called qualityScore
+253 child class has member field qualityScore of type int
+254 child class has member field called reviewText
+255 child class has member field reviewText of type String
+256 child class has member field called reviewKey
+257 child class has member field reviewKey of type String
+258 child constructor sets member variables code, description, functionId, id, isApiArtifact, isDeleted, isReadOnly, isSimple, version
+259 child class defines constructor with parameters of types String, boolean, double, int, long
+260 child class has member field version of type int
+261 child class has member field called description
+262 child class has member field description of type String
+263 child class has member field called code
+264 child class has member field code of type String
+265 child class has member field functionId of type long
+266 child class has member field called isReadOnly
+267 child class has member field isReadOnly of type boolean
+268 child class has member field called isApiArtifact
+269 child class has member field isApiArtifact of type boolean
+270 child class has member field called isDeleted
+271 child class has member field isDeleted of type boolean
+272 child class has member field called creationTime
+273 child class has member field creationTime of type double
+274 child class has member field called isSimple
+275 child class has member field isSimple of type boolean
+276 child constructor sets member variables description, id, isApiArtifact, isDeleted, isReadOnly, name, version
+277 call to constructor of ADTStructureDTO is made in child class constructor
+278 call to constructor of ADTExampleDTO is made in child class constructor
+279 child class defines constructor with parameters of types HashMap, String, boolean, int, long
+280 child class has member field called structure
+281 child class has member field structure of type List
+282 child class has member field called examples
+283 child class has member field examples of type List
+284 child class has member field called areTestsPassed
+285 child class has member field areTestsPassed of type boolean
+286 child class has member field called failedTestId
+287 child class has member field failedTestId of type long
+288 child class has member field called passedTestsId
+289 child class has member field passedTestsId of type List
+290 child constructor sets member variables ADTsId, calleesId, code, description, header, id, isApiArtifact, isDeleted, linesOfCode, name, returnType, testSuiteVersion, version
+291 call to constructor of FunctionParameterDTO is made in child class constructor
+292 child class has member field called returnType
+293 child class has member field returnType of type String
+294 child class has member field called parameters
+295 child class has member field parameters of type List
+296 child class has member field called header
+297 child class has member field header of type String
+298 child class has member field called linesOfCode
+299 child class has member field linesOfCode of type int
+300 child class has member field called ADTsId
+301 child class has member field ADTsId of type List
+302 child class has member field called calleesId
+303 child class has member field calleesId of type List
+304 child class has member field called testSuiteVersion
+305 child class has member field testSuiteVersion of type int
+306 child constructor sets member variables description, id, inputs, isApiArtifact, isDeleted, isReadOnly, isSimple, output, version
+307 child class has member field called inputs
+308 child class has member field inputs of type List
+309 child class has member field called output
+310 child class has member field output of type String
+311 child class has member field called artifactId
+312 child class has member field artifactId of type String
+313 child constructor sets member variables name, value
+314 child class has member field called value
+315 child class has member field value of type String
+316 child class has member field called isChallengeWon
+317 child class has member field of type Boolean
+318 child class has member field isChallengeWon of type Boolean
+319 child constructor sets member variables name, type
+320 child class has public function getStructure()
+321 getStructure() function returns type HashMap
+322 child class has public function getExamples()
+323 getExamples() function returns type HashMap
+324 child class has member field called functionVersion
+325 child class has member field functionVersion of type int
+326 child class has member field called tests
+327 child class has member field tests of type List
+328 child class has member field called isDescribeComplete
+329 child class has member field isDescribeComplete of type boolean
+330 child class has member field called disputeFunctionText
+331 child class has member field disputeFunctionText of type String
+332 child class has member field id of type Long
+333 child class has member field called callees
+334 child class has member field callees of type List
+335 child constructor sets member variables description, name, type
+336 child class has member field called fromDisputedMicrotask
+337 child class has member field fromDisputedMicrotask of type boolean
+338 child class has member field called function
+339 child class has member field of type FunctionDTO
+340 child class has member field function of type FunctionDTO
+341 child class has member field called requestedADTs
+342 child class has member field requestedADTs of type List
+343 child class has member field called requestedFunctions
+344 child class has member field requestedFunctions of type List
+345 child constructor sets member variables disputeText, id
+346 child class has member field called deleted
+347 child class has member field deleted of type boolean
+348 child class has member field called added
+349 child class has member field added of type boolean
+350 child class has member field called edited
+351 child class has member field edited of type boolean
+352 child class with annotation @Subclass with 
+index = true 
+353 child constructor sets member variables firebasePath, points, questionId
+354 call to constructor of AnswerInFirebase is made in child class constructor
+355 call to constructor of AnswerNotificationInFirebase is made in child class constructor
+356 child class has member field questionId of type Long
+357 child constructor sets member variables answerId, firebasePath, points, questionId
+358 call to constructor of CommentNotificationInFirebase is made in child class constructor
+359 child class has member field answerId of type Long
+360 child class with annotation @Entity
+361 child constructor sets member variables createdAt, isReported, ownerHandle, ownerId, projectId, score, text, updatedAt
+362 child class has member field called id with annotation @Id
+363 child class has member field called projectId with annotation @Index
+364 child class has member field called removedVotersId
+365 child class has member field removedVotersId of type List
+366 child class has member field called isReported
+367 child class has member field isReported of type boolean
+368 child class has member field called subsribersId
+369 child class has member field subsribersId of type List
+370 child class has member field called firebasePath
+371 child class has member field firebasePath of type String
+372 child class has public function getKey()
+373 getKey() function returns output from function call
+374 getKey() function returns type Key
+375 child class has public static function getKey()
+376 getKey() function has parameters of types Long
+377 child class has public function getID()
+378 getID() function returns type long
+379 child class has public function addVote()
+380 call to constructor of VotersIdInFirebase is made in addVote()
+381 call to constructor of ReportersIdInFirebase is made in addVote()
+382 addVote() function has parameters of types String
+383 child class has void function addVote()
+384 child class has public function removeVote()
+385 call to constructor of VotersIdInFirebase is made in removeVote()
+386 removeVote() function has parameters of types String
+387 child class has void function removeVote()
+388 child class has public function addReport()
+389 call to constructor of VotersIdInFirebase is made in addReport()
+390 call to constructor of ReportersIdInFirebase is made in addReport()
+391 addReport() function has parameters of types String
+392 child class has void function addReport()
+393 child class has public function removeReport()
+394 call to constructor of ReportersIdInFirebase is made in removeReport()
+395 removeReport() function has parameters of types String
+396 child class has void function removeReport()
+397 child class has private function updateScore()
+398 updateScore() function modifies member variablethis
+399 child class has void function updateScore()
+400 child class has public function notifySubscribers()
+401 notifySubscribers() function has parameters of types NotificationInFirebase, String
+402 child class has void function notifySubscribers()
+403 child constructor sets member variables answersCount, commentsCount, firebasePath, points, tags, title, version
+404 call to constructor of QuestionNotificationInFirebase is made in child class constructor
+405 child class defines constructor with parameters of types List, String
+406 child class has public function getTitle()
+407 getTitle() function returns type String
+408 child class has public function setTitle()
+409 setTitle() function has parameters of types String
+410 setTitle() function modifies member variablethis
+411 child class has void function setTitle()
+412 child class has public function setText()
+413 setText() function has parameters of types String
+414 setText() function modifies member variablethis
+415 child class has void function setText()
+416 child class has public function setTags()
+417 setTags() function has parameters of types List
+418 setTags() function modifies member variablethis
+419 child class has void function setTags()
+420 child class has public function addArtifactLink()
+421 call to constructor of ArtifactsIdInFirebase is made in addArtifactLink()
+422 addArtifactLink() function has parameters of types String
+423 child class has void function addArtifactLink()
+424 child class has public function removeArtifactLink()
+425 call to constructor of ArtifactsIdInFirebase is made in removeArtifactLink()
+426 removeArtifactLink() function has parameters of types String
+427 child class has void function removeArtifactLink()
+428 child class has public function unsubscribeWorker()
+429 call to constructor of SubscribersInFirebase is made in unsubscribeWorker()
+430 unsubscribeWorker() function has parameters of types String
+431 child class has void function unsubscribeWorker()
+432 child class has public function subscribeWorker()
+433 call to constructor of SubscribersInFirebase is made in subscribeWorker()
+434 subscribeWorker() function has parameters of types String
+435 child class has void function subscribeWorker()
+436 child class has public function setClosed()
+437 setClosed() function has parameters of types boolean
+438 setClosed() function modifies member variablethis
+439 child class has void function setClosed()
+440 child class has public function incrementAnswers()
+441 child class has void function incrementAnswers()
+442 child class has public function incrementComments()
+443 child class has void function incrementComments()
+444 child class has public function getUpdatedAt()
+445 getUpdatedAt() function returns type long
+446 child class has public function getAnswers()
+447 getAnswers() function returns type long
+448 child class has public function getComments()
+449 getComments() function returns type long
+450 child class has public function getVersion()
+451 getVersion() function returns type long
+452 child class has public function getTags()
+453 getTags() function returns type List
+454 child class has public function save()
+455 save() function modifies member variablethis
+456 child class has void function save()
+457 child class has public function storeVersionToFirebase()
+458 call to constructor of QuestionInFirebase is made in storeVersionToFirebase()
+459 child class has void function storeVersionToFirebase()
+460 child class has private function storeToFirebase()
+461 call to constructor of QuestionInFirebase is made in storeToFirebase()
+462 child class has void function storeToFirebase()
+463 child constructor sets member variables artifact, challengeText, challengeeWorkerId, challengerWorkerId, microtaskKeyUnderChallenge, reviewKeyUnderChallenge, submitValue
+464 call to constructor of ChallengeReviewInFirebase is made in child class constructor
+465 call to constructor of ChallengeNotificationInFirebase is made in child class constructor
+466 call to constructor of MicrotaskSpawned is made in child class constructor
+467 child class defines constructor with parameters of types Key, String, long
+468 child class has member field called artifact
+469 child class has member field called artifact with annotation @Parent
+470 child class has member field called artifact with annotation @Load
+471 child class has member field of type Ref
+472 child class has member field artifact of type Ref
+473 child class has member field of type Key
+474 child class has member field microtaskKeyUnderChallenge of type Key
+475 child class has member field called challengeeWorkerId
+476 child class has member field challengeeWorkerId of type String
+477 child class has member field called challengerWorkerId
+478 child class has member field challengerWorkerId of type String
+479 child class has member field called reviewKeyUnderChallenge
+480 child class has member field reviewKeyUnderChallenge of type Key
+481 child class has public function copy()
+482 call to constructor of ChallengeReview is made in copy()
+483 copy() function calls constructor in return statement
+484 copy() function returns output from function call
+485 copy() function returns output from function call to ChallengeReview
+486 copy() function has parameters of types Long, String
+487 copy() function returns type Microtask
+488 child class has protected function doSubmitWork()
+489 call to constructor of ChallengeNotificationInFirebase is made in doSubmitWork()
+490 doSubmitWork() function has parameters of types DTO, String
+491 child class has void function doSubmitWork()
+492 child class has protected function getDTOClass()
+493 getDTOClass() function returns type Class
+494 child class has public function getMicrotaskUnderChallengeKey()
+495 getMicrotaskUnderChallengeKey() function returns type Key
+496 child class has public function getOwningArtifact()
+497 getOwningArtifact() function returns output from function call
+498 getOwningArtifact() function returns type Artifact
+499 child class has public function microtaskTitle()
+500 microtaskTitle() function returns type String
+501 child class has public function microtaskDescription()
+502 microtaskDescription() function returns type String
+503 child class overrides function copy() in parent class
+504 child class overrides function doSubmitWork() in parent class
+505 child class overrides function getDTOClass() in parent class
+506 child class overrides function getKey() in parent class
+507 child class overrides function getOwningArtifact() in parent class
+508 child class overrides function microtaskDescription() in parent class
+509 child class overrides function microtaskTitle() in parent class
+510 child constructor sets member variables promptType
+511 child class defines constructor with parameters of types Ref, String, long
+512 child constructor sets member variables oldFunctionVersion, promptType
+513 child class defines constructor with parameters of types Ref, String, int, long
+514 child constructor sets member variables ADTId, oldADTVersion, promptType
+515 child class defines constructor with parameters of types List, Ref, String, long
+516 child constructor sets member variables calleeId, oldCalleeVersion, promptType
+517 child class has member field called functionRef
+518 child class has member field called functionRef with annotation @Parent
+519 child class has member field called functionRef with annotation @Load
+520 child class has member field functionRef of type Ref
+521 child class has member field called functionName
+522 child class has member field functionName of type String
+523 child class has member field of type PromptType
+524 child class has member field promptType of type PromptType
+525 child class has member field oldFunctionVersion of type int
+526 child class has member field oldADTVersion of type int
+527 child class has member field ADTId of type long
+528 child class has member field oldCalleeVersion of type int
+529 child class has member field calleeId of type long
+530 child class has private function describeFunctionBehavior()
+531 call to constructor of DescribeFunctionBehaviourInFirebase is made in describeFunctionBehavior()
+532 call to constructor of MicrotaskSpawned is made in describeFunctionBehavior()
+533 describeFunctionBehavior() function has parameters of types Ref, String, long
+534 describeFunctionBehavior() function modifies member variablethis
+535 child class has void function describeFunctionBehavior()
+536 call to constructor of DescribeFunctionBehavior is made in copy()
+537 copy() function returns output from function call to DescribeFunctionBehavior
+538 copy() function has parameters of types String
+539 child class has public function getPromptType()
+540 getPromptType() function returns type PromptType
+541 child constructor sets member variables promptType, testId
+542 child class defines constructor with parameters of types Function, String, long
+543 child class defines constructor with parameters of types Function, String, int, long
+544 child constructor sets member variables calleeId, disputeText, promptType
+545 child constructor sets member variables disputeText, promptType
+546 child class defines constructor with parameters of types Function, String
+547 child class has member field called function with annotation @Parent
+548 child class has member field called function with annotation @Load
+549 child class has member field function of type Ref
+550 child class has member field called disputeId
+551 child class has member field disputeId of type long
+552 call to constructor of ImplementBehavior is made in copy()
+553 copy() function returns output from function call to ImplementBehavior
+554 child class has private function implementBehavior()
+555 call to constructor of ImplementBehaviorInFirebase is made in implementBehavior()
+556 call to constructor of MicrotaskSpawned is made in implementBehavior()
+557 implementBehavior() function has parameters of types Function, String
+558 implementBehavior() function modifies member variablethis
+559 child class has void function implementBehavior()
+560 child class has public function getFunction()
+561 getFunction() function returns output from function call
+562 getFunction() function returns type Function
+563 child constructor sets member variables artifact, initiallySubmittedDTO, microtaskKeyUnderReview, submitValue, workerOfReviewedWork
+564 call to constructor of ReviewInFirebase is made in child class constructor
+565 child class defines constructor with parameters of types Key, Long, String
+566 child class has member field microtaskKeyUnderReview of type Key
+567 child class has member field called workerOfReviewedWork
+568 child class has member field workerOfReviewedWork of type String
+569 child class has member field called initiallySubmittedDTO
+570 child class has member field initiallySubmittedDTO of type String
+571 call to constructor of Review is made in copy()
+572 copy() function returns output from function call to Review
+573 call to constructor of ReviewSubmissionInFirebase is made in doSubmitWork()
+574 call to constructor of MicrotaskReissued is made in doSubmitWork()
+575 call to constructor of MicrotaskAccepted is made in doSubmitWork()
+576 child class has public function getWorkerOfReviewedWork()
+577 getWorkerOfReviewedWork() function returns type String
+578 child class has public function getMicrotaskKeyUnderReview()
+579 getMicrotaskKeyUnderReview() function returns type Key
+580 child class has public function getUIURL()
+581 getUIURL() function returns type String
+582 child class overrides function getUIURL() in parent class
+583 child constructor sets member variables functionId, projectId, projectId, workerId
+584 child class has member field called DEFAULT_SUBMIT_VALUE
+585 child class has member field DEFAULT_SUBMIT_VALUE of type int
+586 child class has member field called assigned
+587 child class has member field assigned of type boolean
+588 child class has member field called queued
+589 child class has member field queued of type boolean
+590 child class has member field called reissuedFrom
+591 child class has member field reissuedFrom of type String
+592 child class has member field called submitValue
+593 child class has member field submitValue of type int
+594 child class has member field called assignmentTimeInMillis
+595 child class has member field assignmentTimeInMillis of type long
+596 child class has public static public function keyToString()
+597 keyToString() function has parameters of types Key
+598 keyToString() function returns type String
+599 child class has public static public function stringToKey()
+600 stringToKey() function has parameters of types String
+601 stringToKey() function returns type Key
+602 child class has public function getWorkerId()
+603 getWorkerId() function returns type String
+604 child class has public function getFunctionId()
+605 getFunctionId() function returns type Long
+606 child class has public function setWorkerId()
+607 setWorkerId() function has parameters of types String
+608 setWorkerId() function modifies member variablethis
+609 child class has void function setWorkerId()
+610 call to constructor of RuntimeException is made in copy()
+611 child class has protected function isStillNeeded()
+612 isStillNeeded() function has parameters of types Project
+613 isStillNeeded() function returns type boolean
+614 child class has public function submit()
+615 submit() function has parameters of types String, int
+616 child class has void function submit()
+617 child class has public function revise()
+618 call to constructor of ReissueInFirebase is made in revise()
+619 revise() function has parameters of types String, int
+620 revise() function modifies member variablethis
+621 child class has void function revise()
+622 child class has public function skip()
+623 call to constructor of MicrotaskSkipped is made in skip()
+624 skip() function has parameters of types String, boolean
+625 skip() function modifies member variablethis
+626 child class has void function skip()
+627 call to constructor of RuntimeException is made in getKey()
+628 call to constructor of RuntimeException is made in doSubmitWork()
+629 call to constructor of RuntimeException is made in getDTOClass()
+630 call to constructor of RuntimeException is made in getOwningArtifact()
+631 call to constructor of RuntimeException is made in microtaskTitle()
+632 call to constructor of RuntimeException is made in microtaskDescription()
+633 child class has public function microtaskName()
+634 microtaskName() function returns output from function call
+635 microtaskName() function returns type String
+636 child class has public function assignmentTimeInMillis()
+637 assignmentTimeInMillis() function returns type long
+638 child class has public function setReissuedFrom()
+639 setReissuedFrom() function has parameters of types String
+640 setReissuedFrom() function modifies member variablethis
+641 child class has void function setReissuedFrom()
+642 child class has public function getSubmitValue()
+643 getSubmitValue() function returns type int
+644 child class has public static function find()
+645 find() function returns output from function call
+646 find() function returns output from function call to ofy
+647 find() function has parameters of types Key
+648 find() function returns type LoadResult
+649 child class has public function toJSON()
+650 call to constructor of JSONObject is made in toJSON()
+651 toJSON() function returns output from function call
+652 toJSON() function returns output from function call to toJSON
+653 toJSON() function returns type String
+654 toJSON() function has parameters of types JSONObject
+655 child class has public function isAssignedTo()
+656 isAssignedTo() function has parameters of types String
+657 isAssignedTo() function returns type boolean
+658 child class with annotation @SuppressWarnings with 
+"serial" 
+659 child class has member field called microtaskTypes
+660 child class has member field microtaskTypes of type HashMap
+661 child class has public function doPost()
+662 doPost() function has parameters of types HttpServletRequest, HttpServletResponse
+663 child class has void function doPost()
+664 child class has public function doGet()
+665 doGet() function has parameters of types HttpServletRequest, HttpServletResponse
+666 child class has void function doGet()
+667 child class has private function doAction()
+668 call to constructor of User is made in doAction()
+669 doAction() function has parameters of types HttpServletRequest, HttpServletResponse
+670 child class has void function doAction()
+671 child class has private function doUser()
+672 doUser() function has parameters of types HttpServletRequest, HttpServletResponse, String, User
+673 child class has void function doUser()
+674 child class has private function doAjax()
+675 doAjax() function has parameters of types HttpServletRequest, HttpServletResponse, String, User
+676 child class has void function doAjax()
+677 child class has private function doTutorialCompleted()
+678 doTutorialCompleted() function has parameters of types HttpServletRequest, HttpServletResponse, User, boolean
+679 child class has void function doTutorialCompleted()
+680 child class has private function doQuestionAchievement()
+681 doQuestionAchievement() function has parameters of types HttpServletRequest, HttpServletResponse, User, boolean
+682 child class has void function doQuestionAchievement()
+683 child class has private function doFetchSpecificMicrotask()
+684 doFetchSpecificMicrotask() function has parameters of types HttpServletRequest, HttpServletResponse, User, boolean
+685 child class has void function doFetchSpecificMicrotask()
+686 child class has private function doQuestioning()
+687 doQuestioning() function has parameters of types HttpServletRequest, HttpServletResponse, String, User
+688 child class has void function doQuestioning()
+689 child class has private function doAdmin()
+690 call to constructor of StringBuilder is made in doAdmin()
+691 call to constructor of Date is made in doAdmin()
+692 call to constructor of JSONObject is made in doAdmin()
+693 doAdmin() function has parameters of types HttpServletRequest, HttpServletResponse, String
+694 child class has void function doAdmin()
+695 child class has private function getUserPicture()
+696 getUserPicture() function has parameters of types HttpServletRequest, HttpServletResponse
+697 child class has void function getUserPicture()
+698 child class has private function changeUserPicture()
+699 call to constructor of ServletFileUpload is made in changeUserPicture()
+700 call to constructor of Blob is made in changeUserPicture()
+701 changeUserPicture() function has parameters of types HttpServletRequest, HttpServletResponse, User
+702 child class has void function changeUserPicture()
+703 child class has private function doSubmitTestResult()
+704 doSubmitTestResult() function has parameters of types HttpServletRequest, HttpServletResponse
+705 child class has void function doSubmitTestResult()
+706 child class has public function doInsertQuestioning()
+707 call to constructor of RuntimeException is made in doInsertQuestioning()
+708 doInsertQuestioning() function has parameters of types HttpServletRequest, HttpServletResponse, User
+709 child class has void function doInsertQuestioning()
+710 child class has public function doUpdateQuestion()
+711 doUpdateQuestion() function has parameters of types HttpServletRequest, HttpServletResponse, User
+712 child class has void function doUpdateQuestion()
+713 child class has public function doViewQuestion()
+714 doViewQuestion() function has parameters of types HttpServletRequest, HttpServletResponse, User
+715 child class has void function doViewQuestion()
+716 child class has public function doReportQuestioning()
+717 doReportQuestioning() function has parameters of types HttpServletRequest, HttpServletResponse, User
+718 child class has void function doReportQuestioning()
+719 child class has public function doSubscribeQuestioning()
+720 doSubscribeQuestioning() function has parameters of types HttpServletRequest, HttpServletResponse, User
+721 child class has void function doSubscribeQuestioning()
+722 child class has public function doLinkQuestioning()
+723 doLinkQuestioning() function has parameters of types HttpServletRequest, HttpServletResponse, User
+724 child class has void function doLinkQuestioning()
+725 child class has public function doCloseQuestion()
+726 doCloseQuestion() function has parameters of types HttpServletRequest, HttpServletResponse, User
+727 child class has void function doCloseQuestion()
+728 child class has public function doVoteQuestioning()
+729 doVoteQuestioning() function has parameters of types HttpServletRequest, HttpServletResponse, User
+730 child class has void function doVoteQuestioning()
+731 child class has public function doFetchMicrotask()
+732 doFetchMicrotask() function has parameters of types HttpServletRequest, HttpServletResponse, User
+733 child class has void function doFetchMicrotask()
+734 child class has public function unassignMicrotask()
+735 unassignMicrotask() function has parameters of types HttpServletRequest, HttpServletResponse, User
+736 child class has void function unassignMicrotask()
+737 doFetchMicrotask() function has parameters of types HttpServletRequest, HttpServletResponse, User, boolean
+738 child class has public function doChallengeReview()
+739 doChallengeReview() function has parameters of types HttpServletRequest, HttpServletResponse
+740 child class has void function doChallengeReview()
+741 child class has public function doEnqueueSubmit()
+742 doEnqueueSubmit() function has parameters of types HttpServletRequest, HttpServletResponse, User
+743 child class has void function doEnqueueSubmit()
+744 child class has public function doExecuteSubmit()
+745 doExecuteSubmit() function has parameters of types HttpServletRequest, HttpServletResponse
+746 child class has void function doExecuteSubmit()
+747 child class has private function renderJson()
+748 renderJson() function has parameters of types HttpServletResponse, String
+749 child class has void function renderJson()
+750 child class has private function renderCode()
+751 renderCode() function has parameters of types HttpServletResponse, String
+752 child class has void function renderCode()
+753 child class has public function doLogout()
+754 doLogout() function has parameters of types HttpServletRequest, HttpServletResponse, String
+755 child class has void function doLogout()
+756 child class has public function doUserLogout()
+757 doUserLogout() function has parameters of types String
+758 child class has void function doUserLogout()
+759 child class has private function executeCommands()
+760 executeCommands() function has parameters of types String
+761 child class has void function executeCommands()
+762 child class has private function writeResponseString()
+763 writeResponseString() function has parameters of types HttpServletResponse, String
+764 child class has void function writeResponseString()
+765 child constructor sets member variables description, examples, name, structure
+766 call to constructor of ArtifactCreated is made in child class constructor
+767 child class defines constructor with parameters of types HashMap, String, boolean
+768 child class has member field structure of type HashMap
+769 child class has member field examples of type HashMap
+770 child class has member field called functionsId
+771 child class has member field functionsId of type List
+772 child class has public function getDescription()
+773 getDescription() function returns type String
+774 child class has public function getName()
+775 getName() function returns type String
+776 child class has public function delete()
+777 call to constructor of PropertyChange is made in delete()
+778 delete() function modifies member variablethis
+779 child class has void function delete()
+780 child class has public function update()
+781 update() function has parameters of types HashMap, String
+782 update() function modifies member variablethis
+783 child class has void function update()
+784 child class has public function addFunction()
+785 addFunction() function has parameters of types long
+786 child class has void function addFunction()
+787 child class has public function removeFunction()
+788 removeFunction() function has parameters of types long
+789 child class has void function removeFunction()
+790 child class has public function storeToFirebase()
+791 call to constructor of ADTInFirebase is made in storeToFirebase()
+792 child class has public static function load()
+793 load() function returns output from function call
+794 load() function returns output from function call to ofy
+795 load() function has parameters of types Ref
+796 load() function returns type ADT
+797 find() function has parameters of types long
+798 find() function returns type ADT
+799 child class overrides function getName() in parent class
+800 child class overrides function storeToFirebase() in parent class
+801 child constructor sets member variables isAPIArtifact, isDeleted, isReadOnly, projectId, version
+802 child class defines constructor with parameters of types String, boolean
+803 child class has member field called isAPIArtifact
+804 child class has member field isAPIArtifact of type boolean
+805 child class has public function getId()
+806 getId() function returns type long
+807 child class has public function getRef()
+808 getRef() function returns output from function call
+809 getRef() function returns type Ref
+810 child class has public function deleteArtifact()
+811 child class has void function deleteArtifact()
+812 child class has public function unDeleteArtifact()
+813 unDeleteArtifact() function modifies member variablethis
+814 child class has void function unDeleteArtifact()
+815 child class has public function isDeleted()
+816 isDeleted() function returns type boolean
+817 child class has public function getArtifactType()
+818 getArtifactType() function returns output from function call
+819 getArtifactType() function returns type String
+820 call to constructor of RuntimeException is made in getName()
+821 call to constructor of RuntimeException is made in storeToFirebase()
+822 storeToFirebase() function has parameters of types String
+823 child class has protected function incrementVersion()
+824 child class has void function incrementVersion()
+825 child constructor sets member variables creationTime, description, functionId, isSimple
+826 child class defines constructor with parameters of types String, TestDTO, boolean, long
+827 getFunctionId() function returns type long
+828 update() function has parameters of types TestDTO
+829 call to constructor of SimpleTestInFirebase is made in storeToFirebase()
+830 call to constructor of AdvancedTestInFirebase is made in storeToFirebase()
+831 load() function returns type Test
+832 find() function returns type Test
+833 child constructor sets member variables code, description, header, isCompleted, linesOfCode, name, returnType
+834 child class defines constructor with parameters of types FunctionDTO, String, boolean
+835 child class has member field called name with annotation @Index
+836 child class has member field called paramNames
+837 child class has member field paramNames of type List
+838 child class has member field called paramTypes
+839 child class has member field paramTypes of type List
+840 child class has member field called paramDescriptions
+841 child class has member field paramDescriptions of type List
+842 child class has member field called isCompleted
+843 child class has member field isCompleted of type boolean
+844 child class has member field called testsId
+845 child class has member field testsId of type List
+846 child class has member field called callersId
+847 child class has member field callersId of type List
+848 child class has member field called queuedDescribeFunctionBehavior
+849 child class has member field of type Queue
+850 child class has member field queuedDescribeFunctionBehavior of type Queue
+851 child class has member field called describeFunctionBehaviorOut
+852 child class has member field describeFunctionBehaviorOut of type Ref
+853 child class has member field called queuedImplementBehavior
+854 child class has member field queuedImplementBehavior of type Queue
+855 child class has member field called isImplementationInProgress
+856 child class has member field isImplementationInProgress of type boolean
+857 child class has public function getNumParams()
+858 getNumParams() function returns output from function call
+859 getNumParams() function returns type int
+860 child class has public function getParamNames()
+861 getParamNames() function returns type List
+862 child class has public function getHeader()
+863 getHeader() function returns type String
+864 child class has public function getEscapedHeader()
+865 getEscapedHeader() function returns output from function call
+866 getEscapedHeader() function returns type String
+867 child class has public function getCode()
+868 getCode() function returns type String
+869 child class has public function lookForWork()
+870 call to constructor of DescribeFunctionBehavior is made in lookForWork()
+871 child class has void function lookForWork()
+872 child class has private function onWorkEdit()
+873 onWorkEdit() function has parameters of types FunctionDTO, String
+874 onWorkEdit() function modifies member variablethis
+875 child class has void function onWorkEdit()
+876 child class has public function queueDescribeFunctionBehavior()
+877 queueDescribeFunctionBehavior() function has parameters of types Microtask
+878 child class has void function queueDescribeFunctionBehavior()
+879 child class has public function queueImplementFunctionBehavior()
+880 queueImplementFunctionBehavior() function has parameters of types Microtask
+881 child class has void function queueImplementFunctionBehavior()
+882 child class has private function newImplementBehavior()
+883 call to constructor of ImplementBehavior is made in newImplementBehavior()
+884 newImplementBehavior() function has parameters of types long
+885 child class has void function newImplementBehavior()
+886 child class has private function checkImplementationNeeded()
+887 child class has void function checkImplementationNeeded()
+888 child class has public function describeFunctionBehaviorCompleted()
+889 call to constructor of ImplementBehavior is made in describeFunctionBehaviorCompleted()
+890 describeFunctionBehaviorCompleted() function has parameters of types DescribeFunctionBehaviorDTO
+891 child class has void function describeFunctionBehaviorCompleted()
+892 child class has public function implementBehaviorCompleted()
+893 call to constructor of DescribeFunctionBehavior is made in implementBehaviorCompleted()
+894 implementBehaviorCompleted() function has parameters of types ImplementBehaviorDTO, String, long
+895 child class has void function implementBehaviorCompleted()
+896 child class has private function checkIfNeeded()
+897 child class has void function checkIfNeeded()
+898 child class has public function runTests()
+899 child class has void function runTests()
+900 child class has public function submittedTestResult()
+901 submittedTestResult() function has parameters of types String
+902 child class has void function submittedTestResult()
+903 child class has public function addCaller()
+904 addCaller() function has parameters of types long
+905 child class has void function addCaller()
+906 child class has public function removeCaller()
+907 removeCaller() function has parameters of types long
+908 child class has void function removeCaller()
+909 child class has public function addCallee()
+910 addCallee() function has parameters of types long
+911 child class has void function addCallee()
+912 child class has public function calleeChangedInterface()
+913 calleeChangedInterface() function has parameters of types int, long
+914 child class has void function calleeChangedInterface()
+915 child class has public function calleeBecomeDeactivated()
+916 call to constructor of ImplementBehavior is made in calleeBecomeDeactivated()
+917 calleeBecomeDeactivated() function has parameters of types String, long
+918 child class has void function calleeBecomeDeactivated()
+919 child class has public function addTest()
+920 addTest() function has parameters of types long
+921 child class has void function addTest()
+922 child class has private function deactivate()
+923 deactivate() function has parameters of types String
+924 child class has void function deactivate()
+925 child class has private function notifyDescriptionChanged()
+926 child class has void function notifyDescriptionChanged()
+927 child class has private function reactivate()
+928 child class has void function reactivate()
+929 child class has private function rebuildCalleeList()
+930 rebuildCalleeList() function has parameters of types List
+931 rebuildCalleeList() function modifies member variablethis
+932 child class has void function rebuildCalleeList()
+933 child class has public function isDescriptionChanged()
+934 isDescriptionChanged() function has parameters of types FunctionDTO
+935 isDescriptionChanged() function returns type boolean
+936 child class has public function createRequestedFunctions()
+937 createRequestedFunctions() function has parameters of types List
+938 child class has void function createRequestedFunctions()
+939 child class has private function processTest()
+940 processTest() function has parameters of types TestDTO
+941 child class has void function processTest()
+942 child class has private function createCalleeStubs()
+943 createCalleeStubs() function has parameters of types List
+944 child class has void function createCalleeStubs()
+945 child class has public function incrementTestSuiteVersion()
+946 child class has void function incrementTestSuiteVersion()
+947 call to constructor of FunctionInFirebase is made in storeToFirebase()
+948 find() function returns type Function
+949 load() function returns type Function
+950 child constructor sets member variables ADTId
+951 child class defines constructor with parameters of types Long
+952 child class has public static function create()
+953 call to constructor of Create is made in create()
+954 create() function calls constructor in return statement
+955 create() function returns output from function call
+956 create() function returns output from function call to Create
+957 create() function has parameters of types HashMap, String, boolean
+958 create() function returns type ADTCommand
+959 child class has public static function update()
+960 call to constructor of Update is made in update()
+961 update() function calls constructor in return statement
+962 update() function returns output from function call
+963 update() function returns output from function call to Update
+964 update() function has parameters of types HashMap, String, long
+965 update() function returns type ADTCommand
+966 child class has public static function delete()
+967 call to constructor of Delete is made in delete()
+968 delete() function calls constructor in return statement
+969 delete() function returns output from function call
+970 delete() function returns output from function call to Delete
+971 delete() function has parameters of types long
+972 delete() function returns type ADTCommand
+973 child class has private static function queueCommand()
+974 queueCommand() function has parameters of types Command
+975 child class has void function queueCommand()
+976 child class has public function execute()
+977 execute() function has parameters of types String
+978 child class has void function execute()
+979 child constructor sets member variables description, examples, isApiArtifact, isReadOnly, name, structure
+980 is protected class
+981 call to constructor of ADT is made in execute()
+982 execute() function has parameters of types ADT, String
+983 child constructor sets member variables description, name, structure
+984 child class defines constructor with parameters of types HashMap, String, long
+985 child class defines constructor with parameters of types long
+986 child constructor sets member variables microtaskKey
+987 child class defines constructor with parameters of types Key
+988 child class has member field microtaskKey of type Key
+989 child class has public static function submit()
+990 call to constructor of Submit is made in submit()
+991 submit() function calls constructor in return statement
+992 submit() function returns output from function call
+993 submit() function returns output from function call to Submit
+994 submit() function has parameters of types Key, String, int
+995 submit() function returns type MicrotaskCommand
+996 child class has public static function skip()
+997 call to constructor of Skip is made in skip()
+998 skip() function calls constructor in return statement
+999 skip() function returns output from function call
+1000 skip() function returns output from function call to Skip
+1001 skip() function has parameters of types Key, String, boolean
+1002 skip() function returns type MicrotaskCommand
+1003 child class has public static function createReview()
+1004 call to constructor of CreateReview is made in createReview()
+1005 createReview() function calls constructor in return statement
+1006 createReview() function returns output from function call
+1007 createReview() function returns output from function call to CreateReview
+1008 createReview() function has parameters of types Key, String
+1009 createReview() function returns type MicrotaskCommand
+1010 child class has public static function createChallengeReview()
+1011 call to constructor of CreateChallengeReview is made in createChallengeReview()
+1012 createChallengeReview() function calls constructor in return statement
+1013 createChallengeReview() function returns output from function call
+1014 createChallengeReview() function returns output from function call to CreateChallengeReview
+1015 createChallengeReview() function has parameters of types Key, String
+1016 createChallengeReview() function returns type MicrotaskCommand
+1017 child class has public static function reviseMicrotask()
+1018 call to constructor of ReviseMicrotask is made in reviseMicrotask()
+1019 reviseMicrotask() function calls constructor in return statement
+1020 reviseMicrotask() function returns output from function call
+1021 reviseMicrotask() function returns output from function call to ReviseMicrotask
+1022 reviseMicrotask() function has parameters of types Key, String, int
+1023 reviseMicrotask() function returns type MicrotaskCommand
+1024 child class has public static function rejectMicrotask()
+1025 call to constructor of RejectMicrotask is made in rejectMicrotask()
+1026 rejectMicrotask() function calls constructor in return statement
+1027 rejectMicrotask() function returns output from function call
+1028 rejectMicrotask() function returns output from function call to RejectMicrotask
+1029 rejectMicrotask() function has parameters of types Key, String, int
+1030 rejectMicrotask() function returns type MicrotaskCommand
+1031 child class has protected function find()
+1032 find() function returns type Microtask
+1033 child constructor sets member variables awardedPoint, jsonDTOData, workerID
+1034 child class has member field called jsonDTOData
+1035 child class has member field jsonDTOData of type String
+1036 child class has member field called awardedPoint
+1037 child class has member field awardedPoint of type int
+1038 execute() function has parameters of types Microtask, String
+1039 child constructor sets member variables disablePoint, workerID
+1040 child class defines constructor with parameters of types Key, String, boolean
+1041 child class has member field called disablePoint
+1042 child class has member field disablePoint of type boolean
+1043 child constructor sets member variables excludedWorkerID, initiallySubmittedDTO, microtaskKeyToReview, workerOfReviewedWork
+1044 child class defines constructor with parameters of types Key, String
+1045 child class has member field called microtaskKeyToReview
+1046 child class has member field microtaskKeyToReview of type Key
+1047 child class has member field called excludedWorkerID
+1048 child class has member field excludedWorkerID of type String
+1049 call to constructor of Review is made in execute()
+1050 child constructor sets member variables challengeTextDTO
+1051 child class has member field called challengeTextDTO
+1052 child class has member field challengeTextDTO of type String
+1053 call to constructor of ChallengeReview is made in execute()
+1054 child constructor sets member variables awardedPoint, excludedWorkerID
+1055 child constructor sets member variables awardedPoint, excludedWorkerID, jsonDTOData, reissueMotivation
+1056 child class has public static function reset()
+1057 call to constructor of Reset is made in reset()
+1058 reset() function calls constructor in return statement
+1059 reset() function returns output from function call
+1060 reset() function returns output from function call to Reset
+1061 reset() function has parameters of types String
+1062 reset() function returns type ProjectCommand
+1063 child class has public static function clear()
+1064 call to constructor of Clear is made in clear()
+1065 clear() function calls constructor in return statement
+1066 clear() function returns output from function call
+1067 clear() function returns output from function call to Clear
+1068 clear() function has parameters of types String
+1069 clear() function returns type ProjectCommand
+1070 child class has public static function construct()
+1071 call to constructor of Construct is made in construct()
+1072 construct() function calls constructor in return statement
+1073 construct() function returns output from function call
+1074 construct() function returns output from function call to Construct
+1075 construct() function has parameters of types String
+1076 construct() function returns type ProjectCommand
+1077 child class has public static function enableReviews()
+1078 call to constructor of EnableReviews is made in enableReviews()
+1079 enableReviews() function calls constructor in return statement
+1080 enableReviews() function returns output from function call
+1081 enableReviews() function returns output from function call to EnableReviews
+1082 enableReviews() function has parameters of types boolean
+1083 enableReviews() function returns type ProjectCommand
+1084 child class has public static function enableTutorials()
+1085 call to constructor of EnableTutorials is made in enableTutorials()
+1086 enableTutorials() function calls constructor in return statement
+1087 enableTutorials() function returns output from function call
+1088 enableTutorials() function returns output from function call to EnableTutorials
+1089 enableTutorials() function has parameters of types boolean
+1090 enableTutorials() function returns type ProjectCommand
+1091 child class has public static function queueMicrotask()
+1092 call to constructor of QueueMicrotask is made in queueMicrotask()
+1093 queueMicrotask() function calls constructor in return statement
+1094 queueMicrotask() function returns output from function call
+1095 queueMicrotask() function returns output from function call to QueueMicrotask
+1096 queueMicrotask() function has parameters of types Key, String
+1097 queueMicrotask() function returns type ProjectCommand
+1098 child class has public static function queueReviewMicrotask()
+1099 call to constructor of QueueReviewMicrotask is made in queueReviewMicrotask()
+1100 queueReviewMicrotask() function calls constructor in return statement
+1101 queueReviewMicrotask() function returns output from function call
+1102 queueReviewMicrotask() function returns output from function call to QueueReviewMicrotask
+1103 queueReviewMicrotask() function has parameters of types Key, String
+1104 queueReviewMicrotask() function returns type ProjectCommand
+1105 child class has public static function queueChallengeReviewMicrotask()
+1106 call to constructor of QueueChallengeReviewMicrotask is made in queueChallengeReviewMicrotask()
+1107 queueChallengeReviewMicrotask() function calls constructor in return statement
+1108 queueChallengeReviewMicrotask() function returns output from function call
+1109 queueChallengeReviewMicrotask() function returns output from function call to QueueChallengeReviewMicrotask
+1110 queueChallengeReviewMicrotask() function has parameters of types Key, String
+1111 queueChallengeReviewMicrotask() function returns type ProjectCommand
+1112 child class has public static function skipMicrotask()
+1113 call to constructor of SkipMicrotask is made in skipMicrotask()
+1114 skipMicrotask() function calls constructor in return statement
+1115 skipMicrotask() function returns output from function call
+1116 skipMicrotask() function returns output from function call to SkipMicrotask
+1117 skipMicrotask() function has parameters of types Boolean, String
+1118 skipMicrotask() function returns type ProjectCommand
+1119 child class has public static function submitMicrotask()
+1120 call to constructor of SubmitMicrotask is made in submitMicrotask()
+1121 submitMicrotask() function calls constructor in return statement
+1122 submitMicrotask() function returns output from function call
+1123 submitMicrotask() function returns output from function call to SubmitMicrotask
+1124 submitMicrotask() function has parameters of types String
+1125 submitMicrotask() function returns type ProjectCommand
+1126 child class has public static function logoutWorker()
+1127 call to constructor of LogoutWorker is made in logoutWorker()
+1128 logoutWorker() function calls constructor in return statement
+1129 logoutWorker() function returns output from function call
+1130 logoutWorker() function returns output from function call to LogoutWorker
+1131 logoutWorker() function has parameters of types String
+1132 logoutWorker() function returns type ProjectCommand
+1133 child class has public static function logoutInactiveWorkers()
+1134 call to constructor of LogoutInactiveWorkers is made in logoutInactiveWorkers()
+1135 logoutInactiveWorkers() function calls constructor in return statement
+1136 logoutInactiveWorkers() function returns output from function call
+1137 logoutInactiveWorkers() function returns output from function call to LogoutInactiveWorkers
+1138 logoutInactiveWorkers() function returns type ProjectCommand
+1139 child class has public static function notifyLoggedInWorkers()
+1140 call to constructor of NotifyLoggedInWorkers is made in notifyLoggedInWorkers()
+1141 notifyLoggedInWorkers() function calls constructor in return statement
+1142 notifyLoggedInWorkers() function returns output from function call
+1143 notifyLoggedInWorkers() function returns output from function call to NotifyLoggedInWorkers
+1144 notifyLoggedInWorkers() function has parameters of types NotificationInFirebase
+1145 notifyLoggedInWorkers() function returns type ProjectCommand
+1146 execute() function has parameters of types Project
+1147 child constructor sets member variables reviewsEnabled
+1148 child class defines constructor with parameters of types boolean
+1149 child class has member field called reviewsEnabled
+1150 child class has member field reviewsEnabled of type boolean
+1151 child constructor sets member variables tutorialsEnabled
+1152 child class has member field called tutorialsEnabled
+1153 child class has member field tutorialsEnabled of type boolean
+1154 child constructor sets member variables excludedWorkerID, microtaskKey
+1155 child constructor sets member variables firstExcludedWorkerID, microtaskKey, secondExcludedWorkerID
+1156 child class has member field called firstExcludedWorkerID
+1157 child class has member field firstExcludedWorkerID of type String
+1158 child class has member field called secondExcludedWorkerID
+1159 child class has member field secondExcludedWorkerID of type String
+1160 child constructor sets member variables disablePoint, microtaskKey, workerID
+1161 child class defines constructor with parameters of types Boolean, String
+1162 child class has member field disablePoint of type Boolean
+1163 child constructor sets member variables jsonDTOData, microtaskKey, workerID
+1164 child constructor sets member variables notification
+1165 child class defines constructor with parameters of types NotificationInFirebase
+1166 child class has member field called notification
+1167 child class has member field of type NotificationInFirebase
+1168 child class has member field notification of type NotificationInFirebase
+1169 child constructor sets member variables functionId
+1170 child class has public static function addClientRequestsArtifacts()
+1171 call to constructor of AddClientRequestsArtifacts is made in addClientRequestsArtifacts()
+1172 addClientRequestsArtifacts() function calls constructor in return statement
+1173 addClientRequestsArtifacts() function returns output from function call
+1174 addClientRequestsArtifacts() function returns output from function call to AddClientRequestsArtifacts
+1175 addClientRequestsArtifacts() function has parameters of types FunctionDTO
+1176 addClientRequestsArtifacts() function returns type FunctionCommand
+1177 create() function has parameters of types FunctionDTO, boolean
+1178 create() function returns type FunctionCommand
+1179 child class has public static function createRequestedFunction()
+1180 call to constructor of CreateRequestedFunction is made in createRequestedFunction()
+1181 createRequestedFunction() function calls constructor in return statement
+1182 createRequestedFunction() function returns output from function call
+1183 createRequestedFunction() function returns output from function call to CreateRequestedFunction
+1184 createRequestedFunction() function has parameters of types FunctionDTO, long
+1185 createRequestedFunction() function returns type FunctionCommand
+1186 child class has public static function removeCaller()
+1187 call to constructor of RemoveCaller is made in removeCaller()
+1188 removeCaller() function calls constructor in return statement
+1189 removeCaller() function returns output from function call
+1190 removeCaller() function returns output from function call to RemoveCaller
+1191 removeCaller() function returns type FunctionCommand
+1192 child class has public static function addCaller()
+1193 call to constructor of AddCaller is made in addCaller()
+1194 addCaller() function calls constructor in return statement
+1195 addCaller() function returns output from function call
+1196 addCaller() function returns output from function call to AddCaller
+1197 addCaller() function returns type FunctionCommand
+1198 child class has public static function addCallee()
+1199 call to constructor of AddCaller is made in addCallee()
+1200 addCallee() function calls constructor in return statement
+1201 addCallee() function returns output from function call
+1202 addCallee() function returns output from function call to AddCaller
+1203 addCallee() function returns type FunctionCommand
+1204 child class has public static function runTests()
+1205 call to constructor of RunTests is made in runTests()
+1206 runTests() function calls constructor in return statement
+1207 runTests() function returns output from function call
+1208 runTests() function returns output from function call to RunTests
+1209 runTests() function has parameters of types long
+1210 runTests() function returns type FunctionCommand
+1211 child class has public static function submittedTestResult()
+1212 call to constructor of SubmittedTestResult is made in submittedTestResult()
+1213 submittedTestResult() function calls constructor in return statement
+1214 submittedTestResult() function returns output from function call
+1215 submittedTestResult() function returns output from function call to SubmittedTestResult
+1216 submittedTestResult() function has parameters of types String, long
+1217 submittedTestResult() function returns type FunctionCommand
+1218 child class has public static function calleeChangedInterface()
+1219 call to constructor of CalleeChangedInterface is made in calleeChangedInterface()
+1220 calleeChangedInterface() function calls constructor in return statement
+1221 calleeChangedInterface() function returns output from function call
+1222 calleeChangedInterface() function returns output from function call to CalleeChangedInterface
+1223 calleeChangedInterface() function returns type FunctionCommand
+1224 child class has public static function calleeBecomeDeactivated()
+1225 call to constructor of CalleeBecomeDeactivated is made in calleeBecomeDeactivated()
+1226 calleeBecomeDeactivated() function calls constructor in return statement
+1227 calleeBecomeDeactivated() function returns output from function call
+1228 calleeBecomeDeactivated() function returns output from function call to CalleeBecomeDeactivated
+1229 calleeBecomeDeactivated() function returns type FunctionCommand
+1230 child class has public static function addTest()
+1231 call to constructor of AddTest is made in addTest()
+1232 addTest() function calls constructor in return statement
+1233 addTest() function returns output from function call
+1234 addTest() function returns output from function call to AddTest
+1235 addTest() function returns type FunctionCommand
+1236 child class has public static function incrementTestSuite()
+1237 call to constructor of IncrementTestSuite is made in incrementTestSuite()
+1238 incrementTestSuite() function calls constructor in return statement
+1239 incrementTestSuite() function returns output from function call
+1240 incrementTestSuite() function returns output from function call to IncrementTestSuite
+1241 incrementTestSuite() function has parameters of types long
+1242 incrementTestSuite() function returns type FunctionCommand
+1243 child class has public static function lookForWork()
+1244 call to constructor of LookForWork is made in lookForWork()
+1245 lookForWork() function calls constructor in return statement
+1246 lookForWork() function returns output from function call
+1247 lookForWork() function returns output from function call to LookForWork
+1248 lookForWork() function has parameters of types long
+1249 lookForWork() function returns type FunctionCommand
+1250 child constructor sets member variables functionDTO
+1251 child class defines constructor with parameters of types FunctionDTO
+1252 child class has member field called functionDTO
+1253 child class has member field functionDTO of type FunctionDTO
+1254 call to constructor of Function is made in execute()
+1255 execute() function has parameters of types Function, String
+1256 child constructor sets member variables functionDTO, isApiArtifact, isReadOnly
+1257 child class defines constructor with parameters of types FunctionDTO, boolean
+1258 child constructor sets member variables requestedFunctionDTO, requestingFunctionId
+1259 child class defines constructor with parameters of types FunctionDTO, long
+1260 child class has member field called requestedFunctionDTO
+1261 child class has member field requestedFunctionDTO of type FunctionDTO
+1262 child class has member field called requestingFunctionId
+1263 child class has member field requestingFunctionId of type long
+1264 child constructor sets member variables callerFunctionID
+1265 child class has member field called callerFunctionID
+1266 child class has member field callerFunctionID of type long
+1267 child constructor sets member variables calleeFunctionId
+1268 child class has member field called calleeFunctionId
+1269 child class has member field calleeFunctionId of type long
+1270 child constructor sets member variables calleeId, oldCalleeVersion
+1271 child class defines constructor with parameters of types int, long
+1272 child constructor sets member variables calleeId, disputeText
+1273 child constructor sets member variables jsonDto
+1274 child class has member field called jsonDto
+1275 child class has member field jsonDto of type String
+1276 child constructor sets member variables testId
+1277 child constructor sets member variables isSimple, testId
+1278 child class defines constructor with parameters of types Long, boolean
+1279 create() function has parameters of types TestDTO, boolean, long
+1280 create() function returns type TestCommand
+1281 update() function returns type TestCommand
+1282 delete() function has parameters of types TestDTO
+1283 delete() function returns type TestCommand
+1284 child constructor sets member variables functionId, isApiArtifact, isReadOnly, testDto
+1285 child class defines constructor with parameters of types TestDTO, boolean, long
+1286 child class has member field called testDto
+1287 child class has member field of type TestDTO
+1288 child class has member field testDto of type TestDTO
+1289 call to constructor of Test is made in execute()
+1290 execute() function has parameters of types String, Test
+1291 child constructor sets member variables testDto
+1292 child class defines constructor with parameters of types TestDTO
+1293 function execute() has annotation @Override
+1294 child class has public static function awardPoints()
+1295 call to constructor of AwardPoints is made in awardPoints()
+1296 awardPoints() function calls constructor in return statement
+1297 awardPoints() function returns output from function call
+1298 awardPoints() function returns output from function call to AwardPoints
+1299 awardPoints() function has parameters of types String, int
+1300 awardPoints() function returns type WorkerCommand
+1301 child class has public static function addAchievement()
+1302 call to constructor of AddAchievement is made in addAchievement()
+1303 addAchievement() function calls constructor in return statement
+1304 addAchievement() function returns output from function call
+1305 addAchievement() function returns output from function call to AddAchievement
+1306 addAchievement() function has parameters of types Achievement, String
+1307 addAchievement() function returns type WorkerCommand
+1308 child class has public static function increaseStat()
+1309 call to constructor of IncreaseStat is made in increaseStat()
+1310 increaseStat() function calls constructor in return statement
+1311 increaseStat() function returns output from function call
+1312 increaseStat() function returns output from function call to IncreaseStat
+1313 increaseStat() function has parameters of types String, int
+1314 increaseStat() function returns type WorkerCommand
+1315 find() function has parameters of types Project, String
+1316 find() function returns type Worker
+1317 child constructor sets member variables points
+1318 execute() function has parameters of types Project, Worker
+1319 child constructor sets member variables increaseAmount, label
+1320 child class has member field called label
+1321 child class has member field label of type String
+1322 child class has member field called increaseAmount
+1323 child class has member field increaseAmount of type int
+1324 child constructor sets member variables _achievement
+1325 child class defines constructor with parameters of types Achievement, String
+1326 child class has member field called _achievement
+1327 child class has member field of type Achievement
+1328 child class has member field _achievement of type Achievement
+1329 child constructor sets member variables questioningId, workerId
+1330 child class has member field called questioningId
+1331 child class has member field questioningId of type long
+1332 child class has public static function createQuestion()
+1333 call to constructor of CreateQuestion is made in createQuestion()
+1334 createQuestion() function calls constructor in return statement
+1335 createQuestion() function returns output from function call
+1336 createQuestion() function returns output from function call to CreateQuestion
+1337 createQuestion() function has parameters of types String
+1338 createQuestion() function returns type QuestioningCommand
+1339 child class has public static function createAnswer()
+1340 call to constructor of CreateAnswer is made in createAnswer()
+1341 createAnswer() function calls constructor in return statement
+1342 createAnswer() function returns output from function call
+1343 createAnswer() function returns output from function call to CreateAnswer
+1344 createAnswer() function has parameters of types String
+1345 createAnswer() function returns type QuestioningCommand
+1346 child class has public static function createComment()
+1347 call to constructor of CreateComment is made in createComment()
+1348 createComment() function calls constructor in return statement
+1349 createComment() function returns output from function call
+1350 createComment() function returns output from function call to CreateComment
+1351 createComment() function has parameters of types String
+1352 createComment() function returns type QuestioningCommand
+1353 child class has public static function incrementQuestionAnswers()
+1354 call to constructor of IncrementQuestionAnswers is made in incrementQuestionAnswers()
+1355 incrementQuestionAnswers() function calls constructor in return statement
+1356 incrementQuestionAnswers() function returns output from function call
+1357 incrementQuestionAnswers() function returns output from function call to IncrementQuestionAnswers
+1358 incrementQuestionAnswers() function has parameters of types long
+1359 incrementQuestionAnswers() function returns type QuestioningCommand
+1360 child class has public static function incrementQuestionComments()
+1361 call to constructor of IncrementQuestionComments is made in incrementQuestionComments()
+1362 incrementQuestionComments() function calls constructor in return statement
+1363 incrementQuestionComments() function returns output from function call
+1364 incrementQuestionComments() function returns output from function call to IncrementQuestionComments
+1365 incrementQuestionComments() function has parameters of types long
+1366 incrementQuestionComments() function returns type QuestioningCommand
+1367 child class has public static function addQuestionView()
+1368 call to constructor of AddQuestionView is made in addQuestionView()
+1369 addQuestionView() function calls constructor in return statement
+1370 addQuestionView() function returns output from function call
+1371 addQuestionView() function returns output from function call to AddQuestionView
+1372 addQuestionView() function has parameters of types String, long
+1373 addQuestionView() function returns type QuestioningCommand
+1374 child class has public static function updateQuestion()
+1375 call to constructor of UpdateQuestion is made in updateQuestion()
+1376 updateQuestion() function calls constructor in return statement
+1377 updateQuestion() function returns output from function call
+1378 updateQuestion() function returns output from function call to UpdateQuestion
+1379 updateQuestion() function has parameters of types String, long
+1380 updateQuestion() function returns type QuestioningCommand
+1381 child class has public static function vote()
+1382 call to constructor of Vote is made in vote()
+1383 vote() function calls constructor in return statement
+1384 vote() function returns output from function call
+1385 vote() function returns output from function call to Vote
+1386 vote() function has parameters of types String, boolean, long
+1387 vote() function returns type QuestioningCommand
+1388 child class has public static function report()
+1389 call to constructor of Report is made in report()
+1390 report() function calls constructor in return statement
+1391 report() function returns output from function call
+1392 report() function returns output from function call to Report
+1393 report() function has parameters of types String, boolean, long
+1394 report() function returns type QuestioningCommand
+1395 child class has public static function linkArtifact()
+1396 call to constructor of LinkArtifact is made in linkArtifact()
+1397 linkArtifact() function calls constructor in return statement
+1398 linkArtifact() function returns output from function call
+1399 linkArtifact() function returns output from function call to LinkArtifact
+1400 linkArtifact() function has parameters of types String, boolean, long
+1401 linkArtifact() function returns type QuestioningCommand
+1402 child class has public static function subscribeWorker()
+1403 call to constructor of SubscribeWorker is made in subscribeWorker()
+1404 subscribeWorker() function calls constructor in return statement
+1405 subscribeWorker() function returns output from function call
+1406 subscribeWorker() function returns output from function call to SubscribeWorker
+1407 subscribeWorker() function has parameters of types String, boolean, long
+1408 subscribeWorker() function returns type QuestioningCommand
+1409 child class has public static function notifySubscribers()
+1410 call to constructor of NotifySubscribers is made in notifySubscribers()
+1411 notifySubscribers() function calls constructor in return statement
+1412 notifySubscribers() function returns output from function call
+1413 notifySubscribers() function returns output from function call to NotifySubscribers
+1414 notifySubscribers() function has parameters of types NotificationInFirebase, String, long
+1415 notifySubscribers() function returns type QuestioningCommand
+1416 child class has public static function setClosed()
+1417 call to constructor of SetClosed is made in setClosed()
+1418 setClosed() function calls constructor in return statement
+1419 setClosed() function returns output from function call
+1420 setClosed() function returns output from function call to SetClosed
+1421 setClosed() function has parameters of types boolean, long
+1422 setClosed() function returns type QuestioningCommand
+1423 child constructor sets member variables jsonDTOData, workerHandle
+1424 call to constructor of Question is made in execute()
+1425 execute() function has parameters of types Questioning, String
+1426 call to constructor of Answer is made in execute()
+1427 call to constructor of Comment is made in execute()
+1428 child constructor sets member variables jsonDTO
+1429 child class has member field called jsonDTO
+1430 child class has member field jsonDTO of type String
+1431 child constructor sets member variables questionId
+1432 call to constructor of QuestionViewed is made in execute()
+1433 child constructor sets member variables remove
+1434 child class defines constructor with parameters of types String, boolean, long
+1435 child class has member field called remove
+1436 child class has member field remove of type boolean
+1437 child constructor sets member variables artifactId, remove
+1438 child class defines constructor with parameters of types NotificationInFirebase, String, long
+1439 child constructor sets member variables closed
+1440 child class defines constructor with parameters of types boolean, long
+1441 child class overrides function execute() in parent class
