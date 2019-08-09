@@ -1,0 +1,237 @@
+1 class has non-empty-body constructor
+2 class defines constructor with no parameters
+3 class defines constructor with parameter of type String
+4 class has member field called METADATA_FOLDER
+5 class has member field of type String
+6 class has member field METADATA_FOLDER of type String
+7 class has member field called STORE_RECURSE_SUBFOLDERS
+8 class has member field STORE_RECURSE_SUBFOLDERS of type String
+9 class has member field called directoryPathField
+10 class has member field of type Text
+11 class has member field directoryPathField of type Text
+12 class has member field called directorySnapshotPathField
+13 class has member field directorySnapshotPathField of type Text
+14 class has member field called projectsList
+15 class has member field of type CheckboxTreeViewer
+16 class has member field projectsList of type CheckboxTreeViewer
+17 class has member field called recurseIntoSubFoldersCheckbox
+18 class has member field of type Button
+19 class has member field recurseIntoSubFoldersCheckbox of type Button
+20 class has member field called recurseIntoSubFolders
+21 class has member field of type boolean
+22 class has member field recurseIntoSubFolders of type boolean
+23 class has member field called selectedProjects
+24 class has member field of type ProjectRecord
+25 class has member field selectedProjects of type ProjectRecord
+26 class has member field called previouslyBrowsedDirectory
+27 class has member field previouslyBrowsedDirectory of type String
+28 class has member field called previouslyBrowsedSnapshotDirectory
+29 class has member field previouslyBrowsedSnapshotDirectory of type String
+30 class has member field called browseDirectoriesButton
+31 class has member field browseDirectoriesButton of type Button
+32 class has member field called browseSnapshotDirectoryButton
+33 class has member field browseSnapshotDirectoryButton of type Button
+34 class has member field called wsProjects
+35 class has member field of type IProject
+36 class has member field wsProjects of type IProject
+37 class has member field called lastPath
+38 class has member field lastPath of type String
+39 class has member field called lastModified
+40 class has member field of type long
+41 class has member field lastModified of type long
+42 class has member field called lastSnapshotPath
+43 class has member field lastSnapshotPath of type String
+44 class has member field called lastSnapshotModified
+45 class has member field lastSnapshotModified of type long
+46 class extends class WizardPage
+47 class implements IOverwriteQuery
+48 is public class
+49 has public function createControl()
+50 call to constructor of Composite is made in createControl()
+51 call to constructor of GridLayout is made in createControl()
+52 call to constructor of GridData is made in createControl()
+53 createControl() function has parameter of type Composite
+54 class has void function createControl()
+55 has private function checkForComplete()
+56 call to constructor of File is made in checkForComplete()
+57 class has void function checkForComplete()
+58 has private function createProjectsList()
+59 call to constructor of Label is made in createProjectsList()
+60 call to constructor of Composite is made in createProjectsList()
+61 call to constructor of GridLayout is made in createProjectsList()
+62 call to constructor of GridData is made in createProjectsList()
+63 call to constructor of ViewerComparator is made in createProjectsList()
+64 createProjectsList() function has parameter of type Composite
+65 class has void function createProjectsList()
+66 has private function createSnapshotArea()
+67 call to constructor of Composite is made in createSnapshotArea()
+68 call to constructor of GridLayout is made in createSnapshotArea()
+69 call to constructor of GridData is made in createSnapshotArea()
+70 call to constructor of Label is made in createSnapshotArea()
+71 createSnapshotArea() function has parameter of type Composite
+72 createSnapshotArea() function modifies member variablethis
+73 class has void function createSnapshotArea()
+74 has private function createOptionsArea()
+75 call to constructor of Composite is made in createOptionsArea()
+76 call to constructor of GridLayout is made in createOptionsArea()
+77 call to constructor of GridData is made in createOptionsArea()
+78 createOptionsArea() function has parameter of type Composite
+79 class has void function createOptionsArea()
+80 has private function createProjectsRoot()
+81 call to constructor of Composite is made in createProjectsRoot()
+82 call to constructor of GridLayout is made in createProjectsRoot()
+83 call to constructor of GridData is made in createProjectsRoot()
+84 call to constructor of Label is made in createProjectsRoot()
+85 createProjectsRoot() function has parameter of type Composite
+86 createProjectsRoot() function modifies member variablethis
+87 class has void function createProjectsRoot()
+88 has public function setVisible()
+89 setVisible() function has parameter of type boolean
+90 class has void function setVisible()
+91 has public function updateProjectsList()
+92 call to constructor of File is made in updateProjectsList()
+93 call to constructor of ArrayList is made in updateProjectsList()
+94 updateProjectsList() function has parameter of type String
+95 class has void function updateProjectsList()
+96 has private function updateSnapshotPath()
+97 call to constructor of File is made in updateSnapshotPath()
+98 updateSnapshotPath() function has parameter of type String
+99 class has void function updateSnapshotPath()
+100 has protected function displayErrorDialog()
+101 displayErrorDialog() function has parameter of type String
+102 class has void function displayErrorDialog()
+103 has protected function getErrorDialogTitle()
+104 getErrorDialogTitle() function returns type String
+105 has protected function getInformationDialogTitle()
+106 getInformationDialogTitle() function returns type String
+107 has private function collectProjectFilesFromDirectory()
+108 collectProjectFilesFromDirectory() function has parameter of type Collection
+109 collectProjectFilesFromDirectory() function has parameter of type File
+110 collectProjectFilesFromDirectory() function has parameter of type Set
+111 collectProjectFilesFromDirectory() function has parameter of type IProgressMonitor
+112 collectProjectFilesFromDirectory() function returns type boolean
+113 has protected function handleLocationDirectoryButtonPressed()
+114 call to constructor of DirectoryDialog is made in handleLocationDirectoryButtonPressed()
+115 call to constructor of File is made in handleLocationDirectoryButtonPressed()
+116 call to constructor of Path is made in handleLocationDirectoryButtonPressed()
+117 class has void function handleLocationDirectoryButtonPressed()
+118 has protected function handleLocationSnapshotDirectoryButtonPressed()
+119 call to constructor of DirectoryDialog is made in handleLocationSnapshotDirectoryButtonPressed()
+120 call to constructor of File is made in handleLocationSnapshotDirectoryButtonPressed()
+121 call to constructor of Path is made in handleLocationSnapshotDirectoryButtonPressed()
+122 class has void function handleLocationSnapshotDirectoryButtonPressed()
+123 has public function createProjects()
+124 call to constructor of Path is made in createProjects()
+125 call to constructor of OperationCanceledException is made in createProjects()
+126 call to constructor of SubProgressMonitor is made in createProjects()
+127 createProjects() function returns type boolean
+128 has public function performCancel()
+129 class has void function performCancel()
+130 has private function createExistingProject()
+131 call to constructor of Path is made in createExistingProject()
+132 call to constructor of SubProgressMonitor is made in createExistingProject()
+133 call to constructor of InvocationTargetException is made in createExistingProject()
+134 createExistingProject() function has parameter of type ProjectRecord
+135 createExistingProject() function has parameter of type IPath
+136 createExistingProject() function has parameter of type IProgressMonitor
+137 createExistingProject() function returns type boolean
+138 has public function queryOverwrite()
+139 call to constructor of Path is made in queryOverwrite()
+140 call to constructor of MessageDialog is made in queryOverwrite()
+141 queryOverwrite() function has parameter of type String
+142 queryOverwrite() function returns type String
+143 has public function getProjectsList()
+144 getProjectsList() function returns type CheckboxTreeViewer
+145 has private function getProjectsInWorkspace()
+146 getProjectsInWorkspace() function returns type IProject
+147 has public function getValidProjects()
+148 call to constructor of ArrayList is made in getValidProjects()
+149 getValidProjects() function returns output from function call
+150 getValidProjects() function returns type ProjectRecord
+151 has private function isProjectInWorkspace()
+152 isProjectInWorkspace() function has parameter of type String
+153 isProjectInWorkspace() function returns type boolean
+154 has private function hasSnapshot()
+155 call to constructor of Path is made in hasSnapshot()
+156 hasSnapshot() function returns output from function call
+157 hasSnapshot() function has parameter of type String
+158 hasSnapshot() function returns type boolean
+159 has public function restoreWidgetValues()
+160 class has void function restoreWidgetValues()
+161 has public function saveWidgetValues()
+162 class has void function saveWidgetValues()
+163 class defines constructor with parameter of type File
+164 class has member field called projectSystemFile
+165 class has member field of type File
+166 class has member field projectSystemFile of type File
+167 class has member field called projectName
+168 class has member field projectName of type String
+169 class has member field called parent
+170 class has member field of type Object
+171 class has member field parent of type Object
+172 class has member field called level
+173 class has member field of type int
+174 class has member field level of type int
+175 class has member field called description
+176 class has member field of type IProjectDescription
+177 class has member field description of type IProjectDescription
+178 has private function setProjectName()
+179 call to constructor of Path is made in setProjectName()
+180 class has void function setProjectName()
+181 has private function isDefaultLocation()
+182 isDefaultLocation() function returns output from function call
+183 isDefaultLocation() function has parameter of type IPath
+184 isDefaultLocation() function returns type boolean
+185 has public function getProjectName()
+186 getProjectName() function returns type String
+187 has public function getProjectLabel()
+188 getProjectLabel() function returns output from function call
+189 getProjectLabel() function returns type String
+190 class does not define constructor
+191 has public function getChildren()
+192 getChildren() function has parameter of type Object
+193 getChildren() function returns type Object
+194 has public function getElements()
+195 getElements() function returns output from function call
+196 getElements() function returns output from function call to getValidProjects
+197 getElements() function has parameter of type Object
+198 getElements() function returns type Object
+199 has public function hasChildren()
+200 hasChildren() function has parameter of type Object
+201 hasChildren() function returns type boolean
+202 has public function getParent()
+203 getParent() function has parameter of type Object
+204 getParent() function returns type Object
+205 has public function dispose()
+206 class has void function dispose()
+207 has public function inputChanged()
+208 inputChanged() function has parameter of type Viewer
+209 inputChanged() function has parameter of type Object
+210 class has void function inputChanged()
+211 has public function getText()
+212 getText() function returns output from function call
+213 getText() function returns output from function call to getProjectLabel
+214 getText() function has parameter of type Object
+215 getText() function returns type String
+216 has public function checkStateChanged()
+217 checkStateChanged() function has parameter of type CheckStateChangedEvent
+218 class has void function checkStateChanged()
+219 has public function widgetSelected()
+220 widgetSelected() function has parameter of type SelectionEvent
+221 class has void function widgetSelected()
+222 has public function keyTraversed()
+223 keyTraversed() function has parameter of type TraverseEvent
+224 class has void function keyTraversed()
+225 has public function focusLost()
+226 focusLost() function has parameter of type org
+227 class has void function focusLost()
+228 has public function run()
+229 call to constructor of ArrayList is made in run()
+230 call to constructor of File is made in run()
+231 run() function has parameter of type IProgressMonitor
+232 class has void function run()
+233 has protected function execute()
+234 call to constructor of OperationCanceledException is made in execute()
+235 call to constructor of SubProgressMonitor is made in execute()
+236 execute() function has parameter of type IProgressMonitor
+237 class has void function execute()

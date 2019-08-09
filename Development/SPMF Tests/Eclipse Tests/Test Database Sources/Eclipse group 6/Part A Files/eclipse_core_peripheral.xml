@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5">
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/MemoryAdapterFactory.java" hash="11febdd21f6c8ba4bbcebfbd97d195948ed4ef3b"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IAdapterFactory</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>model</name><operator>.</operator><name>IWorkbenchAdapter</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * A factory that adapts MemoryTree nodes to WorkbenchAdapter for display
+ * in the UI.
+ */</comment>
+<class><specifier>public</specifier> class <name>MemoryAdapterFactory</name> <super><implements>implements <name>IAdapterFactory</name></implements></super> <block>{
+	<decl_stmt><decl><specifier>private</specifier> <type><name><name>Class</name><index>[]</index></name></type> <name>ADAPTER_LIST</name> <init>= <expr><operator>new</operator> <name><name>Class</name><index>[]</index></name> <block>{<expr><name><name>IWorkbenchAdapter</name><operator>.</operator><name>class</name></name></expr>}</block></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>WorkbenchMemoryNode</name></type> <name>memoryAdapter</name> <init>= <expr><operator>new</operator> <call><name>WorkbenchMemoryNode</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+	<function><specifier>public</specifier> <type><name>Object</name></type> <name>getAdapter</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>adaptableObject</name></decl></parameter>, <parameter><decl><type><name>Class</name></type> <name>adapterType</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><name>adaptableObject</name> <operator>instanceof</operator> <name>MemoryFileStore</name> <operator>&amp;&amp;</operator> <call><name><name>adapterType</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name><name>IWorkbenchAdapter</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><name>memoryAdapter</name></expr>;</return></block></then></if>
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name><name>Class</name><index>[]</index></name></type> <name>getAdapterList</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><name>ADAPTER_LIST</name></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/zip/ZipFileSystem.java" hash="e80da2c1180a4e6318c95c3eb2a861cad266eab0"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>zip</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URISyntaxException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>EFS</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>IFileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileSystem</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>*</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * 
+ */</comment>
+<class><specifier>public</specifier> class <name>ZipFileSystem</name> <super><extends>extends <name>FileSystem</name></extends></super> <block>{
+	<comment type="block" format="javadoc">/**
+	 * Scheme constant (value "zip") indicating the zip file system scheme.
+	 */</comment>
+	<decl_stmt><decl><specifier>public</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>SCHEME_ZIP</name> <init>= <expr><literal type="string">"zip"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getStore</name><parameter_list>(<parameter><decl><type><name>URI</name></type> <name>uri</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><call><name><name>SCHEME_ZIP</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><call><name><name>uri</name><operator>.</operator><name>getScheme</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>IPath</name></type> <name>path</name> <init>= <expr><operator>new</operator> <call><name>Path</name><argument_list>(<argument><expr><call><name><name>uri</name><operator>.</operator><name>getPath</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<try>try <block>{
+				<return>return <expr><operator>new</operator> <call><name>ZipFileStore</name><argument_list>(<argument><expr><call><name><name>EFS</name><operator>.</operator><name>getStore</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><call><name><name>uri</name><operator>.</operator><name>getQuery</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>path</name></expr></argument>)</argument_list></call></expr>;</return>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">//ignore and fall through below</comment>
+			}</block></catch> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">//ignore and fall through below</comment>
+			}</block></catch></try>
+		}</block></then></if>
+		<return>return <expr><call><name><name>EFS</name><operator>.</operator><name>getNullFileSystem</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getStore</name><argument_list>(<argument><expr><name>uri</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/zip/ZipFileSystemContributor.java" hash="79fa37767deae300f6709838f2662c835e79a27a"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>zip</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>File</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URISyntaxException</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>FileDialog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Shell</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>fileSystem</name><operator>.</operator><name>FileSystemContributor</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * ZipFileSystemContributor is the zip example of a file system contributor.
+ * 
+ */</comment>
+<class><specifier>public</specifier> class <name>ZipFileSystemContributor</name> <super><extends>extends <name>FileSystemContributor</name></extends></super> <block>{
+
+	<constructor><specifier>public</specifier> <name>ZipFileSystemContributor</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>getURI</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>pathString</name></decl></parameter>)</parameter_list> <block>{
+		<try>try <block>{
+			<if>if <condition>(<expr><call><name><name>pathString</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><name><name>ZipFileSystem</name><operator>.</operator><name>SCHEME_ZIP</name></name></expr></argument>)</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><return>return <expr><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><name>pathString</name></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e1</name></decl></parameter>)</parameter_list> <block>{
+			<return>return <expr><literal type="null">null</literal></expr>;</return>
+		}</block></catch></try>
+		<if>if <condition>(<expr><name><name>File</name><operator>.</operator><name>separatorChar</name></name> <operator>!=</operator> <literal type="char">'/'</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>pathString</name> <operator>=</operator> <call><name><name>pathString</name><operator>.</operator><name>replace</name></name><argument_list>(<argument><expr><name><name>File</name><operator>.</operator><name>separatorChar</name></name></expr></argument>, <argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<decl_stmt><decl><type><specifier>final</specifier> <name>int</name></type> <name>length</name> <init>= <expr><call><name><name>pathString</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>StringBuffer</name></type> <name>pathBuf</name> <init>= <expr><operator>new</operator> <call><name>StringBuffer</name><argument_list>(<argument><expr><name>length</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>pathBuf</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><literal type="string">"file:"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<comment type="line">// There must be a leading slash in a hierarchical URI</comment>
+		<if>if <condition>(<expr><name>length</name> <operator>&gt;</operator> <literal type="number">0</literal> <operator>&amp;&amp;</operator> <operator>(</operator><call><name><name>pathString</name><operator>.</operator><name>charAt</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call> <operator>!=</operator> <literal type="char">'/'</literal><operator>)</operator></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>pathBuf</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<comment type="line">// additional double-slash for UNC paths to distinguish from host</comment>
+		<comment type="line">// separator</comment>
+		<if>if <condition>(<expr><call><name><name>pathString</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><literal type="string">"//"</literal></expr></argument>)</argument_list></call></expr>)</condition><then> <comment type="line">//$NON-NLS-1$</comment>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>pathBuf</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>append</name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<expr_stmt><expr><call><name><name>pathBuf</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><name>pathString</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<try>try <block>{
+			<comment type="line">//scheme, host, path, query, fragment</comment>
+			<return>return <expr><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><name><name>ZipFileSystem</name><operator>.</operator><name>SCHEME_ZIP</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="string">"/"</literal></expr></argument>, <argument><expr><call><name><name>pathBuf</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</return> <comment type="line">//$NON-NLS-1$</comment>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<return>return <expr><literal type="null">null</literal></expr>;</return>
+		}</block></catch></try>
+	}</block></function>
+
+	<comment type="block">/* (non-Javadoc)
+	 * @see org.eclipse.ui.ide.fileSystem.FileSystemContributor#browseFileSystem(java.lang.String, org.eclipse.swt.widgets.Shell)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>browseFileSystem</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>initialPath</name></decl></parameter>, <parameter><decl><type><name>Shell</name></type> <name>shell</name></decl></parameter>)</parameter_list> <block>{
+
+		<decl_stmt><decl><type><name>FileDialog</name></type> <name>dialog</name> <init>= <expr><operator>new</operator> <call><name>FileDialog</name><argument_list>(<argument><expr><name>shell</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<if>if <condition>(<expr><call><name><name>initialPath</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>dialog</name><operator>.</operator><name>setFilterPath</name></name><argument_list>(<argument><expr><name>initialPath</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+
+		<expr_stmt><expr><call><name><name>dialog</name><operator>.</operator><name>setFilterExtensions</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>String</name><index>[]</index></name> <block>{<expr><literal type="string">"*.zip"</literal></expr>}</block></expr></argument>)</argument_list></call></expr>;</expr_stmt><comment type="line">//$NON-NLS-1$		</comment>
+
+		<decl_stmt><decl><type><name>String</name></type> <name>selectedFile</name> <init>= <expr><call><name><name>dialog</name><operator>.</operator><name>open</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>selectedFile</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><literal type="null">null</literal></expr>;</return></block></then></if>
+		<return>return <expr><call><name>getURI</name><argument_list>(<argument><expr><name>selectedFile</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/MemoryFileSystem.java" hash="5b871f78197a8cb4afaa8691de4048e232f72755"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URISyntaxException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>IFileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileSystem</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IPath</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Path</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * A test file system that keeps everything in memory.
+ */</comment>
+<class><specifier>public</specifier> class <name>MemoryFileSystem</name> <super><extends>extends <name>FileSystem</name></extends></super> <block>{
+	<decl_stmt><decl><specifier>public</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>SCHEME_MEMORY</name> <init>= <expr><literal type="string">"memory"</literal></expr></init></decl>;</decl_stmt>
+
+	<comment type="block" format="javadoc">/**
+	 * Converts a path to a URI in the memory file system.
+	 * @param path
+	 * @return
+	 */</comment>
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>URI</name></type> <name>toURI</name><parameter_list>(<parameter><decl><type><name>IPath</name></type> <name>path</name></decl></parameter>)</parameter_list> <block>{
+		<try>try <block>{
+			<return>return <expr><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><name><name>MemoryFileSystem</name><operator>.</operator><name>SCHEME_MEMORY</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>path</name><operator>.</operator><name>setDevice</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>toPortableString</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</return>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<comment type="line">//should not happen</comment>
+			<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+		}</block></catch></try>
+	}</block></function>
+
+	<constructor><specifier>public</specifier> <name>MemoryFileSystem</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getStore</name><parameter_list>(<parameter><decl><type><name>URI</name></type> <name>uri</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>MemoryFileStore</name><argument_list>(<argument><expr><call><name><name>Path</name><operator>.</operator><name>fromPortableString</name></name><argument_list>(<argument><expr><call><name><name>uri</name><operator>.</operator><name>getSchemeSpecificPart</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>boolean</name></type> <name>isCaseSensitive</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><literal type="boolean">true</literal></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/MemoryFileSystemContributor.java" hash="05c5ccc801e2e8c2022bf06386f48a0a7fef5521"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URISyntaxException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>IFileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Path</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>window</name><operator>.</operator><name>Window</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Shell</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>fileSystem</name><operator>.</operator><name>FileSystemContributor</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * ZipFileSystemContributor is the zip example of a file system
+ * contributor.
+ *
+ */</comment>
+<class><specifier>public</specifier> class <name>MemoryFileSystemContributor</name> <super><extends>extends <name>FileSystemContributor</name></extends></super> <block>{
+
+	<constructor><specifier>public</specifier> <name>MemoryFileSystemContributor</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<comment type="block">/* (non-Javadoc)
+	 * @see org.eclipse.ui.ide.fileSystem.FileSystemContributor#browseFileSystem(java.lang.String, org.eclipse.swt.widgets.Shell)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>browseFileSystem</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>initialPath</name></decl></parameter>, <parameter><decl><type><name>Shell</name></type> <name>shell</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>MemoryTreeSelectionDialog</name></type> <name>dialog</name> <init>= <expr><operator>new</operator> <call><name>MemoryTreeSelectionDialog</name><argument_list>(<argument><expr><name>shell</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><call><name><name>dialog</name><operator>.</operator><name>open</name></name><argument_list>()</argument_list></call> <operator>!=</operator> <name><name>Window</name><operator>.</operator><name>OK</name></name></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><literal type="null">null</literal></expr>;</return></block></then></if>
+		<decl_stmt><decl><type><name><name>Object</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>dialog</name><operator>.</operator><name>getResult</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name><name>result</name><operator>.</operator><name>length</name></name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><literal type="null">null</literal></expr>;</return></block></then></if>
+		<return>return <expr><operator>(</operator><operator>(</operator><name>IFileStore</name><operator>)</operator> <name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>)</operator><operator>.</operator><call><name>toURI</name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * @see org.eclipse.ui.ide.fileSystem.FileSystemContributor#getURI(java.lang.String)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>getURI</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>string</name></decl></parameter>)</parameter_list> <block>{
+		<try>try <block>{
+			<if>if <condition>(<expr><call><name><name>string</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><name><name>MemoryFileSystem</name><operator>.</operator><name>SCHEME_MEMORY</name></name></expr></argument>)</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><return>return <expr><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><name>string</name></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><call><name><name>Policy</name><operator>.</operator><name>createStatus</name></name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></catch></try>
+		<return>return <expr><call><name><name>MemoryFileSystem</name><operator>.</operator><name>toURI</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>Path</name><argument_list>(<argument><expr><name>string</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/MemoryFileStore.java" hash="c59af9458a165f68ac6b8a8aa5058acc4b38718d"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>OutputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>*</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * In memory file system implementation used for testing.
+ */</comment>
+<class><specifier>public</specifier> class <name>MemoryFileStore</name> <super><extends>extends <name>FileStore</name></extends></super> <block>{
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>MemoryTree</name></type> <name>TREE</name> <init>= <expr><name><name>MemoryTree</name><operator>.</operator><name>TREE</name></name></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><specifier>final</specifier> <name>IPath</name></type> <name>path</name></decl>;</decl_stmt>
+
+	<constructor><specifier>public</specifier> <name>MemoryFileStore</name><parameter_list>(<parameter><decl><type><name>IPath</name></type> <name>path</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>path</name></name> <operator>=</operator> <call><name><name>path</name><operator>.</operator><name>setDevice</name></name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name><name>String</name><index>[]</index></name></type> <name>childNames</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>String</name><index>[]</index></name></type> <name>names</name> <init>= <expr><call><name><name>TREE</name><operator>.</operator><name>childNames</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<return>return <expr><ternary><condition><expr><name>names</name> <operator>==</operator> <literal type="null">null</literal></expr> ?</condition><then> <expr><name>EMPTY_STRING_ARRAY</name></expr> </then><else>: <expr><name>names</name></expr></else></ternary></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>delete</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>TREE</name><operator>.</operator><name>delete</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileInfo</name></type> <name>fetchInfo</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><call><name><name>TREE</name><operator>.</operator><name>fetchInfo</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getChild</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>MemoryFileStore</name><argument_list>(<argument><expr><call><name><name>path</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getName</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>name</name> <init>= <expr><call><name><name>path</name><operator>.</operator><name>lastSegment</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<return>return <expr><ternary><condition><expr><name>name</name> <operator>==</operator> <literal type="null">null</literal></expr> ?</condition><then> <expr><literal type="string">""</literal></expr> </then><else>: <expr><name>name</name></expr></else></ternary></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getParent</name><parameter_list>()</parameter_list> <block>{
+		<if>if <condition>(<expr><call><name><name>path</name><operator>.</operator><name>segmentCount</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><literal type="null">null</literal></expr>;</return></block></then></if>
+		<return>return <expr><operator>new</operator> <call><name>MemoryFileStore</name><argument_list>(<argument><expr><call><name><name>path</name><operator>.</operator><name>removeLastSegments</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>mkdir</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>TREE</name><operator>.</operator><name>mkdir</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>, <argument><expr><operator>(</operator><name>options</name> <operator>&amp;</operator> <name><name>EFS</name><operator>.</operator><name>SHALLOW</name></name><operator>)</operator> <operator>==</operator> <literal type="number">0</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>this</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>InputStream</name></type> <name>openInputStream</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<return>return <expr><call><name><name>TREE</name><operator>.</operator><name>openInputStream</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>OutputStream</name></type> <name>openOutputStream</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<return>return <expr><call><name><name>TREE</name><operator>.</operator><name>openOutputStream</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>, <argument><expr><name>options</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>putInfo</name><parameter_list>(<parameter><decl><type><name>IFileInfo</name></type> <name>info</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>TREE</name><operator>.</operator><name>putInfo</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>, <argument><expr><name>info</name></expr></argument>, <argument><expr><name>options</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>toURI</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>MemoryFileSystem</name><operator>.</operator><name>toURI</name></name><argument_list>(<argument><expr><name>path</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+}</block></class></unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/WorkbenchMemoryNode.java" hash="ce03efa153db8b789d3352dadb73dbef4b34bc59"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>EFS</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>CoreException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>resource</name><operator>.</operator><name>ImageDescriptor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>model</name><operator>.</operator><name>IWorkbenchAdapter</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * 
+ */</comment>
+<class><specifier>public</specifier> class <name>WorkbenchMemoryNode</name> <super><implements>implements <name>IWorkbenchAdapter</name></implements></super> <block>{
+
+	<function><specifier>public</specifier> <type><name><name>Object</name><index>[]</index></name></type> <name>getChildren</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>parent</name></decl></parameter>)</parameter_list> <block>{
+		<try>try <block>{
+			<return>return <expr><operator>(</operator><operator>(</operator><name>MemoryFileStore</name><operator>)</operator> <name>parent</name><operator>)</operator><operator>.</operator><call><name>childStores</name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</return>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<return>return <expr><operator>new</operator> <name><name>Object</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr>;</return>
+		}</block></catch></try>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>ImageDescriptor</name></type> <name>getImageDescriptor</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>object</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getLabel</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>o</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>(</operator><operator>(</operator><name>MemoryFileStore</name><operator>)</operator> <name>o</name><operator>)</operator><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>Object</name></type> <name>getParent</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>o</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>(</operator><operator>(</operator><name>MemoryFileStore</name><operator>)</operator> <name>o</name><operator>)</operator><operator>.</operator><call><name>getParent</name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/Policy.java" hash="7896dfc34fed64ab04729205012453b0b8db18c9"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>*</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * 
+ */</comment>
+<class><specifier>public</specifier> class <name>Policy</name> <block>{
+	<decl_stmt><decl><specifier>public</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>PI_FILESYSTEM_EXAMPLE</name> <init>= <expr><literal type="string">"org.eclipse.ui.examples.filesystem"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>void</name></type> <name>error</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>message</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<throw>throw <expr><operator>new</operator> <call><name>CoreException</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Status</name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr></argument>, <argument><expr><name>PI_FILESYSTEM_EXAMPLE</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><name>message</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<constructor><specifier>private</specifier> <name>Policy</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>void</name></type> <name>log</name><parameter_list>(<parameter><decl><type><name>IStatus</name></type> <name>status</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>Platform</name><operator>.</operator><name>getLog</name></name><argument_list>(<argument><expr><call><name><name>Platform</name><operator>.</operator><name>getBundle</name></name><argument_list>(<argument><expr><name>PI_FILESYSTEM_EXAMPLE</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>log</name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>IStatus</name></type> <name>createStatus</name><parameter_list>(<parameter><decl><type><name>Throwable</name></type> <name>t</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><name>t</name> <operator>instanceof</operator> <name>CoreException</name></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><operator>(</operator><operator>(</operator><name>CoreException</name><operator>)</operator> <name>t</name><operator>)</operator><operator>.</operator><call><name>getStatus</name><argument_list>()</argument_list></call></expr>;</return></block></then></if>
+		<return>return <expr><operator>new</operator> <call><name>Status</name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr></argument>, <argument><expr><name>PI_FILESYSTEM_EXAMPLE</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="string">"Internal Error: "</literal> <operator>+</operator> <call><name><name>t</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>t</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/memory/MemoryTreeSelectionDialog.java" hash="b026cdb852eacd1e85a4779525bffa8e9df0e60b"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>memory</name></name>;</package>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>EFS</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>IFileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IStatus</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Path</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>dialogs</name><operator>.</operator><name>ErrorDialog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>dialogs</name><operator>.</operator><name>IDialogConstants</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>SWT</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>layout</name><operator>.</operator><name>GridData</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>layout</name><operator>.</operator><name>GridLayout</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>dialogs</name><operator>.</operator><name>SelectionDialog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>model</name><operator>.</operator><name>WorkbenchContentProvider</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>model</name><operator>.</operator><name>WorkbenchLabelProvider</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * A dialog that presents a tree of memory tree elements
+ * for the user to select from.
+ */</comment>
+<class><specifier>public</specifier> class <name>MemoryTreeSelectionDialog</name> <super><extends>extends <name>SelectionDialog</name></extends></super> <block>{
+
+	<comment type="block" format="javadoc">/**
+	 * Button id for the button that creates a new file
+	 */</comment>
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>int</name></type> <name>CREATE_FILE_ID</name> <init>= <expr><literal type="number">16</literal></expr></init></decl>;</decl_stmt>
+	<comment type="block" format="javadoc">/**
+	 * Button id for the button that creates a new folder
+	 */</comment>
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>int</name></type> <name>CREATE_FOLDER_ID</name> <init>= <expr><literal type="number">17</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Text</name></type> <name>nameField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><type><name>TreeViewer</name></type> <name>tree</name></decl>;</decl_stmt>
+
+	<constructor><specifier>protected</specifier> <name>MemoryTreeSelectionDialog</name><parameter_list>(<parameter><decl><type><name>Shell</name></type> <name>parentShell</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>parentShell</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>buttonPressed</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>buttonId</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><name>buttonId</name> <operator>==</operator> <name>CREATE_FILE_ID</name> <operator>||</operator> <name>buttonId</name> <operator>==</operator> <name>CREATE_FOLDER_ID</name></expr>)</condition><then> <block>{
+			<try>try <block>{
+				<decl_stmt><decl><type><name>IFileStore</name></type> <name>parent</name> <init>= <expr><call><name>getSelectedFileStore</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<decl_stmt><decl><type><name>IFileStore</name></type> <name>toCreate</name></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>parent</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><name>toCreate</name> <operator>=</operator> <call><name><name>parent</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><call><name><name>nameField</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+				<else>else
+					<block type="pseudo"><expr_stmt><expr><name>toCreate</name> <operator>=</operator> <operator>new</operator> <call><name>MemoryFileStore</name><argument_list>(<argument><expr><call><name><name>Path</name><operator>.</operator><name>ROOT</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><call><name><name>nameField</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+				<if>if <condition>(<expr><name>buttonId</name> <operator>==</operator> <name>CREATE_FILE_ID</name></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>toCreate</name><operator>.</operator><name>openOutputStream</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>close</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				}</block></then> <else>else <block>{
+					<expr_stmt><expr><call><name><name>toCreate</name><operator>.</operator><name>mkdir</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></else></if>
+				<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>refresh</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name>IStatus</name></type> <name>status</name> <init>= <expr><call><name><name>Policy</name><operator>.</operator><name>createStatus</name></name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>ErrorDialog</name><operator>.</operator><name>openError</name></name><argument_list>(<argument><expr><call><name>getShell</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></catch></try>
+		}</block></then> <else>else <block>{
+			<expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>buttonPressed</name></name><argument_list>(<argument><expr><name>buttonId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></else></if>
+	}</block></function>
+
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>configureShell</name><parameter_list>(<parameter><decl><type><name>Shell</name></type> <name>shell</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>configureShell</name></name><argument_list>(<argument><expr><name>shell</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>shell</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><literal type="string">"Select an element from the in-memory file system"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<function><specifier>protected</specifier> <type><name>Control</name></type> <name>createDialogArea</name><parameter_list>(<parameter><decl><type><name>Composite</name></type> <name>parent</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>Composite</name></type> <name>top</name> <init>= <expr><operator>(</operator><name>Composite</name><operator>)</operator> <call><name><name>super</name><operator>.</operator><name>createDialogArea</name></name><argument_list>(<argument><expr><name>parent</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<expr_stmt><expr><name>tree</name> <operator>=</operator> <operator>new</operator> <call><name>TreeViewer</name><argument_list>(<argument><expr><name>top</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>SINGLE</name></name> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>GridData</name></type> <name>data</name> <init>= <expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_BOTH</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name><name>data</name><operator>.</operator><name>heightHint</name></name> <operator>=</operator> <literal type="number">300</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setLayoutData</name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>setContentProvider</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>WorkbenchContentProvider</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>setLabelProvider</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>WorkbenchLabelProvider</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>setInput</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>MemoryFileStore</name><argument_list>(<argument><expr><name><name>Path</name><operator>.</operator><name>ROOT</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name>createNewElementArea</name><argument_list>(<argument><expr><name>parent</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<return>return <expr><name>top</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Creates the dialog region that allows the user to specify a new element name
+	 * @param parent
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>createNewElementArea</name><parameter_list>(<parameter><decl><type><name>Composite</name></type> <name>parent</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>Composite</name></type> <name>area</name> <init>= <expr><operator>new</operator> <call><name>Composite</name><argument_list>(<argument><expr><name>parent</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>GridLayout</name></type> <name>layout</name> <init>= <expr><operator>new</operator> <call><name>GridLayout</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name><name>layout</name><operator>.</operator><name>numColumns</name></name> <operator>=</operator> <literal type="number">4</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>area</name><operator>.</operator><name>setLayout</name></name><argument_list>(<argument><expr><name>layout</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>area</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_BOTH</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>area</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call><operator>.</operator><call><name>setText</name><argument_list>(<argument><expr><literal type="string">"Name: "</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>nameField</name> <operator>=</operator> <operator>new</operator> <call><name>Text</name><argument_list>(<argument><expr><name>area</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>SINGLE</name></name> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>GridData</name></type> <name>data</name> <init>= <expr><operator>new</operator> <call><name>GridData</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name><name>data</name><operator>.</operator><name>widthHint</name></name> <operator>=</operator> <name><name>IDialogConstants</name><operator>.</operator><name>ENTRY_FIELD_WIDTH</name></name></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>nameField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><name>data</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name>createButton</name><argument_list>(<argument><expr><name>area</name></expr></argument>, <argument><expr><name>CREATE_FILE_ID</name></expr></argument>, <argument><expr><literal type="string">"New File"</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>createButton</name><argument_list>(<argument><expr><name>area</name></expr></argument>, <argument><expr><name>CREATE_FOLDER_ID</name></expr></argument>, <argument><expr><literal type="string">"New Folder"</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Returns the currently selected file store, or null if there is no select.
+	 * @return
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>IFileStore</name></type> <name>getSelectedFileStore</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>ISelection</name></type> <name>selection</name> <init>= <expr><call><name><name>tree</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>selection</name> <operator>instanceof</operator> <name>IStructuredSelection</name></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>IFileStore</name></type> <name>selected</name> <init>= <expr><call>(<name>IFileStore</name>) <argument_list>(<argument><expr><operator>(</operator><name>IStructuredSelection</name><operator>)</operator> <name>selection</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getFirstElement</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>selected</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+				<block type="pseudo"><return>return <expr><name>selected</name></expr>;</return></block></then></if>
+		}</block></then></if>
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>protected</specifier> <type><name>int</name></type> <name>getShellStyle</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>super</name><operator>.</operator><name>getShellStyle</name></name><argument_list>()</argument_list></call> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>RESIZE</name></name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>okPressed</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>IStructuredSelection</name></type> <name>selection</name> <init>= <expr><operator>(</operator><name>IStructuredSelection</name><operator>)</operator> <call><name><name>tree</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name>setResult</name><argument_list>(<argument><expr><call><name><name>selection</name><operator>.</operator><name>toList</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>okPressed</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="core/internal/filesystem/zip/ZipFileStore.java" hash="41af6bfc0b63dc8d22b752728c76301f47412d79"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>zip</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URISyntaxException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashMap</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>zip</name><operator>.</operator><name>ZipEntry</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>zip</name><operator>.</operator><name>ZipInputStream</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileInfo</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>Messages</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>Policy</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>osgi</name><operator>.</operator><name>util</name><operator>.</operator><name>NLS</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * File store implementation representing a file or directory inside
+ * a zip file.
+ */</comment>
+<class><specifier>public</specifier> class <name>ZipFileStore</name> <super><extends>extends <name>FileStore</name></extends></super> <block>{
+	<comment type="block" format="javadoc">/**
+	 * The path of this store within the zip file.
+	 */</comment>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>IPath</name></type> <name>path</name></decl>;</decl_stmt>
+
+	<comment type="block" format="javadoc">/**
+	 * The file store that represents the actual zip file.
+	 */</comment>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>IFileStore</name></type> <name>rootStore</name></decl>;</decl_stmt>
+
+	<comment type="block" format="javadoc">/**
+	 * Creates a new zip file store.
+	 * @param rootStore
+	 * @param path
+	 */</comment>
+	<constructor><specifier>public</specifier> <name>ZipFileStore</name><parameter_list>(<parameter><decl><type><name>IFileStore</name></type> <name>rootStore</name></decl></parameter>, <parameter><decl><type><name>IPath</name></type> <name>path</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>rootStore</name></name> <operator>=</operator> <name>rootStore</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>path</name></name> <operator>=</operator> <call><name><name>path</name><operator>.</operator><name>makeRelative</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>private</specifier> <type><name><name>ZipEntry</name><index>[]</index></name></type> <name>childEntries</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name>HashMap</name></type> <name>entries</name> <init>= <expr><operator>new</operator> <call><name>HashMap</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>ZipInputStream</name></type> <name>in</name> <init>= <expr><operator>new</operator> <call><name>ZipInputStream</name><argument_list>(<argument><expr><call><name><name>rootStore</name><operator>.</operator><name>openInputStream</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>String</name></type> <name>myName</name> <init>= <expr><call><name><name>path</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<try>try <block>{
+			<decl_stmt><decl><type><name>ZipEntry</name></type> <name>current</name></decl>;</decl_stmt>
+			<while>while <condition>(<expr><operator>(</operator><name>current</name> <operator>=</operator> <call><name><name>in</name><operator>.</operator><name>getNextEntry</name></name><argument_list>()</argument_list></call><operator>)</operator> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{
+				<decl_stmt><decl><type><specifier>final</specifier> <name>String</name></type> <name>currentPath</name> <init>= <expr><call><name><name>current</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name>isParent</name><argument_list>(<argument><expr><name>myName</name></expr></argument>, <argument><expr><name>currentPath</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>entries</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name>currentPath</name></expr></argument>, <argument><expr><name>current</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+				<elseif>else <if>if <condition>(<expr><call><name>isAncestor</name><argument_list>(<argument><expr><name>myName</name></expr></argument>, <argument><expr><name>currentPath</name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+					<decl_stmt><decl><type><name>int</name></type> <name>myNameLength</name> <init>= <expr><call><name><name>myName</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>+</operator> <literal type="number">1</literal></expr></init></decl>;</decl_stmt>
+					<decl_stmt><decl><type><name>int</name></type> <name>nameEnd</name> <init>= <expr><call><name><name>currentPath</name><operator>.</operator><name>indexOf</name></name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>, <argument><expr><name>myNameLength</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+					<decl_stmt><decl><type><name>String</name></type> <name>dirName</name> <init>= <expr><ternary><condition><expr><name>nameEnd</name> <operator>==</operator> <operator>-</operator><literal type="number">1</literal></expr> ?</condition><then> <expr><name>currentPath</name></expr> </then><else>: <expr><call><name><name>currentPath</name><operator>.</operator><name>substring</name></name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>nameEnd</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr></else></ternary></expr></init></decl>;</decl_stmt>
+					<if>if <condition>(<expr><operator>!</operator><call><name><name>entries</name><operator>.</operator><name>containsKey</name></name><argument_list>(<argument><expr><name>dirName</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+						<block type="pseudo"><expr_stmt><expr><call><name><name>entries</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name>dirName</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>ZipEntry</name><argument_list>(<argument><expr><name>dirName</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+				}</block></then></if></elseif></if>
+			}</block></while>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_READ</name></name></expr></argument>, <argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>couldNotRead</name></name></expr></argument>, <argument><expr><call><name><name>rootStore</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></catch> <finally>finally <block>{
+			<try>try <block>{
+				<if>if <condition>(<expr><name>in</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>in</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt></block></then></if>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">//ignore</comment>
+			}</block></catch></try>
+		}</block></finally></try>
+		<return>return <expr><operator>(</operator><name><name>ZipEntry</name><index>[]</index></name><operator>)</operator> <call><name><name>entries</name><operator>.</operator><name>values</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toArray</name><argument_list>(<argument><expr><operator>new</operator> <name><name>ZipEntry</name><index>[<expr><call><name><name>entries</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name><name>IFileInfo</name><index>[]</index></name></type> <name>childInfos</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name><name>ZipEntry</name><index>[]</index></name></type> <name>entries</name> <init>= <expr><call><name>childEntries</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>entryCount</name> <init>= <expr><name><name>entries</name><operator>.</operator><name>length</name></name></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name><name>IFileInfo</name><index>[]</index></name></type> <name>infos</name> <init>= <expr><operator>new</operator> <name><name>IFileInfo</name><index>[<expr><name>entryCount</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>entryCount</name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control>
+			<block type="pseudo"><expr_stmt><expr><name><name>infos</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <call><name>convertZipEntryToFileInfo</name><argument_list>(<argument><expr><name><name>entries</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></for>
+		<return>return <expr><name>infos</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name><name>String</name><index>[]</index></name></type> <name>childNames</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name><name>ZipEntry</name><index>[]</index></name></type> <name>entries</name> <init>= <expr><call><name>childEntries</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>entryCount</name> <init>= <expr><name><name>entries</name><operator>.</operator><name>length</name></name></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>names</name> <init>= <expr><operator>new</operator> <name><name>String</name><index>[<expr><name>entryCount</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name>entryCount</name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control>
+			<block type="pseudo"><expr_stmt><expr><name><name>names</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <call><name>computeName</name><argument_list>(<argument><expr><name><name>entries</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></for>
+		<return>return <expr><name>names</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Computes the simple file name for a given zip entry.
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>String</name></type> <name>computeName</name><parameter_list>(<parameter><decl><type><name>ZipEntry</name></type> <name>entry</name></decl></parameter>)</parameter_list> <block>{
+		<comment type="line">//the entry name is a relative path, with an optional trailing separator</comment>
+		<comment type="line">//We need to strip off the trailing slash, and then take everything after the </comment>
+		<comment type="line">//last separator as the name</comment>
+		<decl_stmt><decl><type><name>String</name></type> <name>name</name> <init>= <expr><call><name><name>entry</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>end</name> <init>= <expr><call><name><name>name</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>-</operator> <literal type="number">1</literal></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><call><name><name>name</name><operator>.</operator><name>charAt</name></name><argument_list>(<argument><expr><name>end</name></expr></argument>)</argument_list></call> <operator>==</operator> <literal type="char">'/'</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>end</name><operator>--</operator></expr>;</expr_stmt></block></then></if>
+		<return>return <expr><call><name><name>name</name><operator>.</operator><name>substring</name></name><argument_list>(<argument><expr><call><name><name>name</name><operator>.</operator><name>lastIndexOf</name></name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>, <argument><expr><name>end</name></expr></argument>)</argument_list></call> <operator>+</operator> <literal type="number">1</literal></expr></argument>, <argument><expr><name>end</name> <operator>+</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Creates a file info object corresponding to a given zip entry
+	 * 
+	 * @param entry the zip entry
+	 * @return The file info for a zip entry
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>IFileInfo</name></type> <name>convertZipEntryToFileInfo</name><parameter_list>(<parameter><decl><type><name>ZipEntry</name></type> <name>entry</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>FileInfo</name></type> <name>info</name> <init>= <expr><operator>new</operator> <call><name>FileInfo</name><argument_list>(<argument><expr><call><name>computeName</name><argument_list>(<argument><expr><name>entry</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>info</name><operator>.</operator><name>setLastModified</name></name><argument_list>(<argument><expr><call><name><name>entry</name><operator>.</operator><name>getTime</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>info</name><operator>.</operator><name>setExists</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>info</name><operator>.</operator><name>setDirectory</name></name><argument_list>(<argument><expr><call><name><name>entry</name><operator>.</operator><name>isDirectory</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>info</name><operator>.</operator><name>setLength</name></name><argument_list>(<argument><expr><call><name><name>entry</name><operator>.</operator><name>getSize</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>info</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileInfo</name></type> <name>fetchInfo</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name>ZipInputStream</name></type> <name>in</name> <init>= <expr><operator>new</operator> <call><name>ZipInputStream</name><argument_list>(<argument><expr><call><name><name>rootStore</name><operator>.</operator><name>openInputStream</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<try>try <block>{
+			<decl_stmt><decl><type><name>String</name></type> <name>myPath</name> <init>= <expr><call><name><name>path</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>ZipEntry</name></type> <name>current</name></decl>;</decl_stmt>
+			<while>while <condition>(<expr><operator>(</operator><name>current</name> <operator>=</operator> <call><name><name>in</name><operator>.</operator><name>getNextEntry</name></name><argument_list>()</argument_list></call><operator>)</operator> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{
+				<decl_stmt><decl><type><name>String</name></type> <name>currentPath</name> <init>= <expr><call><name><name>current</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name><name>myPath</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name>currentPath</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><call><name>convertZipEntryToFileInfo</name><argument_list>(<argument><expr><name>current</name></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+				<comment type="line">//directories don't always have their own entry, but it is implied by the existence of a child</comment>
+				<if>if <condition>(<expr><call><name>isAncestor</name><argument_list>(<argument><expr><name>myPath</name></expr></argument>, <argument><expr><name>currentPath</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><call><name>createDirectoryInfo</name><argument_list>(<argument><expr><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+			}</block></while>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_READ</name></name></expr></argument>, <argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>couldNotRead</name></name></expr></argument>, <argument><expr><call><name><name>rootStore</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></catch> <finally>finally <block>{
+			<try>try <block>{
+				<if>if <condition>(<expr><name>in</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>in</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt></block></then></if>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">//ignore</comment>
+			}</block></catch></try>
+		}</block></finally></try>
+		<comment type="line">//does not exist</comment>
+		<return>return <expr><operator>new</operator> <call><name>FileInfo</name><argument_list>(<argument><expr><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * @return A directory info for this file store
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>IFileInfo</name></type> <name>createDirectoryInfo</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>FileInfo</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>FileInfo</name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>setExists</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>setDirectory</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>result</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Finds the zip entry with the given name in this zip file.  Returns the
+	 * entry and leaves the input stream open positioned at the beginning of
+	 * the bytes of that entry.  Returns null if the entry could not be found.
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>ZipEntry</name></type> <name>findEntry</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>, <parameter><decl><type><name>ZipInputStream</name></type> <name>in</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>IOException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name>ZipEntry</name></type> <name>current</name></decl>;</decl_stmt>
+		<while>while <condition>(<expr><operator>(</operator><name>current</name> <operator>=</operator> <call><name><name>in</name><operator>.</operator><name>getNextEntry</name></name><argument_list>()</argument_list></call><operator>)</operator> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition> <block>{
+			<if>if <condition>(<expr><call><name><name>current</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><return>return <expr><name>current</name></expr>;</return></block></then></if>
+		}</block></while>
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getChild</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>ZipFileStore</name><argument_list>(<argument><expr><name>rootStore</name></expr></argument>, <argument><expr><call><name><name>path</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getName</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>String</name></type> <name>name</name> <init>= <expr><call><name><name>path</name><operator>.</operator><name>lastSegment</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<return>return <expr><ternary><condition><expr><name>name</name> <operator>==</operator> <literal type="null">null</literal></expr> ?</condition><then> <expr><literal type="string">""</literal></expr> </then><else>: <expr><name>name</name></expr></else></ternary></expr>;</return> <comment type="line">//$NON-NLS-1$</comment>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getParent</name><parameter_list>()</parameter_list> <block>{
+		<if>if <condition>(<expr><call><name><name>path</name><operator>.</operator><name>segmentCount</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><operator>new</operator> <call><name>ZipFileStore</name><argument_list>(<argument><expr><name>rootStore</name></expr></argument>, <argument><expr><call><name><name>path</name><operator>.</operator><name>removeLastSegments</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+		<comment type="line">//the root entry has no parent</comment>
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Returns whether ancestor is a parent of child.
+	 * @param ancestor the potential ancestor
+	 * @param child the potential child
+	 * @return &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>boolean</name></type> <name>isAncestor</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>ancestor</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>child</name></decl></parameter>)</parameter_list> <block>{
+		<comment type="line">//children will start with myName and have no child path</comment>
+		<decl_stmt><decl><type><name>int</name></type> <name>ancestorLength</name> <init>= <expr><call><name><name>ancestor</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>ancestorLength</name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><literal type="boolean">true</literal></expr>;</return></block></then></if>
+		<return>return <expr><call><name><name>child</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><name>ancestor</name></expr></argument>)</argument_list></call> <operator>&amp;&amp;</operator> <call><name><name>child</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <name>ancestorLength</name> <operator>&amp;&amp;</operator> <call><name><name>child</name><operator>.</operator><name>charAt</name></name><argument_list>(<argument><expr><name>ancestorLength</name></expr></argument>)</argument_list></call> <operator>==</operator> <literal type="char">'/'</literal></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Returns whether parent is the immediate parent of child.
+	 * @param parent the potential parent
+	 * @param child the potential child
+	 * @return &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>boolean</name></type> <name>isParent</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>parent</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>child</name></decl></parameter>)</parameter_list> <block>{
+		<comment type="line">//children will start with myName and have no child path</comment>
+		<decl_stmt><decl><type><name>int</name></type> <name>chop</name> <init>= <expr><call><name><name>parent</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>+</operator> <literal type="number">1</literal></expr></init></decl>;</decl_stmt>
+		<return>return <expr><call><name><name>child</name><operator>.</operator><name>startsWith</name></name><argument_list>(<argument><expr><name>parent</name></expr></argument>)</argument_list></call> <operator>&amp;&amp;</operator> <call><name><name>child</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <name>chop</name> <operator>&amp;&amp;</operator> <call><name><name>child</name><operator>.</operator><name>substring</name></name><argument_list>(<argument><expr><name>chop</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>indexOf</name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call> <operator>==</operator> <operator>-</operator><literal type="number">1</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>InputStream</name></type> <name>openInputStream</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name>ZipInputStream</name></type> <name>in</name> <init>= <expr><operator>new</operator> <call><name>ZipInputStream</name><argument_list>(<argument><expr><call><name><name>rootStore</name><operator>.</operator><name>openInputStream</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<try>try <block>{
+			<decl_stmt><decl><type><name>ZipEntry</name></type> <name>entry</name> <init>= <expr><call><name>findEntry</name><argument_list>(<argument><expr><call><name><name>path</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>in</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>entry</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_READ</name></name></expr></argument>, <argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>fileNotFound</name></name></expr></argument>, <argument><expr><call><name>toString</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+			<if>if <condition>(<expr><call><name><name>entry</name><operator>.</operator><name>isDirectory</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_READ</name></name></expr></argument>, <argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>notAFile</name></name></expr></argument>, <argument><expr><call><name>toString</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+			<return>return <expr><name>in</name></expr>;</return>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<try>try <block>{
+				<if>if <condition>(<expr><name>in</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>in</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt></block></then></if>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e1</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">//ignore secondary failure</comment>
+			}</block></catch></try>
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_READ</name></name></expr></argument>, <argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>couldNotRead</name></name></expr></argument>, <argument><expr><call><name><name>rootStore</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></catch></try>
+		<comment type="line">//can't get here</comment>
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>toURI</name><parameter_list>()</parameter_list> <block>{
+		<try>try <block>{
+			<return>return <expr><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><name><name>ZipFileSystem</name><operator>.</operator><name>SCHEME_ZIP</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><call><name><name>path</name><operator>.</operator><name>makeAbsolute</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toString</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>rootStore</name><operator>.</operator><name>toURI</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toString</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</return>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<comment type="line">//should not happen</comment>
+			<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+		}</block></catch></try>
+	}</block></function>
+}</block></class>
+</unit>
+
+</unit>

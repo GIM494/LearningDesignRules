@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="GenerateMarkersHandler.java"><package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>examples</name><operator>.</operator><name>markers</name><operator>.</operator><name>handlers</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashMap</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Map</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>commands</name><operator>.</operator><name>AbstractHandler</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>commands</name><operator>.</operator><name>ExecutionEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>commands</name><operator>.</operator><name>ExecutionException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>commands</name><operator>.</operator><name>IHandler</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>IMarker</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>IWorkspaceRoot</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>ResourcesPlugin</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>CoreException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IProgressMonitor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IStatus</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Status</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>jobs</name><operator>.</operator><name>Job</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>texteditor</name><operator>.</operator><name>MarkerUtilities</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>views</name><operator>.</operator><name>markers</name><operator>.</operator><name>MarkerViewUtil</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>GenerateMarkersHandler</name> <super><extends>extends <name>AbstractHandler</name></extends> <implements>implements <name>IHandler</name></implements></super> <block>{
+
+	<decl_stmt><decl><specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>EXAMPLE_MARKER</name> <init>= <expr><literal type="string">"org.eclipse.ui.ide.examples.markers.exampleMarker"</literal></expr></init></decl>;</decl_stmt>
+
+	<function><specifier>public</specifier> <type><name>Object</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>ExecutionEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>ExecutionException</name></expr></argument></throws> <block>{
+
+		<decl_stmt><decl><type><name>Job</name></type> <name>addJob</name> <init>= <expr><operator>new</operator> <class><super><name>Job</name></super><argument_list>(<argument><expr><literal type="string">"Add Markers"</literal></expr></argument>)</argument_list> <block>{
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
+			 */</comment>
+			<function><specifier>protected</specifier> <type><name>IStatus</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+
+				<try>try <block>{
+					<decl_stmt><decl><type><name>IWorkspaceRoot</name></type> <name>root</name> <init>= <expr><call><name><name>ResourcesPlugin</name><operator>.</operator><name>getWorkspace</name></name><argument_list>()</argument_list></call>
+							<operator>.</operator><call><name>getRoot</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+					<decl_stmt><decl><type><name><name>Map</name><argument_list type="generic">&lt;<argument><name>String</name></argument>,<argument><name>Object</name></argument>&gt;</argument_list></name></type> <name>attribs</name> <init>= <expr><operator>new</operator> <call><name><name>HashMap</name><argument_list type="generic">&lt;<argument><name>String</name></argument>,<argument><name>Object</name></argument>&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+					<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <literal type="number">1000</literal></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+
+						<if>if <condition>(<expr><name>i</name> <operator>/</operator> <literal type="number">2</literal> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then> <block>{
+							<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name><name>MarkerViewUtil</name><operator>.</operator><name>NAME_ATTRIBUTE</name></name></expr></argument>,
+									<argument><expr><literal type="string">"Test Name "</literal> <operator>+</operator> <name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+							<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name><name>MarkerViewUtil</name><operator>.</operator><name>PATH_ATTRIBUTE</name></name></expr></argument>,
+									<argument><expr><literal type="string">"Test Path "</literal> <operator>+</operator> <name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						}</block></then></if>
+
+						<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name><name>IMarker</name><operator>.</operator><name>SEVERITY</name></name></expr></argument>, <argument><expr><operator>new</operator> <call><name>Integer</name><argument_list>(
+								<argument><expr><name><name>IMarker</name><operator>.</operator><name>SEVERITY_ERROR</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name><name>IMarker</name><operator>.</operator><name>SOURCE_ID</name></name></expr></argument>, <argument><expr><literal type="string">"Example source"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name><name>IMarker</name><operator>.</operator><name>MESSAGE</name></name></expr></argument>, <argument><expr><literal type="string">"Example "</literal> <operator>+</operator> <name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><name><name>IMarker</name><operator>.</operator><name>LOCATION</name></name></expr></argument>, <argument><expr><literal type="string">"Location "</literal> <operator>+</operator> <name>i</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						<expr_stmt><expr><call><name><name>attribs</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"testAttribute"</literal></expr></argument>, <argument><expr><call><name><name>String</name><operator>.</operator><name>valueOf</name></name><argument_list>(<argument><expr><name>i</name> <operator>/</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						<expr_stmt><expr><call><name><name>MarkerUtilities</name><operator>.</operator><name>createMarker</name></name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><name>attribs</name></expr></argument>,
+								<argument><expr><name>EXAMPLE_MARKER</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					}</block></for>
+				}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+					<return>return <expr><call><name><name>e</name><operator>.</operator><name>getStatus</name></name><argument_list>()</argument_list></call></expr>;</return>
+				}</block></catch></try>
+				<return>return <expr><name><name>Status</name><operator>.</operator><name>OK_STATUS</name></name></expr>;</return>
+
+			}</block></function>
+
+		}</block></class></expr></init></decl>;</decl_stmt>
+
+		<expr_stmt><expr><call><name><name>addJob</name><operator>.</operator><name>schedule</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>this</name></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>

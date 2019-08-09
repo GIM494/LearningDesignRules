@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="StatusHandlingComponent.java"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2007, 2008 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ ******************************************************************************/</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>examples</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>testtool</name><operator>.</operator><name>views</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collections</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Iterator</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IStatus</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>MultiStatus</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Status</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>IStructuredContentProvider</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>StructuredSelection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>TableViewer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>Viewer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>SWT</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>SelectionAdapter</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>SelectionEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>layout</name><operator>.</operator><name>GridData</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>layout</name><operator>.</operator><name>GridLayout</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Button</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Combo</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Composite</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Label</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Text</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IMemento</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>examples</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>testtool</name><operator>.</operator><name>Messages</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>examples</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>testtool</name><operator>.</operator><name>TestToolPlugin</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>IStatusAdapterConstants</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>StatusAdapter</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>StatusManager</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * This component allows for adding statuses to the test sequence
+ */</comment>
+<class><specifier>public</specifier> class <name>StatusHandlingComponent</name> <super><implements>implements <name>TestBedComponent</name></implements></super> <block>{
+
+	<class><specifier>private</specifier> <specifier>final</specifier> class <name>RemoveSelectionAdapter</name> <super><extends>extends <name>SelectionAdapter</name></extends></super> <block>{
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>widgetSelected</name><parameter_list>(<parameter><decl><type><name>SelectionEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><name>StructuredSelection</name></type> <name>sel</name> <init>= <expr><operator>(</operator><name>StructuredSelection</name><operator>)</operator> <call><name><name>statusTableViever</name>
+					<operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<for>for <control>(<init><decl><type><name>Iterator</name></type> <name>it</name> <init>= <expr><call><name><name>sel</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr></init></decl>;</init> <condition><expr><call><name><name>it</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>;</condition><incr/>)</control> <block>{
+				<expr_stmt><expr><name><name>statusItems</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><call><name>remove</name><argument_list>(<argument><expr><call><name><name>it</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></for>
+			<expr_stmt><expr><call><name><name>statusTableViever</name><operator>.</operator><name>refresh</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>private</specifier> class <name>ContentProvider</name> <super><implements>implements <name>IStructuredContentProvider</name></implements></super> <block>{
+
+		<comment type="block">/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+		 */</comment>
+		<function><specifier>public</specifier> <type><name><name>Object</name><index>[]</index></name></type> <name>getElements</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>inputElement</name></decl></parameter>)</parameter_list> <block>{
+			<return>return <expr><name><name>statusItems</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><call><name>toArray</name><argument_list>()</argument_list></call></expr>;</return>
+		}</block></function>
+
+		<comment type="block">/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>dispose</name><parameter_list>()</parameter_list> <block>{
+
+		}</block></function>
+
+		<comment type="block">/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+		 *      java.lang.Object, java.lang.Object)
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>inputChanged</name><parameter_list>(<parameter><decl><type><name>Viewer</name></type> <name>viewer</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>oldInput</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>newInput</name></decl></parameter>)</parameter_list> <block>{
+
+		}</block></function>
+
+	}</block></class>
+
+	<comment type="block" format="javadoc">/**
+	 * An item to be displayed in the table.
+	 */</comment>
+	<class><specifier>public</specifier> <specifier>static</specifier> class <name>DisplayedItem</name> <block>{
+
+		<comment type="line">// xml tags</comment>
+		<decl_stmt><decl><specifier>public</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>STATUS</name> <init>= <expr><literal type="string">"status"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>HINT</name> <init>= <expr><literal type="string">"hint"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>SEVERITY</name> <init>= <expr><literal type="string">"severity"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>SOURCEPLUGIN</name> <init>= <expr><literal type="string">"sourceplugin"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>MESSAGE</name> <init>= <expr><literal type="string">"message"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TITLE</name> <init>= <expr><literal type="string">"title"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>EXPLANATION</name> <init>= <expr><literal type="string">"explanation"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>ACTION</name> <init>= <expr><literal type="string">"action"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>WRAPPED</name> <init>= <expr><literal type="string">"wrapped"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>MULTI</name> <init>= <expr><literal type="string">"multi"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>int</name></type> <name>hint</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>wrapped</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>explanation</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>action</name></decl>;</decl_stmt>
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>IStatus</name></type> <name>status</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>title</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>multi</name></decl>;</decl_stmt>
+
+		<comment type="block" format="javadoc">/**
+		 * Constructs a new item.
+		 * 
+		 * @param status
+		 *            a status
+		 * @param hint
+		 *            a hint to be passed with status
+		 * @param wrapped
+		 *            indicates if should be wrapped in StatusAdapter
+		 * @param multi
+		 *            indicates if should be {@link MultiStatus}
+		 * @param title
+		 *            a title to be passed in StatusAdapter
+		 * @param explanation
+		 *            an explanation to be passed in StatusAdapter
+		 * @param action
+		 *            an action to be passed in StatusAdapter
+		 */</comment>
+		<constructor><specifier>public</specifier> <name>DisplayedItem</name><parameter_list>(<parameter><decl><type><name>IStatus</name></type> <name>status</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>hint</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>wrapped</name></decl></parameter>,
+				<parameter><decl><type><name>boolean</name></type> <name>multi</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>title</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>explanation</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>action</name></decl></parameter>)</parameter_list> <block>{
+			<if>if <condition>(<expr><name>status</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+				<block type="pseudo"><throw>throw <expr><operator>new</operator> <call><name>IllegalArgumentException</name><argument_list>()</argument_list></call></expr>;</throw></block></then></if>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>status</name></name> <operator>=</operator> <name>status</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>hint</name></name> <operator>=</operator> <name>hint</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>wrapped</name></name> <operator>=</operator> <name>wrapped</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>title</name></name> <operator>=</operator> <name>title</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>explanation</name></name> <operator>=</operator> <name>explanation</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>action</name></name> <operator>=</operator> <name>action</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>multi</name></name> <operator>=</operator> <name>multi</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>String</name></type> <name>toString</name><parameter_list>()</parameter_list> <block>{
+
+			<decl_stmt><decl><type><name>String</name></type> <name>severity</name> <init>= <expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Unknown</name></name></expr></init></decl>;</decl_stmt>
+
+			<switch>switch <condition>(<expr><call><name><name>status</name><operator>.</operator><name>getSeverity</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{
+			<case>case <expr><name><name>IStatus</name><operator>.</operator><name>CANCEL</name></name></expr>:</case>
+				<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityCancel</name></name></expr>;</expr_stmt>
+				<break>break;</break>
+			<case>case <expr><name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr>:</case>
+				<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityError</name></name></expr>;</expr_stmt>
+				<break>break;</break>
+			<case>case <expr><name><name>IStatus</name><operator>.</operator><name>INFO</name></name></expr>:</case>
+				<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityInfo</name></name></expr>;</expr_stmt>
+				<break>break;</break>
+			<case>case <expr><name><name>IStatus</name><operator>.</operator><name>OK</name></name></expr>:</case>
+				<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityOK</name></name></expr>;</expr_stmt>
+				<break>break;</break>
+			<case>case <expr><name><name>IStatus</name><operator>.</operator><name>WARNING</name></name></expr>:</case>
+				<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityWarning</name></name></expr>;</expr_stmt>
+				<break>break;</break>
+			}</block></switch>
+
+			<decl_stmt><decl><type><name>String</name></type> <name>stringHint</name> <init>= <expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Unknown</name></name></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>hint</name> <operator>==</operator> <name><name>StatusManager</name><operator>.</operator><name>NONE</name></name></expr>)</condition><then> <block>{
+				<expr_stmt><expr><name>stringHint</name> <operator>=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_HintNone</name></name></expr>;</expr_stmt>
+			}</block></then> <else>else <block>{
+				<expr_stmt><expr><name>stringHint</name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+				<if>if <condition>(<expr><operator>(</operator><name>hint</name> <operator>&amp;</operator> <name><name>StatusManager</name><operator>.</operator><name>SHOW</name></name><operator>)</operator> <operator>==</operator> <name><name>StatusManager</name><operator>.</operator><name>SHOW</name></name></expr>)</condition><then> <block>{
+					<expr_stmt><expr><name>stringHint</name> <operator>+=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_HintShow</name></name></expr>;</expr_stmt>
+				}</block></then></if>
+				<if>if <condition>(<expr><operator>(</operator><name>hint</name> <operator>&amp;</operator> <name><name>StatusManager</name><operator>.</operator><name>LOG</name></name><operator>)</operator> <operator>==</operator> <name><name>StatusManager</name><operator>.</operator><name>LOG</name></name></expr>)</condition><then> <block>{
+					<expr_stmt><expr><name>stringHint</name> <operator>+=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_HintLog</name></name></expr>;</expr_stmt>
+				}</block></then></if>
+				<if>if <condition>(<expr><operator>(</operator><name>hint</name> <operator>&amp;</operator> <name><name>StatusManager</name><operator>.</operator><name>BLOCK</name></name><operator>)</operator> <operator>==</operator> <name><name>StatusManager</name><operator>.</operator><name>BLOCK</name></name></expr>)</condition><then> <block>{
+					<expr_stmt><expr><name>stringHint</name> <operator>+=</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_HintBlock</name></name></expr>;</expr_stmt>
+				}</block></then></if>
+			}</block></else></if>
+
+			<return>return <expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Severity</name></name> <operator>+</operator> <name>severity</name>
+					<operator>+</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_PluginId</name></name>
+					<operator>+</operator> <call><name><name>status</name><operator>.</operator><name>getPlugin</name></name><argument_list>()</argument_list></call>
+					<operator>+</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Hint</name></name> <operator>+</operator> <name>stringHint</name>
+					<operator>+</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_MultiStatus</name></name> <operator>+</operator> <name>multi</name>
+					<operator>+</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Wrapped</name></name> <operator>+</operator> <name>wrapped</name>
+					<operator>+</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Explanation</name></name>
+					<operator>+</operator> <name>explanation</name> <operator>+</operator> <name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Action</name></name>
+					<operator>+</operator> <name>action</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Returns the hint
+		 * 
+		 * @return the hint
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>int</name></type> <name>getHint</name><parameter_list>()</parameter_list> <block>{
+			<return>return <expr><name>hint</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Returns status
+		 * 
+		 * @return the status
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>IStatus</name></type> <name>getStatus</name><parameter_list>()</parameter_list> <block>{
+			<return>return <expr><name>status</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Saves state to the memento
+		 * 
+		 * @param memento
+		 *            memento that hold all the information
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>saveState</name><parameter_list>(<parameter><decl><type><name>IMemento</name></type> <name>memento</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><name>IMemento</name></type> <name>child</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>createChild</name></name><argument_list>(<argument><expr><name>STATUS</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>SOURCEPLUGIN</name></expr></argument>, <argument><expr><call><name><name>status</name><operator>.</operator><name>getPlugin</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putInteger</name></name><argument_list>(<argument><expr><name>SEVERITY</name></expr></argument>, <argument><expr><call><name><name>status</name><operator>.</operator><name>getSeverity</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putInteger</name></name><argument_list>(<argument><expr><name>HINT</name></expr></argument>, <argument><expr><name>hint</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>MESSAGE</name></expr></argument>, <argument><expr><call><name><name>status</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>WRAPPED</name></expr></argument>, <argument><expr><literal type="string">""</literal> <operator>+</operator> <name>wrapped</name></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>MULTI</name></expr></argument>, <argument><expr><literal type="string">""</literal> <operator>+</operator> <call><name><name>status</name><operator>.</operator><name>isMultiStatus</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>TITLE</name></expr></argument>, <argument><expr><name>title</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>EXPLANATION</name></expr></argument>, <argument><expr><name>explanation</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>child</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>ACTION</name></expr></argument>, <argument><expr><name>action</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Creates DisplayedItem from the memento
+		 * 
+		 * @param memento
+		 *            that stores all information about DisplayedItem
+		 * @return DisplayedItem corresponding to the memento
+		 */</comment>
+		<function><specifier>public</specifier> <specifier>static</specifier> <type><name>Object</name></type> <name>create</name><parameter_list>(<parameter><decl><type><name>IMemento</name></type> <name>memento</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><name>String</name></type> <name>source</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>SOURCEPLUGIN</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>String</name></type> <name>message</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>MESSAGE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>int</name></type> <name>severity</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getInteger</name></name><argument_list>(<argument><expr><name>SEVERITY</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>intValue</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>int</name></type> <name>hint</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getInteger</name></name><argument_list>(<argument><expr><name>HINT</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>intValue</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>boolean</name></type> <name>wrapped</name> <init>= <expr><operator>new</operator> <call><name>Boolean</name><argument_list>(<argument><expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>WRAPPED</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>booleanValue</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>String</name></type> <name>title</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>TITLE</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>title</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>title</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><name>title</name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt></block></then></if>
+			<decl_stmt><decl><type><name>String</name></type> <name>explanation</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>EXPLANATION</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>explanation</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>explanation</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><name>explanation</name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt></block></then></if>
+			<decl_stmt><decl><type><name>String</name></type> <name>action</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>ACTION</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>action</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>action</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><name>action</name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt></block></then></if>
+			<decl_stmt><decl><type><name>boolean</name></type> <name>multi</name> <init>= <expr><operator>new</operator> <call><name>Boolean</name><argument_list>(<argument><expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>MULTI</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>booleanValue</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>IStatus</name></type> <name>status</name> <init>= <expr><operator>new</operator> <call><name>Status</name><argument_list>(<argument><expr><name>severity</name></expr></argument>, <argument><expr><name>source</name></expr></argument>, <argument><expr><name>message</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if<condition>(<expr><name>multi</name></expr>)</condition><then><block>{
+				<decl_stmt><decl><type><name>MultiStatus</name></type> <name>mStatus</name> <init>= <expr><operator>new</operator> <call><name>MultiStatus</name><argument_list>(<argument><expr><name>source</name></expr></argument>, <argument><expr><name>severity</name></expr></argument>, <argument><expr><name>message</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>NullPointerException</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>mStatus</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>mStatus</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Status</name><operator>.</operator><name>OK_STATUS</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><name>status</name> <operator>=</operator> <name>mStatus</name></expr>;</expr_stmt>
+			}</block></then></if>
+			<return>return <expr><operator>new</operator> <call><name>DisplayedItem</name><argument_list>(<argument><expr><name>status</name></expr></argument>, <argument><expr><name>hint</name></expr></argument>, <argument><expr><name>wrapped</name></expr></argument>, <argument><expr><name>multi</name></expr></argument>, <argument><expr><name>title</name></expr></argument>, <argument><expr><name>explanation</name></expr></argument>, <argument><expr><name>action</name></expr></argument>)</argument_list></call></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Gets the explanation
+		 * 
+		 * @return The explanation.
+		 */</comment>
+		<function><type><name>String</name></type> <name>getExplanation</name><parameter_list>()</parameter_list> <block>{
+			<return>return <expr><name>explanation</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Sets explanation
+		 * 
+		 * @param explanation
+		 *            The explanation to set.
+		 */</comment>
+		<function><type><name>void</name></type> <name>setExplanation</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>explanation</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>explanation</name></name> <operator>=</operator> <name>explanation</name></expr>;</expr_stmt>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Returns the action.
+		 * 
+		 * @return The action.
+		 */</comment>
+		<function><type><name>String</name></type> <name>getAction</name><parameter_list>()</parameter_list> <block>{
+			<return>return <expr><name>action</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Sets the action.
+		 * 
+		 * @param action
+		 *            The action to set.
+		 */</comment>
+		<function><type><name>void</name></type> <name>setAction</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>action</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>action</name></name> <operator>=</operator> <name>action</name></expr>;</expr_stmt>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Indicates if the status is wrapped in StatusAdapter.
+		 * 
+		 * @return Returns the wrapped.
+		 */</comment>
+		<function><type><name>boolean</name></type> <name>isWrapped</name><parameter_list>()</parameter_list> <block>{
+			<return>return <expr><name>wrapped</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Sets the wrapped property
+		 * 
+		 * @param wrapped
+		 *            The wrapped to set.
+		 */</comment>
+		<function><type><name>void</name></type> <name>setWrapped</name><parameter_list>(<parameter><decl><type><name>boolean</name></type> <name>wrapped</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>wrapped</name></name> <operator>=</operator> <name>wrapped</name></expr>;</expr_stmt>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * Returns the most important message in {@link StatusAdapter}
+		 * @return the Title
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>String</name></type> <name>getTitle</name><parameter_list>()</parameter_list> <block>{
+			<return>return <expr><name>title</name></expr>;</return>
+		}</block></function>
+
+		<comment type="block" format="javadoc">/**
+		 * 
+		 */</comment>
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>()</parameter_list> <block>{
+			<comment type="line">// see SampleStatusHandler</comment>
+			<comment type="line">// hints and statuses could be easily modified there</comment>
+			<if>if <condition>(<expr><call><name>isWrapped</name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+				<decl_stmt><decl><type><name>StatusAdapter</name></type> <name>adapter</name> <init>= <expr><operator>new</operator> <call><name>StatusAdapter</name><argument_list>(<argument><expr><call><name>getStatus</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name>getTitle</name><argument_list>()</argument_list></call> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>adapter</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><name><name>IStatusAdapterConstants</name><operator>.</operator><name>TITLE_PROPERTY</name></name></expr></argument>,
+							<argument><expr><call><name>getTitle</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+				<if>if <condition>(<expr><call><name>getAction</name><argument_list>()</argument_list></call> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>adapter</name><operator>.</operator><name>setProperty</name></name><argument_list>(<argument><expr><name><name>IStatusAdapterConstants</name><operator>.</operator><name>HINT_PROPERTY</name></name></expr></argument>,
+							<argument><expr><call><name>getAction</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+				<if>if <condition>(<expr><call><name>getExplanation</name><argument_list>()</argument_list></call> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>adapter</name><operator>.</operator><name>setProperty</name></name><argument_list>(
+							<argument><expr><name><name>IStatusAdapterConstants</name><operator>.</operator><name>EXPLANATION_PROPERTY</name></name></expr></argument>,
+							<argument><expr><call><name>getExplanation</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+				<expr_stmt><expr><call><name><name>StatusManager</name><operator>.</operator><name>getManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>handle</name><argument_list>(<argument><expr><name>adapter</name></expr></argument>, <argument><expr><call><name>getHint</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></then> <else>else <block>{
+				<expr_stmt><expr><call><name><name>StatusManager</name><operator>.</operator><name>getManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>handle</name><argument_list>(<argument><expr><call><name>getStatus</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name>getHint</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></else></if>
+
+		}</block></function>
+	}</block></class>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name><name>List</name><index>[]</index></name></type> <name>statusItems</name> <init>= <expr><operator>new</operator> <name><name>List</name><index>[]</index></name> <block>{ <expr><call><name><name>Collections</name>
+			<operator>.</operator><name>synchronizedList</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr> }</block></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>TableViewer</name></type> <name>statusTableViever</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Combo</name></type> <name>statusSeverityField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Text</name></type> <name>statusMessage</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Text</name></type> <name>statusPluginID</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Button</name></type> <name>showStatusField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Button</name></type> <name>logStatusField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Button</name></type> <name>blockStatusField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Button</name></type> <name>wrappedStatusField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Text</name></type> <name>titleField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Text</name></type> <name>explanationField</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Text</name></type> <name>actionField</name></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Button</name></type> <name>multiStatusField</name></decl>;</decl_stmt>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.examples.statushandlers.testtool.views.TestBedComponent#createComposite(org.eclipse.swt.widgets.Composite)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>Composite</name></type> <name>createComposite</name><parameter_list>(<parameter><decl><type><name>Composite</name></type> <name>parent</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>Composite</name></type> <name>composite</name> <init>= <expr><operator>new</operator> <call><name>Composite</name><argument_list>(<argument><expr><name>parent</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>composite</name><operator>.</operator><name>setLayout</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridLayout</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>composite</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>statusTableViever</name> <operator>=</operator> <operator>new</operator> <call><name>TableViewer</name><argument_list>(<argument><expr><name>composite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>MULTI</name></name> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>BORDER</name></name>
+				<operator>|</operator> <name><name>SWT</name><operator>.</operator><name>V_SCROLL</name></name> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>VIRTUAL</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>ContentProvider</name></type> <name>contentProvider</name> <init>= <expr><operator>new</operator> <call><name>ContentProvider</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>statusTableViever</name><operator>.</operator><name>setContentProvider</name></name><argument_list>(<argument><expr><name>contentProvider</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>GridData</name></type> <name>gd</name> <init>= <expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_BOTH</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name><name>gd</name><operator>.</operator><name>verticalSpan</name></name> <operator>=</operator> <literal type="number">2</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusTableViever</name><operator>.</operator><name>getTable</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setLayoutData</name><argument_list>(<argument><expr><name>gd</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusTableViever</name><operator>.</operator><name>setInput</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>Object</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>StatusHandlingView</name><operator>.</operator><name>createPopMenu</name></name><argument_list>(<argument><expr><name>statusTableViever</name></expr></argument>, <argument><expr><name>statusItems</name></expr></argument>,
+				<argument><expr><operator>new</operator> <call><name>RemoveSelectionAdapter</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><name>Composite</name></type> <name>addStatusComposite</name> <init>= <expr><operator>new</operator> <call><name>Composite</name><argument_list>(<argument><expr><name>composite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>addStatusComposite</name><operator>.</operator><name>setLayout</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridLayout</name><argument_list>(<argument><expr><literal type="number">2</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<comment type="line">// duration</comment>
+		<decl_stmt><decl><type><name>Label</name></type> <name>label</name> <init>= <expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>label</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityLevel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>statusSeverityField</name> <operator>=</operator> <operator>new</operator> <call><name>Combo</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>DROP_DOWN</name></name>
+				<operator>|</operator> <name><name>SWT</name><operator>.</operator><name>READ_ONLY</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_GeneratedStatusSeverity</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityOK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityInfo</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name>
+				<operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityWarning</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name>
+				<operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityCancel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_SeverityError</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusSeverityField</name><operator>.</operator><name>select</name></name><argument_list>(<argument><expr><literal type="number">4</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<decl_stmt><decl><type><name>Label</name></type> <name>messageLabel</name> <init>= <expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>messageLabel</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_MessageLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<expr_stmt><expr><name>statusMessage</name> <operator>=</operator> <operator>new</operator> <call><name>Text</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusMessage</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>SWT</name><operator>.</operator><name>FILL</name></name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusMessage</name><operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_MessageTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusMessage</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_ExemplaryMessage</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><name>Label</name></type> <name>labelID</name> <init>= <expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>labelID</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_PluginIdLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>statusPluginID</name> <operator>=</operator> <operator>new</operator> <call><name>Text</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusPluginID</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusPluginID</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_PluginIdTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusPluginID</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>TestToolPlugin</name><operator>.</operator><name>PLUGIN_ID</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>showStatusField</name> <operator>=</operator> <operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CHECK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>showStatusField</name>
+				<operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_ShowStatusLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>showStatusField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>logStatusField</name> <operator>=</operator> <operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CHECK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>logStatusField</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_LogStatusLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>logStatusField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>logStatusField</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_LogStatusTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>blockStatusField</name> <operator>=</operator> <operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CHECK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>blockStatusField</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_BlockLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>GridData</name></type> <name>blockGd</name> <init>= <expr><operator>new</operator> <call><name>GridData</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>blockStatusField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><name>blockGd</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>blockStatusField</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_blockTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>blockStatusField</name><operator>.</operator><name>addSelectionListener</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>SelectionAdapter</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>widgetSelected</name><parameter_list>(<parameter><decl><type><name>SelectionEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<if>if <condition>(<expr><call><name><name>blockStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>showStatusField</name><operator>.</operator><name>setSelection</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<expr_stmt><expr><name>multiStatusField</name> <operator>=</operator> <operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CHECK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>multiStatusField</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_MultiStatus</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>multiStatusField</name><operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_MultiStatusTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>wrappedStatusField</name> <operator>=</operator> <operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CHECK</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>wrappedStatusField</name>
+				<operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_WrappedLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>wrappedStatusField</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_WrappedTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>wrappedStatusField</name><operator>.</operator><name>addSelectionListener</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>SelectionAdapter</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>widgetSelected</name><parameter_list>(<parameter><decl><type><name>SelectionEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<if>if <condition>(<expr><call><name><name>wrappedStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>titleField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name><name>explanationField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name><name>actionField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then> <else>else <block>{
+					<expr_stmt><expr><call><name><name>titleField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name><name>explanationField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name><name>actionField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></else></if>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<expr_stmt><expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<decl_stmt><decl><type><specifier>final</specifier> <name>Label</name></type> <name>titleLabel</name> <init>= <expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>titleLabel</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_TitleLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<expr_stmt><expr><name>titleField</name> <operator>=</operator> <operator>new</operator> <call><name>Text</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>titleField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>SWT</name><operator>.</operator><name>FILL</name></name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>CENTER</name></name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>titleField</name><operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_TitleTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>titleField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><specifier>final</specifier> <name>Label</name></type> <name>explanationLabel</name> <init>= <expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>explanationLabel</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Explanation</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>explanationField</name> <operator>=</operator> <operator>new</operator> <call><name>Text</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>explanationField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>explanationField</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_ExplanationTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>explanationField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><specifier>final</specifier> <name>Label</name></type> <name>actionLabel</name> <init>= <expr><operator>new</operator> <call><name>Label</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>actionLabel</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Action</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>actionField</name> <operator>=</operator> <operator>new</operator> <call><name>Text</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>BORDER</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>actionField</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>actionField</name>
+				<operator>.</operator><name>setToolTipText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_ActionTooltip</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>actionField</name><operator>.</operator><name>setEnabled</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><name>Button</name></type> <name>addStatus</name> <init>= <expr><operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>PUSH</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<expr_stmt><expr><call><name><name>addStatus</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_AddStatusLabel</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>addStatus</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>addStatus</name><operator>.</operator><name>addSelectionListener</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>SelectionAdapter</name></super><argument_list>()</argument_list> <block>{
+
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>widgetSelected</name><parameter_list>(<parameter><decl><type><name>SelectionEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<expr_stmt><expr><name><name>statusItems</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><call><name>add</name><argument_list>(<argument><expr><call><name>createDisplayedItem</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>statusTableViever</name><operator>.</operator><name>refresh</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><name>Button</name></type> <name>fastExecute</name> <init>= <expr><operator>new</operator> <call><name>Button</name><argument_list>(<argument><expr><name>addStatusComposite</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>PUSH</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>fastExecute</name><operator>.</operator><name>setLayoutData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>GridData</name><argument_list>(<argument><expr><name><name>GridData</name><operator>.</operator><name>FILL_HORIZONTAL</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>fastExecute</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_FastExecute</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>fastExecute</name><operator>.</operator><name>addSelectionListener</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>SelectionAdapter</name></super><argument_list>()</argument_list> <block>{
+
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>widgetSelected</name><parameter_list>(<parameter><decl><type><name>SelectionEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name>DisplayedItem</name></type> <name>di</name> <init>= <expr><call><name>createDisplayedItem</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>di</name><operator>.</operator><name>execute</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>composite</name></expr>;</return>
+	}</block></function>
+	
+	<function><specifier>private</specifier> <type><name>DisplayedItem</name></type> <name>createDisplayedItem</name><parameter_list>()</parameter_list><block>{
+		<decl_stmt><decl><type><name>boolean</name></type> <name>log</name> <init>= <expr><call><name><name>logStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>boolean</name></type> <name>show</name> <init>= <expr><call><name><name>showStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>boolean</name></type> <name>block</name> <init>= <expr><call><name><name>blockStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<decl_stmt><decl><type><name>int</name></type> <name>hint</name> <init>= <expr><name><name>StatusManager</name><operator>.</operator><name>NONE</name></name></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>log</name></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>hint</name> <operator>=</operator> <name>hint</name> <operator>|</operator> <name><name>StatusManager</name><operator>.</operator><name>LOG</name></name></expr>;</expr_stmt>
+		}</block></then></if>
+		<if>if <condition>(<expr><name>show</name></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>hint</name> <operator>=</operator> <name>hint</name> <operator>|</operator> <name><name>StatusManager</name><operator>.</operator><name>SHOW</name></name></expr>;</expr_stmt>
+		}</block></then></if>
+		<if>if <condition>(<expr><name>block</name></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>hint</name> <operator>=</operator> <name>hint</name> <operator>|</operator> <name><name>StatusManager</name><operator>.</operator><name>BLOCK</name></name></expr>;</expr_stmt>
+		}</block></then></if>
+
+		<decl_stmt><decl><type><name>int</name></type> <name>severity</name> <init>= <expr><name><name>IStatus</name><operator>.</operator><name>OK</name></name></expr></init></decl>;</decl_stmt>
+		<switch>switch <condition>(<expr><call><name><name>statusSeverityField</name><operator>.</operator><name>getSelectionIndex</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{
+		<case>case <expr><literal type="number">0</literal></expr>:</case>
+			<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>IStatus</name><operator>.</operator><name>OK</name></name></expr>;</expr_stmt>
+			<break>break;</break>
+		<case>case <expr><literal type="number">1</literal></expr>:</case>
+			<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>IStatus</name><operator>.</operator><name>INFO</name></name></expr>;</expr_stmt>
+			<break>break;</break>
+		<case>case <expr><literal type="number">2</literal></expr>:</case>
+			<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>IStatus</name><operator>.</operator><name>WARNING</name></name></expr>;</expr_stmt>
+			<break>break;</break>
+		<case>case <expr><literal type="number">3</literal></expr>:</case>
+			<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>IStatus</name><operator>.</operator><name>CANCEL</name></name></expr>;</expr_stmt>
+			<break>break;</break>
+		<case>case <expr><literal type="number">4</literal></expr>:</case>
+			<expr_stmt><expr><name>severity</name> <operator>=</operator> <name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr>;</expr_stmt>
+			<break>break;</break>
+		}</block></switch>
+
+		<decl_stmt><decl><type><name>boolean</name></type> <name>wrapped</name> <init>= <expr><call><name><name>wrappedStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>String</name></type> <name>title</name> <init>= <expr><call><name><name>titleField</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>title</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>title</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>title</name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt></block></then></if>
+		<decl_stmt><decl><type><name>String</name></type> <name>explanation</name> <init>= <expr><call><name><name>explanationField</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>explanation</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>explanation</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>explanation</name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt></block></then></if>
+		<decl_stmt><decl><type><name>String</name></type> <name>action</name> <init>= <expr><call><name><name>actionField</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>action</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>action</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>action</name> <operator>=</operator> <literal type="null">null</literal></expr>;</expr_stmt></block></then></if>
+		
+		<decl_stmt><decl><type><name>boolean</name></type> <name>multi</name> <init>= <expr><call><name><name>multiStatusField</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>IStatus</name></type> <name>status</name> <init>= <expr><operator>new</operator> <call><name>Status</name><argument_list>(<argument><expr><name>severity</name></expr></argument>, <argument><expr><call><name><name>statusPluginID</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name><name>statusMessage</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>multi</name></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>MultiStatus</name></type> <name>mStatus</name> <init>= <expr><operator>new</operator> <call><name>MultiStatus</name><argument_list>(<argument><expr><call><name><name>statusPluginID</name>
+					<operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>severity</name></expr></argument>, <argument><expr><call><name><name>statusMessage</name><operator>.</operator><name>getText</name></name><argument_list>()</argument_list></call></expr></argument>,
+					<argument><expr><operator>new</operator> <call><name>NullPointerException</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>mStatus</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>mStatus</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>mStatus</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>mStatus</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>Status</name><operator>.</operator><name>OK_STATUS</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name>status</name> <operator>=</operator> <name>mStatus</name></expr>;</expr_stmt>
+		}</block></then></if>
+		
+		<return>return <expr><operator>new</operator> <call><name>DisplayedItem</name><argument_list>(<argument><expr><name>status</name></expr></argument>, <argument><expr><name>hint</name></expr></argument>, <argument><expr><name>wrapped</name></expr></argument>, <argument><expr><name>multi</name></expr></argument>, <argument><expr><name>title</name></expr></argument>,
+				<argument><expr><name>explanation</name></expr></argument>, <argument><expr><name>action</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.examples.statushandlers.testtool.views.TestBedComponent#getName()
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getName</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><name><name>Messages</name><operator>.</operator><name>StatusHandlingComponent_Name</name></name></expr>;</return>
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.examples.statushandlers.testtool.views.TestBedComponent#getTestBedRunnable()
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>TestBedRunnable</name></type> <name>getTestBedRunnable</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>StatusHandlingRunnable</name><argument_list>(<argument><expr><operator>new</operator> <call><name>ArrayList</name><argument_list>(<argument><expr><name><name>statusItems</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.examples.statushandlers.testtool.views.TestBedComponent#accept(org.eclipse.ui.examples.statushandlers.testtool.views.TestBedRunnable)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>boolean</name></type> <name>accept</name><parameter_list>(<parameter><decl><type><name>TestBedRunnable</name></type> <name>runnable</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><operator>!</operator><operator>(</operator><name>runnable</name> <operator>instanceof</operator> <name>StatusHandlingRunnable</name><operator>)</operator></expr>)</condition><then> <block>{
+			<return>return <expr><literal type="boolean">false</literal></expr>;</return>
+		}</block></then></if>
+		<decl_stmt><decl><type><name>StatusHandlingRunnable</name></type> <name>shr</name> <init>= <expr><operator>(</operator><name>StatusHandlingRunnable</name><operator>)</operator> <name>runnable</name></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name><name>statusItems</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <call><name><name>Collections</name><operator>.</operator><name>synchronizedList</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ArrayList</name><argument_list>(<argument><expr><name><name>shr</name><operator>.</operator><name>items</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>statusTableViever</name><operator>.</operator><name>refresh</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><literal type="boolean">true</literal></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>

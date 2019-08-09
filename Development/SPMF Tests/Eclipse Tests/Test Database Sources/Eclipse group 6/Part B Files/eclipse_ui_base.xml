@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="NestedProjectCreator.java"><package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>examples</name><operator>.</operator><name>filesystem</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>InputStream</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>lang</name><operator>.</operator><name>reflect</name><operator>.</operator><name>InvocationTargetException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URI</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>URISyntaxException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>dialogs</name><operator>.</operator><name>ErrorDialog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>dialogs</name><operator>.</operator><name>MessageDialog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>operation</name><operator>.</operator><name>IRunnableContext</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>operation</name><operator>.</operator><name>IRunnableWithProgress</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>graphics</name><operator>.</operator><name>Image</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Shell</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>PlatformUI</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>actions</name><operator>.</operator><name>WorkspaceModifyOperation</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>dialogs</name><operator>.</operator><name>ListSelectionDialog</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>model</name><operator>.</operator><name>WorkbenchLabelProvider</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * A utility class for locating uncreated projects that are physically
+ * within the location of an existing project.  The locator prompts the
+ * user to ask which sub-projects they want to create, and then creates them.
+ * @since 3.2
+ */</comment>
+<class><specifier>public</specifier> class <name>NestedProjectCreator</name> <block>{
+	<decl_stmt><decl><specifier>private</specifier> <type><name>IRunnableContext</name></type> <name>context</name> <init>= <expr><call><name><name>PlatformUI</name><operator>.</operator><name>getWorkbench</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getProgressService</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>boolean</name></type> <name>excludeOverlap</name> <init>= <expr><literal type="boolean">true</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><specifier>final</specifier> <name>IWorkspace</name></type> <name>workspace</name> <init>= <expr><call><name><name>ResourcesPlugin</name><operator>.</operator><name>getWorkspace</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+	<comment type="block" format="javadoc">/**
+	 * This is the main entry point for the project locator. This method performs
+	 * the search for nested projects, prompts the user to ask which ones they
+	 * want to create, and creates those that the user asked to create.
+	 * &lt;p&gt;
+	 * This method must be called from the UI thread.
+	 * &lt;/p&gt;
+	 * 
+	 * @param projects The projects to locate nested projects in
+	 * @param parentShell The shell for parenting dialogs
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>createNestedProjects</name><parameter_list>(<parameter><decl><type><name><name>IProject</name><index>[]</index></name></type> <name>projects</name></decl></parameter>, <parameter><decl><type><name>Shell</name></type> <name>parentShell</name></decl></parameter>)</parameter_list> <block>{
+		<try>try <block>{
+			<expr_stmt><expr><call><name>doCreateNestedProjects</name><argument_list>(<argument><expr><name>projects</name></expr></argument>, <argument><expr><name>parentShell</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>InvocationTargetException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><specifier>final</specifier> <name>IStatus</name></type> <name>status</name> <init>= <expr><call><name>getStatus</name><argument_list>(<argument><expr><call><name><name>e</name><operator>.</operator><name>getTargetException</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>ErrorDialog</name><operator>.</operator><name>openError</name></name><argument_list>(<argument><expr><name>parentShell</name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></catch> <catch>catch <parameter_list>(<parameter><decl><type><name>InterruptedException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<comment type="line">//just abort from cancelation</comment>
+		}</block></catch></try>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * @throws InvocationTargetException
+	 * @throws InterruptedException
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>doCreateNestedProjects</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name><name>IProject</name><index>[]</index></name></type> <name>projects</name></decl></parameter>, <parameter><decl><type><name>Shell</name></type> <name>shell</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>InvocationTargetException</name></expr></argument>, <argument><expr><name>InterruptedException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>Object</name><index>[]</index></name></type> <name>result</name> <init>= <expr><operator>new</operator> <name><name>Object</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>context</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>IRunnableWithProgress</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+				<expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <call><name>findNestedProjects</name><argument_list>(<argument><expr><name>projects</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<if>if <condition>(<expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return;</return></block></then></if>
+		<decl_stmt><decl><type><name><name>IProjectDescription</name><index>[]</index></name></type> <name>rawDescriptions</name> <init>= <expr><operator>(</operator><name><name>IProjectDescription</name><index>[]</index></name><operator>)</operator> <name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name><name>rawDescriptions</name><operator>.</operator><name>length</name></name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return;</return></block></then></if>
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>IProjectDescription</name><index>[]</index></name></type> <name>finalDescriptions</name> <init>= <expr><call><name>promptForCreation</name><argument_list>(<argument><expr><name>shell</name></expr></argument>, <argument><expr><name>rawDescriptions</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name><name>finalDescriptions</name><operator>.</operator><name>length</name></name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return;</return></block></then></if>
+		<decl_stmt><decl><type><name>String</name></type> <name>message</name> <init>= <expr><literal type="string">"Should the folder corresponding to the created projects be excluded from the existing parent project?"</literal></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name>excludeOverlap</name> <operator>=</operator> <call><name><name>MessageDialog</name><operator>.</operator><name>openQuestion</name></name><argument_list>(<argument><expr><name>shell</name></expr></argument>, <argument><expr><literal type="string">"Exclude overlapping resources?"</literal></expr></argument>, <argument><expr><name>message</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<comment type="line">//create the projects</comment>
+		<decl_stmt><decl><type><specifier>final</specifier> <name>IWorkspaceRoot</name></type> <name>root</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>getRoot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>context</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>WorkspaceModifyOperation</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>protected</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+				<try>try <block>{
+					<expr_stmt><expr><call><name><name>monitor</name><operator>.</operator><name>beginTask</name></name><argument_list>(<argument><expr><literal type="string">"Creating Projects"</literal></expr></argument>, <argument><expr><name><name>finalDescriptions</name><operator>.</operator><name>length</name></name> <operator>*</operator> <literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>finalDescriptions</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+						<decl_stmt><decl><type><name>IProject</name></type> <name>project</name> <init>= <expr><call><name><name>root</name><operator>.</operator><name>getProject</name></name><argument_list>(<argument><expr><name><name>finalDescriptions</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+						<if>if <condition>(<expr><name>excludeOverlap</name></expr>)</condition><then>
+							<block type="pseudo"><expr_stmt><expr><call><name>excludeOverlap</name><argument_list>(<argument><expr><name><name>finalDescriptions</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+						<expr_stmt><expr><call><name><name>project</name><operator>.</operator><name>create</name></name><argument_list>(<argument><expr><name><name>finalDescriptions</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>, <argument><expr><operator>new</operator> <call><name>SubProgressMonitor</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						<expr_stmt><expr><call><name><name>project</name><operator>.</operator><name>open</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>SubProgressMonitor</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					}</block></for>
+				}</block> <finally>finally <block>{
+					<expr_stmt><expr><call><name><name>monitor</name><operator>.</operator><name>done</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				}</block></finally></try>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * The given project is about to be created.  Exclude any corresponding
+	 * resources in an overlapping parent project.
+	 * @param project
+	 * @param description
+	 */</comment>
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>excludeOverlap</name><parameter_list>(<parameter><decl><type><name>IProjectDescription</name></type> <name>description</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><name>URI</name></type> <name>location</name> <init>= <expr><call><name><name>description</name><operator>.</operator><name>getLocationURI</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>location</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+			<comment type="line">//default location for this project is below the root location</comment>
+			<decl_stmt><decl><type><name>URI</name></type> <name>rootLocation</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>getRoot</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getLocationURI</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><name>location</name> <operator>=</operator> <call><name><name>EFS</name><operator>.</operator><name>getStore</name></name><argument_list>(<argument><expr><name>rootLocation</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>getChild</name><argument_list>(<argument><expr><call><name><name>description</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>.</operator><call><name>toURI</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+		<decl_stmt><decl><type><name><name>IContainer</name><index>[]</index></name></type> <name>containers</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>getRoot</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>findContainersForLocationURI</name><argument_list>(<argument><expr><name>location</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>URI</name></type> <name>nullURI</name></decl>;</decl_stmt>
+		<try>try <block>{
+			<expr_stmt><expr><name>nullURI</name> <operator>=</operator> <operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>SCHEME_NULL</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="string">"/"</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><literal type="string">"Cannot exclude resource due to missing null file system"</literal></expr></argument>, <argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+			<comment type="line">//if this happens we cannot exclude the resource</comment>
+			<return>return;</return>
+		}</block></catch></try>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>containers</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<if>if <condition>(<expr><name><name>containers</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getType</name><argument_list>()</argument_list></call> <operator>!=</operator> <name><name>IResource</name><operator>.</operator><name>FOLDER</name></name></expr>)</condition><then>
+				<block type="pseudo"><continue>continue;</continue></block></then></if>
+			<decl_stmt><decl><type><name>IFolder</name></type> <name>folder</name> <init>= <expr><operator>(</operator><name>IFolder</name><operator>)</operator> <name><name>containers</name><index>[<expr><name>i</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+			<comment type="line">//don't replace links</comment>
+			<if>if <condition>(<expr><operator>!</operator><call><name><name>folder</name><operator>.</operator><name>isLinked</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>folder</name><operator>.</operator><name>createLink</name></name><argument_list>(<argument><expr><name>nullURI</name></expr></argument>, <argument><expr><name><name>IResource</name><operator>.</operator><name>REPLACE</name></name> <operator>|</operator> <name><name>IResource</name><operator>.</operator><name>ALLOW_MISSING_LOCAL</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		}</block></for>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Returns descriptions of projects physically nested within the
+	 * given projects that do not yet exist in the workspace.  This method
+	 * does not create any projects.
+	 * &lt;p&gt;
+	 * This method does not need to be called in the UI thread.
+	 * &lt;/p&gt;
+	 * 
+	 * @param projects The projects to search in.
+	 * @return The descriptions of projects physically located within
+	 * the given project.
+	 */</comment>
+	<function><specifier>public</specifier> <type><name><name>IProjectDescription</name><index>[]</index></name></type> <name>findNestedProjects</name><parameter_list>(<parameter><decl><type><name><name>IProject</name><index>[]</index></name></type> <name>projects</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name>ArrayList</name></type> <name>descriptions</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>projects</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<if>if <condition>(<expr><operator>!</operator><name><name>projects</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>isAccessible</name><argument_list>()</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><continue>continue;</continue></block></then></if>
+			<try>try <block>{
+				<expr_stmt><expr><name><name>projects</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>accept</name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>IResourceProxyVisitor</name></super><argument_list>()</argument_list> <block>{
+					<comment type="block" format="javadoc">/**
+					 * @param descriptions
+					 * @param description
+					 */</comment>
+					<function><specifier>private</specifier> <type><name>void</name></type> <name>addDescription</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>ArrayList</name></type> <name>descriptions</name></decl></parameter>, <parameter><decl><type><name>IProjectDescription</name></type> <name>description</name></decl></parameter>)</parameter_list> <block>{
+						<decl_stmt><decl><type><name>IProject</name></type> <name>project</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>getRoot</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getProject</name><argument_list>(<argument><expr><call><name><name>description</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+						<if>if <condition>(<expr><operator>!</operator><call><name><name>project</name><operator>.</operator><name>exists</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+							<block type="pseudo"><expr_stmt><expr><call><name><name>descriptions</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>description</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+					}</block></function>
+
+					<comment type="block" format="javadoc">/**
+					 * This linked resource may be blocking resources in the project's
+					 * location from the workspace.  Search for project descriptions
+					 * in the sub-tree of the project location corresponding to this resource.
+					 * @param link
+					 * @param descriptions
+					 */</comment>
+					<function><specifier>private</specifier> <type><name>void</name></type> <name>searchInLink</name><parameter_list>(<parameter><decl><type><name>IResource</name></type> <name>link</name></decl></parameter>)</parameter_list> <block>{
+						<decl_stmt><decl><type><name>IProject</name></type> <name>project</name> <init>= <expr><call><name><name>link</name><operator>.</operator><name>getProject</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+						<if>if <condition>(<expr><name>project</name> <operator>==</operator> <literal type="null">null</literal> <operator>||</operator> <operator>!</operator><call><name><name>project</name><operator>.</operator><name>isAccessible</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+							<block type="pseudo"><return>return;</return></block></then></if>
+						<decl_stmt><decl><type><name>IFileStore</name></type> <name>projectStore</name></decl>;</decl_stmt>
+						<try>try <block>{
+							<expr_stmt><expr><name>projectStore</name> <operator>=</operator> <call><name><name>EFS</name><operator>.</operator><name>getStore</name></name><argument_list>(<argument><expr><call><name><name>project</name><operator>.</operator><name>getLocationURI</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+						}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+							<comment type="line">//ignore projects in invalid locations</comment>
+							<return>return;</return>
+						}</block></catch></try>
+						<decl_stmt><decl><type><name>IFileStore</name></type> <name>linkStore</name> <init>= <expr><call><name><name>projectStore</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><call><name><name>link</name><operator>.</operator><name>getProjectRelativePath</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+						<expr_stmt><expr><call><name>searchInStore</name><argument_list>(<argument><expr><name>linkStore</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+					}</block></function>
+
+					<comment type="block" format="javadoc">/**
+					 * Searches for project description files within the given store,
+					 * and adds any found descriptions to the supplied list.
+					 * @param store
+					 * @param descriptions
+					 */</comment>
+					<function><specifier>private</specifier> <type><name>void</name></type> <name>searchInStore</name><parameter_list>(<parameter><decl><type><name>IFileStore</name></type> <name>store</name></decl></parameter>)</parameter_list> <block>{
+						<try>try <block>{
+							<if>if <condition>(<expr><call><name><name>store</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name><name>IProjectDescription</name><operator>.</operator><name>DESCRIPTION_FILE_NAME</name></name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+								<decl_stmt><decl><type><name>IFileInfo</name></type> <name>info</name> <init>= <expr><call><name><name>store</name><operator>.</operator><name>fetchInfo</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+								<if>if <condition>(<expr><operator>!</operator><call><name><name>info</name><operator>.</operator><name>isDirectory</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+									<decl_stmt><decl><type><name>InputStream</name></type> <name>input</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+									<try>try <block>{
+										<expr_stmt><expr><name>input</name> <operator>=</operator> <call><name><name>store</name><operator>.</operator><name>openInputStream</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+										<decl_stmt><decl><type><name>IProjectDescription</name></type> <name>description</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>loadProjectDescription</name></name><argument_list>(<argument><expr><name>input</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+										<expr_stmt><expr><call><name><name>description</name><operator>.</operator><name>setLocationURI</name></name><argument_list>(<argument><expr><call><name><name>store</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toURI</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+										<expr_stmt><expr><call><name>addDescription</name><argument_list>(<argument><expr><name>descriptions</name></expr></argument>, <argument><expr><name>description</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+									}</block> <finally>finally <block>{
+										<expr_stmt><expr><call><name>safeClose</name><argument_list>(<argument><expr><name>input</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+									}</block></finally></try>
+									<return>return;</return>
+								}</block></then></if>
+							}</block></then></if>
+							<comment type="line">//recurse on children</comment>
+							<decl_stmt><decl><type><name><name>IFileStore</name><index>[]</index></name></type> <name>children</name> <init>= <expr><call><name><name>store</name><operator>.</operator><name>childStores</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>NONE</name></name></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+							<for>for <control>(<init><decl><type><name>int</name></type> <name>j</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>j</name> <operator>&lt;</operator> <name><name>children</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>j</name><operator>++</operator></expr></incr>)</control>
+								<block type="pseudo"><expr_stmt><expr><call><name>searchInStore</name><argument_list>(<argument><expr><name><name>children</name><index>[<expr><name>j</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></for>
+						}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+							<comment type="line">//ignore if there are problems accessing the file system</comment>
+						}</block></catch></try>
+					}</block></function>
+
+					<function><specifier>public</specifier> <type><name>boolean</name></type> <name>visit</name><parameter_list>(<parameter><decl><type><name>IResourceProxy</name></type> <name>proxy</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+						<if>if <condition>(<expr><call><name><name>proxy</name><operator>.</operator><name>getType</name></name><argument_list>()</argument_list></call> <operator>==</operator> <name><name>IResource</name><operator>.</operator><name>FILE</name></name> <operator>&amp;&amp;</operator> <call><name><name>proxy</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name><name>IProjectDescription</name><operator>.</operator><name>DESCRIPTION_FILE_NAME</name></name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+							<decl_stmt><decl><type><name>IFile</name></type> <name>file</name> <init>= <expr><operator>(</operator><name>IFile</name><operator>)</operator> <call><name><name>proxy</name><operator>.</operator><name>requestResource</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+							<decl_stmt><decl><type><specifier>final</specifier> <name>InputStream</name></type> <name>input</name> <init>= <expr><call><name><name>file</name><operator>.</operator><name>getContents</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+							<try>try <block>{
+								<decl_stmt><decl><type><name>IProjectDescription</name></type> <name>description</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>loadProjectDescription</name></name><argument_list>(<argument><expr><name>input</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+								<expr_stmt><expr><call><name><name>description</name><operator>.</operator><name>setLocationURI</name></name><argument_list>(<argument><expr><call><name><name>file</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getLocationURI</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+								<expr_stmt><expr><call><name>addDescription</name><argument_list>(<argument><expr><name>descriptions</name></expr></argument>, <argument><expr><name>description</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+							}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+								<comment type="line">//ignore this project</comment>
+							}</block></catch> <finally>finally <block>{
+								<expr_stmt><expr><call><name>safeClose</name><argument_list>(<argument><expr><name>input</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+							}</block></finally></try>
+						}</block></then> <elseif>else <if>if <condition>(<expr><call><name><name>proxy</name><operator>.</operator><name>isLinked</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+							<comment type="line">//search in the directory hidden by the link</comment>
+							<expr_stmt><expr><call><name>searchInLink</name><argument_list>(<argument><expr><call><name><name>proxy</name><operator>.</operator><name>requestResource</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+							<return>return <expr><literal type="boolean">false</literal></expr>;</return>
+						}</block></then></if></elseif></if>
+						<return>return <expr><literal type="boolean">true</literal></expr>;</return>
+					}</block></function>
+				}</block></class></expr></argument>, <argument><expr><name><name>IResource</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">//if the project cannot be visited just ignore it</comment>
+			}</block></catch></try>
+		}</block></for>
+		<return>return <expr><operator>(</operator><name><name>IProjectDescription</name><index>[]</index></name><operator>)</operator> <call><name><name>descriptions</name><operator>.</operator><name>toArray</name></name><argument_list>(<argument><expr><operator>new</operator> <name><name>IProjectDescription</name><index>[<expr><call><name><name>descriptions</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Returns a label provider that is capable of displaying project descriptions.
+	 * This provider just converts IProjectDescription-&gt;IProject, and then
+	 * uses the standard {@link WorkbenchLabelProvider}.
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>ILabelProvider</name></type> <name>getProjectDescriptionLabelProvider</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <class><super><name>LabelProvider</name></super><argument_list>()</argument_list> <block>{
+			<decl_stmt><decl><specifier>private</specifier> <type><name>LabelProvider</name></type> <name>realProvider</name> <init>= <expr><operator>new</operator> <call><name>WorkbenchLabelProvider</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><specifier>private</specifier> <type><name>IWorkspaceRoot</name></type> <name>root</name> <init>= <expr><call><name><name>workspace</name><operator>.</operator><name>getRoot</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+			<function><specifier>public</specifier> <type><name>Image</name></type> <name>getImage</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>element</name></decl></parameter>)</parameter_list> <block>{
+				<return>return <expr><call><name><name>realProvider</name><operator>.</operator><name>getImage</name></name><argument_list>(<argument><expr><call><name>getProject</name><argument_list>(<argument><expr><name>element</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+			}</block></function>
+
+			<function><specifier>private</specifier> <type><name>Object</name></type> <name>getProject</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>element</name></decl></parameter>)</parameter_list> <block>{
+				<if>if <condition>(<expr><name>element</name> <operator>instanceof</operator> <name>IProjectDescription</name></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><call><name><name>root</name><operator>.</operator><name>getProject</name></name><argument_list>(<argument><expr><operator>(</operator><operator>(</operator><name>IProjectDescription</name><operator>)</operator> <name>element</name><operator>)</operator><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+				<return>return <expr><literal type="null">null</literal></expr>;</return>
+			}</block></function>
+
+			<function><specifier>public</specifier> <type><name>String</name></type> <name>getText</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>element</name></decl></parameter>)</parameter_list> <block>{
+				<return>return <expr><call><name><name>realProvider</name><operator>.</operator><name>getText</name></name><argument_list>(<argument><expr><call><name>getProject</name><argument_list>(<argument><expr><name>element</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+			}</block></function>
+		}</block></class></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Returns a status corresponding to the given throwable.
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>IStatus</name></type> <name>getStatus</name><parameter_list>(<parameter><decl><type><name>Throwable</name></type> <name>t</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><name>t</name> <operator>instanceof</operator> <name>CoreException</name></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><operator>(</operator><operator>(</operator><name>CoreException</name><operator>)</operator> <name>t</name><operator>)</operator><operator>.</operator><call><name>getStatus</name><argument_list>()</argument_list></call></expr>;</return></block></then></if>
+		<return>return <expr><operator>new</operator> <call><name>Status</name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr></argument>, <argument><expr><name><name>Policy</name><operator>.</operator><name>PI_FILESYSTEM_EXAMPLE</name></name></expr></argument>, <argument><expr><literal type="number">1</literal></expr></argument>, <argument><expr><literal type="string">"Internal Error"</literal></expr></argument>, <argument><expr><name>t</name></expr></argument>)</argument_list></call></expr>;</return> <comment type="line">//$NON-NLS-1$</comment>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Given a set of project descriptions, prompt the user to ask if they want
+	 * to create them.  Returns the project descriptions that the user asks to create.
+	 * 
+	 * @param parentShell The shell to use when parenting dialogs
+	 * @param descriptions The descriptions that can be created
+	 * @return The descriptions that the user has selected for creation
+	 */</comment>
+	<function><specifier>public</specifier> <type><name><name>IProjectDescription</name><index>[]</index></name></type> <name>promptForCreation</name><parameter_list>(<parameter><decl><type><name>Shell</name></type> <name>parentShell</name></decl></parameter>, <parameter><decl><type><name><name>IProjectDescription</name><index>[]</index></name></type> <name>descriptions</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>String</name></type> <name>message</name> <init>= <expr><literal type="string">"The following projects were found. Select the projects to be created."</literal></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>ListSelectionDialog</name></type> <name>dialog</name> <init>= <expr><operator>new</operator> <call><name>ListSelectionDialog</name><argument_list>(<argument><expr><name>parentShell</name></expr></argument>, <argument><expr><name>descriptions</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>ArrayContentProvider</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name>getProjectDescriptionLabelProvider</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>message</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>dialog</name><operator>.</operator><name>open</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name><name>Object</name><index>[]</index></name></type> <name>result</name> <init>= <expr><call><name><name>dialog</name><operator>.</operator><name>getResult</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name><name>IProjectDescription</name><index>[]</index></name></type> <name>castedResult</name> <init>= <expr><operator>new</operator> <name><name>IProjectDescription</name><index>[<expr><name><name>result</name><operator>.</operator><name>length</name></name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>arraycopy</name></name><argument_list>(<argument><expr><name>result</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>castedResult</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name><name>result</name><operator>.</operator><name>length</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>castedResult</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * @param input
+	 */</comment>
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>safeClose</name><parameter_list>(<parameter><decl><type><name>InputStream</name></type> <name>input</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><name>input</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return;</return></block></then></if>
+		<try>try <block>{
+			<expr_stmt><expr><call><name><name>input</name><operator>.</operator><name>close</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<comment type="line">//ignore</comment>
+		}</block></catch></try>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Sets the runnable context that should be used to show progress during 
+	 * any long running operations. 
+	 * @param rc The context to use
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>setRunnableContext</name><parameter_list>(<parameter><decl><type><name>IRunnableContext</name></type> <name>rc</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name>context</name> <operator>=</operator> <ternary><condition><expr><name>rc</name> <operator>!=</operator> <literal type="null">null</literal></expr> ?</condition><then> <expr><name>rc</name></expr> </then><else>: <expr><call><name><name>PlatformUI</name><operator>.</operator><name>getWorkbench</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getProgressService</name><argument_list>()</argument_list></call></expr></else></ternary></expr>;</expr_stmt>
+	}</block></function>
+}</block></class>
+</unit>
