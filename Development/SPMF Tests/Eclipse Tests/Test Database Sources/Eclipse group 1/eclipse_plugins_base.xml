@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="FTPFile.java"><comment type="block" format="javadoc">/**********************************************************************
+ * Copyright (c) 2005, 2006 IBM Corporation and others. All rights reserved.   This
+ * program and the accompanying materials are made available under the terms of
+ * the Common Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors: 
+ * IBM - Initial API and implementation
+ * Tianchao Li (lit@in.tum.de) - Partially fix bug #137878
+ **********************************************************************/</comment>
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>internal</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>ftp</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>net</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileInfo</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>filesystem</name><operator>.</operator><name>provider</name><operator>.</operator><name>FileStore</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ftp</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ftp</name><operator>.</operator><name>internal</name><operator>.</operator><name>FTPDirectoryEntry</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * Implementation of FileStore for accessing files using file transfer protocol (FTP).
+ */</comment>
+<class><specifier>public</specifier> class <name>FTPFile</name> <super><extends>extends <name>FileStore</name></extends></super> <block>{
+	<decl_stmt><decl><specifier>protected</specifier> <type><specifier>final</specifier> <name>IPath</name></type> <name>relativePath</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><specifier>final</specifier> <name>URL</name></type> <name>root</name></decl>;</decl_stmt>
+
+	<comment type="block">/* requirement of root and relativePath
+	   root:
+	    (correct)
+	    "ftp://ftp.leo.org" 
+	    "ftp://ftp.leo.org/test" 
+	    (probably correct)
+	    "ftp://ftp.leo.org/"
+	    "ftp://ftp.leo.org/test/"
+	   relativePath:
+	    (correct)
+	    ""
+	    "test/welcome.txt"
+	    "welcome.txt"
+	    (probably wrong?)
+	    "/test/welcome.txt"
+	    "/welcome.txt"
+	*/</comment>
+	<constructor><specifier>public</specifier> <name>FTPFile</name><parameter_list>(<parameter><decl><type><name>URL</name></type> <name>root</name></decl></parameter>, <parameter><decl><type><name>IPath</name></type> <name>relativePath</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>root</name></name> <operator>=</operator> <name>root</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>relativePath</name></name> <operator>=</operator> <name>relativePath</name></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name><name>IFileInfo</name><index>[]</index></name></type> <name>childInfos</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>IDirectoryEntry</name><index>[]</index></name></type> <name>entries</name> <init>= <expr><call><name>listFiles</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>entries</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><name>EMPTY_FILE_INFO_ARRAY</name></expr>;</return></block></then></if>
+		<decl_stmt><decl><type><name><name>IFileInfo</name><index>[]</index></name></type> <name>infos</name> <init>= <expr><operator>new</operator> <name><name>IFileInfo</name><index>[<expr><name><name>entries</name><operator>.</operator><name>length</name></name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>entries</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<expr_stmt><expr><name><name>infos</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <call><name><name>FTPUtil</name><operator>.</operator><name>entryToFileInfo</name></name><argument_list>(<argument><expr><name><name>entries</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></for>
+		<return>return <expr><name>infos</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name><name>String</name><index>[]</index></name></type> <name>childNames</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>IDirectoryEntry</name><index>[]</index></name></type> <name>entries</name> <init>= <expr><call><name>listFiles</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>entries</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><name>EMPTY_STRING_ARRAY</name></expr>;</return></block></then></if>
+		<decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>names</name> <init>= <expr><operator>new</operator> <name><name>String</name><index>[<expr><name><name>entries</name><operator>.</operator><name>length</name></name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>entries</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<expr_stmt><expr><name><name>names</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name><name>entries</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></for>
+		<return>return <expr><name>names</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>private</specifier> <type><name>IFileInfo</name></type> <name>createMissingInfo</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>myName</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>FileInfo</name></type> <name>info</name> <init>= <expr><operator>new</operator> <call><name>FileInfo</name><argument_list>(<argument><expr><name>myName</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>info</name><operator>.</operator><name>setExists</name></name><argument_list>(<argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>info</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>delete</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>IFtpRunnable</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>pm</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>FtpException</name></expr></argument></throws> <block>{
+				<if>if <condition>(<expr><call><name>fetchInfo</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isDirectory</name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>getClient</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>deleteDirectory</name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>pm</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then> <else>else <block>{
+					<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>getClient</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>deleteFile</name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>pm</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></else></if>
+			}</block></function>
+		}</block></class></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileInfo</name></type> <name>fetchInfo</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><call><name><name>relativePath</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><call><name>fetchRootInfo</name><argument_list>(<argument><expr><name>options</name></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+		<decl_stmt><decl><type><name>String</name></type> <name>myName</name> <init>= <expr><call><name>getName</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<try>try <block>{
+			<decl_stmt><decl><type><name><name>IFileInfo</name><index>[]</index></name></type> <name>infos</name> <init>= <expr><call><name>getParent</name><argument_list>()</argument_list></call><operator>.</operator><call><name>childInfos</name><argument_list>(<argument><expr><name>options</name></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>infos</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+				<if>if <condition>(<expr><call><name><name>myName</name><operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name><name>infos</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><name><name>infos</name><index>[<expr><name>i</name></expr>]</index></name></expr>;</return></block></then></if>
+			}</block></for>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<comment type="line">//ignore and fall through below</comment>
+		}</block></catch></try>
+		<comment type="line">//this file doesn't exist - that's fine</comment>
+		<return>return <expr><call><name>createMissingInfo</name><argument_list>(<argument><expr><name>myName</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Since the root element has no parent directory, we must
+	 * list its own contents and then return the directory information
+	 * for the self reference directory entry (".").
+	 * 
+	 * @param options
+	 * @param monitor
+	 * @return File info for the root element
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>IFileInfo</name></type> <name>fetchRootInfo</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name><name>IDirectoryEntry</name><index>[]</index></name></type> <name>entries</name> <init>= <expr><call><name>listFiles</name><argument_list>(<argument><expr><name>monitor</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>entries</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<if>if <condition>(<expr><name><name>entries</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><literal type="string">"."</literal></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{<comment type="line">//$NON-NLS-1$</comment>
+				<decl_stmt><decl><type><name>FileInfo</name></type> <name>info</name> <init>= <expr><call><name><name>FTPUtil</name><operator>.</operator><name>entryToFileInfo</name></name><argument_list>(<argument><expr><name><name>entries</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>info</name><operator>.</operator><name>setName</name></name><argument_list>(<argument><expr><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<return>return <expr><name>info</name></expr>;</return>
+			}</block></then></if>
+		}</block></for>
+		<return>return <expr><call><name>createMissingInfo</name><argument_list>(<argument><expr><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getChild</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>name</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>FTPFile</name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><call><name><name>relativePath</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileSystem</name></type> <name>getFileSystem</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>FTPFileSystem</name><operator>.</operator><name>getInstance</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getName</name><parameter_list>()</parameter_list> <block>{
+		<if>if <condition>(<expr><operator>!</operator><call><name><name>relativePath</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><call><name><name>relativePath</name><operator>.</operator><name>lastSegment</name></name><argument_list>()</argument_list></call></expr>;</return></block></then></if>
+		<comment type="line">//this is the root resource, so use the last segment of the URL path</comment>
+		<decl_stmt><decl><type><name>String</name></type> <name>pathPart</name> <init>= <expr><call><name><name>root</name><operator>.</operator><name>getPath</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>offset</name> <init>= <expr><call><name><name>pathPart</name><operator>.</operator><name>lastIndexOf</name></name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>offset</name> <operator>&gt;=</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><call><name><name>pathPart</name><operator>.</operator><name>substring</name></name><argument_list>(<argument><expr><name>offset</name></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+		<comment type="line">//if there is only one segment, return it</comment>
+		<if>if <condition>(<expr><call><name><name>pathPart</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><name>pathPart</name></expr>;</return></block></then></if>
+		<return>return <expr><call><name><name>root</name><operator>.</operator><name>getHost</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>getParent</name><parameter_list>()</parameter_list> <block>{
+		<if>if <condition>(<expr><operator>!</operator><call><name><name>relativePath</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><operator>new</operator> <call><name>FTPFile</name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><call><name><name>relativePath</name><operator>.</operator><name>removeLastSegments</name></name><argument_list>(<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return></block></then></if>
+		<comment type="line">//the root has no parent</comment>
+		<return>return <expr><literal type="null">null</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>private</specifier> <type><name><name>IDirectoryEntry</name><index>[]</index></name></type> <name>listFiles</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>, <parameter><decl><type><specifier>final</specifier> <name>boolean</name></type> <name>includeParents</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>IDirectoryEntry</name><index>[]</index><index>[]</index></name></type> <name>entries</name> <init>= <expr><operator>new</operator> <name><name>FTPDirectoryEntry</name><index>[<expr><literal type="number">1</literal></expr>]</index><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<try>try <block>{
+			<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>IFtpRunnable</name></super><argument_list>()</argument_list> <block>{
+				<function><specifier>public</specifier> <type><name>void</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>pm</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>FtpException</name></expr></argument></throws> <block>{
+					<expr_stmt><expr><name><name>entries</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <call><name><name>FTPUtil</name><operator>.</operator><name>getClient</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>listFiles</name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>includeParents</name></expr></argument>, <argument><expr><name>pm</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></function>
+			}</block></class></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>FtpException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>log</name></name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr></argument>, <argument><expr><literal type="string">"Error listing files from FTP file"</literal></expr></argument>, <argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+		}</block></catch></try>
+		<return>return <expr><name><name>entries</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>IFileStore</name></type> <name>mkdir</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<comment type="line">//FTP fails a create attempt when the file or directory already exists,</comment>
+		<comment type="line">//so we must first check for existence.</comment>
+		<decl_stmt><decl><type><specifier>final</specifier> <name>IFileInfo</name></type> <name>fileInfo</name> <init>= <expr><call><name>fetchInfo</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><call><name><name>fileInfo</name><operator>.</operator><name>exists</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+			<if>if <condition>(<expr><operator>!</operator><call><name><name>fileInfo</name><operator>.</operator><name>isDirectory</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+				<decl_stmt><decl><type><name>String</name></type> <name>message</name> <init>= <expr><literal type="string">"A directory could not be created because a file exists with the same name: "</literal> <operator>+</operator> <call><name>toString</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_WRONG_TYPE</name></name></expr></argument>, <argument><expr><name>message</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></then></if>
+			<return>return <expr><name>this</name></expr>;</return>
+		}</block></then></if>
+
+		<comment type="line">//create a directory</comment>
+		<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>IFtpRunnable</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>pm</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>FtpException</name></expr></argument></throws> <block>{
+				<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>getClient</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>createDirectory</name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>pm</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>this</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>InputStream</name></type> <name>openInputStream</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<decl_stmt><decl><type><specifier>final</specifier> <name><name>InputStream</name><index>[]</index></name></type> <name>result</name> <init>= <expr><operator>new</operator> <name><name>InputStream</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>IFtpRunnable</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>pm</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>FtpException</name></expr></argument></throws> <block>{
+				<expr_stmt><expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name> <operator>=</operator> <call><name><name>FTPUtil</name><operator>.</operator><name>getClient</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getFile</name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>pm</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name><name>result</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>OutputStream</name></type> <name>openOutputStream</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><specifier>final</specifier> <name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<return>return <expr><operator>new</operator> <class><super><name>ByteArrayOutputStream</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>close</name><parameter_list>()</parameter_list> <throws>throws <argument><expr><name>IOException</name></expr></argument></throws> <block>{
+				<decl_stmt><decl><type><name><name>byte</name><index>[]</index></name></type> <name>bytes</name> <init>= <expr><call><name>toByteArray</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<try>try <block>{
+					<expr_stmt><expr><call><name><name>FTPFile</name><operator>.</operator><name>this</name><operator>.</operator><name>write</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ByteArrayInputStream</name><argument_list>(<argument><expr><name>bytes</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>bytes</name><operator>.</operator><name>length</name></name></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>CoreException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+					<throw>throw <expr><operator>new</operator> <call><name>IOException</name><argument_list>(<argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</throw>
+				}</block></catch></try>
+			}</block></function>
+		}</block></class></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>putInfo</name><parameter_list>(<parameter><decl><type><name>IFileInfo</name></type> <name>info</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>options</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>Policy</name><operator>.</operator><name>error</name></name><argument_list>(<argument><expr><name><name>EFS</name><operator>.</operator><name>ERROR_WRITE</name></name></expr></argument>, <argument><expr><literal type="string">"The putInfo method is not implemented"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block">/* (non-Javadoc)
+	 * @see org.eclipse.core.filesystem.IFileStore#toString()
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>toString</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>StringBuffer</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>StringBuffer</name><argument_list>(<argument><expr><call><name><name>root</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>len</name> <init>= <expr><call><name><name>result</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<comment type="line">//make sure there is a slash separating root and relative path</comment>
+		<if>if <condition>(<expr><name>len</name> <operator>&gt;</operator> <literal type="number">0</literal> <operator>&amp;&amp;</operator> <call><name><name>result</name><operator>.</operator><name>charAt</name></name><argument_list>(<argument><expr><name>len</name> <operator>-</operator> <literal type="number">1</literal></expr></argument>)</argument_list></call> <operator>!=</operator> <literal type="char">'/'</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><literal type="char">'/'</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>append</name></name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><call><name><name>result</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>URI</name></type> <name>toURI</name><parameter_list>()</parameter_list> <block>{
+		<try>try <block>{
+			<return>return <expr><operator>(</operator><operator>new</operator> <call><name>URI</name><argument_list>(<argument><expr><call><name>toString</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call><operator>)</operator></expr>;</return>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>URISyntaxException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr>;</throw>
+		}</block></catch></try>
+	}</block></function>
+
+	<function><type><name>void</name></type> <name>write</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>InputStream</name></type> <name>stream</name></decl></parameter>, <parameter><decl><type><specifier>final</specifier> <name>int</name></type> <name>size</name></decl></parameter>, <parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>CoreException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>run</name></name><argument_list>(<argument><expr><name>root</name></expr></argument>, <argument><expr><operator>new</operator> <class><super><name>IFtpRunnable</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>run</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>pm</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>FtpException</name></expr></argument></throws> <block>{
+				<expr_stmt><expr><call><name><name>FTPUtil</name><operator>.</operator><name>getClient</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>putFile</name><argument_list>(<argument><expr><call><name><name>relativePath</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>stream</name></expr></argument>, <argument><expr><name>size</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><name>pm</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>, <argument><expr><name>monitor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+}</block></class></unit>

@@ -1,0 +1,103 @@
+1 class has non-empty-body constructor
+2 constructor sets member variables relativePath, root
+3 class defines constructor with parameter of type URL
+4 class defines constructor with parameter of type IPath
+5 constructor stores all parameters as member variables
+6 class has member field called relativePath
+7 class has member field of type IPath
+8 class has member field relativePath of type IPath
+9 class has member field called root
+10 class has member field of type URL
+11 class has member field root of type URL
+12 class extends class FileStore
+13 is public class
+14 has public function childInfos()
+15 childInfos() function has parameter of type int
+16 childInfos() function has parameter of type IProgressMonitor
+17 childInfos() function returns type IFileInfo
+18 has public function childNames()
+19 childNames() function has parameter of type int
+20 childNames() function has parameter of type IProgressMonitor
+21 childNames() function returns type String
+22 has private function createMissingInfo()
+23 call to constructor of FileInfo is made in createMissingInfo()
+24 createMissingInfo() function has parameter of type String
+25 createMissingInfo() function returns type IFileInfo
+26 has public function delete()
+27 delete() function has parameter of type int
+28 delete() function has parameter of type IProgressMonitor
+29 class has void function delete()
+30 has public function fetchInfo()
+31 fetchInfo() function returns output from function call
+32 fetchInfo() function returns output from function call to createMissingInfo
+33 fetchInfo() function has parameter of type int
+34 fetchInfo() function has parameter of type IProgressMonitor
+35 fetchInfo() function returns type IFileInfo
+36 has private function fetchRootInfo()
+37 fetchRootInfo() function returns output from function call
+38 fetchRootInfo() function returns output from function call to createMissingInfo
+39 fetchRootInfo() function has parameter of type int
+40 fetchRootInfo() function has parameter of type IProgressMonitor
+41 fetchRootInfo() function returns type IFileInfo
+42 has public function getChild()
+43 call to constructor of FTPFile is made in getChild()
+44 getChild() function calls constructor in return statement
+45 getChild() function returns output from function call
+46 getChild() function returns output from function call to FTPFile
+47 getChild() function has parameter of type String
+48 getChild() function returns type IFileStore
+49 has public function getFileSystem()
+50 getFileSystem() function returns output from function call
+51 getFileSystem() function returns type IFileSystem
+52 has public function getName()
+53 getName() function returns output from function call
+54 getName() function returns type String
+55 has public function getParent()
+56 call to constructor of FTPFile is made in getParent()
+57 getParent() function returns type IFileStore
+58 has private function listFiles()
+59 listFiles() function has parameter of type IProgressMonitor
+60 listFiles() function has parameter of type boolean
+61 listFiles() function returns type IDirectoryEntry
+62 has public function mkdir()
+63 mkdir() function has parameter of type int
+64 mkdir() function has parameter of type IProgressMonitor
+65 mkdir() function returns type IFileStore
+66 has public function openInputStream()
+67 openInputStream() function has parameter of type int
+68 openInputStream() function has parameter of type IProgressMonitor
+69 openInputStream() function returns type InputStream
+70 has public function openOutputStream()
+71 call to constructor of ByteArrayInputStream is made in openOutputStream()
+72 call to constructor of IOException is made in openOutputStream()
+73 openOutputStream() function calls constructor in return statement
+74 openOutputStream() function has parameter of type int
+75 openOutputStream() function has parameter of type IProgressMonitor
+76 openOutputStream() function returns type OutputStream
+77 has public function putInfo()
+78 putInfo() function has parameter of type IFileInfo
+79 putInfo() function has parameter of type int
+80 putInfo() function has parameter of type IProgressMonitor
+81 class has void function putInfo()
+82 has public function toString()
+83 call to constructor of StringBuffer is made in toString()
+84 toString() function returns output from function call
+85 toString() function returns type String
+86 has public function toURI()
+87 call to constructor of RuntimeException is made in toURI()
+88 toURI() function returns output from function call
+89 toURI() function returns output from function call to URI
+90 toURI() function returns type URI
+91 has public function write()
+92 write() function has parameter of type InputStream
+93 write() function has parameter of type int
+94 write() function has parameter of type IProgressMonitor
+95 class has void function write()
+96 class does not define constructor
+97 has public function run()
+98 run() function has parameter of type IProgressMonitor
+99 class has void function run()
+100 has public function close()
+101 call to constructor of ByteArrayInputStream is made in close()
+102 call to constructor of IOException is made in close()
+103 class has void function close()
