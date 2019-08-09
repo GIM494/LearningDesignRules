@@ -1,0 +1,299 @@
+1 class has empty-body constructor
+2 class defines constructor with no parameters
+3 class has member field called challengeText
+4 class has member field of type String
+5 class has member field challengeText of type String
+6 class extends class DTO
+7 is public class
+8 class has member field called messageType
+9 class has member field messageType of type String
+10 class has member field called functions
+11 class has member field of type List
+12 class has member field functions of type List
+13 class has member field called ADTs
+14 class has member field ADTs of type List
+15 class does not define constructor
+16 has public function json()
+17 json() function returns output from function call
+18 json() function returns output from function call to json
+19 json() function returns type String
+20 has protected static function json()
+21 call to constructor of ObjectMapper is made in json()
+22 json() function has parameter of type Object
+23 has public static function read()
+24 call to constructor of ObjectMapper is made in read()
+25 read() function has parameter of type String
+26 read() function has parameter of type Class
+27 read() function returns type DTO
+28 class has non-empty-body constructor
+29 constructor sets member variables name, priority, score
+30 class defines constructor with parameter of type int
+31 class defines constructor with parameter of type String
+32 constructor stores all parameters as member variables
+33 class has member field called score
+34 class has member field of type int
+35 class has member field score of type int
+36 class has member field called name
+37 class has member field name of type String
+38 class has member field called priority
+39 class has member field called priority with annotation @JsonProperty with 
+".priority" 
+40 class has member field of type double
+41 class has member field priority of type double
+42 constructor sets member variables queue
+43 class defines constructor with parameter of type LinkedList
+44 class has member field called queue
+45 class has member field queue of type List
+46 has public function toString()
+47 toString() function returns output from function call
+48 toString() function returns type String
+49 constructor sets member variables awardedPoints, canBeChallenged, challengeStatus, maxPoints, microtaskKey, microtaskType, score, timeInMillis, type
+50 class defines constructor with parameter of type boolean
+51 class has member field called awardedPoints
+52 class has member field awardedPoints of type int
+53 class has member field called maxPoints
+54 class has member field maxPoints of type int
+55 class has member field called microtaskType
+56 class has member field microtaskType of type String
+57 class has member field called type
+58 class has member field type of type String
+59 class has member field called microtaskKey
+60 class has member field microtaskKey of type String
+61 class has member field called timeInMillis
+62 class has member field timeInMillis of type String
+63 class has member field called challengeStatus
+64 class has member field challengeStatus of type String
+65 class has member field called canBeChallenged
+66 class has member field of type boolean
+67 class has member field canBeChallenged of type boolean
+68 constructor sets member variables artifactsId
+69 class defines constructor with parameter of type List
+70 class has member field called artifactsId
+71 class has member field artifactsId of type List
+72 constructor sets member variables level, listOfAchievements, microtaskHistory, nickname, score, userid
+73 class defines constructor with parameter of type HashMap
+74 class has member field called nickname
+75 class has member field nickname of type String
+76 class has member field called userid
+77 class has member field userid of type String
+78 class has member field called listOfAchievements
+79 class has member field listOfAchievements of type List
+80 class has member field called microtaskHistory
+81 class has member field of type HashMap
+82 class has member field microtaskHistory of type HashMap
+83 class has member field called level
+84 class has member field level of type int
+85 constructor sets member variables createdAt, id, ownerHandle, ownerId, score, text
+86 class defines constructor with parameter of type long
+87 class has member field called id
+88 class has member field of type long
+89 class has member field id of type long
+90 class has member field called text
+91 class has member field text of type String
+92 class has member field called ownerId
+93 class has member field ownerId of type String
+94 class has member field called ownerHandle
+95 class has member field ownerHandle of type String
+96 class has member field called createdAt
+97 class has member field createdAt of type long
+98 class has member field called votersId
+99 class has member field votersId of type List
+100 class has member field called reportersId
+101 class has member field reportersId of type List
+102 class has member field called commentsId
+103 class has member field commentsId of type List
+104 constructor sets member variables answersCount, artifactsId, closed, commentsCount, createdAt, id, ownerHandle, ownerId, score, subscribersId, tags, text, title, updatedAt, version
+105 class has member field called title
+106 class has member field title of type String
+107 class has member field called updatedAt
+108 class has member field updatedAt of type long
+109 class has member field called answersCount
+110 class has member field answersCount of type long
+111 class has member field called commentsCount
+112 class has member field commentsCount of type long
+113 class has member field called closed
+114 class has member field closed of type boolean
+115 class has member field called version
+116 class has member field version of type long
+117 class has member field called tags
+118 class has member field tags of type List
+119 class has member field called answersId
+120 class has member field answersId of type List
+121 class has member field called subscribersId
+122 class has member field subscribersId of type List
+123 constructor sets member variables reportersId
+124 constructor sets member variables subscribersId
+125 constructor sets member variables tags
+126 constructor sets member variables votersId
+127 constructor sets member variables condition, message, requirement
+128 class has member field called message
+129 class has member field message of type String
+130 class has member field called condition
+131 class has member field condition of type String
+132 class has member field called requirement
+133 class has member field requirement of type int
+134 class extends class NotificationInFirebase
+135 constructor sets member variables questionId, text, workerHandle
+136 class has member field called questionId
+137 class has member field questionId of type long
+138 class has member field called workerHandle
+139 class has member field workerHandle of type String
+140 constructor sets member variables artifactName, microtaskId, microtaskType
+141 class has member field called microtaskId
+142 class has member field microtaskId of type String
+143 class has member field called artifactName
+144 class has member field artifactName of type String
+145 constructor sets member variables answerId, questionId, text, workerHandle
+146 class has member field called answerId
+147 class has member field answerId of type long
+148 constructor sets member variables time, type
+149 class has member field called time
+150 class has member field time of type long
+151 constructor sets member variables questionId, title
+152 constructor sets member variables challengeText, microtaskKeyUnderChallenge
+153 class defines constructor with parameter of type Long
+154 class defines constructor with parameter of type Key
+155 class has member field called microtaskKeyUnderChallenge
+156 class has member field microtaskKeyUnderChallenge of type String
+157 class extends class MicrotaskInFirebase
+158 constructor sets member variables reissueMotivation, reissuedMicrotaskKey
+159 class has member field called reissuedMicrotaskKey
+160 class has member field reissuedMicrotaskKey of type String
+161 class has member field called reissueMotivation
+162 class has member field reissueMotivation of type String
+163 constructor sets member variables disputeText, promptType, testId
+164 class has member field called promptType
+165 class has member field promptType of type String
+166 class has member field called testId
+167 class has member field testId of type long
+168 class has member field called calleeId
+169 class has member field of type Long
+170 class has member field calleeId of type Long
+171 class has member field called oldCalleeVersion
+172 class has member field of type Integer
+173 class has member field oldCalleeVersion of type Integer
+174 class has member field called disputeText
+175 class has member field disputeText of type String
+176 constructor sets member variables disputedTests, promptType
+177 class has member field called oldFunctionVersion
+178 class has member field oldFunctionVersion of type Integer
+179 class has member field called oldADTVersion
+180 class has member field oldADTVersion of type Integer
+181 class has member field called ADTId
+182 class has member field ADTId of type Long
+183 class has member field called disputedTests
+184 class has member field disputedTests of type List
+185 constructor sets member variables completed, functionId, id, owningArtifact, owningArtifactId, points, title, type
+186 class has member field called owningArtifactId
+187 class has member field owningArtifactId of type Long
+188 class has member field called owningArtifact
+189 class has member field owningArtifact of type String
+190 class has member field called completed
+191 class has member field completed of type boolean
+192 class has member field called points
+193 class has member field points of type int
+194 class has member field called functionId
+195 class has member field functionId of type Long
+196 constructor sets member variables microtaskKeyUnderReview
+197 class has member field called microtaskKeyUnderReview
+198 class has member field microtaskKeyUnderReview of type String
+199 constructor sets member variables qualityScore, reviewKey, reviewText
+200 class has member field called qualityScore
+201 class has member field qualityScore of type int
+202 class has member field called reviewText
+203 class has member field reviewText of type String
+204 class has member field called reviewKey
+205 class has member field reviewKey of type String
+206 constructor sets member variables description, id, isApiArtifact, isDeleted, isReadOnly, name, version
+207 call to constructor of ADTStructureDTO is made in class constructor
+208 call to constructor of ADTExampleDTO is made in class constructor
+209 class has member field version of type int
+210 class has member field called description
+211 class has member field description of type String
+212 class has member field called structure
+213 class has member field structure of type List
+214 class has member field called examples
+215 class has member field examples of type List
+216 class has member field called isReadOnly
+217 class has member field isReadOnly of type boolean
+218 class has member field called isApiArtifact
+219 class has member field isApiArtifact of type boolean
+220 class has member field called isDeleted
+221 class has member field isDeleted of type boolean
+222 constructor sets member variables code, description, functionId, id, isApiArtifact, isDeleted, isReadOnly, isSimple, version
+223 class defines constructor with parameter of type double
+224 class has member field called code
+225 class has member field code of type String
+226 class has member field functionId of type long
+227 class has member field called creationTime
+228 class has member field creationTime of type double
+229 class has member field called isSimple
+230 class has member field isSimple of type boolean
+231 class has member field called areTestsPassed
+232 class has member field areTestsPassed of type boolean
+233 class has member field called failedTestId
+234 class has member field failedTestId of type long
+235 class has member field called passedTestsId
+236 class has member field passedTestsId of type List
+237 constructor sets member variables description, id, inputs, isApiArtifact, isDeleted, isReadOnly, isSimple, output, version
+238 class has member field called inputs
+239 class has member field inputs of type List
+240 class has member field called output
+241 class has member field output of type String
+242 class has member field called artifactId
+243 class has member field artifactId of type String
+244 constructor sets member variables name, value
+245 class has member field called value
+246 class has member field value of type String
+247 constructor sets member variables name, type
+248 class has member field called isChallengeWon
+249 class has member field of type Boolean
+250 class has member field isChallengeWon of type Boolean
+251 constructor sets member variables ADTsId, calleesId, code, description, header, id, isApiArtifact, isDeleted, linesOfCode, name, returnType, testSuiteVersion, version
+252 call to constructor of FunctionParameterDTO is made in class constructor
+253 class has member field called returnType
+254 class has member field returnType of type String
+255 class has member field called parameters
+256 class has member field parameters of type List
+257 class has member field called header
+258 class has member field header of type String
+259 class has member field called linesOfCode
+260 class has member field linesOfCode of type int
+261 class has member field called ADTsId
+262 class has member field ADTsId of type List
+263 class has member field called calleesId
+264 class has member field calleesId of type List
+265 class has member field called testSuiteVersion
+266 class has member field testSuiteVersion of type int
+267 has public function getStructure()
+268 getStructure() function returns type HashMap
+269 has public function getExamples()
+270 getExamples() function returns type HashMap
+271 class has member field called functionVersion
+272 class has member field functionVersion of type int
+273 class has member field called tests
+274 class has member field tests of type List
+275 class has member field called isDescribeComplete
+276 class has member field isDescribeComplete of type boolean
+277 class has member field called disputeFunctionText
+278 class has member field disputeFunctionText of type String
+279 class has member field id of type Long
+280 class has member field called callees
+281 class has member field callees of type List
+282 class has member field called fromDisputedMicrotask
+283 class has member field fromDisputedMicrotask of type boolean
+284 constructor sets member variables description, name, type
+285 class has member field called function
+286 class has member field of type FunctionDTO
+287 class has member field function of type FunctionDTO
+288 class has member field called requestedADTs
+289 class has member field requestedADTs of type List
+290 class has member field called requestedFunctions
+291 class has member field requestedFunctions of type List
+292 constructor sets member variables disputeText, id
+293 class has member field called deleted
+294 class has member field deleted of type boolean
+295 class has member field called added
+296 class has member field added of type boolean
+297 class has member field called edited
+298 class has member field edited of type boolean

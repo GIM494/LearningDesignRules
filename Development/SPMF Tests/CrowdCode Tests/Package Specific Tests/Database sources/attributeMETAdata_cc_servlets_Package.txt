@@ -1,0 +1,221 @@
+1 class does not define constructor
+2 class implements Filter
+3 is public class
+4 has public function doFilter()
+5 doFilter() function has parameter of type ServletRequest
+6 doFilter() function has parameter of type ServletResponse
+7 doFilter() function has parameter of type FilterChain
+8 class has void function doFilter()
+9 has public function destroy()
+10 class has void function destroy()
+11 has public function init()
+12 init() function has parameter of type FilterConfig
+13 class has void function init()
+14 class has member field called commandsList
+15 class has member field of type Queue
+16 class has member field commandsList of type Queue
+17 class has member field called firebaseWritesList
+18 class has member field of type ConcurrentLinkedQueue
+19 class has member field firebaseWritesList of type ConcurrentLinkedQueue
+20 class has member field called eventList
+21 class has member field eventList of type ConcurrentLinkedQueue
+22 class has member field called threadLocal
+23 class has member field of type ThreadLocal
+24 class has member field threadLocal of type ThreadLocal
+25 has public static function get()
+26 get() function returns output from function call
+27 get() function returns type ThreadContext
+28 has public function reset()
+29 class has void function reset()
+30 has public function addCommand()
+31 addCommand() function has parameter of type Command
+32 class has void function addCommand()
+33 has public function getCommands()
+34 getCommands() function returns type Queue
+35 has public function addfirebaseWrite()
+36 addfirebaseWrite() function has parameter of type FirebaseWrite
+37 class has void function addfirebaseWrite()
+38 has public function getFirebaseWritesList()
+39 getFirebaseWritesList() function returns type ConcurrentLinkedQueue
+40 has public function addEventList()
+41 addEventList() function has parameter of type EventNode
+42 class has void function addEventList()
+43 has public function getEventList()
+44 getEventList() function returns type ConcurrentLinkedQueue
+45 has protected function initialValue()
+46 call to constructor of ThreadContext is made in initialValue()
+47 initialValue() function calls constructor in return statement
+48 initialValue() function returns output from function call
+49 initialValue() function returns output from function call to ThreadContext
+50 initialValue() function returns type ThreadContext
+51 function initialValue() has annotation @Override
+52 class with annotation @SuppressWarnings with 
+"serial" 
+53 class has member field called microtaskTypes
+54 class has member field of type HashMap
+55 class has member field microtaskTypes of type HashMap
+56 class extends class HttpServlet
+57 has public function doPost()
+58 doPost() function has parameter of type HttpServletRequest
+59 doPost() function has parameter of type HttpServletResponse
+60 class has void function doPost()
+61 has public function doGet()
+62 doGet() function has parameter of type HttpServletRequest
+63 doGet() function has parameter of type HttpServletResponse
+64 class has void function doGet()
+65 has private function doAction()
+66 call to constructor of User is made in doAction()
+67 doAction() function has parameter of type HttpServletRequest
+68 doAction() function has parameter of type HttpServletResponse
+69 class has void function doAction()
+70 has private function doUser()
+71 doUser() function has parameter of type HttpServletRequest
+72 doUser() function has parameter of type HttpServletResponse
+73 doUser() function has parameter of type User
+74 doUser() function has parameter of type String
+75 class has void function doUser()
+76 has private function doAjax()
+77 doAjax() function has parameter of type HttpServletRequest
+78 doAjax() function has parameter of type HttpServletResponse
+79 doAjax() function has parameter of type String
+80 doAjax() function has parameter of type User
+81 class has void function doAjax()
+82 has private function doTutorialCompleted()
+83 doTutorialCompleted() function has parameter of type HttpServletRequest
+84 doTutorialCompleted() function has parameter of type HttpServletResponse
+85 doTutorialCompleted() function has parameter of type User
+86 doTutorialCompleted() function has parameter of type boolean
+87 class has void function doTutorialCompleted()
+88 has private function doQuestionAchievement()
+89 doQuestionAchievement() function has parameter of type HttpServletRequest
+90 doQuestionAchievement() function has parameter of type HttpServletResponse
+91 doQuestionAchievement() function has parameter of type User
+92 doQuestionAchievement() function has parameter of type boolean
+93 class has void function doQuestionAchievement()
+94 has private function doFetchSpecificMicrotask()
+95 doFetchSpecificMicrotask() function has parameter of type HttpServletRequest
+96 doFetchSpecificMicrotask() function has parameter of type HttpServletResponse
+97 doFetchSpecificMicrotask() function has parameter of type User
+98 doFetchSpecificMicrotask() function has parameter of type boolean
+99 class has void function doFetchSpecificMicrotask()
+100 has private function doQuestioning()
+101 doQuestioning() function has parameter of type HttpServletRequest
+102 doQuestioning() function has parameter of type HttpServletResponse
+103 doQuestioning() function has parameter of type String
+104 doQuestioning() function has parameter of type User
+105 class has void function doQuestioning()
+106 has private function doAdmin()
+107 call to constructor of StringBuilder is made in doAdmin()
+108 call to constructor of Date is made in doAdmin()
+109 call to constructor of JSONObject is made in doAdmin()
+110 doAdmin() function has parameter of type HttpServletRequest
+111 doAdmin() function has parameter of type HttpServletResponse
+112 doAdmin() function has parameter of type String
+113 class has void function doAdmin()
+114 has private function getUserPicture()
+115 getUserPicture() function has parameter of type HttpServletRequest
+116 getUserPicture() function has parameter of type HttpServletResponse
+117 class has void function getUserPicture()
+118 has private function changeUserPicture()
+119 call to constructor of ServletFileUpload is made in changeUserPicture()
+120 call to constructor of Blob is made in changeUserPicture()
+121 changeUserPicture() function has parameter of type User
+122 changeUserPicture() function has parameter of type HttpServletRequest
+123 changeUserPicture() function has parameter of type HttpServletResponse
+124 class has void function changeUserPicture()
+125 has private function doSubmitTestResult()
+126 doSubmitTestResult() function has parameter of type HttpServletRequest
+127 doSubmitTestResult() function has parameter of type HttpServletResponse
+128 class has void function doSubmitTestResult()
+129 has public function doInsertQuestioning()
+130 call to constructor of RuntimeException is made in doInsertQuestioning()
+131 doInsertQuestioning() function has parameter of type HttpServletRequest
+132 doInsertQuestioning() function has parameter of type HttpServletResponse
+133 doInsertQuestioning() function has parameter of type User
+134 class has void function doInsertQuestioning()
+135 has public function doUpdateQuestion()
+136 doUpdateQuestion() function has parameter of type HttpServletRequest
+137 doUpdateQuestion() function has parameter of type HttpServletResponse
+138 doUpdateQuestion() function has parameter of type User
+139 class has void function doUpdateQuestion()
+140 has public function doViewQuestion()
+141 doViewQuestion() function has parameter of type HttpServletRequest
+142 doViewQuestion() function has parameter of type HttpServletResponse
+143 doViewQuestion() function has parameter of type User
+144 class has void function doViewQuestion()
+145 has public function doReportQuestioning()
+146 doReportQuestioning() function has parameter of type HttpServletRequest
+147 doReportQuestioning() function has parameter of type HttpServletResponse
+148 doReportQuestioning() function has parameter of type User
+149 class has void function doReportQuestioning()
+150 has public function doSubscribeQuestioning()
+151 doSubscribeQuestioning() function has parameter of type HttpServletRequest
+152 doSubscribeQuestioning() function has parameter of type HttpServletResponse
+153 doSubscribeQuestioning() function has parameter of type User
+154 class has void function doSubscribeQuestioning()
+155 has public function doLinkQuestioning()
+156 doLinkQuestioning() function has parameter of type HttpServletRequest
+157 doLinkQuestioning() function has parameter of type HttpServletResponse
+158 doLinkQuestioning() function has parameter of type User
+159 class has void function doLinkQuestioning()
+160 has public function doCloseQuestion()
+161 doCloseQuestion() function has parameter of type HttpServletRequest
+162 doCloseQuestion() function has parameter of type HttpServletResponse
+163 doCloseQuestion() function has parameter of type User
+164 class has void function doCloseQuestion()
+165 has public function doVoteQuestioning()
+166 doVoteQuestioning() function has parameter of type HttpServletRequest
+167 doVoteQuestioning() function has parameter of type HttpServletResponse
+168 doVoteQuestioning() function has parameter of type User
+169 class has void function doVoteQuestioning()
+170 has public function doFetchMicrotask()
+171 doFetchMicrotask() function has parameter of type HttpServletRequest
+172 doFetchMicrotask() function has parameter of type HttpServletResponse
+173 doFetchMicrotask() function has parameter of type User
+174 class has void function doFetchMicrotask()
+175 has public function unassignMicrotask()
+176 unassignMicrotask() function has parameter of type HttpServletRequest
+177 unassignMicrotask() function has parameter of type HttpServletResponse
+178 unassignMicrotask() function has parameter of type User
+179 class has void function unassignMicrotask()
+180 doFetchMicrotask() function has parameter of type boolean
+181 has public function doChallengeReview()
+182 doChallengeReview() function has parameter of type HttpServletRequest
+183 doChallengeReview() function has parameter of type HttpServletResponse
+184 class has void function doChallengeReview()
+185 has public function doEnqueueSubmit()
+186 doEnqueueSubmit() function has parameter of type HttpServletRequest
+187 doEnqueueSubmit() function has parameter of type HttpServletResponse
+188 doEnqueueSubmit() function has parameter of type User
+189 class has void function doEnqueueSubmit()
+190 has public function doExecuteSubmit()
+191 doExecuteSubmit() function has parameter of type HttpServletRequest
+192 doExecuteSubmit() function has parameter of type HttpServletResponse
+193 class has void function doExecuteSubmit()
+194 has private function renderJson()
+195 renderJson() function has parameter of type HttpServletResponse
+196 renderJson() function has parameter of type String
+197 class has void function renderJson()
+198 has private function renderCode()
+199 renderCode() function has parameter of type HttpServletResponse
+200 renderCode() function has parameter of type String
+201 class has void function renderCode()
+202 has public function doLogout()
+203 doLogout() function has parameter of type HttpServletRequest
+204 doLogout() function has parameter of type HttpServletResponse
+205 doLogout() function has parameter of type String
+206 class has void function doLogout()
+207 has public function doUserLogout()
+208 doUserLogout() function has parameter of type String
+209 class has void function doUserLogout()
+210 has private function executeCommands()
+211 executeCommands() function has parameter of type String
+212 class has void function executeCommands()
+213 has private function writeResponseString()
+214 writeResponseString() function has parameter of type HttpServletResponse
+215 writeResponseString() function has parameter of type String
+216 class has void function writeResponseString()
+217 has public function run()
+218 run() function returns type String
+219 has public function vrun()
+220 class has void function vrun()

@@ -1,0 +1,829 @@
+1 class has empty-body constructor
+2 class defines constructor with no parameters
+3 class has non-empty-body constructor
+4 constructor sets member variables condition, current, message, requirement, title
+5 class defines constructor with parameter of type String
+6 class defines constructor with parameter of type int
+7 constructor stores all parameters as member variables
+8 class has member field called condition
+9 class has member field of type String
+10 class has member field condition of type String
+11 class has member field called message
+12 class has member field called title
+13 class has member field called requirement
+14 class has member field of type int
+15 class has member field requirement of type int
+16 class has member field called current
+17 class has member field called isUnlocked
+18 class has member field of type Boolean
+19 class has member field isUnlocked of type Boolean
+20 is public class
+21 has public function getMessage()
+22 getMessage() function returns type String
+23 has public function getCondition()
+24 getCondition() function returns type String
+25 has public function updateCurrent()
+26 updateCurrent() function has parameter of type int
+27 updateCurrent() function modifies member variablethis
+28 class has void function updateCurrent()
+29 has public function getRequirement()
+30 getRequirement() function returns type int
+31 class with annotation @Entity
+32 constructor sets member variables image, userId
+33 class defines constructor with parameter of type Blob
+34 constructor sets member variables userId
+35 class has member field called userId
+36 class has member field called userId with annotation @Id
+37 class has member field userId of type String
+38 class has member field called image
+39 class has member field of type Blob
+40 class has member field image of type Blob
+41 has public function getImage()
+42 getImage() function returns type Blob
+43 has public function setImage()
+44 setImage() function has parameter of type Blob
+45 setImage() function modifies member variablethis
+46 class has void function setImage()
+47 class with annotation @Subclass with 
+index = true 
+48 constructor sets member variables firebasePath, points, questionId
+49 call to constructor of AnswerInFirebase is made in class constructor
+50 call to constructor of AnswerNotificationInFirebase is made in class constructor
+51 class defines constructor with parameter of type long
+52 class has member field called questionId
+53 class has member field of type Long
+54 class has member field questionId of type Long
+55 class extends class Questioning
+56 constructor sets member variables answerId, firebasePath, points, questionId
+57 call to constructor of CommentNotificationInFirebase is made in class constructor
+58 class has member field called answerId
+59 class has member field answerId of type Long
+60 constructor sets member variables createdAt, isReported, ownerHandle, ownerId, projectId, score, text, updatedAt
+61 class has member field called id
+62 class has member field called id with annotation @Id
+63 class has member field id of type Long
+64 class has member field called projectId
+65 class has member field called projectId with annotation @Index
+66 class has member field projectId of type String
+67 class has member field called text
+68 class has member field text of type String
+69 class has member field called ownerId
+70 class has member field ownerId of type String
+71 class has member field called ownerHandle
+72 class has member field ownerHandle of type String
+73 class has member field called votersId
+74 class has member field of type List
+75 class has member field votersId of type List
+76 class has member field called removedVotersId
+77 class has member field removedVotersId of type List
+78 class has member field called points
+79 class has member field points of type int
+80 class has member field called isReported
+81 class has member field of type boolean
+82 class has member field isReported of type boolean
+83 class has member field called reportersId
+84 class has member field reportersId of type List
+85 class has member field called subsribersId
+86 class has member field subsribersId of type List
+87 class has member field called firebasePath
+88 class has member field firebasePath of type String
+89 class has member field called createdAt
+90 class has member field of type long
+91 class has member field createdAt of type long
+92 class has member field called updatedAt
+93 class has member field updatedAt of type long
+94 class has member field called score
+95 class has member field score of type int
+96 has public function getKey()
+97 getKey() function returns output from function call
+98 getKey() function returns type Key
+99 has public static function getKey()
+100 getKey() function has parameter of type Long
+101 has public function getID()
+102 getID() function returns type long
+103 has public function addVote()
+104 call to constructor of VotersIdInFirebase is made in addVote()
+105 call to constructor of ReportersIdInFirebase is made in addVote()
+106 addVote() function has parameter of type String
+107 class has void function addVote()
+108 has public function removeVote()
+109 call to constructor of VotersIdInFirebase is made in removeVote()
+110 removeVote() function has parameter of type String
+111 class has void function removeVote()
+112 has public function addReport()
+113 call to constructor of VotersIdInFirebase is made in addReport()
+114 call to constructor of ReportersIdInFirebase is made in addReport()
+115 addReport() function has parameter of type String
+116 class has void function addReport()
+117 has public function removeReport()
+118 call to constructor of ReportersIdInFirebase is made in removeReport()
+119 removeReport() function has parameter of type String
+120 class has void function removeReport()
+121 has private function updateScore()
+122 updateScore() function modifies member variablethis
+123 class has void function updateScore()
+124 has public function notifySubscribers()
+125 notifySubscribers() function has parameter of type NotificationInFirebase
+126 notifySubscribers() function has parameter of type String
+127 class has void function notifySubscribers()
+128 constructor sets member variables answersCount, commentsCount, firebasePath, points, tags, title, version
+129 call to constructor of QuestionNotificationInFirebase is made in class constructor
+130 class defines constructor with parameter of type List
+131 class has member field called artifactsId
+132 class has member field artifactsId of type List
+133 class has member field called tags
+134 class has member field tags of type List
+135 class has member field called answersCount
+136 class has member field answersCount of type long
+137 class has member field called commentsCount
+138 class has member field commentsCount of type long
+139 class has member field called version
+140 class has member field version of type int
+141 class has member field called closed
+142 class has member field closed of type boolean
+143 class has member field title of type String
+144 has public function getTitle()
+145 getTitle() function returns type String
+146 has public function setTitle()
+147 setTitle() function has parameter of type String
+148 setTitle() function modifies member variablethis
+149 class has void function setTitle()
+150 has public function setText()
+151 setText() function has parameter of type String
+152 setText() function modifies member variablethis
+153 class has void function setText()
+154 has public function setTags()
+155 setTags() function has parameter of type List
+156 setTags() function modifies member variablethis
+157 class has void function setTags()
+158 has public function addArtifactLink()
+159 call to constructor of ArtifactsIdInFirebase is made in addArtifactLink()
+160 addArtifactLink() function has parameter of type String
+161 class has void function addArtifactLink()
+162 has public function removeArtifactLink()
+163 call to constructor of ArtifactsIdInFirebase is made in removeArtifactLink()
+164 removeArtifactLink() function has parameter of type String
+165 class has void function removeArtifactLink()
+166 has public function unsubscribeWorker()
+167 call to constructor of SubscribersInFirebase is made in unsubscribeWorker()
+168 unsubscribeWorker() function has parameter of type String
+169 class has void function unsubscribeWorker()
+170 has public function subscribeWorker()
+171 call to constructor of SubscribersInFirebase is made in subscribeWorker()
+172 subscribeWorker() function has parameter of type String
+173 class has void function subscribeWorker()
+174 has public function setClosed()
+175 setClosed() function has parameter of type boolean
+176 setClosed() function modifies member variablethis
+177 class has void function setClosed()
+178 has public function incrementAnswers()
+179 class has void function incrementAnswers()
+180 has public function incrementComments()
+181 class has void function incrementComments()
+182 has public function getUpdatedAt()
+183 getUpdatedAt() function returns type long
+184 has public function getAnswers()
+185 getAnswers() function returns type long
+186 has public function getComments()
+187 getComments() function returns type long
+188 has public function getVersion()
+189 getVersion() function returns type long
+190 has public function getTags()
+191 getTags() function returns type List
+192 has public function save()
+193 save() function modifies member variablethis
+194 class has void function save()
+195 has public function storeVersionToFirebase()
+196 call to constructor of QuestionInFirebase is made in storeVersionToFirebase()
+197 class has void function storeVersionToFirebase()
+198 has private function storeToFirebase()
+199 call to constructor of QuestionInFirebase is made in storeToFirebase()
+200 class has void function storeToFirebase()
+201 constructor sets member variables level, listOfAchievements, nickname, project, score, userid
+202 class defines constructor with parameter of type Project
+203 class has member field called project
+204 class has member field called project with annotation @Parent
+205 class has member field of type Key
+206 class has member field project of type Key
+207 class has member field called nickname
+208 class has member field nickname of type String
+209 class has member field called userid
+210 class has member field called userid with annotation @Id
+211 class has member field userid of type String
+212 class has member field called microtaskHistory
+213 class has member field of type HashMap
+214 class has member field microtaskHistory of type HashMap
+215 class has member field called listOfAchievements
+216 class has member field listOfAchievements of type List
+217 class has member field called level
+218 class has member field level of type int
+219 has public static function Create()
+220 Create() function has parameter of type User
+221 Create() function has parameter of type Project
+222 Create() function returns type Worker
+223 has public function getUserid()
+224 getUserid() function returns type String
+225 has public function getNickname()
+226 getNickname() function returns type String
+227 has public static function allWorkers()
+228 allWorkers() function returns output from function call
+229 allWorkers() function returns output from function call to ofy
+230 allWorkers() function has parameter of type Project
+231 allWorkers() function returns type List
+232 has public function awardPoints()
+233 awardPoints() function has parameter of type int
+234 awardPoints() function has parameter of type String
+235 class has void function awardPoints()
+236 has private function setAchievements()
+237 call to constructor of File is made in setAchievements()
+238 call to constructor of Achievement is made in setAchievements()
+239 setAchievements() function returns type List
+240 has public function checkNewAchievement()
+241 call to constructor of NotificationInFirebase is made in checkNewAchievement()
+242 checkNewAchievement() function has parameter of type String
+243 class has void function checkNewAchievement()
+244 has public function increaseStat()
+245 increaseStat() function has parameter of type String
+246 increaseStat() function has parameter of type int
+247 class has void function increaseStat()
+248 getKey() function returns output from function call to getKey
+249 getKey() function has parameter of type Key
+250 getKey() function has parameter of type String
+251 has public function storeToFirebase()
+252 call to constructor of WorkerInFirebase is made in storeToFirebase()
+253 storeToFirebase() function has parameter of type String
+254 has public function hashCode()
+255 hashCode() function returns type int
+256 function hashCode() has annotation @Override
+257 has public function equals()
+258 equals() function has parameter of type Object
+259 equals() function returns type boolean
+260 function equals() has annotation @Override
+261 has public function getHistory()
+262 getHistory() function returns type HashMap
+263 has public function getAchievements()
+264 getAchievements() function returns type List
+265 has public function addAchievement()
+266 call to constructor of AchievementNotificationInFirebase is made in addAchievement()
+267 addAchievement() function has parameter of type Achievement
+268 addAchievement() function has parameter of type String
+269 class has void function addAchievement()
+270 constructor sets member variables promptType, testId
+271 class defines constructor with parameter of type Function
+272 constructor sets member variables calleeId, oldCalleeVersion, promptType
+273 constructor sets member variables calleeId, disputeText, promptType
+274 constructor sets member variables disputeText, promptType
+275 class has member field called function
+276 class has member field called function with annotation @Parent
+277 class has member field called function with annotation @Load
+278 class has member field of type Ref
+279 class has member field function of type Ref
+280 class has member field called promptType
+281 class has member field of type PromptType
+282 class has member field promptType of type PromptType
+283 class has member field called testId
+284 class has member field testId of type long
+285 class has member field called oldCalleeVersion
+286 class has member field oldCalleeVersion of type int
+287 class has member field called disputeText
+288 class has member field disputeText of type String
+289 class has member field called calleeId
+290 class has member field calleeId of type long
+291 class has member field called disputeId
+292 class has member field disputeId of type long
+293 class extends class Microtask
+294 has public function copy()
+295 call to constructor of ImplementBehavior is made in copy()
+296 copy() function calls constructor in return statement
+297 copy() function returns output from function call
+298 copy() function returns output from function call to ImplementBehavior
+299 copy() function has parameter of type String
+300 copy() function returns type Microtask
+301 has private function implementBehavior()
+302 call to constructor of ImplementBehaviorInFirebase is made in implementBehavior()
+303 call to constructor of MicrotaskSpawned is made in implementBehavior()
+304 implementBehavior() function has parameter of type Function
+305 implementBehavior() function has parameter of type String
+306 implementBehavior() function modifies member variablethis
+307 class has void function implementBehavior()
+308 has protected function doSubmitWork()
+309 doSubmitWork() function has parameter of type DTO
+310 doSubmitWork() function has parameter of type String
+311 class has void function doSubmitWork()
+312 has public function getPromptType()
+313 getPromptType() function returns type PromptType
+314 has protected function getDTOClass()
+315 getDTOClass() function returns type Class
+316 has public function getFunction()
+317 getFunction() function returns output from function call
+318 getFunction() function returns type Function
+319 has public function getOwningArtifact()
+320 getOwningArtifact() function returns output from function call
+321 getOwningArtifact() function returns type Artifact
+322 has public function microtaskTitle()
+323 microtaskTitle() function returns type String
+324 has public function microtaskDescription()
+325 microtaskDescription() function returns type String
+326 constructor sets member variables artifact, challengeText, challengeeWorkerId, challengerWorkerId, microtaskKeyUnderChallenge, reviewKeyUnderChallenge, submitValue
+327 call to constructor of ChallengeReviewInFirebase is made in class constructor
+328 call to constructor of ChallengeNotificationInFirebase is made in class constructor
+329 call to constructor of MicrotaskSpawned is made in class constructor
+330 class defines constructor with parameter of type Key
+331 class has member field called artifact
+332 class has member field called artifact with annotation @Parent
+333 class has member field called artifact with annotation @Load
+334 class has member field artifact of type Ref
+335 class has member field called microtaskKeyUnderChallenge
+336 class has member field microtaskKeyUnderChallenge of type Key
+337 class has member field called challengeeWorkerId
+338 class has member field challengeeWorkerId of type String
+339 class has member field called challengerWorkerId
+340 class has member field challengerWorkerId of type String
+341 class has member field called challengeText
+342 class has member field challengeText of type String
+343 class has member field called reviewKeyUnderChallenge
+344 class has member field reviewKeyUnderChallenge of type Key
+345 call to constructor of ChallengeReview is made in copy()
+346 copy() function returns output from function call to ChallengeReview
+347 copy() function has parameter of type Long
+348 call to constructor of ChallengeNotificationInFirebase is made in doSubmitWork()
+349 has public function getMicrotaskUnderChallengeKey()
+350 getMicrotaskUnderChallengeKey() function returns type Key
+351 constructor sets member variables promptType
+352 class defines constructor with parameter of type Ref
+353 constructor sets member variables oldFunctionVersion, promptType
+354 constructor sets member variables ADTId, oldADTVersion, promptType
+355 constructor sets member variables disputedTests, promptType
+356 class has member field called functionRef
+357 class has member field called functionRef with annotation @Parent
+358 class has member field called functionRef with annotation @Load
+359 class has member field functionRef of type Ref
+360 class has member field called functionId
+361 class has member field functionId of type Long
+362 class has member field called functionName
+363 class has member field functionName of type String
+364 class has member field called oldFunctionVersion
+365 class has member field oldFunctionVersion of type int
+366 class has member field called oldADTVersion
+367 class has member field oldADTVersion of type int
+368 class has member field called ADTId
+369 class has member field ADTId of type long
+370 class has member field called disputedTests
+371 class has member field disputedTests of type List
+372 has private function describeFunctionBehavior()
+373 call to constructor of DescribeFunctionBehaviourInFirebase is made in describeFunctionBehavior()
+374 call to constructor of MicrotaskSpawned is made in describeFunctionBehavior()
+375 describeFunctionBehavior() function has parameter of type Ref
+376 describeFunctionBehavior() function has parameter of type long
+377 describeFunctionBehavior() function has parameter of type String
+378 describeFunctionBehavior() function modifies member variablethis
+379 class has void function describeFunctionBehavior()
+380 call to constructor of DescribeFunctionBehavior is made in copy()
+381 copy() function returns output from function call to DescribeFunctionBehavior
+382 constructor sets member variables description, examples, name, structure
+383 call to constructor of ArtifactCreated is made in class constructor
+384 class defines constructor with parameter of type HashMap
+385 class defines constructor with parameter of type boolean
+386 class has member field called description
+387 class has member field description of type String
+388 class has member field called name
+389 class has member field name of type String
+390 class has member field called structure
+391 class has member field structure of type HashMap
+392 class has member field called examples
+393 class has member field examples of type HashMap
+394 class has member field called functionsId
+395 class has member field functionsId of type List
+396 class extends class Artifact
+397 has public function getDescription()
+398 getDescription() function returns type String
+399 has public function getName()
+400 getName() function returns type String
+401 has public function delete()
+402 call to constructor of PropertyChange is made in delete()
+403 delete() function modifies member variablethis
+404 class has void function delete()
+405 has public function update()
+406 update() function has parameter of type String
+407 update() function has parameter of type HashMap
+408 update() function modifies member variablethis
+409 class has void function update()
+410 has public function addFunction()
+411 addFunction() function has parameter of type long
+412 class has void function addFunction()
+413 has public function removeFunction()
+414 removeFunction() function has parameter of type long
+415 class has void function removeFunction()
+416 call to constructor of ADTInFirebase is made in storeToFirebase()
+417 has public static function load()
+418 load() function returns output from function call
+419 load() function returns output from function call to ofy
+420 load() function has parameter of type Ref
+421 load() function returns type ADT
+422 has public static function find()
+423 find() function returns output from function call
+424 find() function returns output from function call to ofy
+425 find() function has parameter of type long
+426 find() function returns type ADT
+427 constructor sets member variables artifact, initiallySubmittedDTO, microtaskKeyUnderReview, submitValue, workerOfReviewedWork
+428 call to constructor of ReviewInFirebase is made in class constructor
+429 class defines constructor with parameter of type Long
+430 class has member field called microtaskKeyUnderReview
+431 class has member field microtaskKeyUnderReview of type Key
+432 class has member field called workerOfReviewedWork
+433 class has member field workerOfReviewedWork of type String
+434 class has member field called initiallySubmittedDTO
+435 class has member field initiallySubmittedDTO of type String
+436 call to constructor of Review is made in copy()
+437 copy() function returns output from function call to Review
+438 call to constructor of ReviewSubmissionInFirebase is made in doSubmitWork()
+439 call to constructor of MicrotaskReissued is made in doSubmitWork()
+440 call to constructor of MicrotaskAccepted is made in doSubmitWork()
+441 has public function getWorkerOfReviewedWork()
+442 getWorkerOfReviewedWork() function returns type String
+443 has public function getMicrotaskKeyUnderReview()
+444 getMicrotaskKeyUnderReview() function returns type Key
+445 has public function getUIURL()
+446 getUIURL() function returns type String
+447 constructor sets member variables isAPIArtifact, isDeleted, isReadOnly, projectId, version
+448 class has member field called isAPIArtifact
+449 class has member field isAPIArtifact of type boolean
+450 class has member field called isReadOnly
+451 class has member field isReadOnly of type boolean
+452 class has member field called isDeleted
+453 class has member field isDeleted of type boolean
+454 has public function getId()
+455 getId() function returns type long
+456 has public function getRef()
+457 getRef() function returns output from function call
+458 getRef() function returns type Ref
+459 has public function deleteArtifact()
+460 class has void function deleteArtifact()
+461 has public function unDeleteArtifact()
+462 unDeleteArtifact() function modifies member variablethis
+463 class has void function unDeleteArtifact()
+464 has public function isDeleted()
+465 isDeleted() function returns type boolean
+466 has public function getArtifactType()
+467 getArtifactType() function returns output from function call
+468 getArtifactType() function returns type String
+469 call to constructor of RuntimeException is made in getName()
+470 call to constructor of RuntimeException is made in storeToFirebase()
+471 has protected function incrementVersion()
+472 class has void function incrementVersion()
+473 constructor sets member variables id
+474 call to constructor of ProjectCreated is made in class constructor
+475 class has member field of type Project
+476 class has member field project of type Project
+477 class has member field id of type String
+478 class has member field called reviewsEnabled
+479 class has member field reviewsEnabled of type Boolean
+480 class has member field called tutorialsEnabled
+481 class has member field tutorialsEnabled of type Boolean
+482 class has member field called loggedInWorkers
+483 class has member field called loggedInWorkers with annotation @Serialize
+484 class has member field of type HashSet
+485 class has member field loggedInWorkers of type HashSet
+486 class has member field called microtaskQueue
+487 class has member field of type LinkedList
+488 class has member field microtaskQueue of type LinkedList
+489 class has member field called reviewQueue
+490 class has member field reviewQueue of type LinkedList
+491 class has member field called microtaskAssignments
+492 class has member field called microtaskAssignments with annotation @Serialize
+493 class has member field of type Map
+494 class has member field microtaskAssignments of type Map
+495 class has member field called excludedWorkers
+496 class has member field called excludedWorkers with annotation @Serialize
+497 class has member field excludedWorkers of type Map
+498 class has member field called permanentlyExcludedWorkers
+499 class has member field called permanentlyExcludedWorkers with annotation @Serialize
+500 class has member field permanentlyExcludedWorkers of type Map
+501 getID() function returns type String
+502 has public static function Construct()
+503 call to constructor of Project is made in Construct()
+504 Construct() function calls constructor in return statement
+505 Construct() function returns output from function call
+506 Construct() function returns output from function call to Project
+507 Construct() function has parameter of type String
+508 Construct() function returns type Project
+509 Create() function has parameter of type String
+510 Create() function returns type Project
+511 has public static function Clear()
+512 Clear() function has parameter of type String
+513 class has void function Clear()
+514 has public function queueMicrotask()
+515 call to constructor of MicrotaskQueued is made in queueMicrotask()
+516 call to constructor of QueueInFirebase is made in queueMicrotask()
+517 queueMicrotask() function has parameter of type Key
+518 queueMicrotask() function has parameter of type String
+519 class has void function queueMicrotask()
+520 has public function queueReviewMicrotask()
+521 call to constructor of MicrotaskQueued is made in queueReviewMicrotask()
+522 call to constructor of QueueInFirebase is made in queueReviewMicrotask()
+523 queueReviewMicrotask() function has parameter of type Key
+524 queueReviewMicrotask() function has parameter of type String
+525 class has void function queueReviewMicrotask()
+526 has public function queueChellengeReviewMicrotask()
+527 call to constructor of MicrotaskQueued is made in queueChellengeReviewMicrotask()
+528 call to constructor of QueueInFirebase is made in queueChellengeReviewMicrotask()
+529 queueChellengeReviewMicrotask() function has parameter of type Key
+530 queueChellengeReviewMicrotask() function has parameter of type String
+531 class has void function queueChellengeReviewMicrotask()
+532 has private function addPermExcludedWorkerForMicrotask()
+533 addPermExcludedWorkerForMicrotask() function has parameter of type Key
+534 addPermExcludedWorkerForMicrotask() function has parameter of type String
+535 class has void function addPermExcludedWorkerForMicrotask()
+536 has private function addExcludedWorkerForMicrotask()
+537 addExcludedWorkerForMicrotask() function has parameter of type Key
+538 addExcludedWorkerForMicrotask() function has parameter of type String
+539 class has void function addExcludedWorkerForMicrotask()
+540 has private final function excludedWorkersToString()
+541 excludedWorkersToString() function has parameter of type HashSet
+542 excludedWorkersToString() function returns type String
+543 has public function lookupMicrotaskAssignment()
+544 lookupMicrotaskAssignment() function returns output from function call
+545 lookupMicrotaskAssignment() function has parameter of type String
+546 lookupMicrotaskAssignment() function returns type Key
+547 has public function unassignMicrotask()
+548 call to constructor of MicrotaskUnassigned is made in unassignMicrotask()
+549 unassignMicrotask() function has parameter of type String
+550 class has void function unassignMicrotask()
+551 has public function assignMicrotask()
+552 call to constructor of QueueInFirebase is made in assignMicrotask()
+553 call to constructor of MicrotaskDequeued is made in assignMicrotask()
+554 call to constructor of MicrotaskAssigned is made in assignMicrotask()
+555 assignMicrotask() function has parameter of type String
+556 assignMicrotask() function returns type Key
+557 has public function assignSpecificMicrotask()
+558 call to constructor of QueueInFirebase is made in assignSpecificMicrotask()
+559 call to constructor of MicrotaskDequeued is made in assignSpecificMicrotask()
+560 call to constructor of MicrotaskAssigned is made in assignSpecificMicrotask()
+561 assignSpecificMicrotask() function has parameter of type String
+562 assignSpecificMicrotask() function returns type Key
+563 has private function assignmentIsValid()
+564 assignmentIsValid() function has parameter of type String
+565 assignmentIsValid() function returns type boolean
+566 has public function submitMicrotask()
+567 call to constructor of MicrotaskSubmitted is made in submitMicrotask()
+568 submitMicrotask() function has parameter of type Key
+569 submitMicrotask() function has parameter of type String
+570 submitMicrotask() function has parameter of type Project
+571 class has void function submitMicrotask()
+572 has public function skipMicrotask()
+573 skipMicrotask() function has parameter of type Key
+574 skipMicrotask() function has parameter of type String
+575 skipMicrotask() function has parameter of type Boolean
+576 class has void function skipMicrotask()
+577 has private function resetIfAllSkipped()
+578 resetIfAllSkipped() function has parameter of type Key
+579 class has void function resetIfAllSkipped()
+580 has public function logoutInactiveWorkers()
+581 class has void function logoutInactiveWorkers()
+582 has public function logoutWorker()
+583 call to constructor of QueueInFirebase is made in logoutWorker()
+584 logoutWorker() function has parameter of type String
+585 class has void function logoutWorker()
+586 has public function enableReviews()
+587 enableReviews() function has parameter of type Boolean
+588 enableReviews() function modifies member variablethis
+589 class has void function enableReviews()
+590 has public function getLoggedInWorkers()
+591 getLoggedInWorkers() function returns type HashSet
+592 has public function enableTutorials()
+593 enableTutorials() function has parameter of type Boolean
+594 enableTutorials() function modifies member variablethis
+595 class has void function enableTutorials()
+596 constructor sets member variables functionId, projectId, projectId, workerId
+597 class has member field called DEFAULT_SUBMIT_VALUE
+598 class has member field DEFAULT_SUBMIT_VALUE of type int
+599 class has member field called assigned
+600 class has member field assigned of type boolean
+601 class has member field called completed
+602 class has member field completed of type boolean
+603 class has member field called queued
+604 class has member field queued of type boolean
+605 class has member field called reissuedFrom
+606 class has member field reissuedFrom of type String
+607 class has member field called submitValue
+608 class has member field submitValue of type int
+609 class has member field called assignmentTimeInMillis
+610 class has member field assignmentTimeInMillis of type long
+611 class has member field called workerId
+612 class has member field workerId of type String
+613 has public static public function keyToString()
+614 keyToString() function has parameter of type Key
+615 keyToString() function returns type String
+616 has public static public function stringToKey()
+617 stringToKey() function has parameter of type String
+618 stringToKey() function returns type Key
+619 has public function getWorkerId()
+620 getWorkerId() function returns type String
+621 has public function getFunctionId()
+622 getFunctionId() function returns type Long
+623 has public function setWorkerId()
+624 setWorkerId() function has parameter of type String
+625 setWorkerId() function modifies member variablethis
+626 class has void function setWorkerId()
+627 call to constructor of RuntimeException is made in copy()
+628 has protected function isStillNeeded()
+629 isStillNeeded() function has parameter of type Project
+630 isStillNeeded() function returns type boolean
+631 has public function submit()
+632 submit() function has parameter of type String
+633 submit() function has parameter of type int
+634 class has void function submit()
+635 has public function revise()
+636 call to constructor of ReissueInFirebase is made in revise()
+637 revise() function has parameter of type String
+638 revise() function has parameter of type int
+639 revise() function modifies member variablethis
+640 class has void function revise()
+641 has public function skip()
+642 call to constructor of MicrotaskSkipped is made in skip()
+643 skip() function has parameter of type String
+644 skip() function has parameter of type boolean
+645 skip() function modifies member variablethis
+646 class has void function skip()
+647 call to constructor of RuntimeException is made in getKey()
+648 call to constructor of RuntimeException is made in doSubmitWork()
+649 call to constructor of RuntimeException is made in getDTOClass()
+650 call to constructor of RuntimeException is made in getOwningArtifact()
+651 call to constructor of RuntimeException is made in microtaskTitle()
+652 call to constructor of RuntimeException is made in microtaskDescription()
+653 has public function microtaskName()
+654 microtaskName() function returns output from function call
+655 microtaskName() function returns type String
+656 has public function assignmentTimeInMillis()
+657 assignmentTimeInMillis() function returns type long
+658 has public function setReissuedFrom()
+659 setReissuedFrom() function has parameter of type String
+660 setReissuedFrom() function modifies member variablethis
+661 class has void function setReissuedFrom()
+662 has public function getSubmitValue()
+663 getSubmitValue() function returns type int
+664 find() function has parameter of type Key
+665 find() function returns type LoadResult
+666 has public function toJSON()
+667 call to constructor of JSONObject is made in toJSON()
+668 toJSON() function returns output from function call
+669 toJSON() function returns output from function call to toJSON
+670 toJSON() function returns type String
+671 toJSON() function has parameter of type JSONObject
+672 has public function isAssignedTo()
+673 isAssignedTo() function has parameter of type String
+674 isAssignedTo() function returns type boolean
+675 constructor sets member variables creationTime, description, functionId, isSimple
+676 class defines constructor with parameter of type TestDTO
+677 class has member field functionId of type long
+678 class has member field called isSimple
+679 class has member field isSimple of type boolean
+680 class has member field called inputs
+681 class has member field inputs of type List
+682 class has member field called output
+683 class has member field output of type String
+684 class has member field called code
+685 class has member field code of type String
+686 class has member field called creationTime
+687 class has member field of type double
+688 class has member field creationTime of type double
+689 getFunctionId() function returns type long
+690 update() function has parameter of type TestDTO
+691 call to constructor of SimpleTestInFirebase is made in storeToFirebase()
+692 call to constructor of AdvancedTestInFirebase is made in storeToFirebase()
+693 load() function returns type Test
+694 find() function returns type Test
+695 constructor sets member variables code, description, header, isCompleted, linesOfCode, name, returnType
+696 class defines constructor with parameter of type FunctionDTO
+697 class has member field called name with annotation @Index
+698 class has member field called returnType
+699 class has member field returnType of type String
+700 class has member field called paramNames
+701 class has member field paramNames of type List
+702 class has member field called paramTypes
+703 class has member field paramTypes of type List
+704 class has member field called paramDescriptions
+705 class has member field paramDescriptions of type List
+706 class has member field called header
+707 class has member field header of type String
+708 class has member field called linesOfCode
+709 class has member field linesOfCode of type int
+710 class has member field called isCompleted
+711 class has member field isCompleted of type boolean
+712 class has member field called testSuiteVersion
+713 class has member field testSuiteVersion of type int
+714 class has member field called testsId
+715 class has member field testsId of type List
+716 class has member field called ADTsId
+717 class has member field ADTsId of type List
+718 class has member field called calleesId
+719 class has member field calleesId of type List
+720 class has member field called callersId
+721 class has member field callersId of type List
+722 class has member field called queuedDescribeFunctionBehavior
+723 class has member field of type Queue
+724 class has member field queuedDescribeFunctionBehavior of type Queue
+725 class has member field called describeFunctionBehaviorOut
+726 class has member field describeFunctionBehaviorOut of type Ref
+727 class has member field called queuedImplementBehavior
+728 class has member field queuedImplementBehavior of type Queue
+729 class has member field called isImplementationInProgress
+730 class has member field isImplementationInProgress of type boolean
+731 has public function getNumParams()
+732 getNumParams() function returns output from function call
+733 getNumParams() function returns type int
+734 has public function getParamNames()
+735 getParamNames() function returns type List
+736 has public function getHeader()
+737 getHeader() function returns type String
+738 has public function getEscapedHeader()
+739 getEscapedHeader() function returns output from function call
+740 getEscapedHeader() function returns type String
+741 has public function getCode()
+742 getCode() function returns type String
+743 has public function lookForWork()
+744 call to constructor of DescribeFunctionBehavior is made in lookForWork()
+745 class has void function lookForWork()
+746 has private function onWorkEdit()
+747 onWorkEdit() function has parameter of type FunctionDTO
+748 onWorkEdit() function has parameter of type String
+749 onWorkEdit() function modifies member variablethis
+750 class has void function onWorkEdit()
+751 has public function queueDescribeFunctionBehavior()
+752 queueDescribeFunctionBehavior() function has parameter of type Microtask
+753 class has void function queueDescribeFunctionBehavior()
+754 has public function queueImplementFunctionBehavior()
+755 queueImplementFunctionBehavior() function has parameter of type Microtask
+756 class has void function queueImplementFunctionBehavior()
+757 has private function newImplementBehavior()
+758 call to constructor of ImplementBehavior is made in newImplementBehavior()
+759 newImplementBehavior() function has parameter of type long
+760 class has void function newImplementBehavior()
+761 has private function checkImplementationNeeded()
+762 class has void function checkImplementationNeeded()
+763 has public function describeFunctionBehaviorCompleted()
+764 call to constructor of ImplementBehavior is made in describeFunctionBehaviorCompleted()
+765 describeFunctionBehaviorCompleted() function has parameter of type DescribeFunctionBehaviorDTO
+766 class has void function describeFunctionBehaviorCompleted()
+767 has public function implementBehaviorCompleted()
+768 call to constructor of DescribeFunctionBehavior is made in implementBehaviorCompleted()
+769 implementBehaviorCompleted() function has parameter of type ImplementBehaviorDTO
+770 implementBehaviorCompleted() function has parameter of type long
+771 implementBehaviorCompleted() function has parameter of type String
+772 class has void function implementBehaviorCompleted()
+773 has private function checkIfNeeded()
+774 class has void function checkIfNeeded()
+775 has public function runTests()
+776 class has void function runTests()
+777 has public function submittedTestResult()
+778 submittedTestResult() function has parameter of type String
+779 class has void function submittedTestResult()
+780 has public function addCaller()
+781 addCaller() function has parameter of type long
+782 class has void function addCaller()
+783 has public function removeCaller()
+784 removeCaller() function has parameter of type long
+785 class has void function removeCaller()
+786 has public function addCallee()
+787 addCallee() function has parameter of type long
+788 class has void function addCallee()
+789 has public function calleeChangedInterface()
+790 calleeChangedInterface() function has parameter of type long
+791 calleeChangedInterface() function has parameter of type int
+792 class has void function calleeChangedInterface()
+793 has public function calleeBecomeDeactivated()
+794 call to constructor of ImplementBehavior is made in calleeBecomeDeactivated()
+795 calleeBecomeDeactivated() function has parameter of type long
+796 calleeBecomeDeactivated() function has parameter of type String
+797 class has void function calleeBecomeDeactivated()
+798 has public function addTest()
+799 addTest() function has parameter of type long
+800 class has void function addTest()
+801 has private function deactivate()
+802 deactivate() function has parameter of type String
+803 class has void function deactivate()
+804 has private function notifyDescriptionChanged()
+805 class has void function notifyDescriptionChanged()
+806 has private function reactivate()
+807 class has void function reactivate()
+808 has private function rebuildCalleeList()
+809 rebuildCalleeList() function has parameter of type List
+810 rebuildCalleeList() function modifies member variablethis
+811 class has void function rebuildCalleeList()
+812 has public function isDescriptionChanged()
+813 isDescriptionChanged() function has parameter of type FunctionDTO
+814 isDescriptionChanged() function returns type boolean
+815 has public function createRequestedFunctions()
+816 createRequestedFunctions() function has parameter of type List
+817 class has void function createRequestedFunctions()
+818 has private function processTest()
+819 processTest() function has parameter of type TestDTO
+820 class has void function processTest()
+821 has private function createCalleeStubs()
+822 createCalleeStubs() function has parameter of type List
+823 class has void function createCalleeStubs()
+824 has public function incrementTestSuiteVersion()
+825 class has void function incrementTestSuiteVersion()
+826 call to constructor of FunctionInFirebase is made in storeToFirebase()
+827 find() function returns type Function
+828 load() function returns type Function

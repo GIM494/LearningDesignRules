@@ -1,0 +1,87 @@
+1 class has non-empty-body constructor
+2 class defines constructor with parameter of type Artifact
+3 class has member field called eventType
+4 class has member field of type String
+5 class has member field eventType of type String
+6 class extends class HistoryEvent
+7 is public class
+8 has public function getEventType()
+9 getEventType() function returns type String
+10 constructor sets member variables artifactID, artifactName, artifactType, timeInMillis, timestamp
+11 call to constructor of Date is made in class constructor
+12 class defines constructor with no parameters
+13 class has member field called parentID
+14 class has member field parentID of type String
+15 class has member field called artifactType
+16 class has member field artifactType of type String
+17 class has member field called artifactID
+18 class has member field artifactID of type String
+19 class has member field called artifactName
+20 class has member field artifactName of type String
+21 class has member field called timestamp
+22 class has member field timestamp of type String
+23 class has member field called timeInMillis
+24 class has member field timeInMillis of type String
+25 class extends class DTO
+26 has protected function setArtifact()
+27 setArtifact() function has parameter of type Artifact
+28 class has void function setArtifact()
+29 has public function generateID()
+30 generateID() function returns type String
+31 class has empty-body constructor
+32 class has member field called events
+33 class has member field of type List
+34 class has member field events of type List
+35 has public function addEvent()
+36 addEvent() function has parameter of type HistoryEvent
+37 class has void function addEvent()
+38 has public function toString()
+39 toString() function returns type String
+40 constructor sets member variables messageType
+41 class defines constructor with parameter of type String
+42 class has member field called messageType
+43 class has member field messageType of type String
+44 constructor sets member variables workerID
+45 class defines constructor with parameter of type Microtask
+46 class has member field called workerID
+47 class has member field workerID of type String
+48 class extends class MicrotaskEvent
+49 constructor sets member variables projectId
+50 constructor stores all parameters as member variables
+51 class has member field called historyLog
+52 class has member field of type HistoryLog
+53 class has member field historyLog of type HistoryLog
+54 class has member field called projectId
+55 class has member field projectId of type String
+56 has public static function Init()
+57 Init() function has parameter of type String
+58 Init() function returns type HistoryLog
+59 constructor sets member variables event
+60 class defines constructor with parameter of type HistoryEvent
+61 class has member field called children
+62 class has member field children of type List
+63 class has member field called event
+64 class has member field of type HistoryEvent
+65 class has member field event of type HistoryEvent
+66 class has member field called microtaskType
+67 class has member field microtaskType of type String
+68 class has member field called microtaskKey
+69 class has member field microtaskKey of type String
+70 constructor sets member variables timeWorkedOn, workerID
+71 class has member field called timeWorkedOn
+72 class has member field timeWorkedOn of type String
+73 constructor sets member variables projectID
+74 class defines constructor with parameter of type Project
+75 class has member field called projectID
+76 class has member field projectID of type String
+77 constructor sets member variables propertyName, propertyValue
+78 class has member field called propertyName
+79 class has member field propertyName of type String
+80 class has member field called propertyValue
+81 class has member field propertyValue of type String
+82 constructor sets member variables projectId, questionId, workerId
+83 class defines constructor with parameter of type Long
+84 class has member field called questionId
+85 class has member field questionId of type String
+86 class has member field called workerId
+87 class has member field workerId of type String

@@ -1,0 +1,257 @@
+1 class does not define constructor
+2 is public class
+3 has public static function convertStreamToString()
+4 call to constructor of Scanner is made in convertStreamToString()
+5 convertStreamToString() function calls constructor in return statement
+6 convertStreamToString() function returns output from function call
+7 convertStreamToString() function returns output from function call to Scanner
+8 convertStreamToString() function has parameter of type InputStream
+9 convertStreamToString() function returns type String
+10 class has non-empty-body constructor
+11 constructor sets member variables a, b
+12 class defines constructor with parameter of type A
+13 class defines constructor with parameter of type B
+14 constructor stores all parameters as member variables
+15 class has member field called a
+16 class has member field of type A
+17 class has member field a of type A
+18 class has member field called b
+19 class has member field of type B
+20 class has member field b of type B
+21 has private static function writeData()
+22 writeData() function has parameter of type String
+23 writeData() function has parameter of type HTTPMethod
+24 class has void function writeData()
+25 has private static function writeDataAbsolute()
+26 call to constructor of HTTPRequest is made in writeDataAbsolute()
+27 call to constructor of URL is made in writeDataAbsolute()
+28 writeDataAbsolute() function has parameter of type String
+29 writeDataAbsolute() function has parameter of type HTTPMethod
+30 class has void function writeDataAbsolute()
+31 has private static function readDataAbsolute()
+32 call to constructor of HTTPRequest is made in readDataAbsolute()
+33 call to constructor of URL is made in readDataAbsolute()
+34 call to constructor of String is made in readDataAbsolute()
+35 readDataAbsolute() function has parameter of type String
+36 readDataAbsolute() function returns type String
+37 has private static function getBaseURL()
+38 getBaseURL() function has parameter of type String
+39 getBaseURL() function returns type String
+40 has public static function enqueueWrite()
+41 call to constructor of FirebaseWrite is made in enqueueWrite()
+42 enqueueWrite() function has parameter of type String
+43 enqueueWrite() function has parameter of type HTTPMethod
+44 class has void function enqueueWrite()
+45 has public static function publish()
+46 class has void function publish()
+47 has public static function writeMicrotaskCreated()
+48 writeMicrotaskCreated() function has parameter of type MicrotaskInFirebase
+49 writeMicrotaskCreated() function has parameter of type String
+50 class has void function writeMicrotaskCreated()
+51 has public static function writeMicrotaskSubmission()
+52 writeMicrotaskSubmission() function has parameter of type String
+53 class has void function writeMicrotaskSubmission()
+54 has public static function writeMicrotaskAssigned()
+55 writeMicrotaskAssigned() function has parameter of type String
+56 writeMicrotaskAssigned() function has parameter of type boolean
+57 class has void function writeMicrotaskAssigned()
+58 has public static function writeMicrotaskExcludedWorkers()
+59 writeMicrotaskExcludedWorkers() function has parameter of type String
+60 class has void function writeMicrotaskExcludedWorkers()
+61 has public static function writeMicrotaskWaitingReview()
+62 writeMicrotaskWaitingReview() function has parameter of type String
+63 writeMicrotaskWaitingReview() function has parameter of type boolean
+64 class has void function writeMicrotaskWaitingReview()
+65 has public static function writeMicrotaskCompleted()
+66 writeMicrotaskCompleted() function has parameter of type String
+67 writeMicrotaskCompleted() function has parameter of type boolean
+68 class has void function writeMicrotaskCompleted()
+69 has public static function writeMicrotaskDeleted()
+70 writeMicrotaskDeleted() function has parameter of type String
+71 class has void function writeMicrotaskDeleted()
+72 has public static function writeMicrotaskReissuedFrom()
+73 writeMicrotaskReissuedFrom() function has parameter of type String
+74 writeMicrotaskReissuedFrom() function has parameter of type ReissueInFirebase
+75 class has void function writeMicrotaskReissuedFrom()
+76 has public static function writeMicrotaskCanceled()
+77 writeMicrotaskCanceled() function has parameter of type String
+78 writeMicrotaskCanceled() function has parameter of type boolean
+79 class has void function writeMicrotaskCanceled()
+80 has public static function writeTestJobQueue()
+81 writeTestJobQueue() function has parameter of type long
+82 writeTestJobQueue() function has parameter of type int
+83 writeTestJobQueue() function has parameter of type String
+84 class has void function writeTestJobQueue()
+85 has public static function getAllCode()
+86 getAllCode() function has parameter of type String
+87 getAllCode() function returns type String
+88 has public static function isWorkerLoggedIn()
+89 call to constructor of JSONObject is made in isWorkerLoggedIn()
+90 isWorkerLoggedIn() function has parameter of type String
+91 isWorkerLoggedIn() function returns type boolean
+92 has public static function writeWorkerLoggedIn()
+93 writeWorkerLoggedIn() function has parameter of type String
+94 class has void function writeWorkerLoggedIn()
+95 has public static function writeWorkerLoggedOut()
+96 writeWorkerLoggedOut() function has parameter of type String
+97 class has void function writeWorkerLoggedOut()
+98 has public static function writeMicrotaskQueue()
+99 writeMicrotaskQueue() function has parameter of type QueueInFirebase
+100 writeMicrotaskQueue() function has parameter of type String
+101 class has void function writeMicrotaskQueue()
+102 has public static function writeReviewQueue()
+103 writeReviewQueue() function has parameter of type QueueInFirebase
+104 writeReviewQueue() function has parameter of type String
+105 class has void function writeReviewQueue()
+106 has public static function incrementTestSuiteVersion()
+107 incrementTestSuiteVersion() function has parameter of type long
+108 incrementTestSuiteVersion() function has parameter of type int
+109 incrementTestSuiteVersion() function has parameter of type String
+110 class has void function incrementTestSuiteVersion()
+111 has public static function writeFunction()
+112 writeFunction() function has parameter of type FunctionInFirebase
+113 writeFunction() function has parameter of type long
+114 writeFunction() function has parameter of type int
+115 writeFunction() function has parameter of type String
+116 class has void function writeFunction()
+117 has public static function writeAdvancedTest()
+118 writeAdvancedTest() function has parameter of type AdvancedTestInFirebase
+119 writeAdvancedTest() function has parameter of type long
+120 writeAdvancedTest() function has parameter of type int
+121 writeAdvancedTest() function has parameter of type String
+122 class has void function writeAdvancedTest()
+123 has public static function writeSimpleTest()
+124 writeSimpleTest() function has parameter of type SimpleTestInFirebase
+125 writeSimpleTest() function has parameter of type long
+126 writeSimpleTest() function has parameter of type int
+127 writeSimpleTest() function has parameter of type String
+128 class has void function writeSimpleTest()
+129 has public static function writeADT()
+130 writeADT() function has parameter of type ADTInFirebase
+131 writeADT() function has parameter of type long
+132 writeADT() function has parameter of type int
+133 writeADT() function has parameter of type String
+134 class has void function writeADT()
+135 has public static function deleteTest()
+136 deleteTest() function has parameter of type long
+137 deleteTest() function has parameter of type String
+138 class has void function deleteTest()
+139 has public static function writeWorker()
+140 writeWorker() function has parameter of type WorkerInFirebase
+141 writeWorker() function has parameter of type String
+142 class has void function writeWorker()
+143 has public static function writeReview()
+144 writeReview() function has parameter of type ReviewSubmissionInFirebase
+145 writeReview() function has parameter of type String
+146 class has void function writeReview()
+147 has public static function writeSetting()
+148 writeSetting() function has parameter of type String
+149 class has void function writeSetting()
+150 has public static function readADTs()
+151 readADTs() function has parameter of type String
+152 readADTs() function returns type String
+153 has public static function copyADTs()
+154 copyADTs() function has parameter of type String
+155 class has void function copyADTs()
+156 has public static function readClientRequest()
+157 readClientRequest() function has parameter of type String
+158 readClientRequest() function returns type String
+159 has public static function setPoints()
+160 call to constructor of LeaderboardEntry is made in setPoints()
+161 setPoints() function has parameter of type String
+162 setPoints() function has parameter of type int
+163 class has void function setPoints()
+164 has public static function writeWorkerNotification()
+165 writeWorkerNotification() function has parameter of type NotificationInFirebase
+166 writeWorkerNotification() function has parameter of type String
+167 class has void function writeWorkerNotification()
+168 has public static function writeLevelUpNotification()
+169 writeLevelUpNotification() function has parameter of type NotificationInFirebase
+170 writeLevelUpNotification() function has parameter of type String
+171 class has void function writeLevelUpNotification()
+172 has public static function writeAchievementNotification()
+173 writeAchievementNotification() function has parameter of type NotificationInFirebase
+174 writeAchievementNotification() function has parameter of type String
+175 class has void function writeAchievementNotification()
+176 has public static function microtaskAssigned()
+177 microtaskAssigned() function has parameter of type String
+178 class has void function microtaskAssigned()
+179 has public static function writeMicrotaskPoints()
+180 writeMicrotaskPoints() function has parameter of type String
+181 writeMicrotaskPoints() function has parameter of type int
+182 class has void function writeMicrotaskPoints()
+183 has public static function postToNewsfeed()
+184 postToNewsfeed() function has parameter of type String
+185 class has void function postToNewsfeed()
+186 has public static function updateNewsfeed()
+187 updateNewsfeed() function has parameter of type String
+188 class has void function updateNewsfeed()
+189 has public static function writeQuestion()
+190 writeQuestion() function has parameter of type QuestionInFirebase
+191 writeQuestion() function has parameter of type String
+192 class has void function writeQuestion()
+193 has public static function writeQuestionVersion()
+194 writeQuestionVersion() function has parameter of type QuestionInFirebase
+195 writeQuestionVersion() function has parameter of type String
+196 class has void function writeQuestionVersion()
+197 has public static function writeAnswerCreated()
+198 writeAnswerCreated() function has parameter of type AnswerInFirebase
+199 writeAnswerCreated() function has parameter of type String
+200 class has void function writeAnswerCreated()
+201 has public static function writeCommentCreated()
+202 writeCommentCreated() function has parameter of type CommentInFirebase
+203 writeCommentCreated() function has parameter of type String
+204 class has void function writeCommentCreated()
+205 has public static function updateQuestioningVoters()
+206 updateQuestioningVoters() function has parameter of type VotersIdInFirebase
+207 updateQuestioningVoters() function has parameter of type String
+208 class has void function updateQuestioningVoters()
+209 has public static function updateQuestioningReporters()
+210 updateQuestioningReporters() function has parameter of type ReportersIdInFirebase
+211 updateQuestioningReporters() function has parameter of type String
+212 class has void function updateQuestioningReporters()
+213 has public static function updateQuestioningScore()
+214 updateQuestioningScore() function has parameter of type int
+215 updateQuestioningScore() function has parameter of type String
+216 class has void function updateQuestioningScore()
+217 has public static function updateQuestioningSubscribers()
+218 updateQuestioningSubscribers() function has parameter of type SubscribersInFirebase
+219 updateQuestioningSubscribers() function has parameter of type String
+220 class has void function updateQuestioningSubscribers()
+221 has public static function updateQuestioningLinkedArtifacts()
+222 updateQuestioningLinkedArtifacts() function has parameter of type ArtifactsIdInFirebase
+223 updateQuestioningLinkedArtifacts() function has parameter of type String
+224 class has void function updateQuestioningLinkedArtifacts()
+225 has public static function updateQuestioningClosed()
+226 updateQuestioningClosed() function has parameter of type boolean
+227 updateQuestioningClosed() function has parameter of type String
+228 class has void function updateQuestioningClosed()
+229 has public static function writeHistoryEvent()
+230 writeHistoryEvent() function has parameter of type HistoryEvent
+231 writeHistoryEvent() function has parameter of type String
+232 class has void function writeHistoryEvent()
+233 has public static function clear()
+234 clear() function has parameter of type String
+235 class has void function clear()
+236 has public static function existsProject()
+237 existsProject() function returns output from function call
+238 existsProject() function has parameter of type String
+239 existsProject() function returns type boolean
+240 has public static function existsClientRequest()
+241 existsClientRequest() function returns output from function call
+242 existsClientRequest() function has parameter of type String
+243 existsClientRequest() function returns type boolean
+244 constructor sets member variables data, operation, projectId, relativeURL
+245 class defines constructor with parameter of type String
+246 class defines constructor with parameter of type HTTPMethod
+247 class has member field called data
+248 class has member field of type String
+249 class has member field data of type String
+250 class has member field called relativeURL
+251 class has member field relativeURL of type String
+252 class has member field called operation
+253 class has member field of type HTTPMethod
+254 class has member field operation of type HTTPMethod
+255 class has member field called projectId
+256 class has member field projectId of type String
+257 has public function publish()
