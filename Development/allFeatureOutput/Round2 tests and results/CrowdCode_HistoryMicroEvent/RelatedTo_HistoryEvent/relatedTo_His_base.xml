@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5">
+
+<unit revision="0.9.5" language="Java" filename="history base class/HistoryLog.java" hash="a1d98d77084b5f91f09f59f07f326db70e203173"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Iterator</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>LinkedList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Stack</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>concurrent</name><operator>.</operator><name>ConcurrentLinkedQueue</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>logging</name><operator>.</operator><name>Logger</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>servlets</name><operator>.</operator><name>ThreadContext</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>FirebaseService</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>Pair</name></name>;</import>
+
+<comment type="block">/* HistoryLogs capture the events that occur during a session. As they only persist for the life
+ * of a session, they are not stored in the DataStore. A HistoryLog consists of a tree of events.
+ * Calling beginEvent begins a list of entries that are the child of the previously active entry.
+ *
+ * Note: there must be a single root event. All events may have multiple children.
+ */</comment>
+<class><specifier>public</specifier> class <name>HistoryLog</name>
+<block>{
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><name>HistoryLog</name></type> <name>historyLog</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>projectId</name> <init>= <expr><literal type="string">""</literal></expr></init></decl>;</decl_stmt>
+
+	<constructor><specifier>public</specifier> <name>HistoryLog</name><parameter_list>()</parameter_list><block>{
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>HistoryLog</name></type> <name>Init</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list><block>{
+		<if>if<condition>( <expr><name>historyLog</name> <operator>==</operator> <literal type="null">null</literal> <operator>||</operator> <name><name>historyLog</name><operator>.</operator><name>projectId</name></name><operator>!=</operator><name>projectId</name></expr> )</condition><then><block>{
+			<expr_stmt><expr><name>historyLog</name> <operator>=</operator> <operator>new</operator> <call><name>HistoryLog</name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+		<return>return <expr><name>historyLog</name></expr>;</return>
+	}</block></function>
+
+	<constructor><specifier>public</specifier> <name>HistoryLog</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>projectId</name></name> <operator>=</operator> <name>projectId</name></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>addEvent</name><parameter_list>(<parameter><decl><type><name>HistoryEvent</name></type> <name>event</name></decl></parameter>)</parameter_list><block>{
+	    <expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeHistoryEvent</name></name><argument_list>(<argument><expr><name>event</name></expr></argument>,<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<class><specifier>public</specifier> class <name>EventNode</name>
+	<block>{
+		<decl_stmt><decl><specifier>public</specifier> <type><name><name>List</name><argument_list type="generic">&lt;<argument><name>EventNode</name></argument>&gt;</argument_list></name></type> <name>children</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;<argument><name>EventNode</name></argument>&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>public</specifier> <type><name>HistoryEvent</name></type> <name>event</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>EventNode</name><parameter_list>(<parameter><decl><type><name>HistoryEvent</name></type> <name>event</name></decl></parameter>)</parameter_list>
+		<block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>event</name></name> <operator>=</operator> <name>event</name></expr>;</expr_stmt>
+		}</block></constructor>
+	}</block></class>
+}</block></class>
+</unit>
+
+</unit>

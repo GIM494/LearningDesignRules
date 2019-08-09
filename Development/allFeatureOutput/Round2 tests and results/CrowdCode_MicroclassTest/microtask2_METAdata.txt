@@ -1,0 +1,58 @@
+1 class with annotation @Subclass with 
+index = true 
+2 class has non-empty-body constructor
+3 class defines constructor with no parameters
+4 constructor sets member variables artifact, initiallySubmittedDTO, microtaskKeyUnderReview, submitValue, workerOfReviewedWork
+5 call to constructor of ReviewInFirebase is made in class constructor
+6 call to constructor of MicrotaskSpawned is made in class constructor
+7 class defines constructor with parameter of type Key
+8 class defines constructor with parameter of type String
+9 class defines constructor with parameter of type Long
+10 class has member field called artifact
+11 class has member field called artifact with annotation @Parent
+12 class has member field called artifact with annotation @Load
+13 class has member field of type Ref
+14 class has member field artifact of type Ref
+15 class has member field called microtaskKeyUnderReview
+16 class has member field of type Key
+17 class has member field microtaskKeyUnderReview of type Key
+18 class has member field called workerOfReviewedWork
+19 class has member field of type String
+20 class has member field workerOfReviewedWork of type String
+21 class has member field called initiallySubmittedDTO
+22 class has member field initiallySubmittedDTO of type String
+23 class extends class Microtask
+24 is public class
+25 has public function copy()
+26 call to constructor of Review is made in copy()
+27 copy() function calls constructor in return statement
+28 copy() function returns output from function call
+29 copy() function returns output from function call to Review
+30 copy() function has parameter of type String
+31 copy() function has parameter of type Long
+32 copy() function returns type Microtask
+33 has protected function doSubmitWork()
+34 call to constructor of ReviewSubmissionInFirebase is made in doSubmitWork()
+35 call to constructor of MicrotaskReissued is made in doSubmitWork()
+36 call to constructor of MicrotaskAccepted is made in doSubmitWork()
+37 doSubmitWork() function has parameter of type DTO
+38 doSubmitWork() function has parameter of type String
+39 class has void function doSubmitWork()
+40 has public function getWorkerOfReviewedWork()
+41 getWorkerOfReviewedWork() function returns type String
+42 has public function getKey()
+43 getKey() function returns output from function call
+44 getKey() function returns type Key
+45 has protected function getDTOClass()
+46 getDTOClass() function returns type Class
+47 has public function getMicrotaskKeyUnderReview()
+48 getMicrotaskKeyUnderReview() function returns type Key
+49 has public function getUIURL()
+50 getUIURL() function returns type String
+51 has public function getOwningArtifact()
+52 getOwningArtifact() function returns output from function call
+53 getOwningArtifact() function returns type Artifact
+54 has public function microtaskTitle()
+55 microtaskTitle() function returns type String
+56 has public function microtaskDescription()
+57 microtaskDescription() function returns type String

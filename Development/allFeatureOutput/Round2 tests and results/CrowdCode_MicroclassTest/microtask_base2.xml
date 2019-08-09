@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5">
+
+<unit revision="0.9.5" language="Java" filename="Base class/Review.java" hash="9c6a4c0b565c1b2761a30447ecb5b6abcd6c95a9"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name></name>;</package>
+
+<import>import static <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>ObjectifyService</name><operator>.</operator><name>ofy</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name><operator>.</operator><name>MicrotaskCommand</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name><operator>.</operator><name>WorkerCommand</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>DTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>ajax</name><operator>.</operator><name>microtask</name><operator>.</operator><name>submission</name><operator>.</operator><name>ReviewDTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>firebase</name><operator>.</operator><name>NewsItemInFirebase</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>firebase</name><operator>.</operator><name>notification</name><operator>.</operator><name>MicrotaskNotificationInFirebase</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>firebase</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>ReviewInFirebase</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>firebase</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>ReviewSubmissionInFirebase</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>HistoryLog</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>MicrotaskAccepted</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>MicrotaskReissued</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>MicrotaskSpawned</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>FirebaseService</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>Key</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>Ref</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Subclass</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Load</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Parent</name></name>;</import>
+
+<class><annotation>@<name>Subclass</name><argument_list>(<argument><expr><name>index</name><operator>=</operator><literal type="boolean">true</literal></expr></argument>)</argument_list></annotation>
+<specifier>public</specifier> class <name>Review</name> <super><extends>extends <name>Microtask</name></extends></super>
+<block>{
+	<decl_stmt><decl><annotation>@<name>Parent</name></annotation> <annotation>@<name>Load</name></annotation> <specifier>private</specifier> <type><name><name>Ref</name><argument_list type="generic">&lt;<argument><name>Artifact</name></argument>&gt;</argument_list></name></type> <name>artifact</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>microtaskKeyUnderReview</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>workerOfReviewedWork</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>initiallySubmittedDTO</name></decl>;</decl_stmt>	<comment type="line">// initially submitted DTO in string format</comment>
+
+	<comment type="line">// Default constructor for deserialization</comment>
+	<constructor><specifier>private</specifier> <name>Review</name><parameter_list>()</parameter_list>
+	<block>{
+	}</block></constructor>
+
+	<comment type="line">// Constructor for initial construction</comment>
+	<constructor><specifier>public</specifier> <name>Review</name><parameter_list>(<parameter><decl><type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>microtaskKeyUnderReview</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>initiallySubmittedDTO</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerOfReviewedWork</name></decl></parameter>,
+			<parameter><decl><type><name>Long</name></type> <name>functionId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>projectId</name></expr></argument>,<argument><expr><name>functionId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>submitValue</name></name> <operator>=</operator> <literal type="number">5</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>microtaskKeyUnderReview</name></name> <operator>=</operator> <name>microtaskKeyUnderReview</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>initiallySubmittedDTO</name></name> <operator>=</operator> <name>initiallySubmittedDTO</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerOfReviewedWork</name></name> <operator>=</operator> <name>workerOfReviewedWork</name></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><name>Microtask</name></type> <name>microtaskUnderReview</name> <init>= <expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>load</name><argument_list>()</argument_list></call><operator>.</operator><call><name>key</name><argument_list>(<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifact</name></name> <operator>=</operator> <operator>(</operator><name><name>Ref</name><argument_list type="generic">&lt;<argument><name>Artifact</name></argument>&gt;</argument_list></name><operator>)</operator> <call><name><name>Ref</name><operator>.</operator><name>create</name></name><argument_list>(<argument><expr><operator>(</operator><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Artifact</name></argument>&gt;</argument_list></name><operator>)</operator> <call><name><name>microtaskUnderReview</name><operator>.</operator><name>getOwningArtifact</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getKey</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>save</name><argument_list>()</argument_list></call><operator>.</operator><call><name>entity</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeMicrotaskCreated</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ReviewInFirebase</name><argument_list>(
+				<argument><expr><name>id</name></expr></argument>,
+				<argument><expr><call><name><name>this</name><operator>.</operator><name>microtaskTitle</name></name><argument_list>()</argument_list></call></expr></argument>,
+				<argument><expr><call><name><name>this</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr></argument>,
+				<argument><expr><call><name><name>this</name><operator>.</operator><name>artifact</name><operator>.</operator><name>get</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>,
+				<argument><expr><call><name><name>this</name><operator>.</operator><name>artifact</name><operator>.</operator><name>get</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getId</name><argument_list>()</argument_list></call></expr></argument>,
+				<argument><expr><name>functionId</name></expr></argument>,
+				<argument><expr><name>submitValue</name></expr></argument>,
+				<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>
+				)</argument_list></call></expr></argument>,
+				<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+				<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>HistoryLog</name><operator>.</operator><name>Init</name></name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>addEvent</name><argument_list>(<argument><expr><operator>new</operator> <call><name>MicrotaskSpawned</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+    <function><specifier>public</specifier> <type><name>Microtask</name></type> <name>copy</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>,<parameter><decl><type><name>Long</name></type> <name>functionId</name></decl></parameter>)</parameter_list>
+    <block>{
+    	<return>return <expr><operator>new</operator> <call><name>Review</name><argument_list>(<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>initiallySubmittedDTO</name></name></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>workerOfReviewedWork</name></name></expr></argument>, <argument><expr><name>functionId</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</return>
+    }</block></function>
+
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>doSubmitWork</name><parameter_list>(<parameter><decl><type><name>DTO</name></type> <name>dto</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>)</parameter_list>
+	<block>{
+
+		<decl_stmt><decl><type><name>ReviewDTO</name></type> <name>reviewDTO</name> <init>= <expr><operator>(</operator><name>ReviewDTO</name><operator>)</operator> <name>dto</name></expr></init></decl>;</decl_stmt>
+
+		<decl_stmt><decl><type><name>Microtask</name></type> <name>submittedMicrotask</name> <init>= <expr><call><name><name>Microtask</name><operator>.</operator><name>find</name></name><argument_list>(<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<comment type="line">// Write the review to firebase</comment>
+		<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeReview</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ReviewSubmissionInFirebase</name><argument_list>(<argument><expr><name><name>reviewDTO</name><operator>.</operator><name>qualityScore</name></name></expr></argument>, <argument><expr><name><name>reviewDTO</name><operator>.</operator><name>reviewText</name></name></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument> , <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<comment type="line">// set default award points to 0</comment>
+		<decl_stmt><decl><type><name>int</name></type> <name>points</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+
+
+		<decl_stmt><decl><type><name>int</name></type> <name>awardedPoints</name></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>boolean</name></type> <name>canBeChallenged</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>String</name></type> <name>challengeStatus</name> <init>= <expr><literal type="string">"none"</literal></expr></init></decl>;</decl_stmt>
+		<comment type="line">//reject not used any more for now...</comment>
+        <comment type="block">/*if( reviewDTO.qualityScore &lt; 3 ) {
+
+			// reissue microtask
+        	System.out.println("--&gt; REVIEW mtask "+Project.MicrotaskKeyToString( submittedMicrotask.getKey() )+" rejected");
+			MicrotaskCommand.rejectAndReissueMicrotask(microtaskKeyUnderReview, workerOfReviewedWork);
+			awardedPoint = 0;
+			reviewResult = "rejected";
+
+
+			project.historyLog().beginEvent(new MicrotaskRejected(submittedMicrotask,workerID));
+			project.historyLog().endEvent();
+
+		} else*/</comment>
+
+		<comment type="block">/*the awarded point is proportional to the square of the total points
+			points : 10
+			5 stars -&gt;10
+			4 stars -&gt;6
+			3 stars -&gt;3
+			2 stars -&gt;1
+			1 stars -&gt;0
+		*/</comment>
+		<expr_stmt><expr><name>awardedPoints</name> <operator>=</operator> <operator>(</operator><name>int</name><operator>)</operator> <call><name><name>Math</name><operator>.</operator><name>round</name></name><argument_list>( <argument><expr><name><name>submittedMicrotask</name><operator>.</operator><name>submitValue</name></name> <operator>*</operator> <call><name><name>Math</name><operator>.</operator><name>pow</name></name><argument_list>(<argument><expr><operator>(</operator><name><name>reviewDTO</name><operator>.</operator><name>qualityScore</name></name> <operator>/</operator><literal type="number">5.0</literal><operator>)</operator></expr></argument>, <argument><expr><literal type="number">1.5</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>MicrotaskNotificationInFirebase</name></type> <name>notification</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+		<if>if <condition>( <expr><name><name>reviewDTO</name><operator>.</operator><name>qualityScore</name></name> <operator>&lt;</operator> <literal type="number">4</literal></expr>)</condition><then> <block>{
+
+			<comment type="line">// reissue microtask</comment>
+			<expr_stmt><expr><name>canBeChallenged</name><operator>=</operator><literal type="boolean">true</literal></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"--&gt; REVIEW mtask "</literal><operator>+</operator><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toString</name><argument_list>()</argument_list></call><operator>+</operator><literal type="string">" reissued"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<if>if<condition>(<expr><name><name>reviewDTO</name><operator>.</operator><name>fromDisputedMicrotask</name></name></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>MicrotaskCommand</name><operator>.</operator><name>rejectMicrotask</name></name><argument_list>(<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>, <argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><name>awardedPoints</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+			<else>else
+				<block type="pseudo"><expr_stmt><expr><call><name><name>MicrotaskCommand</name><operator>.</operator><name>reviseMicrotask</name></name><argument_list>(<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>, <argument><expr><name>initiallySubmittedDTO</name></expr></argument>, <argument><expr><name><name>reviewDTO</name><operator>.</operator><name>reviewText</name></name></expr></argument>, <argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><name>awardedPoints</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+
+			<expr_stmt><expr><call><name><name>HistoryLog</name><operator>.</operator><name>Init</name></name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>addEvent</name><argument_list>(<argument><expr><operator>new</operator> <call><name>MicrotaskReissued</name><argument_list>(<argument><expr><name>submittedMicrotask</name></expr></argument>,<argument><expr><name>workerID</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			
+			<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeMicrotaskWaitingReview</name></name><argument_list>(<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,<argument><expr><name>workerID</name></expr></argument>,<argument><expr><name><name>this</name><operator>.</operator><name>projectId</name></name></expr></argument>, <argument><expr><literal type="boolean">false</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			
+			<expr_stmt><expr><name>notification</name> <operator>=</operator> <operator>new</operator> <call><name>MicrotaskNotificationInFirebase</name><argument_list>( <argument><expr><literal type="string">"task.reissued"</literal></expr></argument>,
+																<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+																<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr></argument>,
+																<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getOwningArtifact</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		}</block></then> <else>else <block>{
+
+			<comment type="line">// accept microtask</comment>
+			<expr_stmt><expr><name>canBeChallenged</name><operator>=</operator><literal type="boolean">false</literal></expr>;</expr_stmt>
+        	<expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"--&gt; REVIEW mtask "</literal><operator>+</operator><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>toString</name><argument_list>()</argument_list></call><operator>+</operator><literal type="string">" accepted"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>MicrotaskCommand</name><operator>.</operator><name>submit</name></name><argument_list>(<argument><expr><name>microtaskKeyUnderReview</name></expr></argument>, <argument><expr><name>initiallySubmittedDTO</name></expr></argument>, <argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><name>awardedPoints</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			
+			<if>if<condition>(<expr><name><name>reviewDTO</name><operator>.</operator><name>qualityScore</name></name> <operator>==</operator> <literal type="number">5</literal></expr>)</condition><then><block>{
+				<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>increaseStat</name></name><argument_list>(<argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><literal type="string">"perfect_review"</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></then>
+			<else>else<block>{
+				<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>increaseStat</name></name><argument_list>(<argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><literal type="string">"good_review"</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></else></if>
+			<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>increaseStat</name></name><argument_list>(<argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><literal type="string">"accepted_microtask"</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			
+			<expr_stmt><expr><call><name><name>HistoryLog</name><operator>.</operator><name>Init</name></name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>addEvent</name><argument_list>(<argument><expr><operator>new</operator> <call><name>MicrotaskAccepted</name><argument_list>(<argument><expr><name>submittedMicrotask</name></expr></argument>,<argument><expr><name>workerID</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+			<expr_stmt><expr><name>notification</name> <operator>=</operator> <operator>new</operator> <call><name>MicrotaskNotificationInFirebase</name><argument_list>( <argument><expr><literal type="string">"task.accepted"</literal></expr></argument>,
+																<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+																<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr></argument>,
+																<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getOwningArtifact</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		}</block></else></if>
+
+
+		<comment type="line">// send feedback</comment>
+    	<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>postToNewsfeed</name></name><argument_list>(<argument><expr><name>workerOfReviewedWork</name></expr></argument>, <argument><expr><operator>(</operator>
+    		<operator>new</operator> <call><name>NewsItemInFirebase</name><argument_list>(
+    			<argument><expr><name>awardedPoints</name></expr></argument>,
+    			<argument><expr><name><name>submittedMicrotask</name><operator>.</operator><name>submitValue</name></name></expr></argument>,
+    			<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr></argument>,
+				<argument><expr><literal type="string">"WorkReviewed"</literal></expr></argument>,
+				<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+				<argument><expr><name><name>reviewDTO</name><operator>.</operator><name>qualityScore</name></name></expr></argument>,
+				<argument><expr><name>challengeStatus</name></expr></argument>,
+				<argument><expr><name>canBeChallenged</name></expr></argument>)</argument_list></call>
+	    	<operator>)</operator><operator>.</operator><call><name>json</name><argument_list>()</argument_list></call></expr></argument>,
+	    	<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>submittedMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+    		<argument><expr><name>projectId</name></expr></argument>
+	    )</argument_list></call></expr>;</expr_stmt>
+    	<comment type="line">// send notification</comment>
+		<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeWorkerNotification</name></name><argument_list>(
+				<argument><expr><name>notification</name></expr></argument>,
+				<argument><expr><name>workerOfReviewedWork</name></expr></argument>,
+				<argument><expr><name>projectId</name></expr></argument>
+		)</argument_list></call></expr>;</expr_stmt>
+
+
+
+		<comment type="line">//FirebaseService.setPoints(workerID, workerOfReviewedWork,  this.submitValue, project);</comment>
+    	<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>postToNewsfeed</name></name><argument_list>(<argument><expr><name>workerID</name></expr></argument>, <argument><expr><operator>(</operator>
+    		<operator>new</operator> <call><name>NewsItemInFirebase</name><argument_list>(
+    			<argument><expr><name><name>this</name><operator>.</operator><name>submitValue</name></name></expr></argument>,
+    			<argument><expr><name><name>this</name><operator>.</operator><name>submitValue</name></name></expr></argument>,
+    			<argument><expr><call><name><name>this</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr></argument>,
+    			<argument><expr><literal type="string">"SubmittedReview"</literal></expr></argument>,
+    			<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+    			<argument><expr><operator>-</operator><literal type="number">1</literal></expr></argument>, <comment type="line">// differentiate the reviews from the 0 score tasks</comment>
+    			<argument><expr><name>challengeStatus</name></expr></argument>,
+    			<argument><expr><literal type="boolean">false</literal></expr></argument>
+	    	)</argument_list></call><operator>.</operator><call><name>json</name><argument_list>()</argument_list></call><operator>)</operator></expr></argument>,
+	    	<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+			<argument><expr><name>projectId</name></expr></argument>
+		)</argument_list></call></expr>;</expr_stmt>
+
+		<comment type="line">// increase the stats counter</comment>
+		<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>increaseStat</name></name><argument_list>(<argument><expr><name>workerID</name></expr></argument>, <argument><expr><literal type="string">"reviews"</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getWorkerOfReviewedWork</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><name>workerOfReviewedWork</name></expr>;</return>
+	}</block></function>
+    <function><specifier>public</specifier> <type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>getKey</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><call><name><name>Key</name><operator>.</operator><name>create</name></name><argument_list>( <argument><expr><call><name><name>artifact</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name><name>Microtask</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>id</name></name></expr></argument> )</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>protected</specifier> <type><name>Class</name></type> <name>getDTOClass</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><name><name>ReviewDTO</name><operator>.</operator><name>class</name></name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>getMicrotaskKeyUnderReview</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><name>microtaskKeyUnderReview</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getUIURL</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><literal type="string">"/html/microtasks/review.jsp"</literal></expr>;</return>
+	}</block></function>
+
+
+	<function><specifier>public</specifier> <type><name>Artifact</name></type> <name>getOwningArtifact</name><parameter_list>()</parameter_list>
+	<block>{
+		<decl_stmt><decl><type><name>Artifact</name></type> <name>owning</name></decl>;</decl_stmt>
+		<try>try <block>{
+			<return>return <expr><call><name><name>artifact</name><operator>.</operator><name>safe</name></name><argument_list>()</argument_list></call></expr>;</return>
+		}</block> <catch>catch <parameter_list>( <parameter><decl><type><name>Exception</name></type> <name>e</name></decl></parameter> )</parameter_list><block>{
+			<expr_stmt><expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>load</name><argument_list>()</argument_list></call><operator>.</operator><call><name>ref</name><argument_list>(<argument><expr><name><name>this</name><operator>.</operator><name>artifact</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<return>return <expr><call><name><name>artifact</name><operator>.</operator><name>get</name></name><argument_list>()</argument_list></call></expr>;</return>
+		}</block></catch></try>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>microtaskTitle</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><literal type="string">"Review work"</literal></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>microtaskDescription</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><literal type="string">"review a submitted microtask"</literal></expr>;</return>
+	}</block></function>
+
+}</block></class>
+</unit>
+
+</unit>

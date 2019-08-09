@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5">
+
+<unit revision="0.9.5" language="Java" filename="Command Base Class/QuestioningCommand.java" hash="4c6bd961fa306502cb016b49124d8ac83a7233ed"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name></name>;</package>
+
+<import>import static <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>ObjectifyService</name><operator>.</operator><name>ofy</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>DTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>Project</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>Worker</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>ajax</name><operator>.</operator><name>questions</name><operator>.</operator><name>AnswerDTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>ajax</name><operator>.</operator><name>questions</name><operator>.</operator><name>CommentDTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>ajax</name><operator>.</operator><name>questions</name><operator>.</operator><name>QuestionDTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>firebase</name><operator>.</operator><name>notification</name><operator>.</operator><name>NotificationInFirebase</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Function</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Test</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>questions</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>HistoryLog</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>PropertyChange</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>QuestionViewed</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>servlets</name><operator>.</operator><name>ThreadContext</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>FirebaseService</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>google</name><operator>.</operator><name>appengine</name><operator>.</operator><name>api</name><operator>.</operator><name>datastore</name><operator>.</operator><name>QueryResultIterator</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>Key</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>LoadResult</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>VoidWork</name></name>;</import>
+
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>QuestioningCommand</name> <super><extends>extends <name>Command</name></extends></super>
+<block>{
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>long</name></type> <name>questioningId</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>String</name></type> <name>workerId</name></decl>;</decl_stmt>
+
+	<comment type="block">/* PUBLIC METHODS */</comment>
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>createQuestion</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerHandle</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>CreateQuestion</name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>workerHandle</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>createAnswer</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerHandle</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>CreateAnswer</name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>workerHandle</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>createComment</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerHandle</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>CreateComment</name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>workerHandle</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>incrementQuestionAnswers</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>IncrementQuestionAnswers</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>incrementQuestionComments</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>IncrementQuestionComments</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>addQuestionView</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>AddQuestionView</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>,<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>updateQuestion</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>jsonDTO</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <call><name>UpdateQuestion</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>,<argument><expr><name>jsonDTO</name></expr></argument>,<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>vote</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>Vote</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>remove</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>report</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>Report</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>remove</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>linkArtifact</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>artifactId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter> )</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>LinkArtifact</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>artifactId</name></expr></argument>, <argument><expr><name>remove</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>subscribeWorker</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>SubscribeWorker</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>remove</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>notifySubscribers</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>NotificationInFirebase</name></type> <name>notification</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>excludedWorkerId</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>NotifySubscribers</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>,<argument><expr><name>notification</name></expr></argument>,<argument><expr><name>excludedWorkerId</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>QuestioningCommand</name></type> <name>setClosed</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>closed</name></decl></parameter>)</parameter_list><block>{
+		<return>return <expr><operator>new</operator> <call><name>SetClosed</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>,<argument><expr><name>closed</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+
+
+	<constructor><specifier>private</specifier> <name>QuestioningCommand</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>questioningId</name></name> <operator>=</operator> <name>questioningId</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerId</name></name> <operator>=</operator> <name>workerId</name></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>queueCommand</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+	<comment type="line">// All constructors for TestCommand MUST call queueCommand and the end of</comment>
+	<comment type="line">// the constructor to add the</comment>
+	<comment type="line">// command to the queue.</comment>
+	<function><specifier>private</specifier> <specifier>static</specifier> <type><name>void</name></type> <name>queueCommand</name><parameter_list>(<parameter><decl><type><name>Command</name></type> <name>command</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name>ThreadContext</name></type> <name>threadContext</name> <init>= <expr><call><name><name>ThreadContext</name><operator>.</operator><name>get</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+        <expr_stmt><expr><call><name><name>threadContext</name><operator>.</operator><name>addCommand</name></name><argument_list>(<argument><expr><name>command</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	<comment type="line">//	CommandContext.ctx.addCommand(command);</comment>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+	        	<if>if <condition>(<expr><name>questioningId</name> <operator>!=</operator> <literal type="number">0</literal></expr>)</condition><then> <block>{
+	    			<decl_stmt><decl><type><name><name>LoadResult</name><argument_list type="generic">&lt;<argument><name>Questioning</name></argument>&gt;</argument_list></name></type> <name>questioningRef</name> <init>= <expr><call><name>find</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+	    			<if>if <condition>(<expr><name>questioningRef</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+	    				<block type="pseudo"><expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name>
+	    						<operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"errore Cannot execute QuestiongCommand. Could not Questioning test for questioningId "</literal>
+	    								<operator>+</operator> <name>questioningId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+	    			<else>else <block>{
+	    				<decl_stmt><decl><type><name>Questioning</name></type> <name>questioning</name> <init>= <expr><call><name><name>questioningRef</name><operator>.</operator><name>now</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+	    				<expr_stmt><expr><call><name>execute</name><argument_list>(<argument><expr><name>questioning</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	    			}</block></else></if>
+	    		}</block></then> <else>else
+	    			<block type="pseudo"><expr_stmt><expr><call><name>execute</name><argument_list>(<argument><expr><literal type="null">null</literal></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+	}</block></function>
+
+	<function_decl><specifier>public</specifier> <specifier>abstract</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>;</function_decl>
+
+	<comment type="line">// Finds the specified microtask. Returns null if no such microtask exists.</comment>
+	<function><specifier>protected</specifier> <type><name><name>LoadResult</name><argument_list type="generic">&lt;<argument><name>Questioning</name></argument>&gt;</argument_list></name></type> <name>find</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>)</parameter_list>
+	<block>{
+
+		<return>return <expr><operator>(</operator><name><name>LoadResult</name><argument_list type="generic">&lt;<argument><name>Questioning</name></argument>&gt;</argument_list></name><operator>)</operator> <call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>load</name><argument_list>()</argument_list></call><operator>.</operator><call><name>key</name><argument_list>(<argument><expr><call><name><name>Questioning</name><operator>.</operator><name>getKey</name></name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+
+	}</block></function>
+
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>CreateQuestion</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>jsonDTOData</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>workerHandle</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>CreateQuestion</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>ownerId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>ownerHandle</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>, <argument><expr><name>ownerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>jsonDTOData</name></name><operator>=</operator> <name>jsonDTOData</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerHandle</name></name> <operator>=</operator> <name>ownerHandle</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<decl_stmt><decl><type><name>QuestionDTO</name></type> <name>dto</name><init>=<expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+			<try>try <block>{
+				<expr_stmt><expr><name>dto</name> <operator>=</operator> <operator>(</operator><name>QuestionDTO</name><operator>)</operator> <call><name><name>DTO</name><operator>.</operator><name>read</name></name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><name><name>QuestionDTO</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// TODO Auto-generated catch block</comment>
+				<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></catch></try>
+			<expr_stmt><expr><operator>new</operator> <call><name>Question</name><argument_list>(<argument><expr><name><name>dto</name><operator>.</operator><name>title</name></name></expr></argument>, <argument><expr><name><name>dto</name><operator>.</operator><name>text</name></name></expr></argument>, <argument><expr><name><name>dto</name><operator>.</operator><name>tags</name></name></expr></argument>, <argument><expr><name><name>dto</name><operator>.</operator><name>artifactId</name></name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>workerHandle</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>CreateAnswer</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>jsonDTOData</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>workerHandle</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>CreateAnswer</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>ownerId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>ownerHandle</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>, <argument><expr><name>ownerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>jsonDTOData</name></name><operator>=</operator><name>jsonDTOData</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerHandle</name></name> <operator>=</operator> <name>ownerHandle</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<decl_stmt><decl><type><name>AnswerDTO</name></type> <name>dto</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+			<try>try <block>{
+				<expr_stmt><expr><name>dto</name> <operator>=</operator> <operator>(</operator><name>AnswerDTO</name><operator>)</operator><call><name><name>DTO</name><operator>.</operator><name>read</name></name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><name><name>AnswerDTO</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><operator>new</operator> <call><name>Answer</name><argument_list>(<argument><expr><name><name>dto</name><operator>.</operator><name>text</name></name></expr></argument>, <argument><expr><name><name>dto</name><operator>.</operator><name>questionId</name></name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>workerHandle</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// TODO Auto-generated catch block</comment>
+				<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></catch></try>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>CreateComment</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>jsonDTOData</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>workerHandle</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>CreateComment</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>ownerId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>ownerHandle</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>, <argument><expr><name>ownerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>jsonDTOData</name></name><operator>=</operator><name>jsonDTOData</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerHandle</name></name> <operator>=</operator> <name>ownerHandle</name></expr>;</expr_stmt>
+
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<decl_stmt><decl><type><name>CommentDTO</name></type> <name>dto</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+			<try>try <block>{
+				<expr_stmt><expr><name>dto</name> <operator>=</operator> <operator>(</operator><name>CommentDTO</name><operator>)</operator><call><name><name>DTO</name><operator>.</operator><name>read</name></name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><name><name>CommentDTO</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><operator>new</operator> <call><name>Comment</name><argument_list>(<argument><expr><name><name>dto</name><operator>.</operator><name>text</name></name></expr></argument>, <argument><expr><name><name>dto</name><operator>.</operator><name>questionId</name></name></expr></argument>, <argument><expr><name><name>dto</name><operator>.</operator><name>answerId</name></name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>, <argument><expr><name>workerHandle</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// TODO Auto-generated catch block</comment>
+				<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></catch></try>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>UpdateQuestion</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>jsonDTO</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>UpdateQuestion</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>dto</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>jsonDTO</name></name> <operator>=</operator> <name>dto</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<decl_stmt><decl><type><name>Question</name></type> <name>question</name> <init>= <expr><operator>(</operator><name>Question</name><operator>)</operator> <name>questioning</name></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>QuestionDTO</name></type> <name>dto</name><init>=<expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+			<try>try <block>{
+				<expr_stmt><expr><name>dto</name> <operator>=</operator> <operator>(</operator><name>QuestionDTO</name><operator>)</operator> <call><name><name>DTO</name><operator>.</operator><name>read</name></name><argument_list>(<argument><expr><name>jsonDTO</name></expr></argument>, <argument><expr><name><name>QuestionDTO</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>setTitle</name></name><argument_list>(<argument><expr><name><name>dto</name><operator>.</operator><name>title</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>setText</name></name><argument_list>(<argument><expr><name><name>dto</name><operator>.</operator><name>text</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>setTags</name></name><argument_list>(<argument><expr><name><name>dto</name><operator>.</operator><name>tags</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>save</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>storeVersionToFirebase</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// TODO Auto-generated catch block</comment>
+				<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></catch></try>
+
+		}</block></function>
+	}</block></class>
+
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>AddQuestionView</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>long</name></type> <name>questionId</name></decl>;</decl_stmt>		
+		<constructor><specifier>public</specifier> <name>AddQuestionView</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="number">0L</literal></expr></argument>,<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>questionId</name></name> <operator>=</operator> <name>questionId</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>HistoryLog</name><operator>.</operator><name>Init</name></name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>addEvent</name><argument_list>(<argument><expr><operator>new</operator> <call><name>QuestionViewed</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>,<argument><expr><name>workerId</name></expr></argument>,<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>IncrementQuestionAnswers</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<constructor><specifier>public</specifier> <name>IncrementQuestionAnswers</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>, <argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+			
+			<decl_stmt><decl><type><name>Question</name></type> <name>question</name> <init>= <expr><operator>(</operator><name>Question</name><operator>)</operator> <name>questioning</name></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>incrementAnswers</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>save</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>IncrementQuestionComments</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<constructor><specifier>public</specifier> <name>IncrementQuestionComments</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questionId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questionId</name></expr></argument>, <argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<decl_stmt><decl><type><name>Question</name></type> <name>question</name> <init>= <expr><operator>(</operator><name>Question</name><operator>)</operator> <name>questioning</name></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>incrementComments</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>save</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+	}</block></class>
+
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>Vote</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>remove</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>Vote</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>remove</name></name><operator>=</operator><name>remove</name></expr>;</expr_stmt>
+
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<if>if<condition>(<expr><name><name>this</name><operator>.</operator><name>remove</name></name></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>questioning</name><operator>.</operator><name>removeVote</name></name><argument_list>(<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+			<else>else
+				<block type="pseudo"><expr_stmt><expr><call><name><name>questioning</name><operator>.</operator><name>addVote</name></name><argument_list>(<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>Report</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>remove</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>Report</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>remove</name></name><operator>=</operator><name>remove</name></expr>;</expr_stmt>
+
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+
+			<if>if<condition>(<expr><name><name>this</name><operator>.</operator><name>remove</name></name></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>questioning</name><operator>.</operator><name>removeReport</name></name><argument_list>(<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+			<else>else
+				<block type="pseudo"><expr_stmt><expr><call><name><name>questioning</name><operator>.</operator><name>addReport</name></name><argument_list>(<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+
+		}</block></function>
+	}</block></class>
+
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>LinkArtifact</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>remove</name></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>artifactId</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>LinkArtifact</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>artifactId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactId</name></name> <operator>=</operator> <name>artifactId</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>remove</name></name>     <operator>=</operator> <name>remove</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+			<if>if<condition>(<expr><name><name>this</name><operator>.</operator><name>remove</name></name></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><operator>(</operator><operator>(</operator><name>Question</name><operator>)</operator><name>questioning</name><operator>)</operator><operator>.</operator><call><name>removeArtifactLink</name><argument_list>(<argument><expr><name>artifactId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+			<else>else
+				<block type="pseudo"><expr_stmt><expr><operator>(</operator><operator>(</operator><name>Question</name><operator>)</operator><name>questioning</name><operator>)</operator><operator>.</operator><call><name>addArtifactLink</name><argument_list>(<argument><expr><name>artifactId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>SubscribeWorker</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>remove</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>SubscribeWorker</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>remove</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>remove</name></name><operator>=</operator><name>remove</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+			<if>if<condition>(<expr><name><name>this</name><operator>.</operator><name>remove</name></name></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><operator>(</operator><operator>(</operator><name>Question</name><operator>)</operator><name>questioning</name><operator>)</operator><operator>.</operator><call><name>unsubscribeWorker</name><argument_list>(<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+			<else>else
+				<block type="pseudo"><expr_stmt><expr><operator>(</operator><operator>(</operator><name>Question</name><operator>)</operator><name>questioning</name><operator>)</operator><operator>.</operator><call><name>subscribeWorker</name><argument_list>(<argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+
+		}</block></function>
+	}</block></class>
+
+
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>NotifySubscribers</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>NotificationInFirebase</name></type> <name>notification</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>NotifySubscribers</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>NotificationInFirebase</name></type> <name>notification</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>notification</name></name> <operator>=</operator> <name>notification</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>questioning</name><operator>.</operator><name>notifySubscribers</name></name><argument_list>(<argument><expr><name>notification</name></expr></argument>, <argument><expr><name>workerId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+	}</block></class>
+
+	<class><specifier>protected</specifier> <specifier>static</specifier> class <name>SetClosed</name> <super><extends>extends <name>QuestioningCommand</name></extends></super> <block>{
+
+		<decl_stmt><decl><specifier>private</specifier> <type><name>boolean</name></type> <name>closed</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>SetClosed</name><parameter_list>(<parameter><decl><type><name>long</name></type> <name>questioningId</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>closed</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>questioningId</name></expr></argument>,<argument><expr><literal type="string">""</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>closed</name></name> <operator>=</operator> <name>closed</name></expr>;</expr_stmt>
+		}</block></constructor>
+
+		<function><specifier>public</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>Questioning</name></type> <name>questioning</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><name>Question</name></type> <name>question</name> <init>= <expr><operator>(</operator><name>Question</name><operator>)</operator> <name>questioning</name></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>question</name><operator>.</operator><name>setClosed</name></name><argument_list>(<argument><expr><name>closed</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></function>
+
+	}</block></class>
+
+}</block></class>
+</unit>
+
+</unit>

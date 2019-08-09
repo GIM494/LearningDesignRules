@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5">
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/ArtifactCreated.java" hash="c854cf5579bd91d40184b2aa05642f3c7bceba45"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ArtifactCreated</name> <super><extends>extends <name>HistoryEvent</name></extends></super>
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"artifact.created"</literal></expr></init></decl>;</decl_stmt>
+
+	<constructor><specifier>public</specifier> <name>ArtifactCreated</name><parameter_list>( <parameter><decl><type><name>Artifact</name></type> <name>artifact</name></decl></parameter> )</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>setArtifact</name></name><argument_list>(<argument><expr><name>artifact</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getEventType</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><name>eventType</name></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MessageReceived.java" hash="20acd86f50ac9f9c0f3bbdf9f1de0ae973149bcb"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MessageReceived</name> <super><extends>extends <name>HistoryEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"message.received"</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>messageType</name></decl>;</decl_stmt>		<comment type="line">// { AddCall, PassedTests, FailedTests } </comment>
+	
+	<constructor><specifier>public</specifier> <name>MessageReceived</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>messageType</name></decl></parameter>, <parameter><decl><type><name>Artifact</name></type> <name>artifact</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>setArtifact</name></name><argument_list>(<argument><expr><name>artifact</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>messageType</name></name> <operator>=</operator> <name>messageType</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/HistoryEventGroup.java" hash="be3a1360e12edb784525511d7fc47db0d514f199"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>DTO</name></name>;</import>
+
+<comment type="block">/* A HistoryEvent captures a CrowdCoding event that is logged into the history stream.
+ */</comment>
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>HistoryEventGroup</name> <super><extends>extends <name>DTO</name></extends></super>
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name><name>List</name><argument_list type="generic">&lt;<argument><name>HistoryEvent</name></argument>&gt;</argument_list></name></type> <name>events</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;<argument><name>HistoryEvent</name></argument>&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+	<constructor><specifier>public</specifier> <name>HistoryEventGroup</name><parameter_list>()</parameter_list>
+	<block>{
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>addEvent</name><parameter_list>(<parameter><decl><type><name>HistoryEvent</name></type> <name>event</name></decl></parameter>)</parameter_list><block>{
+		<expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>events</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>event</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>toString</name><parameter_list>()</parameter_list>
+	<block>{
+		<decl_stmt><decl><type><name>String</name></type> <name>ret</name> <init>= <expr><literal type="string">""</literal></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>Integer</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+		<for>for<control>( <init><decl><type><name>HistoryEvent</name></type> <name>event</name><range>:<expr><name><name>this</name><operator>.</operator><name>events</name></name></expr></range></decl></init> )</control><block>{
+			<expr_stmt><expr><name>ret</name> <operator>+=</operator> <literal type="string">"\""</literal><operator>+</operator><call><name><name>event</name><operator>.</operator><name>generateID</name></name><argument_list>()</argument_list></call><operator>+</operator><literal type="string">"\":"</literal> <operator>+</operator> <call><name><name>event</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr> ;</expr_stmt>
+			<if>if<condition>( <expr><operator>++</operator><name>i</name> <operator>&lt;</operator> <call><name><name>this</name><operator>.</operator><name>events</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr> )</condition><then>
+				<block type="pseudo"><expr_stmt><expr><name>ret</name> <operator>+=</operator> <literal type="string">","</literal></expr>;</expr_stmt></block></then></if>
+		}</block></for>
+		<expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"Events obj = "</literal><operator>+</operator><name>ret</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><literal type="string">"{"</literal> <operator>+</operator> <literal type="string">"}"</literal></expr>;</return>
+	}</block></function>
+
+
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/HistoryEvent.java" hash="c92e71aebede641d55d53c1a8d4db1dcabd7393a"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Date</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>DTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+
+<comment type="block">/* A HistoryEvent captures a CrowdCoding event that is logged into the history stream.
+ */</comment>
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>HistoryEvent</name> <super><extends>extends <name>DTO</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>parentID</name></decl>;</decl_stmt>			<comment type="line">// ID of the parent. Null if there is no parent.</comment>
+	
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>artifactType</name></decl>;</decl_stmt>     <comment type="line">// { Entrypoint, Function, UserStory, Test } </comment>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>artifactID</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>artifactName</name></decl>;</decl_stmt>		<comment type="line">// may be empty for artifacts with no name</comment>
+	
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>timestamp</name></decl>;</decl_stmt>		<comment type="line">// timestamp of the event to the nearest second</comment>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>timeInMillis</name></decl>;</decl_stmt>		<comment type="line">// more accurate timestamp, formatted as milliseconds since Jan 1, 1970</comment>
+	
+	<constructor><specifier>public</specifier> <name>HistoryEvent</name><parameter_list>()</parameter_list>
+	<block>{	
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactID</name></name>   <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactType</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactName</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		
+		<decl_stmt><decl><type><name>Date</name></type> <name>currentTime</name> <init>= <expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>		
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>timestamp</name></name>    <operator>=</operator> <call><name><name>currentTime</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>timeInMillis</name></name> <operator>=</operator> <call><name><name>Long</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>currentTimeMillis</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>		
+	}</block></constructor>
+	
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>setArtifact</name><parameter_list>(<parameter><decl><type><name>Artifact</name></type> <name>artifact</name></decl></parameter>)</parameter_list><block>{
+		<if>if <condition>(<expr><name>artifact</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+		<block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactID</name></name>   <operator>=</operator> <call><name><name>Long</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><call><name><name>artifact</name><operator>.</operator><name>getId</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactType</name></name> <operator>=</operator> <call><name><name>artifact</name><operator>.</operator><name>getArtifactType</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactName</name></name> <operator>=</operator> <call><name><name>artifact</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+	}</block></function>
+	
+	<comment type="line">// Generates the unique ID for this history event.</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>generateID</name><parameter_list>()</parameter_list>
+	<block>{
+		<comment type="line">// Concatenate timeInMillis with the artifact type and ID. The goal is to have an id</comment>
+		<comment type="line">// that is highly likely to be globally unique across the entire project. As long as there are not</comment>
+		<comment type="line">// multiple changes to the same artifact within a single millisecond, this is true.</comment>
+		<return>return <expr><name>timeInMillis</name> <operator>+</operator> <literal type="string">"-"</literal> <operator>+</operator> <name>artifactType</name> <operator>+</operator> <literal type="string">"-"</literal><operator>+</operator> <name>artifactID</name></expr>;</return>		
+	}</block></function>
+	
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getEventType</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><literal type="string">""</literal></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/HistoryLog.java" hash="a1d98d77084b5f91f09f59f07f326db70e203173"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Iterator</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>LinkedList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Stack</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>concurrent</name><operator>.</operator><name>ConcurrentLinkedQueue</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>logging</name><operator>.</operator><name>Logger</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>servlets</name><operator>.</operator><name>ThreadContext</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>FirebaseService</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>Pair</name></name>;</import>
+
+<comment type="block">/* HistoryLogs capture the events that occur during a session. As they only persist for the life
+ * of a session, they are not stored in the DataStore. A HistoryLog consists of a tree of events.
+ * Calling beginEvent begins a list of entries that are the child of the previously active entry.
+ *
+ * Note: there must be a single root event. All events may have multiple children.
+ */</comment>
+<class><specifier>public</specifier> class <name>HistoryLog</name>
+<block>{
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><name>HistoryLog</name></type> <name>historyLog</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>String</name></type> <name>projectId</name> <init>= <expr><literal type="string">""</literal></expr></init></decl>;</decl_stmt>
+
+	<constructor><specifier>public</specifier> <name>HistoryLog</name><parameter_list>()</parameter_list><block>{
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>HistoryLog</name></type> <name>Init</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list><block>{
+		<if>if<condition>( <expr><name>historyLog</name> <operator>==</operator> <literal type="null">null</literal> <operator>||</operator> <name><name>historyLog</name><operator>.</operator><name>projectId</name></name><operator>!=</operator><name>projectId</name></expr> )</condition><then><block>{
+			<expr_stmt><expr><name>historyLog</name> <operator>=</operator> <operator>new</operator> <call><name>HistoryLog</name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+		<return>return <expr><name>historyLog</name></expr>;</return>
+	}</block></function>
+
+	<constructor><specifier>public</specifier> <name>HistoryLog</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>projectId</name></name> <operator>=</operator> <name>projectId</name></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>addEvent</name><parameter_list>(<parameter><decl><type><name>HistoryEvent</name></type> <name>event</name></decl></parameter>)</parameter_list><block>{
+	    <expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeHistoryEvent</name></name><argument_list>(<argument><expr><name>event</name></expr></argument>,<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<class><specifier>public</specifier> class <name>EventNode</name>
+	<block>{
+		<decl_stmt><decl><specifier>public</specifier> <type><name><name>List</name><argument_list type="generic">&lt;<argument><name>EventNode</name></argument>&gt;</argument_list></name></type> <name>children</name> <init>= <expr><operator>new</operator> <call><name><name>ArrayList</name><argument_list type="generic">&lt;<argument><name>EventNode</name></argument>&gt;</argument_list></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><specifier>public</specifier> <type><name>HistoryEvent</name></type> <name>event</name></decl>;</decl_stmt>
+
+		<constructor><specifier>public</specifier> <name>EventNode</name><parameter_list>(<parameter><decl><type><name>HistoryEvent</name></type> <name>event</name></decl></parameter>)</parameter_list>
+		<block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>event</name></name> <operator>=</operator> <name>event</name></expr>;</expr_stmt>
+		}</block></constructor>
+	}</block></class>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskAccepted.java" hash="c771a8c0d4583b287ea76e55c8602de191e888a8"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskAccepted</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskAccepted</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>reviewerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"accepted"</literal></expr></argument>, <argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name>    <operator>=</operator> <name>reviewerID</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskAssigned.java" hash="d3b8d717acc000ed386aa8c60649af8275cf7743"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskAssigned</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskAssigned</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>type</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>type</name></expr></argument>,<argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name> <operator>=</operator> <name>workerID</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskDequeued.java" hash="2364c8b9559d251807a92f89df9d810d582fe12e"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskDequeued</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{	
+	<constructor><specifier>public</specifier> <name>MicrotaskDequeued</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"dequeued"</literal></expr></argument>, <argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskDequeuedFromWorkerQueue.java" hash="16d8900d5bc429d7d46acc68cadc908cbe1602cd"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskDequeuedFromWorkerQueue</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super>
+<block>{
+	<constructor><specifier>public</specifier> <name>MicrotaskDequeuedFromWorkerQueue</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"dequeuedFromWorkerQueue"</literal></expr></argument>, <argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskEvent.java" hash="b20a98e469a9cf8dd49159d4c76353f45e7cce6b"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskEvent</name> <super><extends>extends <name>HistoryEvent</name></extends></super>
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"microtask"</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>microtaskType</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>microtaskKey</name></decl>;</decl_stmt>
+
+	<constructor><specifier>public</specifier> <name>MicrotaskEvent</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>eventType</name></decl></parameter>, <parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<if>if<condition>(<expr><name>microtask</name><operator>!=</operator><literal type="null">null</literal></expr>)</condition><then>
+		<block>{
+			<expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>setArtifact</name></name><argument_list>(<argument><expr><call><name><name>microtask</name><operator>.</operator><name>getOwningArtifact</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>eventType</name></name>     <operator>+=</operator> <literal type="string">"."</literal> <operator>+</operator> <name>eventType</name></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>microtaskType</name></name> <operator>=</operator> <call><name><name>microtask</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>microtaskKey</name></name>  <operator>=</operator> <call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>microtask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getEventType</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><name>eventType</name></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskQueued.java" hash="2b385a6e02129a0d725d174ff5292ea0a1be0215"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskQueued</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{	
+	<constructor><specifier>public</specifier> <name>MicrotaskQueued</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"queued"</literal></expr></argument>, <argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskReissued.java" hash="29280f4a7f5fc8bcbac0e1a6608d70894770af16"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskReissued</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskReissued</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>reviewerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"reissued"</literal></expr></argument>, <argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name>    <operator>=</operator> <name>reviewerID</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskRejected.java" hash="ab3b2883b1384f5f9dc8f6550052e5d4baa60b57"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskRejected</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskRejected</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>reviewerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"rejected"</literal></expr></argument>,<argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name> <operator>=</operator> <name>reviewerID</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskSkipped.java" hash="8b14eb8e434ae6034555af74a4df87518380c285"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskSkipped</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super>
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskSkipped</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"skipped"</literal></expr></argument>,<argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name> <operator>=</operator> <name>workerID</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskSpawned.java" hash="dc6410d982f8adbf057e5ef0da33118d9d351282"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskSpawned</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"microtask.spawned"</literal></expr></init></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskSpawned</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"spawned"</literal></expr></argument>,<argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskSubmitted.java" hash="f0493f9b8d74df01a28312880e89176b34bc0e1c"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskSubmitted</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>timeWorkedOn</name></decl>;</decl_stmt>		<comment type="line">// in milliseconds</comment>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskSubmitted</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"submitted"</literal></expr></argument>,<argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name> <operator>=</operator> <name>workerID</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>timeWorkedOn</name></name> <operator>=</operator> <call><name><name>Long</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>currentTimeMillis</name></name><argument_list>()</argument_list></call> <operator>-</operator> <call><name><name>microtask</name><operator>.</operator><name>assignmentTimeInMillis</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/MicrotaskUnassigned.java" hash="0a98e8f68f476b97715bde492eb5a39957903db2"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>Microtask</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>MicrotaskUnassigned</name> <super><extends>extends <name>MicrotaskEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerID</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>MicrotaskUnassigned</name><parameter_list>(<parameter><decl><type><name>Microtask</name></type> <name>microtask</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><literal type="string">"unassigned"</literal></expr></argument>,<argument><expr><name>microtask</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerID</name></name> <operator>=</operator> <name>workerID</name></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/ProjectCreated.java" hash="95da3c7255d03b8d8f6ed888e7ae0a053fb878b6"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>Project</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>ProjectCreated</name> <super><extends>extends <name>HistoryEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"project.create"</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>projectID</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>ProjectCreated</name><parameter_list>(<parameter><decl><type><name>Project</name></type> <name>project</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>projectID</name></name> <operator>=</operator> <call><name><name>project</name><operator>.</operator><name>getID</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/PropertyChange.java" hash="1c6551cc797c6389fc1edb64d9e6d8f5ed5a7d59"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+
+<class><specifier>public</specifier> class <name>PropertyChange</name> <super><extends>extends <name>HistoryEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"artifact.property.change"</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>propertyName</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>propertyValue</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>PropertyChange</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>propertyName</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>propertyValue</name></decl></parameter>, <parameter><decl><type><name>Artifact</name></type> <name>artifact</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>this</name><operator>.</operator><name>setArtifact</name></name><argument_list>(<argument><expr><name>artifact</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>propertyName</name></name> <operator>=</operator> <name>propertyName</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>propertyValue</name></name> <operator>=</operator> <name>propertyValue</name></expr>;</expr_stmt>		
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getEventType</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><name>eventType</name></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his peripheral/QuestionViewed.java" hash="9c9efc422b2b2d3e5750c56f2d588e0e0313c6f2"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+
+<class><specifier>public</specifier> class <name>QuestionViewed</name> <super><extends>extends <name>HistoryEvent</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>eventType</name> <init>= <expr><literal type="string">"question.viewed"</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>projectId</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>questionId</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>workerId</name></decl>;</decl_stmt>
+	
+	<constructor><specifier>public</specifier> <name>QuestionViewed</name><parameter_list>(<parameter><decl><type><name>Long</name></type> <name>questionId</name></decl></parameter>,<parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>,<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>projectId</name></name>  <operator>=</operator> <name>projectId</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>questionId</name></name> <operator>=</operator> <call><name><name>questionId</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerId</name></name>   <operator>=</operator> <name>workerId</name></expr>;</expr_stmt>
+		
+	}</block></constructor>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getEventType</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><name>eventType</name></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+</unit>
