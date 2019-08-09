@@ -1,0 +1,24 @@
+1 class defines constructor with no parameters
+2 class has non-empty-body constructor
+3 class has member field called parentID
+4 class has member field of type String
+5 class has member field parentID of type String
+6 class has member field called artifactType
+7 class has member field artifactType of type String
+8 class has member field called artifactID
+9 class has member field artifactID of type String
+10 class has member field called artifactName
+11 class has member field artifactName of type String
+12 class has member field called timestamp
+13 class has member field timestamp of type String
+14 class has member field called timeInMillis
+15 class has member field timeInMillis of type String
+16 class extends class DTO
+17 is public class
+18 has protected function setArtifact()
+19 setArtifact() function has parameter of type Artifact
+20 class has void function setArtifact()
+21 has public function generateID()
+22 generateID() function returns type String
+23 has public function getEventType()
+24 getEventType() function returns type String

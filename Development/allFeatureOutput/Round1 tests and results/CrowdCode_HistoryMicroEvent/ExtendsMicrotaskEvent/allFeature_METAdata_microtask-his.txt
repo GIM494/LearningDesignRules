@@ -1,0 +1,4 @@
+1 class defines constructor with parameter of type Microtask
+2 class has non-empty-body constructor
+3 class extends class MicrotaskEvent
+4 is public class

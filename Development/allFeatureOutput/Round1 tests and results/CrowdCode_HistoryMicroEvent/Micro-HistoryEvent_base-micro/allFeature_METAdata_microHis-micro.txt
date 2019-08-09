@@ -1,0 +1,14 @@
+1 class defines constructor with parameter of type String
+2 class defines constructor with parameter of type Microtask
+3 class has non-empty-body constructor
+4 class has member field called eventType
+5 class has member field of type String
+6 class has member field eventType of type String
+7 class has member field called microtaskType
+8 class has member field microtaskType of type String
+9 class has member field called microtaskKey
+10 class has member field microtaskKey of type String
+11 class extends class HistoryEvent
+12 is public class
+13 has public function getEventType()
+14 getEventType() function returns type String

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="Microtask.java"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>microtasks</name></name>;</package>
+
+<import>import static <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>ObjectifyService</name><operator>.</operator><name>ofy</name></name>;</import>
+
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>IOException</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>logging</name><operator>.</operator><name>Logger</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name><operator>.</operator><name>MicrotaskCommand</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name><operator>.</operator><name>ProjectCommand</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name><operator>.</operator><name>WorkerCommand</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>DTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>firebase</name><operator>.</operator><name>microtasks</name><operator>.</operator><name>*</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>Project</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>HistoryLog</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>MicrotaskSkipped</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name><operator>.</operator><name>MicrotaskSubmitted</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>util</name><operator>.</operator><name>FirebaseService</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>fasterxml</name><operator>.</operator><name>jackson</name><operator>.</operator><name>core</name><operator>.</operator><name>JsonParseException</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>fasterxml</name><operator>.</operator><name>jackson</name><operator>.</operator><name>databind</name><operator>.</operator><name>JsonMappingException</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>google</name><operator>.</operator><name>appengine</name><operator>.</operator><name>labs</name><operator>.</operator><name>repackaged</name><operator>.</operator><name>org</name><operator>.</operator><name>json</name><operator>.</operator><name>JSONArray</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>google</name><operator>.</operator><name>appengine</name><operator>.</operator><name>labs</name><operator>.</operator><name>repackaged</name><operator>.</operator><name>org</name><operator>.</operator><name>json</name><operator>.</operator><name>JSONException</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>google</name><operator>.</operator><name>appengine</name><operator>.</operator><name>labs</name><operator>.</operator><name>repackaged</name><operator>.</operator><name>org</name><operator>.</operator><name>json</name><operator>.</operator><name>JSONObject</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>Key</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>LoadResult</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>Ref</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Entity</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Id</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Index</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>googlecode</name><operator>.</operator><name>objectify</name><operator>.</operator><name>annotation</name><operator>.</operator><name>Parent</name></name>;</import>
+
+<comment type="block">/*
+ * NOTE: The Microtask class is abstract and SHOULD NOT be instantiated, except for internally inside objectify
+ * which needs to instantiate them to register subclasses.
+ */</comment>
+<class><annotation>@<name>Entity</name></annotation>
+<specifier>public</specifier> <comment type="block">/*abstract*/</comment> class <name>Microtask</name>
+<block>{
+	<function><specifier>static</specifier> <specifier>public</specifier> <type><name>String</name></type> <name>keyToString</name><parameter_list>(<parameter><decl><type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>key</name></decl></parameter>)</parameter_list><block>{
+		<decl_stmt><decl><type><name>String</name></type> <name>keyString</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+		<if>if<condition>( <expr><name>key</name> <operator>!=</operator> <literal type="null">null</literal></expr> )</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>keyString</name> <operator>=</operator> <call><name><name>key</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getId</name><argument_list>()</argument_list></call><operator>+</operator><literal type="string">"-"</literal><operator>+</operator><call><name><name>key</name><operator>.</operator><name>getId</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<return>return <expr><name>keyString</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>static</specifier> <specifier>public</specifier> <type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>stringToKey</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>key</name></decl></parameter>)</parameter_list><block>{
+		<decl_stmt><decl><type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>keyObj</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+		<if>if<condition>( <expr><operator>!</operator><operator>(</operator> <name>key</name> <operator>==</operator> <literal type="null">null</literal> <operator>||</operator> <call><name><name>key</name><operator>.</operator><name>length</name></name><argument_list>()</argument_list></call> <operator>==</operator> <literal type="number">0</literal><operator>)</operator></expr> )</condition><then><block>{
+			<decl_stmt><decl><type><name><name>String</name><index>[]</index></name></type> <name>ids</name> <init>= <expr><call><name><name>key</name><operator>.</operator><name>split</name></name><argument_list>(<argument><expr><literal type="string">"-"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Artifact</name></argument>&gt;</argument_list></name></type> <name>parentKey</name> <init>= <expr><call><name><name>Key</name><operator>.</operator><name>create</name></name><argument_list>(<argument><expr><name><name>Artifact</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>Long</name><operator>.</operator><name>parseLong</name></name><argument_list>(<argument><expr><name><name>ids</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></argument> )</argument_list></call></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><name>keyObj</name> <operator>=</operator> <call><name><name>Key</name><operator>.</operator><name>create</name></name><argument_list>(<argument><expr><name>parentKey</name></expr></argument>,<argument><expr><name><name>Microtask</name><operator>.</operator><name>class</name></name></expr></argument>, <argument><expr><call><name><name>Long</name><operator>.</operator><name>parseLong</name></name><argument_list>(<argument><expr><name><name>ids</name><index>[<expr><literal type="number">1</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+		<return>return <expr><name>keyObj</name></expr>;</return>
+	}</block></function>
+
+	<decl_stmt><decl><specifier>static</specifier> <specifier>protected</specifier> <type><name>int</name></type> <name>DEFAULT_SUBMIT_VALUE</name> <init>= <expr><literal type="number">10</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><annotation>@<name>Id</name></annotation> <specifier>protected</specifier> <type><name>Long</name></type> <name>id</name></decl>;</decl_stmt>
+	<decl_stmt><decl><annotation>@<name>Index</name></annotation> <type><name>String</name></type> <name>projectId</name></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>boolean</name></type> <name>assigned</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>boolean</name></type> <name>completed</name> <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>boolean</name></type> <name>queued</name>    <init>= <expr><literal type="boolean">false</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>String</name></type> <name>reissuedFrom</name> <init>= <expr><literal type="string">""</literal></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>int</name></type> <name>submitValue</name> <init>= <expr><name>DEFAULT_SUBMIT_VALUE</name></expr></init></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>long</name></type> <name>assignmentTimeInMillis</name></decl>;</decl_stmt>	<comment type="line">// time when worker is assigned microtask, in milliseconds</comment>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>String</name></type> <name>workerId</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>protected</specifier> <type><name>Long</name></type> <name>functionId</name></decl>;</decl_stmt>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getWorkerId</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><name>workerId</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>Long</name></type> <name>getFunctionId</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><name>functionId</name></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>setWorkerId</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerId</name></name> <operator>=</operator> <name>workerId</name></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>save</name><argument_list>()</argument_list></call><operator>.</operator><call><name>entity</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="line">// Default constructor for deserialization</comment>
+	<constructor><specifier>protected</specifier> <name>Microtask</name><parameter_list>()</parameter_list>
+	<block>{
+	}</block></constructor>
+
+	<comment type="line">// Constructor for initialization. Microtask is set as ready.</comment>
+	<constructor><specifier>protected</specifier> <name>Microtask</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>, <parameter><decl><type><name>Long</name></type> <name>functionId</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerId</name></name><operator>=</operator><literal type="null">null</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>projectId</name></name> <operator>=</operator> <name>projectId</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>projectId</name></name>  <operator>=</operator> <name>projectId</name></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>functionId</name></name> <operator>=</operator> <name>functionId</name></expr>;</expr_stmt>
+
+	}</block></constructor>
+
+	<comment type="line">// Creates a copy of this microtask, identical in all respects except with a new microtaskID</comment>
+	<comment type="line">// and with a reset completed and assignmentTime. The microtask is NOT queued onto the project work queue.</comment>
+	<comment type="line">// This method MUST be overridden in the subclass</comment>
+	<function><specifier>public</specifier> <type><name>Microtask</name></type> <name>copy</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"COPYING TASK "</literal><operator>+</operator><name>this</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<comment type="line">// Override this method to allow the microtask to decide, right before it is assigned,</comment>
+	<comment type="line">// if it is still needed</comment>
+	<function><specifier>protected</specifier> <type><name>boolean</name></type> <name>isStillNeeded</name><parameter_list>(<parameter><decl><type><name>Project</name></type> <name>project</name></decl></parameter>)</parameter_list> <block>{ <return>return <expr><literal type="boolean">true</literal></expr>;</return> }</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>submit</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>,<parameter><decl><type><name>int</name></type> <name>awardedPoint</name></decl></parameter>)</parameter_list>
+	<block>{
+		<comment type="line">// If this microtask has already been completed, drop it, and clear the worker from the microtask</comment>
+		<comment type="line">// TODO: move this check to the project, as this check will be too late for work creating review microtasks.</comment>
+		<if>if <condition>(<expr><name><name>this</name><operator>.</operator><name>completed</name></name></expr>)</condition><then><block>{
+			<return>return;</return>
+		}</block></then></if>
+
+		<try>try <block>{
+			<decl_stmt><decl><type><name>DTO</name></type> <name>dto</name> <init>= <expr><call><name><name>DTO</name><operator>.</operator><name>read</name></name><argument_list>(<argument><expr><name>jsonDTOData</name></expr></argument>, <argument><expr><call><name>getDTOClass</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+			<expr_stmt><expr><call><name>doSubmitWork</name><argument_list>(<argument><expr><name>dto</name></expr></argument>, <argument><expr><name>workerID</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>completed</name></name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>save</name><argument_list>()</argument_list></call><operator>.</operator><call><name>entity</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+			<comment type="line">// increase the stats counter</comment>
+			<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>increaseStat</name></name><argument_list>(<argument><expr><name>workerID</name></expr></argument>, <argument><expr><literal type="string">"microtasks"</literal></expr></argument>,<argument><expr><literal type="number">1</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>awardPoints</name></name><argument_list>(<argument><expr><name>workerID</name></expr></argument>, <argument><expr><name>awardedPoint</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<comment type="line">// write completed on firebase</comment>
+			<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeMicrotaskCompleted</name></name><argument_list>( <argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>workerID</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>completed</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		}</block> <catch>catch<parameter_list>( <parameter><decl><type><name>JsonParseException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></catch> <catch>catch<parameter_list>( <parameter><decl><type><name>JsonMappingException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></catch> <catch>catch <parameter_list>(<parameter><decl><type><name>IOException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></catch></try>
+
+
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>revise</name> <parameter_list>(<parameter><decl><type><name>String</name></type> <name>jsonDTOData</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>excludedWorkerID</name></decl></parameter>,<parameter><decl><type><name>int</name></type> <name>awardedPoint</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>reissueMotivation</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>
+	<block>{
+		<comment type="line">// If this microtask has already been completed, drop it, and clear the worker from the microtask</comment>
+		<comment type="line">// TODO: move this check to the project, as this check will be too late for work creating review microtasks.</comment>
+		<if>if <condition>(<expr><name><name>this</name><operator>.</operator><name>completed</name></name></expr>)</condition><then><block>{
+			<expr_stmt><expr><call><name><name>Logger</name><operator>.</operator><name>getLogger</name></name><argument_list>(<argument><expr><literal type="string">"LOGGER"</literal></expr></argument>)</argument_list></call><operator>.</operator><call><name>severe</name><argument_list>(<argument><expr><literal type="string">"MICROTASK ALREADY COMPLETED: "</literal><operator>+</operator><call><name><name>this</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<return>return;</return>
+		}</block></then></if>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>completed</name></name> <operator>=</operator> <literal type="boolean">true</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>save</name><argument_list>()</argument_list></call><operator>.</operator><call><name>entity</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+		<comment type="line">//copy the microtask</comment>
+		<decl_stmt><decl><type><name>Microtask</name></type> <name>newMicrotask</name> <init>= <expr><call><name><name>this</name><operator>.</operator><name>copy</name></name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>a</name> <init>= <expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>save</name><argument_list>()</argument_list></call><operator>.</operator><call><name>entity</name><argument_list>(<argument><expr><name>newMicrotask</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>String</name></type> <name>microtaskKey</name> <init>= <expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>newMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<decl_stmt><decl><type><name>String</name></type> <name>reissuedFromMicrotaskKey</name> <init>= <expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<comment type="line">//enqueu the microtask</comment>
+		<expr_stmt><expr><call><name><name>ProjectCommand</name><operator>.</operator><name>queueMicrotask</name></name><argument_list>(<argument><expr><call><name><name>newMicrotask</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>excludedWorkerID</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>WorkerCommand</name><operator>.</operator><name>awardPoints</name></name><argument_list>( <argument><expr><name>excludedWorkerID</name></expr></argument> ,<argument><expr><name>awardedPoint</name></expr></argument> )</argument_list></call></expr>;</expr_stmt>
+
+		<comment type="line">//write the reissue field on the new microtask</comment>
+		<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeMicrotaskReissuedFrom</name></name><argument_list>(<argument><expr><name>microtaskKey</name></expr></argument>, <argument><expr><operator>new</operator> <call><name>ReissueInFirebase</name><argument_list>(<argument><expr><name>reissuedFromMicrotaskKey</name></expr></argument>, <argument><expr><name>reissueMotivation</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>jsonDTOData</name></expr></argument>,  <argument><expr><name>projectId</name></expr></argument> )</argument_list></call></expr>;</expr_stmt>
+		<comment type="line">// write completed on firebase</comment>
+		<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeMicrotaskCompleted</name></name><argument_list>( <argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>excludedWorkerID</name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>completed</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>skip</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>disablePoint</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>
+	<block>{
+		<if>if<condition>(<expr><operator>!</operator> <name>disablePoint</name></expr>)</condition><then><block>{
+		<comment type="line">// Increment the point value by 10</comment>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>submitValue</name></name> <operator>*=</operator> <literal type="number">1.2</literal></expr>;</expr_stmt>
+		}</block></then></if>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>workerId</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>save</name><argument_list>()</argument_list></call><operator>.</operator><call><name>entity</name><argument_list>(<argument><expr><name>this</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>now</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>FirebaseService</name><operator>.</operator><name>writeMicrotaskPoints</name></name><argument_list>(<argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>submitValue</name></name></expr></argument>, <argument><expr><name>projectId</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>HistoryLog</name><operator>.</operator><name>Init</name></name><argument_list>(<argument><expr><name>projectId</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>addEvent</name><argument_list>(<argument><expr><operator>new</operator> <call><name>MicrotaskSkipped</name><argument_list>(<argument><expr><name>this</name></expr></argument>, <argument><expr><name>workerID</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+
+	<function><specifier>public</specifier> <type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>getKey</name><parameter_list>()</parameter_list>
+	<block>{
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>long</name></type> <name>getID</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><name>id</name></expr>;</return>
+	}</block></function>
+
+	<comment type="line">// returns the relative path to the UI for this microtask</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getUIURL</name><parameter_list>()</parameter_list> <block>{ <return>return <expr><literal type="string">""</literal></expr>;</return> }</block></function>
+
+	<comment type="line">// This method MUST be overridden in the subclass to do submit work.</comment>
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>doSubmitWork</name><parameter_list>(<parameter><decl><type><name>DTO</name></type> <name>dto</name></decl></parameter>, <parameter><decl><type><name>String</name></type> <name>workerID</name></decl></parameter>)</parameter_list>
+	<block>{
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<comment type="line">// This method MUST be overridden in the subclass</comment>
+	<function><specifier>protected</specifier> <type><name>Class</name></type> <name>getDTOClass</name><parameter_list>()</parameter_list>
+	<block>{
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<comment type="line">// This method MUST be overridden in the subclass to provide the owning artifact.</comment>
+	<comment type="line">// The owning artifact is the artifact that will be modified by this microtask. If multiple artifacts</comment>
+	<comment type="line">// may be modified, the owning artifact is null.</comment>
+	<function><specifier>public</specifier> <type><name>Artifact</name></type> <name>getOwningArtifact</name><parameter_list>()</parameter_list>
+	<block>{
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<comment type="line">// This method MUST be overridden in the subclass to provide the name of the microtask.</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>microtaskTitle</name><parameter_list>()</parameter_list>
+	<block>{
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<comment type="line">// This method MUST be overridden in the subclass to provide the name of the microtask.</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>microtaskDescription</name><parameter_list>()</parameter_list>
+	<block>{
+		<throw>throw <expr><operator>new</operator> <call><name>RuntimeException</name><argument_list>(<argument><expr><literal type="string">"Error - must implement in subclass!"</literal></expr></argument>)</argument_list></call></expr>;</throw>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>microtaskName</name><parameter_list>()</parameter_list>
+	<block>{
+		<comment type="line">// Get the name of the runtime microtask instance (e.g., ReuseSearch)</comment>
+		<return>return <expr><call><name><name>this</name><operator>.</operator><name>getClass</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getSimpleName</name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>long</name></type> <name>assignmentTimeInMillis</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><name>assignmentTimeInMillis</name></expr>;</return>
+	}</block></function>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>setReissuedFrom</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>microtaskKey</name></decl></parameter>)</parameter_list>
+	<block>{
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>reissuedFrom</name></name><operator>=</operator><name>microtaskKey</name></expr>;</expr_stmt>
+	}</block></function>
+	<function><specifier>public</specifier> <type><name>int</name></type> <name>getSubmitValue</name><parameter_list>()</parameter_list>
+	<block>{
+		<return>return <expr><name>submitValue</name></expr>;</return>
+	}</block></function>
+
+	<comment type="line">// Should only be called from within the entity group of the owning artifact</comment>
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name><name>LoadResult</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>find</name><parameter_list>(<parameter><decl><type><name><name>Key</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name></type> <name>microtaskKey</name></decl></parameter>)</parameter_list>
+	<block>{
+		<return>return <expr><operator>(</operator><name><name>LoadResult</name><argument_list type="generic">&lt;<argument><name>Microtask</name></argument>&gt;</argument_list></name><operator>)</operator> <call><name>ofy</name><argument_list>()</argument_list></call><operator>.</operator><call><name>load</name><argument_list>()</argument_list></call><operator>.</operator><call><name>key</name><argument_list>(<argument><expr><name>microtaskKey</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>toJSON</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><call><name>toJSON</name><argument_list>(<argument><expr><operator>new</operator> <call><name>JSONObject</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>toJSON</name><parameter_list>(<parameter><decl><type><name>JSONObject</name></type> <name>json</name></decl></parameter>)</parameter_list><block>{
+		<try>try <block>{
+			<expr_stmt><expr><call><name><name>json</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"key"</literal></expr></argument>, <argument><expr><call><name><name>Microtask</name><operator>.</operator><name>keyToString</name></name><argument_list>(<argument><expr><call><name><name>this</name><operator>.</operator><name>getKey</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>json</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"id"</literal></expr></argument>, <argument><expr><name><name>this</name><operator>.</operator><name>id</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>json</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"type"</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>microtaskName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>json</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"description"</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>microtaskDescription</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>json</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"title"</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>microtaskTitle</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>json</name><operator>.</operator><name>put</name></name><argument_list>(<argument><expr><literal type="string">"submitValue"</literal></expr></argument>, <argument><expr><call><name><name>this</name><operator>.</operator><name>getSubmitValue</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>JSONException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+			<comment type="line">// TODO Auto-generated catch block</comment>
+			<expr_stmt><expr><call><name><name>e</name><operator>.</operator><name>printStackTrace</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></catch></try>
+		<return>return <expr><call><name><name>json</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>boolean</name></type> <name>isAssignedTo</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>workerId</name></decl></parameter>)</parameter_list><block>{
+		<if>if<condition>(<expr><call><name><name>this</name><operator>.</operator><name>getWorkerId</name></name><argument_list>()</argument_list></call><operator>!=</operator><literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>this</name><operator>.</operator><name>getWorkerId</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr>)</condition><then>
+			<block type="pseudo"><return>return <expr><literal type="boolean">true</literal></expr>;</return></block></then></if>
+
+		<decl_stmt><decl><type><name>boolean</name></type> <name>isAssigned</name><init>= <expr><call><name><name>this</name><operator>.</operator><name>getWorkerId</name></name><argument_list>()</argument_list></call> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>this</name><operator>.</operator><name>getWorkerId</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>( <argument><expr><name>workerId</name></expr></argument> )</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<return>return <expr><name>isAssigned</name></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>

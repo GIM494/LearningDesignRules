@@ -1,0 +1,40 @@
+SETTINGS
+--------
+File name                = /Users/csdept/Documents/allFeatureOutput/CrowdCode_HistoryMicroEvent/ExtendsMicrotaskEvent/attributeEncoding_result_microtask-his.txt
+Support (default 20%)    = 6.0
+Confidence (default 80%) = 80.0
+
+Reading input file: /Users/csdept/Documents/allFeatureOutput/CrowdCode_HistoryMicroEvent/ExtendsMicrotaskEvent/attributeEncoding_result_microtask-his.txt
+Number of records = 1
+Number of columns = 4
+Min support       = 0.06 (records)
+Generation time = 0.0 seconds (0.0 mins)
+FP tree storage = 98 (bytes)
+FP tree updates = 0
+FP tree nodes   = 4
+FP TREE
+(1) 1:1 (ref to null)
+(1.1) 2:1 (ref to null)
+(1.1.1) 4:1 (ref to null)
+
+Mining FP-tree
+GENERATE ARs:
+-------------
+Generation time = 0.0 seconds (0.0 mins)
+T-tree Storage          = 100 (Bytes)
+Number of frequent sets = 7
+
+ASSOCIATION RULES
+=================
+(1)  {1}  ->  {2}  100.0%
+(2)  {2}  ->  {1}  100.0%
+(3)  {1}  ->  {4}  100.0%
+(4)  {4}  ->  {1}  100.0%
+(5)  {2}  ->  {4}  100.0%
+(6)  {4}  ->  {2}  100.0%
+(7)  {1}  ->  {2 4}  100.0%
+(8)  {1 2}  ->  {4}  100.0%
+(9)  {1 4}  ->  {2}  100.0%
+(10)  {2}  ->  {1 4}  100.0%
+(11)  {2 4}  ->  {1}  100.0%
+(12)  {4}  ->  {1 2}  100.0%

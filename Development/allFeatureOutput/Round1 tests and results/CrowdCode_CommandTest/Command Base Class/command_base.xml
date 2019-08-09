@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="Command.java"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>commands</name></name>;</package>
+
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>Command</name> <block>{
+	<function_decl><specifier>public</specifier> <specifier>abstract</specifier> <type><name>void</name></type> <name>execute</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>projectId</name></decl></parameter>)</parameter_list>;</function_decl>
+}</block></class>
+</unit>

@@ -1,0 +1,109 @@
+1 @Entity on class
+2 class defines constructor with no parameters
+3 class has non-empty-body constructor
+4 class has member field called DEFAULT_SUBMIT_VALUE
+5 class has member field of type int
+6 class has member field DEFAULT_SUBMIT_VALUE of type int
+7 class has member field called id
+8 class has member field called id with annotation @Id
+9 class has member field of type Long
+10 class has member field id of type Long
+11 class has member field called projectId
+12 class has member field called projectId with annotation @Index
+13 class has member field of type String
+14 class has member field projectId of type String
+15 class has member field called assigned
+16 class has member field of type boolean
+17 class has member field assigned of type boolean
+18 class has member field called completed
+19 class has member field completed of type boolean
+20 class has member field called queued
+21 class has member field queued of type boolean
+22 class has member field called reissuedFrom
+23 class has member field reissuedFrom of type String
+24 class has member field called submitValue
+25 class has member field submitValue of type int
+26 class has member field called assignmentTimeInMillis
+27 class has member field of type long
+28 class has member field assignmentTimeInMillis of type long
+29 class has member field called workerId
+30 class has member field workerId of type String
+31 class has member field called functionId
+32 class has member field functionId of type Long
+33 is public class
+34 has static function keyToString()
+35 keyToString() function has parameter of type Key
+36 keyToString() function returns type String
+37 has static function stringToKey()
+38 stringToKey() function has parameter of type String
+39 stringToKey() function returns type Key
+40 has public function getWorkerId()
+41 getWorkerId() function returns type String
+42 has public function getFunctionId()
+43 getFunctionId() function returns type Long
+44 has public function setWorkerId()
+45 setWorkerId() function has parameter of type String
+46 setWorkerId() function modifies member variablethis
+47 class has void function setWorkerId()
+48 has public function copy()
+49 copy() function has parameter of type String
+50 copy() function returns type Microtask
+51 has protected function isStillNeeded()
+52 isStillNeeded() function has parameter of type Project
+53 isStillNeeded() function returns type boolean
+54 has public function submit()
+55 submit() function has parameter of type String
+56 submit() function has parameter of type int
+57 class has void function submit()
+58 has public function revise()
+59 revise() function has parameter of type String
+60 revise() function has parameter of type int
+61 revise() function modifies member variablethis
+62 class has void function revise()
+63 has public function skip()
+64 skip() function has parameter of type String
+65 skip() function has parameter of type boolean
+66 skip() function modifies member variablethis
+67 class has void function skip()
+68 has public function getKey()
+69 getKey() function returns type Key
+70 has public function getID()
+71 getID() function returns type long
+72 has public function getUIURL()
+73 getUIURL() function returns type String
+74 has protected function doSubmitWork()
+75 doSubmitWork() function has parameter of type DTO
+76 doSubmitWork() function has parameter of type String
+77 class has void function doSubmitWork()
+78 has protected function getDTOClass()
+79 getDTOClass() function returns type Class
+80 has public function getOwningArtifact()
+81 getOwningArtifact() function returns type Artifact
+82 has public function microtaskTitle()
+83 microtaskTitle() function returns type String
+84 has public function microtaskDescription()
+85 microtaskDescription() function returns type String
+86 has public function microtaskName()
+87 microtaskName() function returns output from function call
+88 microtaskName() function returns type String
+89 has public function assignmentTimeInMillis()
+90 assignmentTimeInMillis() function returns type long
+91 has public function setReissuedFrom()
+92 setReissuedFrom() function has parameter of type String
+93 setReissuedFrom() function modifies member variablethis
+94 class has void function setReissuedFrom()
+95 has public function getSubmitValue()
+96 getSubmitValue() function returns type int
+97 has public function find()
+98 find() function returns output from function call
+99 find() function returns output from function call to ofy
+100 find() function has parameter of type Key
+101 find() function returns type LoadResult
+102 has public function toJSON()
+103 toJSON() function returns output from function call
+104 toJSON() function returns output from function call to toJSON
+105 toJSON() function returns type String
+106 toJSON() function has parameter of type JSONObject
+107 has public function isAssignedTo()
+108 isAssignedTo() function has parameter of type String
+109 isAssignedTo() function returns type boolean

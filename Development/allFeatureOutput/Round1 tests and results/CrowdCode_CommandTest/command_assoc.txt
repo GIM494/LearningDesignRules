@@ -1,0 +1,27 @@
+SETTINGS
+--------
+File name                = /Users/csdept/Documents/allFeatureOutput/CrowdCode_CommandTest/attributeEncoding_result_command.txt
+Support (default 20%)    = 6.0
+Confidence (default 80%) = 80.0
+
+Reading input file: /Users/csdept/Documents/allFeatureOutput/CrowdCode_CommandTest/attributeEncoding_result_command.txt
+Number of records = 1
+Number of columns = 2
+Min support       = 0.06 (records)
+Generation time = 0.0 seconds (0.0 mins)
+FP tree storage = 42 (bytes)
+FP tree updates = 0
+FP tree nodes   = 2
+FP TREE
+(1) 2:1 (ref to null)
+
+Mining FP-tree
+GENERATE ARs:
+-------------
+Generation time = 0.0 seconds (0.0 mins)
+T-tree Storage          = 16 (Bytes)
+Number of frequent sets = 1
+
+ASSOCIATION RULES
+=================
+No rules generated!

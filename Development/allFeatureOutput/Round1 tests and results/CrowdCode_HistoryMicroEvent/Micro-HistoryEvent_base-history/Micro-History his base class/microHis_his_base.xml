@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5">
+
+<unit revision="0.9.5" language="Java" filename="Micro-History his base class/HistoryEvent.java" hash="c92e71aebede641d55d53c1a8d4db1dcabd7393a"><package>package <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>history</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Date</name></name>;</import>
+
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>dto</name><operator>.</operator><name>DTO</name></name>;</import>
+<import>import <name><name>com</name><operator>.</operator><name>crowdcoding</name><operator>.</operator><name>entities</name><operator>.</operator><name>artifacts</name><operator>.</operator><name>Artifact</name></name>;</import>
+
+<comment type="block">/* A HistoryEvent captures a CrowdCoding event that is logged into the history stream.
+ */</comment>
+<class><specifier>public</specifier> <specifier>abstract</specifier> class <name>HistoryEvent</name> <super><extends>extends <name>DTO</name></extends></super> 
+<block>{
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>parentID</name></decl>;</decl_stmt>			<comment type="line">// ID of the parent. Null if there is no parent.</comment>
+	
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>artifactType</name></decl>;</decl_stmt>     <comment type="line">// { Entrypoint, Function, UserStory, Test } </comment>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>artifactID</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>artifactName</name></decl>;</decl_stmt>		<comment type="line">// may be empty for artifacts with no name</comment>
+	
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>timestamp</name></decl>;</decl_stmt>		<comment type="line">// timestamp of the event to the nearest second</comment>
+	<decl_stmt><decl><specifier>public</specifier> <type><name>String</name></type> <name>timeInMillis</name></decl>;</decl_stmt>		<comment type="line">// more accurate timestamp, formatted as milliseconds since Jan 1, 1970</comment>
+	
+	<constructor><specifier>public</specifier> <name>HistoryEvent</name><parameter_list>()</parameter_list>
+	<block>{	
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactID</name></name>   <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactType</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactName</name></name> <operator>=</operator> <literal type="string">""</literal></expr>;</expr_stmt>
+		
+		<decl_stmt><decl><type><name>Date</name></type> <name>currentTime</name> <init>= <expr><operator>new</operator> <call><name>Date</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>		
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>timestamp</name></name>    <operator>=</operator> <call><name><name>currentTime</name><operator>.</operator><name>toString</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>timeInMillis</name></name> <operator>=</operator> <call><name><name>Long</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><call><name><name>System</name><operator>.</operator><name>currentTimeMillis</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>		
+	}</block></constructor>
+	
+	<function><specifier>protected</specifier> <type><name>void</name></type> <name>setArtifact</name><parameter_list>(<parameter><decl><type><name>Artifact</name></type> <name>artifact</name></decl></parameter>)</parameter_list><block>{
+		<if>if <condition>(<expr><name>artifact</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+		<block>{
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactID</name></name>   <operator>=</operator> <call><name><name>Long</name><operator>.</operator><name>toString</name></name><argument_list>(<argument><expr><call><name><name>artifact</name><operator>.</operator><name>getId</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactType</name></name> <operator>=</operator> <call><name><name>artifact</name><operator>.</operator><name>getArtifactType</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><name><name>this</name><operator>.</operator><name>artifactName</name></name> <operator>=</operator> <call><name><name>artifact</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+	}</block></function>
+	
+	<comment type="line">// Generates the unique ID for this history event.</comment>
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>generateID</name><parameter_list>()</parameter_list>
+	<block>{
+		<comment type="line">// Concatenate timeInMillis with the artifact type and ID. The goal is to have an id</comment>
+		<comment type="line">// that is highly likely to be globally unique across the entire project. As long as there are not</comment>
+		<comment type="line">// multiple changes to the same artifact within a single millisecond, this is true.</comment>
+		<return>return <expr><name>timeInMillis</name> <operator>+</operator> <literal type="string">"-"</literal> <operator>+</operator> <name>artifactType</name> <operator>+</operator> <literal type="string">"-"</literal><operator>+</operator> <name>artifactID</name></expr>;</return>		
+	}</block></function>
+	
+	<function><specifier>public</specifier> <type><name>String</name></type> <name>getEventType</name><parameter_list>()</parameter_list><block>{
+		<return>return <expr><literal type="string">""</literal></expr>;</return>
+	}</block></function>
+}</block></class>
+</unit>
+
+</unit>

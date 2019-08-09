@@ -1,0 +1,2 @@
+1 class does not define constructor
+2 is public class
