@@ -1,0 +1,1557 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="ExtendedMarkersView.java"><comment type="block" format="javadoc">/*******************************************************************************
+ * Copyright (c) 2007 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ ******************************************************************************/</comment>
+
+<package>package <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>markers</name><operator>.</operator><name>compatibility</name><operator>.</operator><name>internal</name></name>;</package>
+
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>ArrayList</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Collection</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>HashSet</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Iterator</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>List</name></name>;</import>
+
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>IFile</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>IMarker</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>IResource</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>resources</name><operator>.</operator><name>mapping</name><operator>.</operator><name>ResourceMapping</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>CoreException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IAdaptable</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IAdapterFactory</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IProgressMonitor</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>IStatus</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Platform</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>Status</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>core</name><operator>.</operator><name>runtime</name><operator>.</operator><name>jobs</name><operator>.</operator><name>Job</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>action</name><operator>.</operator><name>ContributionManager</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>action</name><operator>.</operator><name>MenuManager</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>util</name><operator>.</operator><name>IPropertyChangeListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>util</name><operator>.</operator><name>OpenStrategy</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>util</name><operator>.</operator><name>PropertyChangeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>ColumnPixelData</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>EditingSupport</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>IOpenListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>ISelection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>IStructuredSelection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>ITreeContentProvider</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>OpenEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>StructuredSelection</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>TableLayout</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>TreeViewer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>TreeViewerColumn</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>viewers</name><operator>.</operator><name>Viewer</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>window</name><operator>.</operator><name>SameShellProvider</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>jface</name><operator>.</operator><name>window</name><operator>.</operator><name>Window</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>osgi</name><operator>.</operator><name>util</name><operator>.</operator><name>NLS</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>SWT</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>dnd</name><operator>.</operator><name>Clipboard</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>HelpEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>HelpListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>SelectionAdapter</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>SelectionEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>SelectionListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>TreeAdapter</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>events</name><operator>.</operator><name>TreeEvent</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>graphics</name><operator>.</operator><name>FontMetrics</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>graphics</name><operator>.</operator><name>GC</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>layout</name><operator>.</operator><name>FillLayout</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Composite</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Control</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Menu</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>ScrollBar</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Scrollable</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>Tree</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>swt</name><operator>.</operator><name>widgets</name><operator>.</operator><name>TreeColumn</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IEditorInput</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IEditorPart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IMemento</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IPartListener2</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ISelectionListener</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IViewSite</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IWorkbenchPage</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IWorkbenchPart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>IWorkbenchPartReference</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>PartInitException</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>PlatformUI</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>contexts</name><operator>.</operator><name>IContext</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>IDE</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>ResourceUtil</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>markers</name><operator>.</operator><name>compatibility</name><operator>.</operator><name>api</name><operator>.</operator><name>MarkerField</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>markers</name><operator>.</operator><name>compatibility</name><operator>.</operator><name>api</name><operator>.</operator><name>MarkerItem</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>ide</name><operator>.</operator><name>markers</name><operator>.</operator><name>compatibility</name><operator>.</operator><name>api</name><operator>.</operator><name>MarkerSupportConstants</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>internal</name><operator>.</operator><name>ide</name><operator>.</operator><name>IDEInternalPreferences</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>internal</name><operator>.</operator><name>ide</name><operator>.</operator><name>IDEWorkbenchPlugin</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>internal</name><operator>.</operator><name>ide</name><operator>.</operator><name>StatusUtil</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>menus</name><operator>.</operator><name>IMenuService</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>part</name><operator>.</operator><name>ViewPart</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>progress</name><operator>.</operator><name>IWorkbenchSiteProgressService</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>progress</name><operator>.</operator><name>WorkbenchJob</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>statushandlers</name><operator>.</operator><name>StatusManager</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>views</name><operator>.</operator><name>markers</name><operator>.</operator><name>internal</name><operator>.</operator><name>MarkerMessages</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>views</name><operator>.</operator><name>markers</name><operator>.</operator><name>internal</name><operator>.</operator><name>MarkerSupportRegistry</name></name>;</import>
+<import>import <name><name>org</name><operator>.</operator><name>eclipse</name><operator>.</operator><name>ui</name><operator>.</operator><name>views</name><operator>.</operator><name>tasklist</name><operator>.</operator><name>ITaskListResourceAdapter</name></name>;</import>
+
+<comment type="block" format="javadoc">/**
+ * The ExtendedMarkersView is the internal implementation of the view that shows
+ * markers using the markerGenerators extension point.
+ * 
+ * The ExtendedMarkersView fully supports the markerSupport extension point and
+ * is meant to be used as a view to complement them.
+ * 
+ * The markerContentGenerators to be used by the view can be specified by
+ * appending a comma separated list of them after a colon in the class
+ * specification of the view. If this list is left out the problems
+ * markerContentProvider will be used.
+ * 
+ * @since 3.4
+ * 
+ */</comment>
+<class><specifier>public</specifier> class <name>ExtendedMarkersView</name> <super><extends>extends <name>ViewPart</name></extends></super> <block>{
+
+	<comment type="block" format="javadoc">/**
+	 * MarkerSelectionEntry is a cache of the values for a marker entry.
+	 * 
+	 * @since 3.4
+	 * 
+	 */</comment>
+	<class><specifier>final</specifier> class <name>MarkerSelectionEntry</name> <block>{
+
+		<decl_stmt><decl><type><name><name>Object</name><index>[]</index></name></type> <name>cachedValues</name></decl>;</decl_stmt>
+
+		<constructor><name>MarkerSelectionEntry</name><parameter_list>(<parameter><decl><type><name>MarkerItem</name></type> <name>item</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><name><name>MarkerField</name><index>[]</index></name></type> <name>fields</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getVisibleFields</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><name>cachedValues</name> <operator>=</operator> <operator>new</operator> <name><name>Object</name><index>[<expr><name><name>fields</name><operator>.</operator><name>length</name></name></expr>]</index></name></expr>;</expr_stmt>
+			<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>fields</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+				<expr_stmt><expr><name><name>cachedValues</name><index>[<expr><name>i</name></expr>]</index></name> <operator>=</operator> <name><name>fields</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getValue</name><argument_list>(<argument><expr><name>item</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></for>
+		}</block></constructor>
+
+		<comment type="block" format="javadoc">/**
+		 * Return whether or not the entry is equivalent to the cached state.
+		 * 
+		 * @param item
+		 * @return boolean &lt;code&gt;true&lt;/code&gt; if they are equivalent
+		 */</comment>
+		<function><type><name>boolean</name></type> <name>isEquivalentTo</name><parameter_list>(<parameter><decl><type><name>MarkerItem</name></type> <name>item</name></decl></parameter>)</parameter_list> <block>{
+			<decl_stmt><decl><type><name><name>MarkerField</name><index>[]</index></name></type> <name>fields</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getVisibleFields</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+			<if>if <condition>(<expr><name><name>cachedValues</name><operator>.</operator><name>length</name></name> <operator>!=</operator> <name><name>fields</name><operator>.</operator><name>length</name></name></expr>)</condition><then>
+				<block type="pseudo"><return>return <expr><literal type="boolean">false</literal></expr>;</return></block></then></if>
+
+			<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>fields</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+				<if>if <condition>(<expr><name><name>cachedValues</name><index>[<expr><name>i</name></expr>]</index></name> <operator>==</operator> <name><name>fields</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getValue</name><argument_list>(<argument><expr><name>item</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><continue>continue;</continue></block></then></if>
+				<return>return <expr><literal type="boolean">false</literal></expr>;</return>
+			}</block></for>
+			<return>return <expr><literal type="boolean">true</literal></expr>;</return>
+		}</block></function>
+
+	}</block></class>
+
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><name>int</name></type> <name>instanceCount</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TAG_GENERATOR</name> <init>= <expr><literal type="string">"markerContentGenerator"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TAG_HORIZONTAL_POSITION</name> <init>= <expr><literal type="string">"horizontalPosition"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TAG_VERTICAL_POSITION</name> <init>= <expr><literal type="string">"verticalPosition"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>MARKER_FIELD</name> <init>= <expr><literal type="string">"MARKER_FIELD"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TAG_EXPANDED</name> <init>= <expr><literal type="string">"expanded"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TAG_CATEGORY</name> <init>= <expr><literal type="string">"category"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+	<decl_stmt><decl><specifier>private</specifier> <specifier>static</specifier> <type><specifier>final</specifier> <name>String</name></type> <name>TAG_PART_NAME</name> <init>= <expr><literal type="string">"partName"</literal></expr></init></decl>;</decl_stmt> <comment type="line">//$NON-NLS-1$</comment>
+	<static>static <block>{
+		<expr_stmt><expr><call><name><name>Platform</name><operator>.</operator><name>getAdapterManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>registerAdapters</name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>IAdapterFactory</name></super><argument_list>()</argument_list> <block>{
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object,
+			 *      java.lang.Class)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>Object</name></type> <name>getAdapter</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>adaptableObject</name></decl></parameter>, <parameter><decl><type><name>Class</name></type> <name>adapterType</name></decl></parameter>)</parameter_list> <block>{
+				<if>if <condition>(<expr><name>adapterType</name> <operator>==</operator> <name><name>IMarker</name><operator>.</operator><name>class</name></name>
+						<operator>&amp;&amp;</operator> <name>adaptableObject</name> <operator>instanceof</operator> <name>MarkerEntry</name></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><operator>(</operator><operator>(</operator><name>MarkerEntry</name><operator>)</operator> <name>adaptableObject</name><operator>)</operator><operator>.</operator><call><name>getMarker</name><argument_list>()</argument_list></call></expr>;</return></block></then></if>
+
+				<return>return <expr><literal type="null">null</literal></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapterList()
+			 */</comment>
+			<function><specifier>public</specifier> <type><name><name>Class</name><index>[]</index></name></type> <name>getAdapterList</name><parameter_list>()</parameter_list> <block>{
+				<return>return <expr><operator>new</operator> <name><name>Class</name><index>[]</index></name> <block>{ <expr><name><name>IMarker</name><operator>.</operator><name>class</name></name></expr> }</block></expr>;</return>
+			}</block></function>
+		}</block></class></expr></argument>, <argument><expr><name><name>MarkerEntry</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></static>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the next secondary id.
+	 * 
+	 * @return String
+	 */</comment>
+	<function><specifier>static</specifier> <type><name>String</name></type> <name>newSecondaryID</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>String</name><operator>.</operator><name>valueOf</name></name><argument_list>(<argument><expr><name>instanceCount</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Open the supplied marker in an editor in page
+	 * 
+	 * @param marker
+	 * @param page
+	 */</comment>
+	<function><specifier>public</specifier> <specifier>static</specifier> <type><name>void</name></type> <name>openMarkerInEditor</name><parameter_list>(<parameter><decl><type><name>IMarker</name></type> <name>marker</name></decl></parameter>, <parameter><decl><type><name>IWorkbenchPage</name></type> <name>page</name></decl></parameter>)</parameter_list> <block>{
+		<comment type="line">// optimization: if the active editor has the same input as</comment>
+		<comment type="line">// the</comment>
+		<comment type="line">// selected marker then</comment>
+		<comment type="line">// RevealMarkerAction would have been run and we only need</comment>
+		<comment type="line">// to</comment>
+		<comment type="line">// activate the editor</comment>
+		<decl_stmt><decl><type><name>IEditorPart</name></type> <name>editor</name> <init>= <expr><call><name><name>page</name><operator>.</operator><name>getActiveEditor</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>editor</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>IEditorInput</name></type> <name>input</name> <init>= <expr><call><name><name>editor</name><operator>.</operator><name>getEditorInput</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>IFile</name></type> <name>file</name> <init>= <expr><call><name><name>ResourceUtil</name><operator>.</operator><name>getFile</name></name><argument_list>(<argument><expr><name>input</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>file</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+				<if>if <condition>(<expr><call><name><name>marker</name><operator>.</operator><name>getResource</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>page</name><operator>.</operator><name>activate</name></name><argument_list>(<argument><expr><name>editor</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+			}</block></then></if>
+		}</block></then></if>
+
+		<if>if <condition>(<expr><name>marker</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>marker</name><operator>.</operator><name>getResource</name></name><argument_list>()</argument_list></call> <operator>instanceof</operator> <name>IFile</name></expr>)</condition><then> <block>{
+			<try>try <block>{
+				<expr_stmt><expr><call><name><name>IDE</name><operator>.</operator><name>openEditor</name></name><argument_list>(<argument><expr><name>page</name></expr></argument>, <argument><expr><name>marker</name></expr></argument>, <argument><expr><call><name><name>OpenStrategy</name><operator>.</operator><name>activateOnOpen</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block> <catch>catch <parameter_list>(<parameter><decl><type><name>PartInitException</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+
+				<comment type="line">// Check for a nested CoreException</comment>
+				<decl_stmt><decl><type><name>IStatus</name></type> <name>status</name> <init>= <expr><call><name><name>e</name><operator>.</operator><name>getStatus</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>status</name> <operator>!=</operator> <literal type="null">null</literal>
+						<operator>&amp;&amp;</operator> <call><name><name>status</name><operator>.</operator><name>getException</name></name><argument_list>()</argument_list></call> <operator>instanceof</operator> <name>CoreException</name></expr>)</condition><then> <block>{
+					<expr_stmt><expr><name>status</name> <operator>=</operator> <operator>(</operator><operator>(</operator><name>CoreException</name><operator>)</operator> <call><name><name>status</name><operator>.</operator><name>getException</name></name><argument_list>()</argument_list></call><operator>)</operator>
+							<operator>.</operator><call><name>getStatus</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+
+				<if>if <condition>(<expr><name>status</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>StatusManager</name><operator>.</operator><name>getManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>handle</name><argument_list>(
+							<argument><expr><call><name><name>StatusUtil</name><operator>.</operator><name>newStatus</name></name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>ERROR</name></name></expr></argument>, <argument><expr><call><name><name>e</name><operator>.</operator><name>getMessage</name></name><argument_list>()</argument_list></call></expr></argument>,
+									<argument><expr><name>e</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name><name>StatusManager</name><operator>.</operator><name>SHOW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+
+				<else>else
+					<block type="pseudo"><expr_stmt><expr><call><name><name>StatusManager</name><operator>.</operator><name>getManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>handle</name><argument_list>(<argument><expr><name>status</name></expr></argument>,
+							<argument><expr><name><name>StatusManager</name><operator>.</operator><name>SHOW</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+
+			}</block></catch></try>
+		}</block></then></if>
+	}</block></function>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>CachedMarkerBuilder</name></type> <name>builder</name></decl>;</decl_stmt>
+	<decl_stmt><decl><type><name>Collection</name></type> <name>categoriesToExpand</name></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Clipboard</name></type> <name>clipboard</name></decl>;</decl_stmt>
+
+	<decl_stmt><decl><type><name>Collection</name></type> <name>preservedSelection</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>Job</name></type> <name>updateJob</name></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name>MarkersTreeViewer</name></type> <name>viewer</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>IPropertyChangeListener</name></type> <name>preferenceListener</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>ISelectionListener</name></type> <name>pageSelectionListener</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>IPartListener2</name></type> <name>partListener</name></decl>;</decl_stmt>
+	<decl_stmt><decl><specifier>private</specifier> <type><name>IMemento</name></type> <name>memento</name></decl>;</decl_stmt>
+
+	<decl_stmt><decl><specifier>private</specifier> <type><name><name>String</name><index>[]</index></name></type> <name>defaultGeneratorIds</name> <init>= <expr><operator>new</operator> <name><name>String</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></init></decl>;</decl_stmt>
+
+	<comment type="block" format="javadoc">/**
+	 * Return a new instance of the receiver.
+	 * 
+	 * @param contentGeneratorId
+	 *            the id of the generator to load.
+	 */</comment>
+	<constructor><specifier>public</specifier> <name>ExtendedMarkersView</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>contentGeneratorId</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>super</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>instanceCount</name><operator>++</operator></expr>;</expr_stmt>
+		<expr_stmt><expr><name>defaultGeneratorIds</name> <operator>=</operator> <operator>new</operator> <name><name>String</name><index>[]</index></name> <block>{ <expr><name>contentGeneratorId</name></expr> }</block></expr>;</expr_stmt>
+		<expr_stmt><expr><name>preferenceListener</name> <operator>=</operator> <operator>new</operator> <class><super><name>IPropertyChangeListener</name></super><argument_list>()</argument_list> <block>{
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.util.IPropertyChangeListener#propertyChange(org.eclipse.jface.util.PropertyChangeEvent)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>propertyChange</name><parameter_list>(<parameter><decl><type><name>PropertyChangeEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name>String</name></type> <name>propertyName</name> <init>= <expr><call><name><name>event</name><operator>.</operator><name>getProperty</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name><name>propertyName</name>
+						<operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name><name>IDEInternalPreferences</name><operator>.</operator><name>USE_MARKER_LIMITS</name></name></expr></argument>)</argument_list></call>
+						<operator>||</operator> <call><name><name>propertyName</name>
+								<operator>.</operator><name>equals</name></name><argument_list>(<argument><expr><name><name>IDEInternalPreferences</name><operator>.</operator><name>MARKER_LIMITS_VALUE</name></name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>refresh</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name>updateTitle</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+			}</block></function>
+		}</block></class></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>IDEWorkbenchPlugin</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPreferenceStore</name><argument_list>()</argument_list></call>
+				<operator>.</operator><call><name>addPropertyChangeListener</name><argument_list>(<argument><expr><name>preferenceListener</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></constructor>
+
+	<comment type="block" format="javadoc">/**
+	 * Add all concrete {@link MarkerItem} elements associated with the receiver
+	 * to allMarkers.
+	 * 
+	 * @param markerItem
+	 * @param allMarkers
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>addAllConcreteItems</name><parameter_list>(<parameter><decl><type><name>MarkerItem</name></type> <name>markerItem</name></decl></parameter>,
+			<parameter><decl><type><name>Collection</name></type> <name>allMarkers</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><call><name><name>markerItem</name><operator>.</operator><name>isConcrete</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+			<expr_stmt><expr><call><name><name>allMarkers</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>markerItem</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<return>return;</return>
+		}</block></then></if>
+
+		<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>children</name> <init>= <expr><call><name><name>markerItem</name><operator>.</operator><name>getChildren</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>children</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<expr_stmt><expr><call><name>addAllConcreteItems</name><argument_list>(<argument><expr><name><name>children</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>, <argument><expr><name>allMarkers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></for>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Add the category to the list of expanded categories.
+	 * 
+	 * @param category
+	 */</comment>
+	<function><type><name>void</name></type> <name>addExpandedCategory</name><parameter_list>(<parameter><decl><type><name>MarkerCategory</name></type> <name>category</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>add</name><argument_list>(<argument><expr><call><name><name>category</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Add all of the markers in markerItem recursively.
+	 * 
+	 * @param markerItem
+	 * @param allMarkers
+	 *            {@link Collection} of {@link IMarker}
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>addMarkers</name><parameter_list>(<parameter><decl><type><name>MarkerItem</name></type> <name>markerItem</name></decl></parameter>, <parameter><decl><type><name>Collection</name></type> <name>allMarkers</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><call><name><name>markerItem</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>allMarkers</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><call><name><name>markerItem</name><operator>.</operator><name>getMarker</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>children</name> <init>= <expr><call><name><name>markerItem</name><operator>.</operator><name>getChildren</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>children</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<expr_stmt><expr><call><name>addMarkers</name><argument_list>(<argument><expr><name><name>children</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>, <argument><expr><name>allMarkers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		}</block></for>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Create the columns for the receiver.
+	 * 
+	 * @param currentColumns
+	 *            the columns to refresh
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>createColumns</name><parameter_list>(<parameter><decl><type><name><name>TreeColumn</name><index>[]</index></name></type> <name>currentColumns</name></decl></parameter>)</parameter_list> <block>{
+
+		<decl_stmt><decl><type><name>Tree</name></type> <name>tree</name> <init>= <expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>TableLayout</name></type> <name>layout</name> <init>= <expr><operator>new</operator> <call><name>TableLayout</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<decl_stmt><decl><type><name><name>MarkerField</name><index>[]</index></name></type> <name>fields</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getVisibleFields</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>fields</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<decl_stmt><decl><type><name>MarkerField</name></type> <name>markerField</name> <init>= <expr><name><name>fields</name><index>[<expr><name>i</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+
+			<comment type="line">// Take into account the expansion indicator</comment>
+			<decl_stmt><decl><type><name>int</name></type> <name>columnWidth</name> <init>= <expr><call><name><name>markerField</name><operator>.</operator><name>getDefaultColumnWidth</name></name><argument_list>(<argument><expr><name>tree</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+			<if>if <condition>(<expr><name>i</name> <operator>==</operator> <literal type="number">0</literal></expr>)</condition><then> <block>{
+				<comment type="line">// Compute and store a font metric</comment>
+				<decl_stmt><decl><type><name>GC</name></type> <name>gc</name> <init>= <expr><operator>new</operator> <call><name>GC</name><argument_list>(<argument><expr><name>tree</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>gc</name><operator>.</operator><name>setFont</name></name><argument_list>(<argument><expr><call><name><name>tree</name><operator>.</operator><name>getFont</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<decl_stmt><decl><type><name>FontMetrics</name></type> <name>fontMetrics</name> <init>= <expr><call><name><name>gc</name><operator>.</operator><name>getFontMetrics</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>gc</name><operator>.</operator><name>dispose</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><name>columnWidth</name> <operator>=</operator> <call><name><name>Math</name><operator>.</operator><name>max</name></name><argument_list>(<argument><expr><name>columnWidth</name></expr></argument>, <argument><expr><call><name><name>fontMetrics</name>
+						<operator>.</operator><name>getAverageCharWidth</name></name><argument_list>()</argument_list></call> <operator>*</operator> <literal type="number">5</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></then></if>
+
+			<expr_stmt><expr><call><name><name>layout</name><operator>.</operator><name>addColumnData</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>ColumnPixelData</name><argument_list>(<argument><expr><name>columnWidth</name></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>, <argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<decl_stmt><decl><type><name>TreeViewerColumn</name></type> <name>column</name></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>i</name> <operator>&lt;</operator> <name><name>currentColumns</name><operator>.</operator><name>length</name></name></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><name>column</name> <operator>=</operator> <operator>new</operator> <call><name>TreeViewerColumn</name><argument_list>(<argument><expr><name>viewer</name></expr></argument>, <argument><expr><name><name>currentColumns</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+			<else>else <block>{
+				<expr_stmt><expr><name>column</name> <operator>=</operator> <operator>new</operator> <call><name>TreeViewerColumn</name><argument_list>(<argument><expr><name>viewer</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>NONE</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setResizable</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setMoveable</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>addSelectionListener</name><argument_list>(<argument><expr><call><name>getHeaderListener</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></else></if>
+
+			<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setData</name><argument_list>(<argument><expr><name>MARKER_FIELD</name></expr></argument>, <argument><expr><name>markerField</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<comment type="line">// Show the help in the first column</comment>
+			<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>setLabelProvider</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>MarkerColumnLabelProvider</name><argument_list>(<argument><expr><name>markerField</name></expr></argument>,
+					<argument><expr><name>i</name> <operator>==</operator> <literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setText</name><argument_list>(<argument><expr><call><name><name>markerField</name><operator>.</operator><name>getColumnHeaderText</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setToolTipText</name><argument_list>(
+					<argument><expr><call><name><name>markerField</name><operator>.</operator><name>getColumnTooltipText</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setImage</name><argument_list>(<argument><expr><call><name><name>markerField</name><operator>.</operator><name>getColumnHeaderImage</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+			<decl_stmt><decl><type><name>EditingSupport</name></type> <name>support</name> <init>= <expr><call><name><name>markerField</name><operator>.</operator><name>getEditingSupport</name></name><argument_list>(<argument><expr><name>viewer</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>support</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name><name>column</name><operator>.</operator><name>setEditingSupport</name></name><argument_list>(<argument><expr><name>support</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+
+			<if>if <condition>(<expr><call><name><name>builder</name><operator>.</operator><name>getPrimarySortField</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>markerField</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name>updateDirectionIndicator</name><argument_list>(<argument><expr><call><name><name>column</name><operator>.</operator><name>getColumn</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>markerField</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+
+		}</block></for>
+
+		<comment type="line">// Remove extra columns</comment>
+		<if>if <condition>(<expr><name><name>currentColumns</name><operator>.</operator><name>length</name></name> <operator>&gt;</operator> <name><name>fields</name><operator>.</operator><name>length</name></name></expr>)</condition><then> <block>{
+			<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><name><name>fields</name><operator>.</operator><name>length</name></name></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>currentColumns</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+				<expr_stmt><expr><name><name>currentColumns</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>dispose</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+			}</block></for>
+		}</block></then></if>
+
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setLayout</name><argument_list>(<argument><expr><name>layout</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>setLinesVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>setHeaderVisible</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>tree</name><operator>.</operator><name>layout</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>createPartControl</name><parameter_list>(<parameter><decl><type><name>Composite</name></type> <name>parent</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>parent</name><operator>.</operator><name>setLayout</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>FillLayout</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>viewer</name> <operator>=</operator> <operator>new</operator> <call><name>MarkersTreeViewer</name><argument_list>(<argument><expr><operator>new</operator> <call><name>Tree</name><argument_list>(<argument><expr><name>parent</name></expr></argument>, <argument><expr><name><name>SWT</name><operator>.</operator><name>H_SCROLL</name></name>
+				<operator>|</operator> <name><name>SWT</name><operator>.</operator><name>V_SCROLL</name></name> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>MULTI</name></name> <operator>|</operator> <name><name>SWT</name><operator>.</operator><name>FULL_SELECTION</name></name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setLinesVisible</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>setUseHashlookup</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name>createColumns</name><argument_list>(<argument><expr><operator>new</operator> <name><name>TreeColumn</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>setContentProvider</name></name><argument_list>(<argument><expr><call><name>getContentProvider</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>setSelectionProvider</name><argument_list>(<argument><expr><name>viewer</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>setInput</name></name><argument_list>(<argument><expr><name>builder</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<if>if <condition>(<expr><name>memento</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>Scrollable</name></type> <name>scrollable</name> <init>= <expr><operator>(</operator><name>Scrollable</name><operator>)</operator> <call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>ScrollBar</name></type> <name>bar</name> <init>= <expr><call><name><name>scrollable</name><operator>.</operator><name>getVerticalBar</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>bar</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+				<decl_stmt><decl><type><name>Integer</name></type> <name>position</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getInteger</name></name><argument_list>(<argument><expr><name>TAG_VERTICAL_POSITION</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>position</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>bar</name><operator>.</operator><name>setSelection</name></name><argument_list>(<argument><expr><call><name><name>position</name><operator>.</operator><name>intValue</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+			}</block></then></if>
+			<expr_stmt><expr><name>bar</name> <operator>=</operator> <call><name><name>scrollable</name><operator>.</operator><name>getHorizontalBar</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<if>if <condition>(<expr><name>bar</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+				<decl_stmt><decl><type><name>Integer</name></type> <name>position</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>getInteger</name></name><argument_list>(<argument><expr><name>TAG_HORIZONTAL_POSITION</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>position</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>bar</name><operator>.</operator><name>setSelection</name></name><argument_list>(<argument><expr><call><name><name>position</name><operator>.</operator><name>intValue</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+			}</block></then></if>
+		}</block></then></if>
+
+		<comment type="line">// Initialise any selection based filtering</comment>
+		<expr_stmt><expr><name>pageSelectionListener</name> <operator>=</operator> <call><name>getPageSelectionListener</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call><operator>.</operator><call><name>addPostSelectionListener</name><argument_list>(<argument><expr><name>pageSelectionListener</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><name>partListener</name> <operator>=</operator> <call><name>getPartListener</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call><operator>.</operator><call><name>addPartListener</name><argument_list>(<argument><expr><name>partListener</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>pageSelectionListener</name><operator>.</operator><name>selectionChanged</name></name><argument_list>(<argument><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call>
+				<operator>.</operator><call><name>getActivePart</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getSelection</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>addOpenListener</name></name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>IOpenListener</name></super><argument_list>()</argument_list> <block>{
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>open</name><parameter_list>(<parameter><decl><type><name>OpenEvent</name></type> <name>event</name></decl></parameter>)</parameter_list> <block>{
+				<expr_stmt><expr><call><name>openSelectedMarkers</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>addTreeListener</name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>TreeAdapter</name></super><argument_list>()</argument_list> <block>{
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.swt.events.TreeAdapter#treeCollapsed(org.eclipse.swt.events.TreeEvent)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>treeCollapsed</name><parameter_list>(<parameter><decl><type><name>TreeEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<expr_stmt><expr><call><name>removeExpandedCategory</name><argument_list>(<argument><expr><operator>(</operator><name>MarkerCategory</name><operator>)</operator> <call><name><name>e</name><operator>.</operator><name>item</name><operator>.</operator><name>getData</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.swt.events.TreeAdapter#treeExpanded(org.eclipse.swt.events.TreeEvent)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>treeExpanded</name><parameter_list>(<parameter><decl><type><name>TreeEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<expr_stmt><expr><call><name>addExpandedCategory</name><argument_list>(<argument><expr><operator>(</operator><name>MarkerCategory</name><operator>)</operator> <call><name><name>e</name><operator>.</operator><name>item</name><operator>.</operator><name>getData</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<comment type="line">// Set help on the view itself</comment>
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>addHelpListener</name><argument_list>(<argument><expr><operator>new</operator> <class><super><name>HelpListener</name></super><argument_list>()</argument_list> <block>{
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.swt.events.HelpListener#helpRequested(org.eclipse.swt.events.HelpEvent)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>helpRequested</name><parameter_list>(<parameter><decl><type><name>HelpEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name>Object</name></type> <name>provider</name> <init>= <expr><call><name>getAdapter</name><argument_list>(<argument><expr><name><name>IContextProvider</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>provider</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><return>return;</return></block></then></if>
+
+				<decl_stmt><decl><type><name>IContext</name></type> <name>context</name> <init>= <expr><operator>(</operator><operator>(</operator><name>IContextProvider</name><operator>)</operator> <name>provider</name><operator>)</operator>
+						<operator>.</operator><call><name>getContext</name><argument_list>(<argument><expr><call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name><name>PlatformUI</name><operator>.</operator><name>getWorkbench</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getHelpSystem</name><argument_list>()</argument_list></call><operator>.</operator><call><name>displayHelp</name><argument_list>(<argument><expr><name>context</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+
+		}</block></class></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name>registerContextMenu</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return a part listener for the receiver.
+	 * 
+	 * @return IPartListener2
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>IPartListener2</name></type> <name>getPartListener</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <class><super><name>IPartListener2</name></super><argument_list>()</argument_list> <block>{
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partActivated(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partActivated</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partBroughtToTop(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partBroughtToTop</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partClosed(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partClosed</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partDeactivated(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partDeactivated</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partHidden(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partHidden</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partInputChanged(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partInputChanged</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partOpened(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partOpened</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<comment type="line">// Do nothing by default</comment>
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.IPartListener2#partVisible(org.eclipse.ui.IWorkbenchPartReference)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>partVisible</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPartReference</name></type> <name>partRef</name></decl></parameter>)</parameter_list> <block>{
+				<if>if <condition>(<expr><call><name><name>partRef</name><operator>.</operator><name>getId</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(
+						<argument><expr><call><name><name>ExtendedMarkersView</name><operator>.</operator><name>this</name><operator>.</operator><name>getSite</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getId</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>pageSelectionListener</name><operator>.</operator><name>selectionChanged</name></name><argument_list>(<argument><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call>
+							<operator>.</operator><call><name>getActivePart</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call>
+							<operator>.</operator><call><name>getSelection</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+
+			}</block></function>
+
+		}</block></class></expr>;</return>
+	}</block></function>
+
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>dispose</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>dispose</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>updateJob</name><operator>.</operator><name>cancel</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><name>instanceCount</name><operator>--</operator></expr>;</expr_stmt>
+		<if>if <condition>(<expr><name>clipboard</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>clipboard</name><operator>.</operator><name>dispose</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<expr_stmt><expr><call><name><name>IDEWorkbenchPlugin</name><operator>.</operator><name>getDefault</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPreferenceStore</name><argument_list>()</argument_list></call>
+				<operator>.</operator><call><name>removePropertyChangeListener</name><argument_list>(<argument><expr><name>preferenceListener</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call><operator>.</operator><call><name>removePostSelectionListener</name><argument_list>(<argument><expr><name>pageSelectionListener</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call><operator>.</operator><call><name>removePartListener</name><argument_list>(<argument><expr><name>partListener</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return all of the marker items in the receiver that are concrete.
+	 * 
+	 * @return MarkerItem[]
+	 */</comment>
+	<function><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>getAllConcreteItems</name><parameter_list>()</parameter_list> <block>{
+
+		<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>elements</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getElements</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>Collection</name></type> <name>allMarkers</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>elements</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<expr_stmt><expr><call><name>addAllConcreteItems</name><argument_list>(<argument><expr><name><name>elements</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>, <argument><expr><name>allMarkers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		}</block></for>
+		<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>markers</name> <init>= <expr><operator>new</operator> <name><name>MarkerItem</name><index>[<expr><call><name><name>allMarkers</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>allMarkers</name><operator>.</operator><name>toArray</name></name><argument_list>(<argument><expr><name>markers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>markers</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Get all of the filters for the receiver.
+	 * 
+	 * @return Collection of {@link MarkerFieldFilterGroup}
+	 */</comment>
+	<function><type><name>Collection</name></type> <name>getAllFilters</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>builder</name><operator>.</operator><name>getAllFilters</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return all of the markers in the receiver.
+	 * 
+	 * @return IMarker[]
+	 */</comment>
+	<function><type><name><name>IMarker</name><index>[]</index></name></type> <name>getAllMarkers</name><parameter_list>()</parameter_list> <block>{
+
+		<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>elements</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getElements</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>Collection</name></type> <name>allMarkers</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>elements</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<expr_stmt><expr><call><name>addMarkers</name><argument_list>(<argument><expr><name><name>elements</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>, <argument><expr><name>allMarkers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		}</block></for>
+		<decl_stmt><decl><type><name><name>IMarker</name><index>[]</index></name></type> <name>markers</name> <init>= <expr><operator>new</operator> <name><name>IMarker</name><index>[<expr><call><name><name>allMarkers</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>]</index></name></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>allMarkers</name><operator>.</operator><name>toArray</name></name><argument_list>(<argument><expr><name>markers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>markers</name></expr>;</return>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the group used for categorisation.
+	 * 
+	 * @return MarkerGroup
+	 */</comment>
+	<function><type><name>MarkerGroup</name></type> <name>getCategoryGroup</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>builder</name><operator>.</operator><name>getCategoryGroup</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the clipboard for the receiver.
+	 * 
+	 * @return Clipboard
+	 */</comment>
+	<function><type><name>Clipboard</name></type> <name>getClipboard</name><parameter_list>()</parameter_list> <block>{
+		<if>if <condition>(<expr><name>clipboard</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>clipboard</name> <operator>=</operator> <operator>new</operator> <call><name>Clipboard</name><argument_list>(<argument><expr><call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getDisplay</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<return>return <expr><name>clipboard</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the content provider for the receiver.
+	 * 
+	 * @return ITreeContentProvider
+	 * 
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>ITreeContentProvider</name></type> <name>getContentProvider</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <class><super><name>ITreeContentProvider</name></super><argument_list>()</argument_list> <block>{
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>dispose</name><parameter_list>()</parameter_list> <block>{
+
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.ILazyTreeContentProvider#updateChildCount(java.lang.Object,
+			 *      int)
+			 */</comment>
+			<comment type="line">// public void updateChildCount(Object element, int</comment>
+			<comment type="line">// currentChildCount) {</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// int length;</comment>
+			<comment type="line">// if (element instanceof MarkerItem)</comment>
+			<comment type="line">// length = ((MarkerItem) element).getChildren().length;</comment>
+			<comment type="line">// else</comment>
+			<comment type="line">// // If it is not a MarkerItem it is the root</comment>
+			<comment type="line">// length = ((CachedMarkerBuilder) element).getElements().length;</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// int markerLimit = MarkerSupportInternalUtilities</comment>
+			<comment type="line">// .getMarkerLimit();</comment>
+			<comment type="line">// length = markerLimit &gt; 0 ? Math.min(length, markerLimit)</comment>
+			<comment type="line">// : length;</comment>
+			<comment type="line">// if (currentChildCount == length)</comment>
+			<comment type="line">// return;</comment>
+			<comment type="line">// viewer.setChildCount(element, length);</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// }</comment>
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.ILazyTreeContentProvider#updateElement(java.lang.Object,
+			 *      int)
+			 */</comment>
+			<comment type="line">// public void updateElement(Object parent, int index) {</comment>
+			<comment type="line">// MarkerItem newItem;</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// if (parent instanceof MarkerItem)</comment>
+			<comment type="line">// newItem = ((MarkerItem) parent).getChildren()[index];</comment>
+			<comment type="line">// else</comment>
+			<comment type="line">// newItem = ((CachedMarkerBuilder) parent).getElements()[index];</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// viewer.replace(parent, index, newItem);</comment>
+			<comment type="line">// updateChildCount(newItem, -1);</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// if (!newItem.isConcrete()</comment>
+			<comment type="line">// &amp;&amp; categoriesToExpand</comment>
+			<comment type="line">// .contains(((MarkerCategory) newItem).getName())) {</comment>
+			<comment type="line">// viewer.expandToLevel(newItem, 1);</comment>
+			<comment type="line">// categoriesToExpand.remove(newItem);</comment>
+			<comment type="line">// }</comment>
+			<comment type="line">//</comment>
+			<comment type="line">// }</comment>
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name><name>Object</name><index>[]</index></name></type> <name>getChildren</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>parentElement</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>children</name> <init>= <expr><operator>(</operator><operator>(</operator><name>MarkerItem</name><operator>)</operator> <name>parentElement</name><operator>)</operator>
+						<operator>.</operator><call><name>getChildren</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+				<return>return <expr><call><name>getLimitedChildren</name><argument_list>(<argument><expr><name>children</name></expr></argument>)</argument_list></call></expr>;</return>
+			}</block></function>
+
+			<comment type="block" format="javadoc">/**
+			 * Get the children limited by the marker limits.
+			 * 
+			 * @param children
+			 * @return Object[]
+			 */</comment>
+			<function><specifier>private</specifier> <type><name><name>Object</name><index>[]</index></name></type> <name>getLimitedChildren</name><parameter_list>(<parameter><decl><type><name><name>Object</name><index>[]</index></name></type> <name>children</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name>int</name></type> <name>newLength</name> <init>= <expr><call><name><name>MarkerSupportInternalUtilities</name><operator>.</operator><name>getMarkerLimit</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>newLength</name> <operator>&gt;</operator> <literal type="number">0</literal> <operator>&amp;&amp;</operator> <name>newLength</name> <operator>&lt;</operator> <name><name>children</name><operator>.</operator><name>length</name></name></expr>)</condition><then> <block>{
+					<decl_stmt><decl><type><name><name>Object</name><index>[]</index></name></type> <name>newChildren</name> <init>= <expr><operator>new</operator> <name><name>Object</name><index>[<expr><name>newLength</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+					<expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>arraycopy</name></name><argument_list>(<argument><expr><name>children</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>newChildren</name></expr></argument>, <argument><expr><literal type="number">0</literal></expr></argument>, <argument><expr><name>newLength</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<return>return <expr><name>newChildren</name></expr>;</return>
+				}</block></then></if>
+				<return>return <expr><name>children</name></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name><name>Object</name><index>[]</index></name></type> <name>getElements</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>inputElement</name></decl></parameter>)</parameter_list> <block>{
+
+				<return>return <expr><call><name>getLimitedChildren</name><argument_list>(<argument><expr><operator>(</operator><operator>(</operator><name>CachedMarkerBuilder</name><operator>)</operator> <name>inputElement</name><operator>)</operator>
+						<operator>.</operator><call><name>getElements</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.ILazyTreeContentProvider#getParent(java.lang.Object)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>Object</name></type> <name>getParent</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>element</name></decl></parameter>)</parameter_list> <block>{
+				<decl_stmt><decl><type><name>Object</name></type> <name>parent</name> <init>= <expr><operator>(</operator><operator>(</operator><name>MarkerItem</name><operator>)</operator> <name>element</name><operator>)</operator><operator>.</operator><call><name>getParent</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>parent</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><name>builder</name></expr>;</return></block></then></if>
+				<return>return <expr><name>parent</name></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>boolean</name></type> <name>hasChildren</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>element</name></decl></parameter>)</parameter_list> <block>{
+				<return>return <expr><operator>(</operator><operator>(</operator><name>MarkerItem</name><operator>)</operator> <name>element</name><operator>)</operator><operator>.</operator><call><name>getChildren</name><argument_list>()</argument_list></call><operator>.</operator><name>length</name> <operator>&gt;</operator> <literal type="number">0</literal></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+			 *      java.lang.Object, java.lang.Object)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>inputChanged</name><parameter_list>(<parameter><decl><type><name>Viewer</name></type> <name>viewer</name></decl></parameter>, <parameter><decl><type><name>Object</name></type> <name>oldInput</name></decl></parameter>,
+					<parameter><decl><type><name>Object</name></type> <name>newInput</name></decl></parameter>)</parameter_list> <block>{
+
+			}</block></function>
+		}</block></class></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the listener that updates sort values on selection.
+	 * 
+	 * @return SelectionListener
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>SelectionListener</name></type> <name>getHeaderListener</name><parameter_list>()</parameter_list> <block>{
+
+		<return>return <expr><operator>new</operator> <class><super><name>SelectionAdapter</name></super><argument_list>()</argument_list> <block>{
+			<comment type="block" format="javadoc">/**
+			 * Handles the case of user selecting the header area.
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>widgetSelected</name><parameter_list>(<parameter><decl><type><name>SelectionEvent</name></type> <name>e</name></decl></parameter>)</parameter_list> <block>{
+
+				<decl_stmt><decl><type><specifier>final</specifier> <name>TreeColumn</name></type> <name>column</name> <init>= <expr><operator>(</operator><name>TreeColumn</name><operator>)</operator> <name><name>e</name><operator>.</operator><name>widget</name></name></expr></init></decl>;</decl_stmt>
+				<decl_stmt><decl><type><specifier>final</specifier> <name>MarkerField</name></type> <name>field</name> <init>= <expr><operator>(</operator><name>MarkerField</name><operator>)</operator> <call><name><name>column</name>
+						<operator>.</operator><name>getData</name></name><argument_list>(<argument><expr><name>MARKER_FIELD</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<expr_stmt><expr><call><name>setPrimarySortField</name><argument_list>(<argument><expr><name>field</name></expr></argument>, <argument><expr><name>column</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+
+		}</block></class></expr>;</return>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the selection listener for the page selection change.
+	 * 
+	 * @return ISelectionListener
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>ISelectionListener</name></type> <name>getPageSelectionListener</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><operator>new</operator> <class><super><name>ISelectionListener</name></super><argument_list>()</argument_list> <block>{
+			<comment type="block" format="javadoc">/**
+			 * Get an ITaskListResourceAdapter for use by the default/
+			 * 
+			 * @return ITaskListResourceAdapter
+			 */</comment>
+			<function><specifier>private</specifier> <type><name>ITaskListResourceAdapter</name></type> <name>getDefaultTaskListAdapter</name><parameter_list>()</parameter_list> <block>{
+				<return>return <expr><operator>new</operator> <class><super><name>ITaskListResourceAdapter</name></super><argument_list>()</argument_list> <block>{
+
+					<comment type="block">/*
+					 * (non-Javadoc)
+					 * 
+					 * @see org.eclipse.ui.views.tasklist.ITaskListResourceAdapter#getAffectedResource(org.eclipse.core.runtime.IAdaptable)
+					 */</comment>
+					<function><specifier>public</specifier> <type><name>IResource</name></type> <name>getAffectedResource</name><parameter_list>(<parameter><decl><type><name>IAdaptable</name></type> <name>adaptable</name></decl></parameter>)</parameter_list> <block>{
+						<decl_stmt><decl><type><name>Object</name></type> <name>resource</name> <init>= <expr><call><name><name>adaptable</name><operator>.</operator><name>getAdapter</name></name><argument_list>(<argument><expr><name><name>IResource</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+						<if>if <condition>(<expr><name>resource</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+							<block type="pseudo"><expr_stmt><expr><name>resource</name> <operator>=</operator> <call><name><name>adaptable</name><operator>.</operator><name>getAdapter</name></name><argument_list>(<argument><expr><name><name>IFile</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+						<if>if <condition>(<expr><name>resource</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+							<block type="pseudo"><return>return <expr><literal type="null">null</literal></expr>;</return></block></then></if>
+						<return>return <expr><operator>(</operator><name>IResource</name><operator>)</operator> <name>resource</name></expr>;</return>
+
+					}</block></function>
+
+				}</block></class></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.ISelectionListener#selectionChanged(org.eclipse.ui.IWorkbenchPart,
+			 *      org.eclipse.jface.viewers.ISelection)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>void</name></type> <name>selectionChanged</name><parameter_list>(<parameter><decl><type><name>IWorkbenchPart</name></type> <name>part</name></decl></parameter>,
+					<parameter><decl><type><name>ISelection</name></type> <name>selection</name></decl></parameter>)</parameter_list> <block>{
+
+				<comment type="line">// Do not respond to our own selections or if we are not</comment>
+				<comment type="line">// visible</comment>
+				<if>if <condition>(<expr><name>part</name> <operator>==</operator> <name><name>ExtendedMarkersView</name><operator>.</operator><name>this</name></name>
+						<operator>||</operator> <operator>!</operator><operator>(</operator><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isPartVisible</name><argument_list>(<argument><expr><name>part</name></expr></argument>)</argument_list></call><operator>)</operator></expr>)</condition><then>
+					<block type="pseudo"><return>return;</return></block></then></if>
+
+				<decl_stmt><decl><type><name>List</name></type> <name>selectedElements</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>part</name> <operator>instanceof</operator> <name>IEditorPart</name></expr>)</condition><then> <block>{
+					<decl_stmt><decl><type><name>IEditorPart</name></type> <name>editor</name> <init>= <expr><operator>(</operator><name>IEditorPart</name><operator>)</operator> <name>part</name></expr></init></decl>;</decl_stmt>
+					<decl_stmt><decl><type><name>IFile</name></type> <name>file</name> <init>= <expr><call><name><name>ResourceUtil</name><operator>.</operator><name>getFile</name></name><argument_list>(<argument><expr><call><name><name>editor</name><operator>.</operator><name>getEditorInput</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+					<if>if <condition>(<expr><name>file</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+						<decl_stmt><decl><type><name>IEditorInput</name></type> <name>editorInput</name> <init>= <expr><call><name><name>editor</name><operator>.</operator><name>getEditorInput</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+						<if>if <condition>(<expr><name>editorInput</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+							<decl_stmt><decl><type><name>Object</name></type> <name>mapping</name> <init>= <expr><call><name><name>editorInput</name>
+									<operator>.</operator><name>getAdapter</name></name><argument_list>(<argument><expr><name><name>ResourceMapping</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+							<if>if <condition>(<expr><name>mapping</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+								<expr_stmt><expr><call><name><name>selectedElements</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>mapping</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+							}</block></then></if>
+						}</block></then></if>
+					}</block></then> <else>else <block>{
+						<expr_stmt><expr><call><name><name>selectedElements</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>file</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					}</block></else></if>
+				}</block></then> <else>else <block>{
+					<if>if <condition>(<expr><name>selection</name> <operator>instanceof</operator> <name>IStructuredSelection</name></expr>)</condition><then> <block>{
+						<for>for <control>(<init><decl><type><name>Iterator</name></type> <name>iterator</name> <init>= <expr><operator>(</operator><operator>(</operator><name>IStructuredSelection</name><operator>)</operator> <name>selection</name><operator>)</operator>
+								<operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call></expr></init></decl>;</init> <condition><expr><call><name><name>iterator</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>;</condition><incr/>)</control> <block>{
+							<decl_stmt><decl><type><name>Object</name></type> <name>object</name> <init>= <expr><call><name><name>iterator</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+							<if>if <condition>(<expr><name>object</name> <operator>instanceof</operator> <name>IAdaptable</name></expr>)</condition><then> <block>{
+								<decl_stmt><decl><type><name>ITaskListResourceAdapter</name></type> <name>taskListResourceAdapter</name></decl>;</decl_stmt>
+								<decl_stmt><decl><type><name>Object</name></type> <name>adapter</name> <init>= <expr><operator>(</operator><operator>(</operator><name>IAdaptable</name><operator>)</operator> <name>object</name><operator>)</operator>
+										<operator>.</operator><call><name>getAdapter</name><argument_list>(<argument><expr><name><name>ITaskListResourceAdapter</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+								<if>if <condition>(<expr><name>adapter</name> <operator>!=</operator> <literal type="null">null</literal>
+										<operator>&amp;&amp;</operator> <name>adapter</name> <operator>instanceof</operator> <name>ITaskListResourceAdapter</name></expr>)</condition><then> <block>{
+									<expr_stmt><expr><name>taskListResourceAdapter</name> <operator>=</operator> <operator>(</operator><name>ITaskListResourceAdapter</name><operator>)</operator> <name>adapter</name></expr>;</expr_stmt>
+								}</block></then> <else>else <block>{
+									<expr_stmt><expr><name>taskListResourceAdapter</name> <operator>=</operator> <call><name>getDefaultTaskListAdapter</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+								}</block></else></if>
+
+								<decl_stmt><decl><type><name>IResource</name></type> <name>resource</name> <init>= <expr><call><name><name>taskListResourceAdapter</name>
+										<operator>.</operator><name>getAffectedResource</name></name><argument_list>(<argument><expr><operator>(</operator><name>IAdaptable</name><operator>)</operator> <name>object</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+								<if>if <condition>(<expr><name>resource</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+									<decl_stmt><decl><type><name>Object</name></type> <name>mapping</name> <init>= <expr><operator>(</operator><operator>(</operator><name>IAdaptable</name><operator>)</operator> <name>object</name><operator>)</operator>
+											<operator>.</operator><call><name>getAdapter</name><argument_list>(<argument><expr><name><name>ResourceMapping</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+									<if>if <condition>(<expr><name>mapping</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+										<expr_stmt><expr><call><name><name>selectedElements</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>mapping</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+									}</block></then></if>
+								}</block></then> <else>else <block>{
+									<expr_stmt><expr><call><name><name>selectedElements</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>resource</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+								}</block></else></if>
+							}</block></then></if>
+						}</block></for>
+					}</block></then></if>
+				}</block></else></if>
+				<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>updateForNewSelection</name></name><argument_list>(<argument><expr><call><name><name>selectedElements</name><operator>.</operator><name>toArray</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></function>
+
+		}</block></class></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return all of the markers in the current selection
+	 * 
+	 * @return Array of {@link IMarker}
+	 */</comment>
+	<function><specifier>public</specifier> <type><name><name>IMarker</name><index>[]</index></name></type> <name>getSelectedMarkers</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>ISelection</name></type> <name>selection</name> <init>= <expr><call><name><name>viewer</name><operator>.</operator><name>getSelection</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>selection</name> <operator>instanceof</operator> <name>IStructuredSelection</name></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>IStructuredSelection</name></type> <name>structured</name> <init>= <expr><operator>(</operator><name>IStructuredSelection</name><operator>)</operator> <name>selection</name></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>Iterator</name></type> <name>elements</name> <init>= <expr><call><name><name>structured</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>Collection</name></type> <name>result</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<while>while <condition>(<expr><call><name><name>elements</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{
+				<decl_stmt><decl><type><name>MarkerItem</name></type> <name>next</name> <init>= <expr><operator>(</operator><name>MarkerItem</name><operator>)</operator> <call><name><name>elements</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name><name>next</name><operator>.</operator><name>isConcrete</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>(</operator><operator>(</operator><name>MarkerEntry</name><operator>)</operator> <name>next</name><operator>)</operator><operator>.</operator><call><name>getMarker</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+			}</block></while>
+			<if>if <condition>(<expr><call><name><name>result</name><operator>.</operator><name>isEmpty</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+				<block type="pseudo"><return>return <expr><name><name>MarkerSupportInternalUtilities</name><operator>.</operator><name>EMPTY_MARKER_ARRAY</name></name></expr>;</return></block></then></if>
+			<decl_stmt><decl><type><name><name>IMarker</name><index>[]</index></name></type> <name>markers</name> <init>= <expr><operator>new</operator> <name><name>IMarker</name><index>[<expr><call><name><name>result</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr>]</index></name></expr></init></decl>;</decl_stmt>
+			<expr_stmt><expr><call><name><name>result</name><operator>.</operator><name>toArray</name></name><argument_list>(<argument><expr><name>markers</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<return>return <expr><name>markers</name></expr>;</return>
+		}</block></then></if>
+		<return>return <expr><name><name>MarkerSupportInternalUtilities</name><operator>.</operator><name>EMPTY_MARKER_ARRAY</name></name></expr>;</return>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the sort direction.
+	 * 
+	 * @return boolean
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>boolean</name></type> <name>getSortAscending</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getSortDirection</name><argument_list>()</argument_list></call> <operator>==</operator> <name><name>SWT</name><operator>.</operator><name>TOP</name></name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return a job for updating the receiver.
+	 * 
+	 * @return Job
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>Job</name></type> <name>getUpdateJob</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>CachedMarkerBuilder</name></type> <name>builder</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><name>updateJob</name> <operator>=</operator> <operator>new</operator> <class><super><name>WorkbenchJob</name></super><argument_list>(<argument><expr><name><name>MarkerMessages</name><operator>.</operator><name>MarkerView_queueing_updates</name></name></expr></argument>)</argument_list> <block>{
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.core.runtime.jobs.Job#belongsTo(java.lang.Object)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>boolean</name></type> <name>belongsTo</name><parameter_list>(<parameter><decl><type><name>Object</name></type> <name>family</name></decl></parameter>)</parameter_list> <block>{
+				<return>return <expr><name>family</name> <operator>==</operator> <name><name>MarkerContentGenerator</name><operator>.</operator><name>CACHE_UPDATE_FAMILY</name></name></expr>;</return>
+			}</block></function>
+
+			<comment type="block" format="javadoc">/**
+			 * Return the viewer that is being updated.
+			 * 
+			 * @return TreeViewer
+			 */</comment>
+			<function><specifier>private</specifier> <type><name>TreeViewer</name></type> <name>getViewer</name><parameter_list>()</parameter_list> <block>{
+
+				<return>return <expr><name>viewer</name></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.progress.UIJob#runInUIThread(org.eclipse.core.runtime.IProgressMonitor)
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>IStatus</name></type> <name>runInUIThread</name><parameter_list>(<parameter><decl><type><name>IProgressMonitor</name></type> <name>monitor</name></decl></parameter>)</parameter_list> <block>{
+
+				<if>if <condition>(<expr><call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>isDisposed</name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+					<return>return <expr><name><name>Status</name><operator>.</operator><name>CANCEL_STATUS</name></name></expr>;</return>
+				}</block></then></if>
+
+				<if>if <condition>(<expr><call><name><name>monitor</name><operator>.</operator><name>isCanceled</name></name><argument_list>()</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><return>return <expr><name><name>Status</name><operator>.</operator><name>CANCEL_STATUS</name></name></expr>;</return></block></then></if>
+
+				<comment type="line">// If there is only one category and the user has no saved state</comment>
+				<comment type="line">// show it</comment>
+				<if>if <condition>(<expr><call><name><name>builder</name><operator>.</operator><name>isShowingHierarchy</name></name><argument_list>()</argument_list></call>
+						<operator>&amp;&amp;</operator> <call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+					<decl_stmt><decl><type><name><name>MarkerCategory</name><index>[]</index></name></type> <name>categories</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getCategories</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+					<if>if <condition>(<expr><name>categories</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <name><name>categories</name><operator>.</operator><name>length</name></name> <operator>==</operator> <literal type="number">1</literal></expr>)</condition><then>
+						<block type="pseudo"><expr_stmt><expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>add</name><argument_list>(<argument><expr><name><name>categories</name><index>[<expr><literal type="number">0</literal></expr>]</index></name><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+				}</block></then></if>
+
+				<expr_stmt><expr><call><name>getViewer</name><argument_list>()</argument_list></call><operator>.</operator><call><name>refresh</name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<expr_stmt><expr><call><name>updateTitle</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+				<if>if <condition>(<expr><call><name><name>preservedSelection</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr>)</condition><then> <block>{
+
+					<decl_stmt><decl><type><name>Collection</name></type> <name>newSelection</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+					<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>markerEntries</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getMarkerEntries</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+					<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>markerEntries</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+						<decl_stmt><decl><type><name>Iterator</name></type> <name>preserved</name> <init>= <expr><call><name><name>preservedSelection</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+						<while>while <condition>(<expr><call><name><name>preserved</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{
+							<decl_stmt><decl><type><name>MarkerSelectionEntry</name></type> <name>next</name> <init>= <expr><operator>(</operator><name>MarkerSelectionEntry</name><operator>)</operator> <call><name><name>preserved</name>
+									<operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+							<if>if <condition>(<expr><call><name><name>next</name><operator>.</operator><name>isEquivalentTo</name></name><argument_list>(<argument><expr><name><name>markerEntries</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+								<expr_stmt><expr><call><name><name>newSelection</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>markerEntries</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+								<continue>continue;</continue>
+							}</block></then></if>
+						}</block></while>
+					}</block></for>
+
+					<expr_stmt><expr><call><name>getViewer</name><argument_list>()</argument_list></call><operator>.</operator><call><name>setSelection</name><argument_list>(
+							<argument><expr><operator>new</operator> <call><name>StructuredSelection</name><argument_list>(<argument><expr><call><name><name>newSelection</name><operator>.</operator><name>toArray</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+							<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name><name>preservedSelection</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+				<if>if <condition>(<expr><call><name>getViewer</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getTree</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getItemCount</name><argument_list>()</argument_list></call> <operator>&gt;</operator> <literal type="number">0</literal></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name>getViewer</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getTree</name><argument_list>()</argument_list></call><operator>.</operator><call><name>setTopItem</name><argument_list>(
+							<argument><expr><call><name>getViewer</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getTree</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getItem</name><argument_list>(<argument><expr><literal type="number">0</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+
+				<expr_stmt><expr><call><name>reexpandCategories</name><argument_list>(<argument><expr><name>builder</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<return>return <expr><name><name>Status</name><operator>.</operator><name>OK_STATUS</name></name></expr>;</return>
+			}</block></function>
+
+			<comment type="block">/*
+			 * (non-Javadoc)
+			 * 
+			 * @see org.eclipse.ui.progress.WorkbenchJob#shouldRun()
+			 */</comment>
+			<function><specifier>public</specifier> <type><name>boolean</name></type> <name>shouldRun</name><parameter_list>()</parameter_list> <block>{
+				<return>return <expr><operator>!</operator><call><name><name>builder</name><operator>.</operator><name>isBuilding</name></name><argument_list>()</argument_list></call></expr>;</return>
+			}</block></function>
+
+		}</block></class></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>updateJob</name><operator>.</operator><name>setSystem</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<return>return <expr><name>updateJob</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the object that is the input to the viewer.
+	 * 
+	 * @return Object
+	 */</comment>
+	<function><type><name>Object</name></type> <name>getViewerInput</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>viewer</name><operator>.</operator><name>getInput</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Get all of the fields visible in the receiver.
+	 * 
+	 * @return MarkerField[]
+	 */</comment>
+	<function><type><name><name>MarkerField</name><index>[]</index></name></type> <name>getVisibleFields</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><call><name><name>builder</name><operator>.</operator><name>getVisibleFields</name></name><argument_list>()</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.ViewPart#init(org.eclipse.ui.IViewSite,
+	 *      org.eclipse.ui.IMemento)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>init</name><parameter_list>(<parameter><decl><type><name>IViewSite</name></type> <name>site</name></decl></parameter>, <parameter><decl><type><name>IMemento</name></type> <name>memento</name></decl></parameter>)</parameter_list> <throws>throws <argument><expr><name>PartInitException</name></expr></argument></throws> <block>{
+		<expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>init</name></name><argument_list>(<argument><expr><name>site</name></expr></argument>, <argument><expr><name>memento</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>MarkerContentGenerator</name></type> <name>generator</name> <init>= <expr><literal type="null">null</literal></expr></init></decl>;</decl_stmt>
+
+		<if>if <condition>(<expr><name>memento</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>generator</name> <operator>=</operator> <call><name><name>MarkerSupportRegistry</name><operator>.</operator><name>getInstance</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getGenerator</name><argument_list>(
+					<argument><expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>TAG_GENERATOR</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+
+		<if>if <condition>(<expr><name>generator</name> <operator>==</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <name><name>defaultGeneratorIds</name><operator>.</operator><name>length</name></name> <operator>&gt;</operator> <literal type="number">0</literal></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>generator</name> <operator>=</operator> <call><name><name>MarkerSupportRegistry</name><operator>.</operator><name>getInstance</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getGenerator</name><argument_list>(
+					<argument><expr><name><name>defaultGeneratorIds</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			<if>if <condition>(<expr><name>generator</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+				<block type="pseudo"><expr_stmt><expr><call><name>logInvalidGenerator</name><argument_list>(<argument><expr><name><name>defaultGeneratorIds</name><index>[<expr><literal type="number">0</literal></expr>]</index></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		}</block></then></if>
+
+		<if>if <condition>(<expr><name>generator</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><name>generator</name> <operator>=</operator> <call><name><name>MarkerSupportRegistry</name><operator>.</operator><name>getInstance</name></name><argument_list>()</argument_list></call>
+					<operator>.</operator><call><name>getDefaultGenerator</name><argument_list>()</argument_list></call></expr>;</expr_stmt></block></then></if>
+
+		<comment type="line">// Add in the entries common to all markers views</comment>
+		<decl_stmt><decl><type><name>IMenuService</name></type> <name>menuService</name> <init>= <expr><operator>(</operator><name>IMenuService</name><operator>)</operator> <call><name><name>site</name>
+				<operator>.</operator><name>getService</name></name><argument_list>(<argument><expr><name><name>IMenuService</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<comment type="line">// Add in the markers view actions</comment>
+
+		<expr_stmt><expr><call><name><name>menuService</name><operator>.</operator><name>populateContributionManager</name></name><argument_list>(<argument><expr><operator>(</operator><name>ContributionManager</name><operator>)</operator> <call><name><name>site</name>
+				<operator>.</operator><name>getActionBars</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getMenuManager</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="string">"menu:"</literal> <comment type="line">//$NON-NLS-1$</comment>
+				<operator>+</operator> <name><name>MarkerSupportRegistry</name><operator>.</operator><name>MARKERS_ID</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>menuService</name><operator>.</operator><name>populateContributionManager</name></name><argument_list>(<argument><expr><operator>(</operator><name>ContributionManager</name><operator>)</operator> <call><name><name>site</name>
+				<operator>.</operator><name>getActionBars</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getToolBarManager</name><argument_list>()</argument_list></call></expr></argument>,
+				<argument><expr><literal type="string">"toolbar:"</literal> <operator>+</operator> <name><name>MarkerSupportRegistry</name><operator>.</operator><name>MARKERS_ID</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt> <comment type="line">//$NON-NLS-1$</comment>
+
+		<decl_stmt><decl><type><name>String</name></type> <name>viewId</name> <init>= <expr><call><name><name>site</name><operator>.</operator><name>getId</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><call><name><name>site</name><operator>.</operator><name>getSecondaryId</name></name><argument_list>()</argument_list></call> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>viewId</name> <operator>=</operator> <name>viewId</name> <operator>+</operator> <call><name><name>site</name><operator>.</operator><name>getSecondaryId</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+		<expr_stmt><expr><name>builder</name> <operator>=</operator> <operator>new</operator> <call><name>CachedMarkerBuilder</name><argument_list>(<argument><expr><name>generator</name></expr></argument>, <argument><expr><name>viewId</name></expr></argument>, <argument><expr><name>memento</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>setUpdateJob</name></name><argument_list>(<argument><expr><call><name>getUpdateJob</name><argument_list>(<argument><expr><name>builder</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<decl_stmt><decl><type><name>Object</name></type> <name>service</name> <init>= <expr><call><name><name>site</name><operator>.</operator><name>getAdapter</name></name><argument_list>(<argument><expr><name><name>IWorkbenchSiteProgressService</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><name>service</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>setProgressService</name></name><argument_list>(<argument><expr><operator>(</operator><name>IWorkbenchSiteProgressService</name><operator>)</operator> <name>service</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<expr_stmt><expr><name><name>this</name><operator>.</operator><name>memento</name></name> <operator>=</operator> <name>memento</name></expr>;</expr_stmt>
+
+		<if>if<condition>(<expr><name>memento</name> <operator>==</operator> <literal type="null">null</literal> <operator>||</operator> <call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>TAG_PART_NAME</name></expr></argument>)</argument_list></call> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then>
+			<block type="pseudo"><return>return;</return></block></then></if>
+		
+		<expr_stmt><expr><call><name>setPartName</name><argument_list>(<argument><expr><call><name><name>memento</name><operator>.</operator><name>getString</name></name><argument_list>(<argument><expr><name>TAG_PART_NAME</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Log that a generator id is invalid.
+	 * 
+	 * @param id
+	 */</comment>
+	<function><type><name>void</name></type> <name>logInvalidGenerator</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>id</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>StatusManager</name><operator>.</operator><name>getManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>handle</name><argument_list>(
+				<argument><expr><operator>new</operator> <call><name>Status</name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>WARNING</name></name></expr></argument>, <argument><expr><name><name>IDEWorkbenchPlugin</name><operator>.</operator><name>IDE_WORKBENCH</name></name></expr></argument>,
+						<argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><literal type="string">"Invalid markerContentGenerator {0} "</literal></expr></argument>, <comment type="line">//$NON-NLS-1$</comment>
+								<argument><expr><name>id</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return whether or not group is enabled.
+	 * 
+	 * @param group
+	 * @return boolean
+	 */</comment>
+	<function><type><name>boolean</name></type> <name>isEnabled</name><parameter_list>(<parameter><decl><type><name>MarkerFieldFilterGroup</name></type> <name>group</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><call><name><name>builder</name><operator>.</operator><name>getEnabledFilters</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>group</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the main sort field for the receiver.
+	 * 
+	 * @return {@link MarkerField}
+	 */</comment>
+	<function><type><name>boolean</name></type> <name>isPrimarySortField</name><parameter_list>(<parameter><decl><type><name>MarkerField</name></type> <name>field</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><call><name><name>builder</name><operator>.</operator><name>getPrimarySortField</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>field</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return whether or not generator is the selected one.
+	 * 
+	 * @param generator
+	 * @return boolean
+	 */</comment>
+	<function><type><name>boolean</name></type> <name>isShowing</name><parameter_list>(<parameter><decl><type><name>MarkerContentGenerator</name></type> <name>generator</name></decl></parameter>)</parameter_list> <block>{
+		<return>return <expr><call><name><name>this</name><operator>.</operator><name>builder</name><operator>.</operator><name>getGenerator</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>generator</name></expr></argument>)</argument_list></call></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Open the filters dialog for the receiver.
+	 */</comment>
+	<function><type><name>void</name></type> <name>openFiltersDialog</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>FiltersConfigurationDialog</name></type> <name>dialog</name> <init>= <expr><operator>new</operator> <call><name>FiltersConfigurationDialog</name><argument_list>(
+				<argument><expr><operator>new</operator> <call><name>SameShellProvider</name><argument_list>(<argument><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getWorkbenchWindow</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getShell</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></argument>,
+				<argument><expr><name>builder</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<if>if <condition>(<expr><call><name><name>dialog</name><operator>.</operator><name>open</name></name><argument_list>()</argument_list></call> <operator>==</operator> <name><name>Window</name><operator>.</operator><name>OK</name></name></expr>)</condition><then> <block>{
+			<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>updateFrom</name></name><argument_list>(<argument><expr><name>dialog</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then></if>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Open the selected markers
+	 */</comment>
+	<function><type><name>void</name></type> <name>openSelectedMarkers</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name><name>IMarker</name><index>[]</index></name></type> <name>markers</name> <init>= <expr><call><name>getSelectedMarkers</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>markers</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<decl_stmt><decl><type><name>IMarker</name></type> <name>marker</name> <init>= <expr><name><name>markers</name><index>[<expr><name>i</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>IWorkbenchPage</name></type> <name>page</name> <init>= <expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getPage</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+			<expr_stmt><expr><call><name>openMarkerInEditor</name><argument_list>(<argument><expr><name>marker</name></expr></argument>, <argument><expr><name>page</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></for>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Register the context menu for the receiver so that commands may be added
+	 * to it.
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>registerContextMenu</name><parameter_list>()</parameter_list> <block>{
+		<decl_stmt><decl><type><name>MenuManager</name></type> <name>contextMenu</name> <init>= <expr><operator>new</operator> <call><name>MenuManager</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>contextMenu</name><operator>.</operator><name>setRemoveAllWhenShown</name></name><argument_list>(<argument><expr><literal type="boolean">true</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>registerContextMenu</name><argument_list>(<argument><expr><name>contextMenu</name></expr></argument>, <argument><expr><name>viewer</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<comment type="line">// Add in the entries for all markers views if this has a different if</comment>
+		<if>if <condition>(<expr><operator>!</operator><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>getId</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name><name>MarkerSupportRegistry</name><operator>.</operator><name>MARKERS_ID</name></name></expr></argument>)</argument_list></call></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name>getSite</name><argument_list>()</argument_list></call><operator>.</operator><call><name>registerContextMenu</name><argument_list>(<argument><expr><name><name>MarkerSupportRegistry</name><operator>.</operator><name>MARKERS_ID</name></name></expr></argument>,
+					<argument><expr><name>contextMenu</name></expr></argument>, <argument><expr><name>viewer</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+		<decl_stmt><decl><type><name>Control</name></type> <name>control</name> <init>= <expr><call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>Menu</name></type> <name>menu</name> <init>= <expr><call><name><name>contextMenu</name><operator>.</operator><name>createContextMenu</name></name><argument_list>(<argument><expr><name>control</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<expr_stmt><expr><call><name><name>control</name><operator>.</operator><name>setMenu</name></name><argument_list>(<argument><expr><name>menu</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Remove the category from the list of expanded ones.
+	 * 
+	 * @param category
+	 */</comment>
+	<function><type><name>void</name></type> <name>removeExpandedCategory</name><parameter_list>(<parameter><decl><type><name>MarkerCategory</name></type> <name>category</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>remove</name><argument_list>(<argument><expr><call><name><name>category</name><operator>.</operator><name>getName</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Preserve the selection for re-selection after the next update.
+	 * 
+	 * @param selection
+	 */</comment>
+	<function><type><name>void</name></type> <name>saveSelection</name><parameter_list>(<parameter><decl><type><name>ISelection</name></type> <name>selection</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>preservedSelection</name><operator>.</operator><name>clear</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<if>if <condition>(<expr><name>selection</name> <operator>instanceof</operator> <name>IStructuredSelection</name></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>IStructuredSelection</name></type> <name>structured</name> <init>= <expr><operator>(</operator><name>IStructuredSelection</name><operator>)</operator> <name>selection</name></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>Iterator</name></type> <name>iterator</name> <init>= <expr><call><name><name>structured</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<while>while <condition>(<expr><call><name><name>iterator</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{
+				<decl_stmt><decl><type><name>MarkerItem</name></type> <name>next</name> <init>= <expr><operator>(</operator><name>MarkerItem</name><operator>)</operator> <call><name><name>iterator</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name><name>next</name><operator>.</operator><name>isConcrete</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>preservedSelection</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>MarkerSelectionEntry</name><argument_list>(<argument><expr><name>next</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+					<expr_stmt><expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>add</name><argument_list>(<argument><expr><call><name><name>next</name><operator>.</operator><name>getParent</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then> <else>else
+					<block type="pseudo"><expr_stmt><expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>add</name><argument_list>(<argument><expr><name>next</name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+			}</block></while>
+		}</block></then></if>
+
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.ViewPart#saveState(org.eclipse.ui.IMemento)
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>saveState</name><parameter_list>(<parameter><decl><type><name>IMemento</name></type> <name>memento</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>super</name><operator>.</operator><name>saveState</name></name><argument_list>(<argument><expr><name>memento</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>memento</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>TAG_GENERATOR</name></expr></argument>, <argument><expr><call><name><name>builder</name><operator>.</operator><name>getGenerator</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getId</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>memento</name><operator>.</operator><name>putString</name></name><argument_list>(<argument><expr><name>TAG_PART_NAME</name></expr></argument>, <argument><expr><call><name>getPartName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+
+		<if>if <condition>(<expr><operator>!</operator><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>IMemento</name></type> <name>expanded</name> <init>= <expr><call><name><name>memento</name><operator>.</operator><name>createChild</name></name><argument_list>(<argument><expr><name>TAG_EXPANDED</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+			<decl_stmt><decl><type><name>Iterator</name></type> <name>categories</name> <init>= <expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>iterator</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<while>while <condition>(<expr><call><name><name>categories</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>)</condition> <block>{
+				<expr_stmt><expr><call><name><name>expanded</name><operator>.</operator><name>createChild</name></name><argument_list>(<argument><expr><name>TAG_CATEGORY</name></expr></argument>, <argument><expr><operator>(</operator><name>String</name><operator>)</operator> <call><name><name>categories</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+			}</block></while>
+		}</block></then></if>
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>saveState</name></name><argument_list>(<argument><expr><name>memento</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Select all of the elements in the receiver.
+	 */</comment>
+	<function><type><name>void</name></type> <name>selectAll</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>selectAll</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Set the category group for the receiver.
+	 * 
+	 * @param group
+	 */</comment>
+	<function><type><name>void</name></type> <name>setCategoryGroup</name><parameter_list>(<parameter><decl><type><name>MarkerGroup</name></type> <name>group</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>clear</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>setCategoryGroup</name></name><argument_list>(<argument><expr><name>group</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Set the content generator for the receiver.
+	 * 
+	 * @param generator
+	 */</comment>
+	<function><type><name>void</name></type> <name>setContentGenerator</name><parameter_list>(<parameter><decl><type><name>MarkerContentGenerator</name></type> <name>generator</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>setSelection</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>StructuredSelection</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>removeAndClearAll</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>setGenerator</name></name><argument_list>(<argument><expr><name>generator</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>createColumns</name><argument_list>(<argument><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getColumns</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block">/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
+	 */</comment>
+	<function><specifier>public</specifier> <type><name>void</name></type> <name>setFocus</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getControl</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setFocus</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Set the primary sort field
+	 * 
+	 * @param field
+	 */</comment>
+	<function><type><name>void</name></type> <name>setPrimarySortField</name><parameter_list>(<parameter><decl><type><name>MarkerField</name></type> <name>field</name></decl></parameter>)</parameter_list> <block>{
+		<decl_stmt><decl><type><name><name>TreeColumn</name><index>[]</index></name></type> <name>columns</name> <init>= <expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>getColumns</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>columns</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+			<decl_stmt><decl><type><name>TreeColumn</name></type> <name>treeColumn</name> <init>= <expr><name><name>columns</name><index>[<expr><name>i</name></expr>]</index></name></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name><name>columns</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getData</name><argument_list>(<argument><expr><name>MARKER_FIELD</name></expr></argument>)</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(<argument><expr><name>field</name></expr></argument>)</argument_list></call></expr>)</condition><then> <block>{
+				<expr_stmt><expr><call><name>setPrimarySortField</name><argument_list>(<argument><expr><name>field</name></expr></argument>, <argument><expr><name>treeColumn</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				<return>return;</return>
+			}</block></then></if>
+		}</block></for>
+		<expr_stmt><expr><call><name><name>StatusManager</name><operator>.</operator><name>getManager</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>handle</name><argument_list>(
+				<argument><expr><call><name><name>StatusUtil</name><operator>.</operator><name>newStatus</name></name><argument_list>(<argument><expr><name><name>IStatus</name><operator>.</operator><name>WARNING</name></name></expr></argument>,
+						<argument><expr><literal type="string">"Sorting by non visible field "</literal> <comment type="line">//$NON-NLS-1$</comment>
+								<operator>+</operator> <call><name><name>field</name><operator>.</operator><name>getColumnHeaderText</name></name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><literal type="null">null</literal></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Set the primary sort field to field and update the column.
+	 * 
+	 * @param field
+	 * @param column
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>void</name></type> <name>setPrimarySortField</name><parameter_list>(<parameter><decl><type><name>MarkerField</name></type> <name>field</name></decl></parameter>, <parameter><decl><type><name>TreeColumn</name></type> <name>column</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>setPrimarySortField</name></name><argument_list>(<argument><expr><name>field</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+		<decl_stmt><decl><type><name>IWorkbenchSiteProgressService</name></type> <name>service</name> <init>= <expr><operator>(</operator><name>IWorkbenchSiteProgressService</name><operator>)</operator> <call><name>getViewSite</name><argument_list>()</argument_list></call>
+				<operator>.</operator><call><name>getAdapter</name><argument_list>(<argument><expr><name><name>IWorkbenchSiteProgressService</name><operator>.</operator><name>class</name></name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>refreshContents</name></name><argument_list>(<argument><expr><name>service</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>updateDirectionIndicator</name><argument_list>(<argument><expr><name>column</name></expr></argument>, <argument><expr><name>field</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>refresh</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		<expr_stmt><expr><call><name>reexpandCategories</name><argument_list>(<argument><expr><name>builder</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Add group to the enabled filters.
+	 * 
+	 * @param group
+	 */</comment>
+	<function><type><name>void</name></type> <name>toggleFilter</name><parameter_list>(<parameter><decl><type><name>MarkerFieldFilterGroup</name></type> <name>group</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>toggleFilter</name></name><argument_list>(<argument><expr><name>group</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Toggle the sort direction of the primary field
+	 */</comment>
+	<function><type><name>void</name></type> <name>toggleSortDirection</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name>setPrimarySortField</name><argument_list>(<argument><expr><call><name><name>builder</name><operator>.</operator><name>getPrimarySortField</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Update the direction indicator as column is now the primary column.
+	 * 
+	 * @param column
+	 * @field {@link MarkerField}
+	 */</comment>
+	<function><type><name>void</name></type> <name>updateDirectionIndicator</name><parameter_list>(<parameter><decl><type><name>TreeColumn</name></type> <name>column</name></decl></parameter>, <parameter><decl><type><name>MarkerField</name></type> <name>field</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setSortColumn</name><argument_list>(<argument><expr><name>column</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		<if>if <condition>(<expr><call><name><name>builder</name><operator>.</operator><name>getSortDirection</name></name><argument_list>(<argument><expr><name>field</name></expr></argument>)</argument_list></call> <operator>==</operator> <name><name>MarkerComparator</name><operator>.</operator><name>ASCENDING</name></name></expr>)</condition><then>
+			<block type="pseudo"><expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setSortDirection</name><argument_list>(<argument><expr><name><name>SWT</name><operator>.</operator><name>UP</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then>
+		<else>else
+			<block type="pseudo"><expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>getTree</name></name><argument_list>()</argument_list></call><operator>.</operator><call><name>setSortDirection</name><argument_list>(<argument><expr><name><name>SWT</name><operator>.</operator><name>DOWN</name></name></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></else></if>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Update the title of the view.
+	 */</comment>
+	<function><type><name>void</name></type> <name>updateTitle</name><parameter_list>()</parameter_list> <block>{
+
+		<decl_stmt><decl><type><name>String</name></type> <name>status</name> <init>= <expr><name><name>MarkerSupportConstants</name><operator>.</operator><name>EMPTY_STRING</name></name></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>totalCount</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getTotalMarkerCount</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name>int</name></type> <name>filteredCount</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</decl_stmt>
+		<decl_stmt><decl><type><name><name>MarkerCategory</name><index>[]</index></name></type> <name>categories</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getCategories</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+		<comment type="line">// Categories might be null if building is still happening</comment>
+		<if>if <condition>(<expr><name>categories</name> <operator>!=</operator> <literal type="null">null</literal> <operator>&amp;&amp;</operator> <call><name><name>builder</name><operator>.</operator><name>isShowingHierarchy</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name>int</name></type> <name>markerLimit</name> <init>= <expr><call><name><name>MarkerSupportInternalUtilities</name><operator>.</operator><name>getMarkerLimit</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+
+			<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>categories</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+				<expr_stmt><expr><name>filteredCount</name> <operator>+=</operator> <ternary><condition><expr><name>markerLimit</name> <operator>&lt;</operator> <literal type="number">0</literal></expr> ?</condition><then> <expr><name><name>categories</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getTotalSize</name><argument_list>()</argument_list></call></expr>
+						</then><else>: <expr><call><name><name>Math</name><operator>.</operator><name>min</name></name><argument_list>(<argument><expr><name><name>categories</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getTotalSize</name><argument_list>()</argument_list></call></expr></argument>, <argument><expr><name>markerLimit</name></expr></argument>)</argument_list></call></expr></else></ternary></expr>;</expr_stmt>
+			}</block></for>
+		}</block></then> <else>else <block>{
+			<expr_stmt><expr><name>filteredCount</name> <operator>=</operator> <call><name><name>MarkerSupportInternalUtilities</name><operator>.</operator><name>getMarkerLimit</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+		}</block></else></if>
+		<if>if <condition>(<expr><name>filteredCount</name> <operator>&lt;</operator> <literal type="number">0</literal> <operator>||</operator> <name>filteredCount</name> <operator>&gt;=</operator> <name>totalCount</name></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>status</name> <operator>=</operator> <call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>MarkerMessages</name><operator>.</operator><name>filter_itemsMessage</name></name></expr></argument>, <argument><expr><operator>new</operator> <call><name>Integer</name><argument_list>(
+					<argument><expr><name>totalCount</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></then> <else>else <block>{
+			<expr_stmt><expr><name>status</name> <operator>=</operator> <call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>MarkerMessages</name><operator>.</operator><name>filter_matchedMessage</name></name></expr></argument>,
+					<argument><expr><operator>new</operator> <call><name>Integer</name><argument_list>(<argument><expr><name>filteredCount</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><operator>new</operator> <call><name>Integer</name><argument_list>(<argument><expr><name>totalCount</name></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+		}</block></else></if>
+
+		<expr_stmt><expr><call><name>setContentDescription</name><argument_list>(<argument><expr><name>status</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Set the selection of the receiver. reveal the item if reveal is true.
+	 * 
+	 * @param structuredSelection
+	 * @param reveal
+	 */</comment>
+	<function><type><name>void</name></type> <name>setSelection</name><parameter_list>(<parameter><decl><type><name>StructuredSelection</name></type> <name>structuredSelection</name></decl></parameter>, <parameter><decl><type><name>boolean</name></type> <name>reveal</name></decl></parameter>)</parameter_list> <block>{
+
+		<decl_stmt><decl><type><name>List</name></type> <name>newSelection</name> <init>= <expr><operator>new</operator> <call><name>ArrayList</name><argument_list>(<argument><expr><call><name><name>structuredSelection</name><operator>.</operator><name>size</name></name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+
+		<for>for <control>(<init><decl><type><name>Iterator</name></type> <name>i</name> <init>= <expr><call><name><name>structuredSelection</name><operator>.</operator><name>iterator</name></name><argument_list>()</argument_list></call></expr></init></decl>;</init> <condition><expr><call><name><name>i</name><operator>.</operator><name>hasNext</name></name><argument_list>()</argument_list></call></expr>;</condition><incr/>)</control> <block>{
+			<decl_stmt><decl><type><name>Object</name></type> <name>next</name> <init>= <expr><call><name><name>i</name><operator>.</operator><name>next</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<if>if <condition>(<expr><name>next</name> <operator>instanceof</operator> <name>IMarker</name></expr>)</condition><then> <block>{
+				<decl_stmt><decl><type><name>MarkerItem</name></type> <name>marker</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getMarkerItem</name></name><argument_list>(<argument><expr><operator>(</operator><name>IMarker</name><operator>)</operator> <name>next</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>marker</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+					<expr_stmt><expr><call><name><name>newSelection</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name>marker</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+				}</block></then></if>
+			}</block></then></if>
+		}</block></for>
+
+		<expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>setSelection</name></name><argument_list>(<argument><expr><operator>new</operator> <call><name>StructuredSelection</name><argument_list>(<argument><expr><name>newSelection</name></expr></argument>)</argument_list></call></expr></argument>, <argument><expr><name>reveal</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the ids of the generators specified for the receiver.
+	 * 
+	 * @return String[]
+	 */</comment>
+	<function><type><name><name>String</name><index>[]</index></name></type> <name>getGeneratorIds</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><name>defaultGeneratorIds</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Turn off all filters in the builder.
+	 */</comment>
+	<function><type><name>void</name></type> <name>disableAllFilters</name><parameter_list>()</parameter_list> <block>{
+		<expr_stmt><expr><call><name><name>builder</name><operator>.</operator><name>disableAllFilters</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Return the builder for the receiver.
+	 * 
+	 * @return CachedMarkerBuilder
+	 */</comment>
+	<function><type><name>CachedMarkerBuilder</name></type> <name>getBuilder</name><parameter_list>()</parameter_list> <block>{
+		<return>return <expr><name>builder</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Get the categories to expand for the receiver.
+	 * 
+	 * @return Collection of MarkerCategory.
+	 */</comment>
+	<function><specifier>private</specifier> <type><name>Collection</name></type> <name>getCategoriesToExpand</name><parameter_list>()</parameter_list> <block>{
+		<if>if <condition>(<expr><name>categoriesToExpand</name> <operator>==</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+			<expr_stmt><expr><name>categoriesToExpand</name> <operator>=</operator> <operator>new</operator> <call><name>HashSet</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+			<if>if <condition>(<expr><name><name>this</name><operator>.</operator><name>memento</name></name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+				<decl_stmt><decl><type><name>IMemento</name></type> <name>expanded</name> <init>= <expr><call><name><name>this</name><operator>.</operator><name>memento</name><operator>.</operator><name>getChild</name></name><argument_list>(<argument><expr><name>TAG_EXPANDED</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><name>expanded</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+					<decl_stmt><decl><type><name><name>IMemento</name><index>[]</index></name></type> <name>mementoCategories</name> <init>= <expr><call><name><name>expanded</name>
+							<operator>.</operator><name>getChildren</name></name><argument_list>(<argument><expr><name>TAG_CATEGORY</name></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+					<decl_stmt><decl><type><name><name>MarkerCategory</name><index>[]</index></name></type> <name>markerCategories</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getCategories</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+					<if>if <condition>(<expr><name>markerCategories</name> <operator>!=</operator> <literal type="null">null</literal></expr>)</condition><then> <block>{
+						<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>markerCategories</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+							<for>for <control>(<init><decl><type><name>int</name></type> <name>j</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>j</name> <operator>&lt;</operator> <name><name>mementoCategories</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>j</name><operator>++</operator></expr></incr>)</control> <block>{
+								<if>if <condition>(<expr><name><name>markerCategories</name><index>[<expr><name>i</name></expr>]</index></name><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call><operator>.</operator><call><name>equals</name><argument_list>(
+										<argument><expr><name><name>mementoCategories</name><index>[<expr><name>j</name></expr>]</index></name><operator>.</operator><call><name>getID</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>)</condition><then>
+									<block type="pseudo"><expr_stmt><expr><call><name><name>categoriesToExpand</name><operator>.</operator><name>add</name></name><argument_list>(<argument><expr><name><name>markerCategories</name><index>[<expr><name>i</name></expr>]</index></name>
+											<operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+							}</block></for>
+						}</block></for>
+					}</block></then></if>
+				}</block></then></if>
+			}</block></then></if>
+		}</block></then></if>
+		<return>return <expr><name>categoriesToExpand</name></expr>;</return>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Restore the expanded categories.
+	 * 
+	 * @param builder
+	 */</comment>
+	<function><type><name>void</name></type> <name>reexpandCategories</name><parameter_list>(<parameter><decl><type><specifier>final</specifier> <name>CachedMarkerBuilder</name></type> <name>builder</name></decl></parameter>)</parameter_list> <block>{
+		<if>if <condition>(<expr><operator>!</operator><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>isEmpty</name><argument_list>()</argument_list></call> <operator>&amp;&amp;</operator> <call><name><name>builder</name><operator>.</operator><name>isShowingHierarchy</name></name><argument_list>()</argument_list></call></expr>)</condition><then> <block>{
+			<decl_stmt><decl><type><name><name>MarkerItem</name><index>[]</index></name></type> <name>items</name> <init>= <expr><call><name><name>builder</name><operator>.</operator><name>getElements</name></name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+			<for>for <control>(<init><decl><type><name>int</name></type> <name>i</name> <init>= <expr><literal type="number">0</literal></expr></init></decl>;</init> <condition><expr><name>i</name> <operator>&lt;</operator> <name><name>items</name><operator>.</operator><name>length</name></name></expr>;</condition> <incr><expr><name>i</name><operator>++</operator></expr></incr>)</control> <block>{
+				<decl_stmt><decl><type><name>String</name></type> <name>name</name> <init>= <expr><operator>(</operator><operator>(</operator><name>MarkerCategory</name><operator>)</operator> <name><name>items</name><index>[<expr><name>i</name></expr>]</index></name><operator>)</operator><operator>.</operator><call><name>getName</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+				<if>if <condition>(<expr><call><name>getCategoriesToExpand</name><argument_list>()</argument_list></call><operator>.</operator><call><name>contains</name><argument_list>(<argument><expr><name>name</name></expr></argument>)</argument_list></call></expr>)</condition><then>
+					<block type="pseudo"><expr_stmt><expr><call><name><name>viewer</name><operator>.</operator><name>expandToLevel</name></name><argument_list>(<argument><expr><name><name>items</name><index>[<expr><name>i</name></expr>]</index></name></expr></argument>, <argument><expr><literal type="number">2</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt></block></then></if>
+
+			}</block></for>
+		}</block></then></if>
+	}</block></function>
+
+	<comment type="block" format="javadoc">/**
+	 * Initialize the title based on the count
+	 * 
+	 * @param count
+	 */</comment>
+	<function><type><name>void</name></type> <name>initializeTitle</name><parameter_list>(<parameter><decl><type><name>String</name></type> <name>count</name></decl></parameter>)</parameter_list> <block>{
+		<expr_stmt><expr><call><name>setPartName</name><argument_list>(<argument><expr><call><name><name>NLS</name><operator>.</operator><name>bind</name></name><argument_list>(<argument><expr><name><name>MarkerMessages</name><operator>.</operator><name>newViewTitle</name></name></expr></argument>, <argument><expr><operator>new</operator> <name><name>Object</name><index>[]</index></name> <block>{
+				<expr><call><name>getPartName</name><argument_list>()</argument_list></call></expr>, <expr><name>count</name></expr> }</block></expr></argument>)</argument_list></call></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+
+	}</block></function>
+}</block></class>
+</unit>

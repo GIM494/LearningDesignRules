@@ -1,0 +1,324 @@
+1 class has non-empty-body constructor
+2 class defines constructor with parameter of type String
+3 class has member field called instanceCount
+4 class has member field of type int
+5 class has member field instanceCount of type int
+6 class has member field called TAG_GENERATOR
+7 class has member field of type String
+8 class has member field TAG_GENERATOR of type String
+9 class has member field called TAG_HORIZONTAL_POSITION
+10 class has member field TAG_HORIZONTAL_POSITION of type String
+11 class has member field called TAG_VERTICAL_POSITION
+12 class has member field TAG_VERTICAL_POSITION of type String
+13 class has member field called MARKER_FIELD
+14 class has member field MARKER_FIELD of type String
+15 class has member field called TAG_EXPANDED
+16 class has member field TAG_EXPANDED of type String
+17 class has member field called TAG_CATEGORY
+18 class has member field TAG_CATEGORY of type String
+19 class has member field called TAG_PART_NAME
+20 class has member field TAG_PART_NAME of type String
+21 class has member field called builder
+22 class has member field of type CachedMarkerBuilder
+23 class has member field builder of type CachedMarkerBuilder
+24 class has member field called categoriesToExpand
+25 class has member field of type Collection
+26 class has member field categoriesToExpand of type Collection
+27 class has member field called clipboard
+28 class has member field of type Clipboard
+29 class has member field clipboard of type Clipboard
+30 class has member field called preservedSelection
+31 class has member field preservedSelection of type Collection
+32 class has member field called updateJob
+33 class has member field of type Job
+34 class has member field updateJob of type Job
+35 class has member field called viewer
+36 class has member field of type MarkersTreeViewer
+37 class has member field viewer of type MarkersTreeViewer
+38 class has member field called preferenceListener
+39 class has member field of type IPropertyChangeListener
+40 class has member field preferenceListener of type IPropertyChangeListener
+41 class has member field called pageSelectionListener
+42 class has member field of type ISelectionListener
+43 class has member field pageSelectionListener of type ISelectionListener
+44 class has member field called partListener
+45 class has member field of type IPartListener2
+46 class has member field partListener of type IPartListener2
+47 class has member field called memento
+48 class has member field of type IMemento
+49 class has member field memento of type IMemento
+50 class has member field called defaultGeneratorIds
+51 class has member field defaultGeneratorIds of type String
+52 class extends class ViewPart
+53 is public class
+54 has public static function newSecondaryID()
+55 newSecondaryID() function returns output from function call
+56 newSecondaryID() function returns type String
+57 has public static function openMarkerInEditor()
+58 openMarkerInEditor() function has parameter of type IMarker
+59 openMarkerInEditor() function has parameter of type IWorkbenchPage
+60 class has void function openMarkerInEditor()
+61 has private function addAllConcreteItems()
+62 addAllConcreteItems() function has parameter of type MarkerItem
+63 addAllConcreteItems() function has parameter of type Collection
+64 class has void function addAllConcreteItems()
+65 has public function addExpandedCategory()
+66 addExpandedCategory() function has parameter of type MarkerCategory
+67 class has void function addExpandedCategory()
+68 has private function addMarkers()
+69 addMarkers() function has parameter of type MarkerItem
+70 addMarkers() function has parameter of type Collection
+71 class has void function addMarkers()
+72 has private function createColumns()
+73 call to constructor of TableLayout is made in createColumns()
+74 call to constructor of GC is made in createColumns()
+75 call to constructor of ColumnPixelData is made in createColumns()
+76 call to constructor of MarkerColumnLabelProvider is made in createColumns()
+77 createColumns() function has parameter of type TreeColumn
+78 class has void function createColumns()
+79 has public function createPartControl()
+80 call to constructor of FillLayout is made in createPartControl()
+81 call to constructor of Tree is made in createPartControl()
+82 createPartControl() function has parameter of type Composite
+83 class has void function createPartControl()
+84 has private function getPartListener()
+85 getPartListener() function calls constructor in return statement
+86 getPartListener() function returns type IPartListener2
+87 has public function dispose()
+88 class has void function dispose()
+89 has public function getAllConcreteItems()
+90 call to constructor of ArrayList is made in getAllConcreteItems()
+91 getAllConcreteItems() function returns type MarkerItem
+92 has public function getAllFilters()
+93 getAllFilters() function returns output from function call
+94 getAllFilters() function returns type Collection
+95 has public function getAllMarkers()
+96 call to constructor of ArrayList is made in getAllMarkers()
+97 getAllMarkers() function returns type IMarker
+98 has public function getCategoryGroup()
+99 getCategoryGroup() function returns output from function call
+100 getCategoryGroup() function returns type MarkerGroup
+101 has public function getClipboard()
+102 getClipboard() function returns type Clipboard
+103 has private function getContentProvider()
+104 getContentProvider() function calls constructor in return statement
+105 getContentProvider() function returns type ITreeContentProvider
+106 has private function getHeaderListener()
+107 getHeaderListener() function calls constructor in return statement
+108 getHeaderListener() function returns type SelectionListener
+109 has private function getPageSelectionListener()
+110 call to constructor of ArrayList is made in getPageSelectionListener()
+111 getPageSelectionListener() function calls constructor in return statement
+112 getPageSelectionListener() function returns type ISelectionListener
+113 has public function getSelectedMarkers()
+114 call to constructor of ArrayList is made in getSelectedMarkers()
+115 getSelectedMarkers() function returns type IMarker
+116 has public function getSortAscending()
+117 getSortAscending() function returns output from function call
+118 getSortAscending() function returns type boolean
+119 has private function getUpdateJob()
+120 call to constructor of ArrayList is made in getUpdateJob()
+121 call to constructor of StructuredSelection is made in getUpdateJob()
+122 getUpdateJob() function has parameter of type CachedMarkerBuilder
+123 getUpdateJob() function returns type Job
+124 has public function getViewerInput()
+125 getViewerInput() function returns output from function call
+126 getViewerInput() function returns type Object
+127 has public function getVisibleFields()
+128 getVisibleFields() function returns output from function call
+129 getVisibleFields() function returns type MarkerField
+130 has public function init()
+131 init() function has parameter of type IViewSite
+132 init() function has parameter of type IMemento
+133 init() function modifies member variablethis
+134 class has void function init()
+135 has public function logInvalidGenerator()
+136 call to constructor of Status is made in logInvalidGenerator()
+137 logInvalidGenerator() function has parameter of type String
+138 class has void function logInvalidGenerator()
+139 has public function isEnabled()
+140 isEnabled() function returns output from function call
+141 isEnabled() function has parameter of type MarkerFieldFilterGroup
+142 isEnabled() function returns type boolean
+143 has public function isPrimarySortField()
+144 isPrimarySortField() function returns output from function call
+145 isPrimarySortField() function has parameter of type MarkerField
+146 isPrimarySortField() function returns type boolean
+147 has public function isShowing()
+148 isShowing() function returns output from function call
+149 isShowing() function has parameter of type MarkerContentGenerator
+150 isShowing() function returns type boolean
+151 has public function openFiltersDialog()
+152 call to constructor of FiltersConfigurationDialog is made in openFiltersDialog()
+153 call to constructor of SameShellProvider is made in openFiltersDialog()
+154 class has void function openFiltersDialog()
+155 has public function openSelectedMarkers()
+156 class has void function openSelectedMarkers()
+157 has private function registerContextMenu()
+158 call to constructor of MenuManager is made in registerContextMenu()
+159 class has void function registerContextMenu()
+160 has public function removeExpandedCategory()
+161 removeExpandedCategory() function has parameter of type MarkerCategory
+162 class has void function removeExpandedCategory()
+163 has public function saveSelection()
+164 call to constructor of MarkerSelectionEntry is made in saveSelection()
+165 saveSelection() function has parameter of type ISelection
+166 class has void function saveSelection()
+167 has public function saveState()
+168 saveState() function has parameter of type IMemento
+169 class has void function saveState()
+170 has public function selectAll()
+171 class has void function selectAll()
+172 has public function setCategoryGroup()
+173 setCategoryGroup() function has parameter of type MarkerGroup
+174 class has void function setCategoryGroup()
+175 has public function setContentGenerator()
+176 call to constructor of StructuredSelection is made in setContentGenerator()
+177 setContentGenerator() function has parameter of type MarkerContentGenerator
+178 class has void function setContentGenerator()
+179 has public function setFocus()
+180 class has void function setFocus()
+181 has public function setPrimarySortField()
+182 setPrimarySortField() function has parameter of type MarkerField
+183 class has void function setPrimarySortField()
+184 has private function setPrimarySortField()
+185 setPrimarySortField() function has parameter of type TreeColumn
+186 has public function toggleFilter()
+187 toggleFilter() function has parameter of type MarkerFieldFilterGroup
+188 class has void function toggleFilter()
+189 has public function toggleSortDirection()
+190 class has void function toggleSortDirection()
+191 has public function updateDirectionIndicator()
+192 updateDirectionIndicator() function has parameter of type TreeColumn
+193 updateDirectionIndicator() function has parameter of type MarkerField
+194 class has void function updateDirectionIndicator()
+195 has public function updateTitle()
+196 call to constructor of Integer is made in updateTitle()
+197 class has void function updateTitle()
+198 has public function setSelection()
+199 call to constructor of ArrayList is made in setSelection()
+200 call to constructor of StructuredSelection is made in setSelection()
+201 setSelection() function has parameter of type StructuredSelection
+202 setSelection() function has parameter of type boolean
+203 class has void function setSelection()
+204 has public function getGeneratorIds()
+205 getGeneratorIds() function returns type String
+206 has public function disableAllFilters()
+207 class has void function disableAllFilters()
+208 has public function getBuilder()
+209 getBuilder() function returns type CachedMarkerBuilder
+210 has private function getCategoriesToExpand()
+211 getCategoriesToExpand() function returns type Collection
+212 has public function reexpandCategories()
+213 reexpandCategories() function has parameter of type CachedMarkerBuilder
+214 class has void function reexpandCategories()
+215 has public function initializeTitle()
+216 initializeTitle() function has parameter of type String
+217 class has void function initializeTitle()
+218 class defines constructor with parameter of type MarkerItem
+219 class has member field called cachedValues
+220 class has member field of type Object
+221 class has member field cachedValues of type Object
+222 is final class
+223 has final function isEquivalentTo()
+224 isEquivalentTo() function has parameter of type MarkerItem
+225 isEquivalentTo() function returns type boolean
+226 class does not define constructor
+227 has public function getAdapter()
+228 getAdapter() function has parameter of type Object
+229 getAdapter() function has parameter of type Class
+230 getAdapter() function returns type Object
+231 has public function getAdapterList()
+232 getAdapterList() function calls constructor in return statement
+233 getAdapterList() function returns type Class
+234 has public function propertyChange()
+235 propertyChange() function has parameter of type PropertyChangeEvent
+236 class has void function propertyChange()
+237 has public function open()
+238 open() function has parameter of type OpenEvent
+239 class has void function open()
+240 has public function treeCollapsed()
+241 treeCollapsed() function has parameter of type TreeEvent
+242 class has void function treeCollapsed()
+243 has public function treeExpanded()
+244 treeExpanded() function has parameter of type TreeEvent
+245 class has void function treeExpanded()
+246 has public function helpRequested()
+247 helpRequested() function has parameter of type HelpEvent
+248 class has void function helpRequested()
+249 has public function partActivated()
+250 partActivated() function has parameter of type IWorkbenchPartReference
+251 class has void function partActivated()
+252 has public function partBroughtToTop()
+253 partBroughtToTop() function has parameter of type IWorkbenchPartReference
+254 class has void function partBroughtToTop()
+255 has public function partClosed()
+256 partClosed() function has parameter of type IWorkbenchPartReference
+257 class has void function partClosed()
+258 has public function partDeactivated()
+259 partDeactivated() function has parameter of type IWorkbenchPartReference
+260 class has void function partDeactivated()
+261 has public function partHidden()
+262 partHidden() function has parameter of type IWorkbenchPartReference
+263 class has void function partHidden()
+264 has public function partInputChanged()
+265 partInputChanged() function has parameter of type IWorkbenchPartReference
+266 class has void function partInputChanged()
+267 has public function partOpened()
+268 partOpened() function has parameter of type IWorkbenchPartReference
+269 class has void function partOpened()
+270 has public function partVisible()
+271 partVisible() function has parameter of type IWorkbenchPartReference
+272 class has void function partVisible()
+273 has public function getChildren()
+274 getChildren() function returns output from function call
+275 getChildren() function returns output from function call to getLimitedChildren
+276 getChildren() function has parameter of type Object
+277 getChildren() function returns type Object
+278 has private function getLimitedChildren()
+279 getLimitedChildren() function has parameter of type Object
+280 getLimitedChildren() function returns type Object
+281 has public function getElements()
+282 getElements() function returns output from function call
+283 getElements() function returns output from function call to getLimitedChildren
+284 getElements() function has parameter of type Object
+285 getElements() function returns type Object
+286 has public function getParent()
+287 getParent() function has parameter of type Object
+288 getParent() function returns type Object
+289 has public function hasChildren()
+290 hasChildren() function returns output from function call
+291 hasChildren() function returns output from function call to getChildren
+292 hasChildren() function has parameter of type Object
+293 hasChildren() function returns type boolean
+294 has public function inputChanged()
+295 inputChanged() function has parameter of type Viewer
+296 inputChanged() function has parameter of type Object
+297 class has void function inputChanged()
+298 has public function widgetSelected()
+299 widgetSelected() function has parameter of type SelectionEvent
+300 class has void function widgetSelected()
+301 has private function getDefaultTaskListAdapter()
+302 getDefaultTaskListAdapter() function calls constructor in return statement
+303 getDefaultTaskListAdapter() function returns type ITaskListResourceAdapter
+304 has public function selectionChanged()
+305 call to constructor of ArrayList is made in selectionChanged()
+306 selectionChanged() function has parameter of type IWorkbenchPart
+307 selectionChanged() function has parameter of type ISelection
+308 class has void function selectionChanged()
+309 has public function getAffectedResource()
+310 getAffectedResource() function has parameter of type IAdaptable
+311 getAffectedResource() function returns type IResource
+312 has public function belongsTo()
+313 belongsTo() function has parameter of type Object
+314 belongsTo() function returns type boolean
+315 has private function getViewer()
+316 getViewer() function returns type TreeViewer
+317 has public function runInUIThread()
+318 call to constructor of ArrayList is made in runInUIThread()
+319 call to constructor of StructuredSelection is made in runInUIThread()
+320 runInUIThread() function has parameter of type IProgressMonitor
+321 runInUIThread() function returns type IStatus
+322 has public function shouldRun()
+323 shouldRun() function returns output from function call
+324 shouldRun() function returns type boolean
