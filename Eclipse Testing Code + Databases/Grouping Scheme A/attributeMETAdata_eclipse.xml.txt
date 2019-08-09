@@ -1,0 +1,1511 @@
+1 child class has non-empty-body constructor
+2 child class defines constructor with no parameters
+3 child class has member field called COMPLETED
+4 child class has member field of type int
+5 child class has member field COMPLETED of type int
+6 child class has member field called NOT_COMPLETED
+7 child class has member field NOT_COMPLETED of type int
+8 child class has member field called ALL_SELECTED
+9 child class has member field ALL_SELECTED of type int
+10 child class has member field called completion
+11 child class has member field completion of type int
+12 child class has member field called COMPLETION_ATTRIBUTE
+13 child class has member field of type String
+14 child class has member field COMPLETION_ATTRIBUTE of type String
+15 child class extends class CompatibilityFieldFilter
+16 is public class
+17 child class has public function loadSettings()
+18 loadSettings() function has parameter of type IMemento
+19 child class has void function loadSettings()
+20 child class has public function loadLegacySettings()
+21 loadLegacySettings() function has parameter of type IMemento
+22 child class has void function loadLegacySettings()
+23 child class has public function initialize()
+24 initialize() function has parameter of type ProblemFilter
+25 child class has void function initialize()
+26 child class has public function saveSettings()
+27 saveSettings() function has parameter of type IMemento
+28 child class has void function saveSettings()
+29 child class has public function select()
+30 select() function has parameter of type MarkerItem
+31 select() function returns type boolean
+32 child class has public function getCompletion()
+33 getCompletion() function returns type int
+34 child class has public function setCompletion()
+35 setCompletion() function has parameter of type int
+36 setCompletion() function modifies member variablethis
+37 child class has void function setCompletion()
+38 child class has public function populateWorkingCopy()
+39 populateWorkingCopy() function has parameter of type MarkerFieldFilter
+40 child class has void function populateWorkingCopy()
+41 child class has member field called TAG_CONTAINS_MODIFIER
+42 child class has member field TAG_CONTAINS_MODIFIER of type String
+43 child class has member field called TAG_CONTAINS_TEXT
+44 child class has member field TAG_CONTAINS_TEXT of type String
+45 child class has member field called containsModifier
+46 child class has member field containsModifier of type String
+47 child class has member field called containsText
+48 child class has member field containsText of type String
+49 select() function returns output from function call
+50 child class has public function getContainsModifier()
+51 getContainsModifier() function returns type String
+52 child class has public function setContainsModifier()
+53 setContainsModifier() function has parameter of type String
+54 setContainsModifier() function modifies member variablethis
+55 child class has void function setContainsModifier()
+56 child class has public function getContainsText()
+57 getContainsText() function returns type String
+58 child class has public function setContainsText()
+59 setContainsText() function has parameter of type String
+60 setContainsText() function modifies member variablethis
+61 child class has void function setContainsText()
+62 initialize() function has parameter of type Map
+63 child class does not define constructor
+64 child class has member field called TAG_TYPES_DELIMITER
+65 child class has member field TAG_TYPES_DELIMITER of type String
+66 child class has member field called TAG_SELECTED_TYPES
+67 child class has member field TAG_SELECTED_TYPES of type String
+68 child class has member field called selectedTypes
+69 child class has member field of type Collection
+70 child class has member field selectedTypes of type Collection
+71 child class has member field called allTypes
+72 child class has member field of type HashMap
+73 child class has member field allTypes of type HashMap
+74 child class has public function setSelectedTypes()
+75 setSelectedTypes() function has parameter of type Collection
+76 child class has void function setSelectedTypes()
+77 child class has public function getSelectedTypes()
+78 getSelectedTypes() function returns type Collection
+79 call to constructor of StringBuffer is made in saveSettings()
+80 call to constructor of ArrayList is made in loadLegacySettings()
+81 call to constructor of StringTokenizer is made in loadLegacySettings()
+82 child class has public function setAndSelectAllTypes()
+83 setAndSelectAllTypes() function has parameter of type Collection
+84 child class has void function setAndSelectAllTypes()
+85 child class has member field called PRIORITY_HIGH
+86 child class has member field PRIORITY_HIGH of type int
+87 child class has member field called PRIORITY_NORMAL
+88 child class has member field PRIORITY_NORMAL of type int
+89 child class has member field called PRIORITY_LOW
+90 child class has member field PRIORITY_LOW of type int
+91 child class has member field called TAG_SELECTED_PRIORITIES
+92 child class has member field TAG_SELECTED_PRIORITIES of type String
+93 child class has member field called selectedPriorities
+94 child class has member field selectedPriorities of type int
+95 child class overrides function apply() in parent class
+96 child class overrides function createContents() in parent class
+97 child class overrides function initialize() in parent class
+98 child class has member field called severities
+99 child class has member field severities of type int
+100 child class has member field called infoButton
+101 child class has member field of type Button
+102 child class has member field infoButton of type Button
+103 child class has member field called errorButton
+104 child class has member field errorButton of type Button
+105 child class has member field called warningButton
+106 child class has member field warningButton of type Button
+107 child class extends class DescriptionConfigurationArea
+108 child class has public function apply()
+109 apply() function has parameter of type MarkerFieldFilter
+110 child class has void function apply()
+111 child class has public function createContents()
+112 createContents() function has parameter of type Composite
+113 child class has void function createContents()
+114 child class has private function createSeverityGroup()
+115 call to constructor of Composite is made in createSeverityGroup()
+116 call to constructor of GridLayout is made in createSeverityGroup()
+117 call to constructor of GridData is made in createSeverityGroup()
+118 call to constructor of Label is made in createSeverityGroup()
+119 createSeverityGroup() function has parameter of type Composite
+120 child class has void function createSeverityGroup()
+121 initialize() function has parameter of type MarkerFieldFilter
+122 child class has private function updateSeverities()
+123 updateSeverities() function has parameter of type int
+124 updateSeverities() function has parameter of type boolean
+125 child class has void function updateSeverities()
+126 child class overrides function getContainsModifier() in parent class
+127 child class overrides function getContainsText() in parent class
+128 child class overrides function loadLegacySettings() in parent class
+129 child class overrides function loadSettings() in parent class
+130 child class overrides function populateWorkingCopy() in parent class
+131 child class overrides function saveSettings() in parent class
+132 child class overrides function select() in parent class
+133 child class overrides function setContainsModifier() in parent class
+134 child class overrides function setContainsText() in parent class
+135 child class has member field called SEVERITY_ERROR
+136 child class has member field SEVERITY_ERROR of type int
+137 child class has member field called SEVERITY_WARNING
+138 child class has member field SEVERITY_WARNING of type int
+139 child class has member field called SEVERITY_INFO
+140 child class has member field SEVERITY_INFO of type int
+141 child class has member field called selectedSeverities
+142 child class has member field selectedSeverities of type int
+143 child class has member field called TAG_SELECTED_SEVERITIES
+144 child class has member field TAG_SELECTED_SEVERITIES of type String
+145 child class extends class DescriptionFieldFilter
+146 child class has member field called buttons
+147 child class has member field buttons of type Button
+148 child class has member field called scope
+149 child class has member field scope of type int
+150 child class has member field called workingSetArea
+151 child class has member field of type WorkingSetArea
+152 child class has member field workingSetArea of type WorkingSetArea
+153 child class extends class GroupFilterConfigurationArea
+154 child class has public function applyToGroup()
+155 applyToGroup() function has parameter of type MarkerFieldFilterGroup
+156 child class has void function applyToGroup()
+157 child class has protected function createRadioButton()
+158 call to constructor of Button is made in createRadioButton()
+159 createRadioButton() function has parameter of type Composite
+160 createRadioButton() function has parameter of type String
+161 createRadioButton() function has parameter of type int
+162 createRadioButton() function returns type Button
+163 child class has public function getTitle()
+164 getTitle() function returns type String
+165 child class has public function initializeFromGroup()
+166 initializeFromGroup() function has parameter of type MarkerFieldFilterGroup
+167 child class has void function initializeFromGroup()
+168 child class has member field called EMPTY_COLLECTION
+169 child class has member field EMPTY_COLLECTION of type Collection
+170 child class has member field called models
+171 child class has member field models of type HashMap
+172 child class has member field called typesViewer
+173 child class has member field of type CheckboxTreeViewer
+174 child class has member field typesViewer of type CheckboxTreeViewer
+175 call to constructor of ArrayList is made in apply()
+176 call to constructor of Composite is made in createContents()
+177 call to constructor of GridData is made in createContents()
+178 call to constructor of GridLayout is made in createContents()
+179 call to constructor of Tree is made in createContents()
+180 call to constructor of TableLayout is made in createContents()
+181 call to constructor of ColumnWeightData is made in createContents()
+182 call to constructor of TreeColumn is made in createContents()
+183 call to constructor of Button is made in createContents()
+184 createContents() function returns output from function call
+185 createContents() function returns output from function call to getLabel
+186 child class has private function getSelectAllButtonListener()
+187 getSelectAllButtonListener() function calls constructor in return statement
+188 getSelectAllButtonListener() function has parameter of type ITreeContentProvider
+189 getSelectAllButtonListener() function has parameter of type boolean
+190 getSelectAllButtonListener() function returns type SelectionListener
+191 child class has protected function elementsForGroup()
+192 call to constructor of ArrayList is made in elementsForGroup()
+193 call to constructor of HashMap is made in elementsForGroup()
+194 call to constructor of MarkerTypeEntry is made in elementsForGroup()
+195 elementsForGroup() function has parameter of type MarkerFieldFilterGroup
+196 elementsForGroup() function returns type List
+197 child class has private function findTypeEntries()
+198 findTypeEntries() function has parameter of type MarkerFieldFilterGroup
+199 findTypeEntries() function has parameter of type Collection
+200 child class has void function findTypeEntries()
+201 child class has private function getTypesContentProvider()
+202 getTypesContentProvider() function calls constructor in return statement
+203 getTypesContentProvider() function returns type ITreeContentProvider
+204 call to constructor of HashSet is made in initializeFromGroup()
+205 child class overrides function compare() in parent class
+206 child class extends class MarkerDescriptionField
+207 child class has public function compare()
+208 compare() function has parameter of type MarkerItem
+209 compare() function returns type int
+210 child class has public function getImage()
+211 getImage() function returns output from function call
+212 getImage() function has parameter of type MarkerItem
+213 getImage() function returns type Image
+214 child class defines constructor with parameter of type String
+215 child class extends class ExtendedMarkersView
+216 child class overrides function calculateFilters() in parent class
+217 child class overrides function getID() in parent class
+218 child class overrides function getName() in parent class
+219 child class overrides function isSystem() in parent class
+220 child class overrides function makeWorkingCopy() in parent class
+221 child class defines constructor with parameter of type ProblemFilter
+222 child class defines constructor with parameter of type CachedMarkerBuilder
+223 child class has member field called problemFilter
+224 child class has member field of type ProblemFilter
+225 child class has member field problemFilter of type ProblemFilter
+226 child class extends class MarkerFieldFilterGroup
+227 child class has public function getID()
+228 getID() function returns output from function call
+229 getID() function returns type String
+230 child class has public function getName()
+231 getName() function returns output from function call
+232 getName() function returns type String
+233 child class has public function isSystem()
+234 isSystem() function returns type boolean
+235 child class has public function makeWorkingCopy()
+236 call to constructor of CompatibilityMarkerFieldFilterGroup is made in makeWorkingCopy()
+237 makeWorkingCopy() function returns type MarkerFieldFilterGroup
+238 child class has protected function calculateFilters()
+239 child class has void function calculateFilters()
+240 child class extends class MarkersContribution
+241 child class has protected function getContributionItems()
+242 call to constructor of ArrayList is made in getContributionItems()
+243 call to constructor of MenuItem is made in getContributionItems()
+244 call to constructor of Separator is made in getContributionItems()
+245 getContributionItems() function returns type IContributionItem
+246 child class has private function getFiltersDialogContribution()
+247 call to constructor of MenuItem is made in getFiltersDialogContribution()
+248 getFiltersDialogContribution() function calls constructor in return statement
+249 getFiltersDialogContribution() function returns type ContributionItem
+250 child class has private function getShowAllContribution()
+251 call to constructor of MenuItem is made in getShowAllContribution()
+252 getShowAllContribution() function calls constructor in return statement
+253 getShowAllContribution() function returns type IContributionItem
+254 child class has private function getContributionItem()
+255 call to constructor of MenuItem is made in getContributionItem()
+256 getContributionItem() function calls constructor in return statement
+257 getContributionItem() function has parameter of type MarkerGroup
+258 getContributionItem() function returns type IContributionItem
+259 child class has private function getDirectionContribution()
+260 call to constructor of MenuItem is made in getDirectionContribution()
+261 getDirectionContribution() function calls constructor in return statement
+262 getDirectionContribution() function returns type IContributionItem
+263 getContributionItem() function has parameter of type MarkerField
+264 child class has member field called errorsMap
+265 child class has member field of type Map
+266 child class has member field errorsMap of type Map
+267 child class extends class FiltersContributionParameters
+268 child class has public function getParameterValues()
+269 getParameterValues() function returns type Map
+270 child class has member field called warningsMap
+271 child class has member field warningsMap of type Map
+272 child class has member field called todoMap
+273 child class has member field todoMap of type Map
+274 child class overrides function getTitle() in parent class
+275 child class has member field called completeButton
+276 child class has member field completeButton of type Button
+277 child class has member field called incompleteButton
+278 child class has member field incompleteButton of type Button
+279 child class has member field called completionState
+280 child class has member field completionState of type int
+281 child class extends class FilterConfigurationArea
+282 child class has public function updateCompletion()
+283 updateCompletion() function has parameter of type int
+284 updateCompletion() function has parameter of type boolean
+285 child class has void function updateCompletion()
+286 child class has member field called descriptionCombo
+287 child class has member field of type Combo
+288 child class has member field descriptionCombo of type Combo
+289 child class has member field called descriptionText
+290 child class has member field of type Text
+291 child class has member field descriptionText of type Text
+292 child class has private function createDescriptionGroup()
+293 call to constructor of Composite is made in createDescriptionGroup()
+294 call to constructor of GridLayout is made in createDescriptionGroup()
+295 call to constructor of GridData is made in createDescriptionGroup()
+296 call to constructor of Label is made in createDescriptionGroup()
+297 call to constructor of GC is made in createDescriptionGroup()
+298 createDescriptionGroup() function has parameter of type Composite
+299 child class has void function createDescriptionGroup()
+300 is abstract class
+301 child class has member field called priorities
+302 child class has member field priorities of type int
+303 child class has member field called highButton
+304 child class has member field highButton of type Button
+305 child class has member field called normalButton
+306 child class has member field normalButton of type Button
+307 child class has member field called lowButton
+308 child class has member field lowButton of type Button
+309 child class has public function updatePriorities()
+310 updatePriorities() function has parameter of type int
+311 updatePriorities() function has parameter of type boolean
+312 child class has void function updatePriorities()
+313 child class extends class MarkerFieldFilter
+314 child constructor sets member variables cachedMarkerBuilder
+315 child class defines constructor with parameter of type int
+316 child class has member field called start
+317 child class has member field start of type int
+318 child class has member field called end
+319 child class has member field end of type int
+320 child class has member field called children
+321 child class has member field of type MarkerEntry
+322 child class has member field children of type MarkerEntry
+323 child class has member field called name
+324 child class has member field name of type String
+325 child class has member field called cachedMarkerBuilder
+326 child class has member field of type CachedMarkerBuilder
+327 child class has member field cachedMarkerBuilder of type CachedMarkerBuilder
+328 child class has member field called severity
+329 child class has member field severity of type int
+330 child class extends class MarkerItem
+331 child class has public function getChildren()
+332 getChildren() function returns type MarkerItem
+333 child class has public function getParent()
+334 getParent() function returns type MarkerItem
+335 child class has public function getDescription()
+336 getDescription() function returns output from function call
+337 getDescription() function returns type String
+338 child class has public function getTotalSize()
+339 getTotalSize() function returns type int
+340 child class has public function isConcrete()
+341 isConcrete() function returns type boolean
+342 child class has public function getConcreteRepresentative()
+343 getConcreteRepresentative() function returns output from function call
+344 getConcreteRepresentative() function returns type MarkerEntry
+345 child class has public function getHighestSeverity()
+346 getHighestSeverity() function returns type int
+347 child constructor sets member variables marker
+348 child class defines constructor with parameter of type IMarker
+349 child constructor stores all parameters as member variables
+350 child class has member field called LOCATION_STRING
+351 child class has member field of type Object
+352 child class has member field LOCATION_STRING of type Object
+353 child class has member field called attributeCache
+354 child class has member field attributeCache of type Map
+355 child class has member field called category
+356 child class has member field of type MarkerCategory
+357 child class has member field category of type MarkerCategory
+358 child class has member field called collationKeys
+359 child class has member field collationKeys of type Map
+360 child class has member field called folder
+361 child class has member field folder of type String
+362 child class has member field called marker
+363 child class has member field of type IMarker
+364 child class has member field marker of type IMarker
+365 child class implements IAdaptable
+366 child class has public function getAttributeValue()
+367 call to constructor of Boolean is made in getAttributeValue()
+368 getAttributeValue() function has parameter of type String
+369 getAttributeValue() function has parameter of type boolean
+370 getAttributeValue() function returns type boolean
+371 call to constructor of Integer is made in getAttributeValue()
+372 getAttributeValue() function has parameter of type int
+373 getAttributeValue() function returns type int
+374 getAttributeValue() function returns type String
+375 child class has public function getCollationKey()
+376 getCollationKey() function has parameter of type String
+377 getCollationKey() function returns type CollationKey
+378 child class has public function getCreationTime()
+379 getCreationTime() function returns output from function call
+380 getCreationTime() function returns type long
+381 getDescription() function returns output from function call to getAttributeValue
+382 getID() function returns type long
+383 child class has public function getLocation()
+384 getLocation() function returns type String
+385 child class has public function getMarker()
+386 getMarker() function returns type IMarker
+387 child class has public function getMarkerTypeName()
+388 getMarkerTypeName() function returns output from function call
+389 getMarkerTypeName() function returns type String
+390 child class has public function getPath()
+391 call to constructor of StringBuffer is made in getPath()
+392 getPath() function returns type String
+393 child class has public function setCategory()
+394 setCategory() function has parameter of type MarkerCategory
+395 child class has void function setCategory()
+396 child class has public function getCategory()
+397 getCategory() function returns type MarkerCategory
+398 child class has public function setMarker()
+399 setMarker() function has parameter of type IMarker
+400 setMarker() function modifies member variablethis
+401 child class has void function setMarker()
+402 child class has public function getAdapter()
+403 getAdapter() function has parameter of type Class
+404 getAdapter() function returns type Object
+405 child class extends class MarkerSupportView
+406 child class overrides function getColumnHeaderText() in parent class
+407 child class overrides function getColumnTooltipText() in parent class
+408 child class overrides function getDefaultColumnWidth() in parent class
+409 child class overrides function getEditingSupport() in parent class
+410 child class overrides function getImage() in parent class
+411 child class has member field called COMPLETE_IMAGE_PATH
+412 child class has member field COMPLETE_IMAGE_PATH of type String
+413 child class has member field called INCOMPLETE_IMAGE_PATH
+414 child class has member field INCOMPLETE_IMAGE_PATH of type String
+415 child class has member field called DONE
+416 child class has member field DONE of type int
+417 child class has member field called NOT_DONE
+418 child class has member field NOT_DONE of type int
+419 child class has member field called UNDEFINED
+420 child class has member field UNDEFINED of type int
+421 child class extends class MarkerField
+422 child class has public function getDefaultColumnWidth()
+423 getDefaultColumnWidth() function has parameter of type Control
+424 getDefaultColumnWidth() function returns type int
+425 child class has public function getColumnHeaderText()
+426 getColumnHeaderText() function returns type String
+427 child class has public function getValue()
+428 getValue() function has parameter of type MarkerItem
+429 getValue() function returns type String
+430 getImage() function returns output from function call to getCompleteImage
+431 child class has private function getDoneConstant()
+432 getDoneConstant() function has parameter of type MarkerItem
+433 getDoneConstant() function returns type int
+434 child class has private function getCompleteImage()
+435 getCompleteImage() function returns output from function call
+436 getCompleteImage() function returns type Image
+437 child class has public function getColumnTooltipText()
+438 getColumnTooltipText() function returns type String
+439 compare() function returns output from function call
+440 compare() function returns output from function call to getDoneConstant
+441 child class has public function getEditingSupport()
+442 call to constructor of CompletionEditingSupport is made in getEditingSupport()
+443 getEditingSupport() function calls constructor in return statement
+444 getEditingSupport() function returns output from function call
+445 getEditingSupport() function returns output from function call to CompletionEditingSupport
+446 getEditingSupport() function has parameter of type ColumnViewer
+447 getEditingSupport() function returns type EditingSupport
+448 getValue() function returns output from function call
+449 compare() function returns output from function call to int
+450 compare() function returns output from function call to getDescriptionKey
+451 getDefaultColumnWidth() function returns output from function call
+452 getDefaultColumnWidth() function returns output from function call to getFontWidth
+453 child class has private function getDescriptionKey()
+454 getDescriptionKey() function has parameter of type Object
+455 getDescriptionKey() function returns type CollationKey
+456 call to constructor of DescriptionEditingSupport is made in getEditingSupport()
+457 getEditingSupport() function returns output from function call to DescriptionEditingSupport
+458 child class has member field called HIGH_PRIORITY_IMAGE_PATH
+459 child class has member field HIGH_PRIORITY_IMAGE_PATH of type String
+460 child class has member field called LOW_PRIORITY_IMAGE_PATH
+461 child class has member field LOW_PRIORITY_IMAGE_PATH of type String
+462 child class has member field priorities of type String
+463 getDefaultColumnWidth() function returns output from function call to getHighPriorityImage
+464 child class has private function getHighPriorityImage()
+465 getHighPriorityImage() function returns output from function call
+466 getHighPriorityImage() function returns type Image
+467 call to constructor of PriorityEditingSupport is made in getEditingSupport()
+468 getEditingSupport() function returns output from function call to PriorityEditingSupport
+469 compare() function returns output from function call to getSeverity
+470 function getValue() has annotation @Override
+471 child class has private function getFixablePrefix()
+472 getFixablePrefix() function has parameter of type MarkerItem
+473 getFixablePrefix() function returns type String
+474 function getColumnHeaderText() has annotation @Override
+475 function getDefaultColumnWidth() has annotation @Override
+476 child class has private function getImage()
+477 child class has public function update()
+478 update() function has parameter of type ViewerCell
+479 child class has void function update()
+480 function update() has annotation @Override
+481 child class overrides function execute() in parent class
+482 child class extends class MarkerViewHandler
+483 child class has public function execute()
+484 call to constructor of DialogTaskProperties is made in execute()
+485 execute() function has parameter of type ExecutionEvent
+486 execute() function returns type Object
+487 child class implements IHandler
+488 call to constructor of DeleteMarkersOperation is made in execute()
+489 child class has private function getCompletedTasks()
+490 call to constructor of ArrayList is made in getCompletedTasks()
+491 getCompletedTasks() function has parameter of type ExtendedMarkersView
+492 getCompletedTasks() function returns type List
+493 call to constructor of ExecutionException is made in execute()
+494 call to constructor of HashMap is made in execute()
+495 call to constructor of UpdateMarkersOperation is made in execute()
+496 child class has private function setClipboard()
+497 setClipboard() function has parameter of type ExtendedMarkersView
+498 child class has void function setClipboard()
+499 child class has public function createMarkerReport()
+500 call to constructor of StringBuffer is made in createMarkerReport()
+501 createMarkerReport() function returns output from function call
+502 createMarkerReport() function has parameter of type ExtendedMarkersView
+503 createMarkerReport() function has parameter of type IMarker
+504 createMarkerReport() function returns type String
+505 call to constructor of ArrayList is made in execute()
+506 call to constructor of ProgressMonitorDialog is made in execute()
+507 call to constructor of Status is made in execute()
+508 call to constructor of StatusAdapter is made in execute()
+509 call to constructor of QuickFixWizard is made in execute()
+510 call to constructor of QuickFixWizardDialog is made in execute()
+511 child class has member field children of type Collection
+512 child class extends class TypesEntry
+513 is private class
+514 child class has public function add()
+515 add() function has parameter of type MarkerTypeEntry
+516 child class has void function add()
+517 child class has public function addElementsMatching()
+518 addElementsMatching() function has parameter of type Collection
+519 child class has void function addElementsMatching()
+520 getChildren() function returns type Collection
+521 child class has public function getLabel()
+522 getLabel() function returns type String
+523 getParent() function returns type TypesEntry
+524 child class has public function hasChildren()
+525 hasChildren() function returns output from function call
+526 hasChildren() function returns type boolean
+527 child constructor sets member variables markerType
+528 child class defines constructor with parameter of type MarkerType
+529 child class has member field of type CategoryEntry
+530 child class has member field category of type CategoryEntry
+531 child class has member field called markerType
+532 child class has member field of type MarkerType
+533 child class has member field markerType of type MarkerType
+534 getLabel() function returns output from function call
+535 child class has public function getMarkerType()
+536 getMarkerType() function returns type MarkerType
+537 child class has public function setParent()
+538 setParent() function has parameter of type CategoryEntry
+539 child class has void function setParent()
+540 child constructor sets member variables deferred, delayString, duration, exceptionIndex, jobLock, jobs, percent, progressNoForLock, quantity, reschedule, rescheduleDelay, returnErrorStatus, system, thread, uiThread, useGroup, user, windowRunnable
+541 child class defines constructor with parameter of type boolean
+542 child class has empty-body constructor
+543 child class has member field called JOBS_AND_RUNNABLE_TYPE
+544 child class has member field JOBS_AND_RUNNABLE_TYPE of type String
+545 child class has member field called JOBS
+546 child class has member field JOBS of type String
+547 child class has member field called WINDOWRUNNABLE
+548 child class has member field WINDOWRUNNABLE of type String
+549 child class has member field called UI_THREAD
+550 child class has member field UI_THREAD of type String
+551 child class has member field called ERRORSTATUS
+552 child class has member field ERRORSTATUS of type String
+553 child class has member field called RESCHEDULE
+554 child class has member field RESCHEDULE of type String
+555 child class has member field called USEGROUP
+556 child class has member field USEGROUP of type String
+557 child class has member field called USER
+558 child class has member field USER of type String
+559 child class has member field called SYSTEM
+560 child class has member field SYSTEM of type String
+561 child class has member field called JOBLOCK
+562 child class has member field JOBLOCK of type String
+563 child class has member field called THREAD
+564 child class has member field THREAD of type String
+565 child class has member field called PROGRESS_NO_FOR_LOCK
+566 child class has member field PROGRESS_NO_FOR_LOCK of type String
+567 child class has member field called RESCHEDULE_DELAY
+568 child class has member field RESCHEDULE_DELAY of type String
+569 child class has member field called QUANTITY
+570 child class has member field QUANTITY of type String
+571 child class has member field called DELAY
+572 child class has member field DELAY of type String
+573 child class has member field called EXCEPTION
+574 child class has member field EXCEPTION of type String
+575 child class has member field called DURATION
+576 child class has member field DURATION of type String
+577 child class has member field called PERCENT
+578 child class has member field PERCENT of type String
+579 child class has member field called DEFERRED
+580 child class has member field DEFERRED of type String
+581 child class has member field called percent
+582 child class has member field percent of type int
+583 child class has member field called duration
+584 child class has member field called exceptionIndex
+585 child class has member field called delayString
+586 child class has member field delayString of type String
+587 child class has member field called quantity
+588 child class has member field called rescheduleDelay
+589 child class has member field called progressNoForLock
+590 child class has member field of type boolean
+591 child class has member field progressNoForLock of type boolean
+592 child class has member field called thread
+593 child class has member field called jobLock
+594 child class has member field called system
+595 child class has member field called user
+596 child class has member field called useGroup
+597 child class has member field called reschedule
+598 child class has member field called returnErrorStatus
+599 child class has member field called uiThread
+600 child class has member field called windowRunnable
+601 child class has member field called jobs
+602 child class has member field called deferred
+603 child class has member field called source
+604 child class has member field of type JobAndRunnablesPropertySource
+605 child class has member field source of type JobAndRunnablesPropertySource
+606 child class extends class TestBedRunnable
+607 child class has public function run()
+608 call to constructor of NullProgressMonitor is made in run()
+609 child class has void function run()
+610 child class has public function getException()
+611 call to constructor of NullPointerException is made in getException()
+612 call to constructor of OutOfMemoryError is made in getException()
+613 call to constructor of IndexOutOfBoundsException is made in getException()
+614 getException() function calls constructor in return statement
+615 getException() function returns output from function call
+616 getException() function returns output from function call to NullPointerException
+617 getException() function has parameter of type int
+618 getException() function returns type Throwable
+619 child class has private function getThrowAfter()
+620 getThrowAfter() function returns output from function call
+621 getThrowAfter() function has parameter of type long
+622 getThrowAfter() function returns type long
+623 child class has protected function doRunInWorkspace()
+624 doRunInWorkspace() function has parameter of type long
+625 doRunInWorkspace() function has parameter of type Throwable
+626 doRunInWorkspace() function has parameter of type IProgressMonitor
+627 child class has void function doRunInWorkspace()
+628 child class has protected function doRun()
+629 doRun() function has parameter of type long
+630 doRun() function has parameter of type Throwable
+631 doRun() function has parameter of type IProgressMonitor
+632 child class has void function doRun()
+633 child class has private function throwException()
+634 throwException() function has parameter of type Throwable
+635 child class has void function throwException()
+636 child class has public function toString()
+637 toString() function returns type String
+638 child class has public function getTypeId()
+639 getTypeId() function returns type String
+640 child class has protected function saveState()
+641 saveState() function has parameter of type IMemento
+642 child class has void function saveState()
+643 child class has public static function create()
+644 call to constructor of JobsAndRunnablesRunnable is made in create()
+645 create() function has parameter of type IMemento
+646 create() function returns type TestBedRunnable
+647 child constructor sets member variables element, exception
+648 child class has member field called SHOW_VIEW_TYPE
+649 child class has member field SHOW_VIEW_TYPE of type String
+650 child class has member field called UIELEMENT
+651 child class has member field UIELEMENT of type String
+652 child class has member field called element
+653 child class has member field element of type String
+654 child class has member field called exception
+655 child class has member field exception of type String
+656 child class has member field source of type Object
+657 child class has private function showRuntimeExceptionEditor()
+658 child class has void function showRuntimeExceptionEditor()
+659 child class has private function showPartInitExceptionView()
+660 child class has void function showPartInitExceptionView()
+661 child class has private function showRuntimeExceptionView()
+662 child class has void function showRuntimeExceptionView()
+663 child class has private function showPartInitExceptionEditor()
+664 child class has void function showPartInitExceptionEditor()
+665 child class has public function getElement()
+666 getElement() function returns type String
+667 child class has public function setElement()
+668 setElement() function has parameter of type String
+669 setElement() function modifies member variablethis
+670 child class has void function setElement()
+671 getException() function returns type String
+672 child class has public function setException()
+673 setException() function has parameter of type String
+674 setException() function modifies member variablethis
+675 child class has void function setException()
+676 call to constructor of ShowViewRunnable is made in create()
+677 create() function calls constructor in return statement
+678 create() function returns output from function call
+679 create() function returns output from function call to ShowViewRunnable
+680 child class has member field called SLEEP_TYPE
+681 child class has member field SLEEP_TYPE of type String
+682 child class has member field called SLEEP
+683 child class has member field SLEEP of type String
+684 child class has member field called sleepingTime
+685 child class has member field sleepingTime of type int
+686 call to constructor of SleepingRunnable is made in create()
+687 create() function returns output from function call to SleepingRunnable
+688 child class has public function getSleepingTime()
+689 getSleepingTime() function returns type int
+690 child class defines constructor with parameter of type List
+691 child class has member field called STATUS_HANDLING_TYPE
+692 child class has member field STATUS_HANDLING_TYPE of type String
+693 child class has member field called STATUS
+694 child class has member field STATUS of type String
+695 child class has member field called FLAG
+696 child class has member field FLAG of type String
+697 child class has member field called WRAPPED
+698 child class has member field WRAPPED of type String
+699 child class has member field called EXPLANATION
+700 child class has member field EXPLANATION of type String
+701 child class has member field called ACTION
+702 child class has member field ACTION of type String
+703 child class has member field called items
+704 child class has member field of type List
+705 child class has member field items of type List
+706 call to constructor of StatusHandlingPropertySource is made in getAdapter()
+707 call to constructor of StatusHandlingRunnable is made in create()
+708 child class overrides function getText() in parent class
+709 child class extends class LabelProvider
+710 child class implements IDebugModelPresentation
+711 child class has public function setAttribute()
+712 setAttribute() function has parameter of type String
+713 setAttribute() function has parameter of type Object
+714 child class has void function setAttribute()
+715 child class has public function getText()
+716 getText() function has parameter of type Object
+717 getText() function returns type String
+718 child class has private function getWatchpointText()
+719 getWatchpointText() function has parameter of type PDAWatchpoint
+720 getWatchpointText() function returns type String
+721 child class has private function getTargetText()
+722 call to constructor of Path is made in getTargetText()
+723 getTargetText() function has parameter of type PDADebugTarget
+724 getTargetText() function returns type String
+725 child class has private function getStackFrameText()
+726 getStackFrameText() function has parameter of type PDAStackFrame
+727 getStackFrameText() function returns type String
+728 child class has private function getThreadText()
+729 getThreadText() function has parameter of type PDAThread
+730 getThreadText() function returns type String
+731 child class has public function computeDetail()
+732 computeDetail() function has parameter of type IValue
+733 computeDetail() function has parameter of type IValueDetailListener
+734 child class has void function computeDetail()
+735 child class has public function getEditorInput()
+736 call to constructor of FileEditorInput is made in getEditorInput()
+737 getEditorInput() function has parameter of type Object
+738 getEditorInput() function returns type IEditorInput
+739 child class has public function getEditorId()
+740 getEditorId() function has parameter of type IEditorInput
+741 getEditorId() function has parameter of type Object
+742 getEditorId() function returns type String
+743 child class overrides function initializeInfo() in parent class
+744 child class overrides function toString() in parent class
+745 child class defines constructor with parameter of type Node
+746 child class has member field of type ArrayList
+747 child class has member field children of type ArrayList
+748 child class extends class Node
+749 is static class
+750 child class has static function add()
+751 add() function has parameter of type Node
+752 child class has public function childNames()
+753 childNames() function returns type String
+754 child class has static function getChild()
+755 getChild() function has parameter of type String
+756 getChild() function returns type Node
+757 child class has protected function initializeInfo()
+758 initializeInfo() function has parameter of type FileInfo
+759 child class has void function initializeInfo()
+760 child class has static function isFile()
+761 isFile() function returns type boolean
+762 child class has static function remove()
+763 remove() function has parameter of type String
+764 child class has void function remove()
+765 toString() function returns output from function call
+766 child class has member field called contents
+767 child class has member field of type byte
+768 child class has member field contents of type byte
+769 child class has public function openInputStream()
+770 call to constructor of ByteArrayInputStream is made in openInputStream()
+771 openInputStream() function calls constructor in return statement
+772 openInputStream() function returns output from function call
+773 openInputStream() function returns output from function call to ByteArrayInputStream
+774 openInputStream() function returns type InputStream
+775 child class has public function openOutputStream()
+776 openOutputStream() function calls constructor in return statement
+777 openOutputStream() function has parameter of type int
+778 openOutputStream() function returns type OutputStream
+779 child class has protected function setContents()
+780 setContents() function has parameter of type byte
+781 setContents() function has parameter of type int
+782 child class has void function setContents()
+783 child class overrides function internal_init() in parent class
+784 child class has member field called colorManager
+785 child class has member field of type ColorManager
+786 child class has member field colorManager of type ColorManager
+787 child class extends class SimpleEditor
+788 child class has protected function internal_init()
+789 call to constructor of PythonConfiguration is made in internal_init()
+790 call to constructor of PythonDocumentProvider is made in internal_init()
+791 child class has void function internal_init()
+792 function internal_init() has annotation @Override
+793 child class has public function dispose()
+794 child class has void function dispose()
+795 function dispose() has annotation @Override
+796 child class has protected function createColumnSupport()
+797 call to constructor of ColumnSupport is made in createColumnSupport()
+798 createColumnSupport() function calls constructor in return statement
+799 createColumnSupport() function returns output from function call
+800 createColumnSupport() function returns output from function call to ColumnSupport
+801 createColumnSupport() function returns type IColumnSupport
+802 function createColumnSupport() has annotation @Override
+803 child class has protected function createVerticalRuler()
+804 call to constructor of CompositeRuler is made in createVerticalRuler()
+805 createVerticalRuler() function calls constructor in return statement
+806 createVerticalRuler() function returns output from function call
+807 createVerticalRuler() function returns output from function call to CompositeRuler
+808 createVerticalRuler() function returns type IVerticalRuler
+809 function createVerticalRuler() has annotation @Override
+810 call to constructor of XMLConfiguration is made in internal_init()
+811 call to constructor of XMLDocumentProvider is made in internal_init()
+812 child class overrides function createAnnotationModel() in parent class
+813 child class overrides function setupDocument() in parent class
+814 child class extends class SimpleDocumentProvider
+815 child class has protected function setupDocument()
+816 setupDocument() function has parameter of type IDocument
+817 child class has void function setupDocument()
+818 function setupDocument() has annotation @Override
+819 child class has protected function createAnnotationModel()
+820 createAnnotationModel() function has parameter of type Object
+821 createAnnotationModel() function returns type IAnnotationModel
+822 function createAnnotationModel() has annotation @Override
+823 call to constructor of FastPartitioner is made in setupDocument()
+824 call to constructor of XMLPartitionScanner is made in setupDocument()
+825 child class overrides function run() in parent class
+826 child constructor sets member variables duration, reschedule, rescheduleWait, returnError, throwAfter, toBeThrown
+827 child class defines constructor with parameter of type long
+828 child class defines constructor with parameter of type Throwable
+829 child class has member field called FAMILY_TEST_JOB
+830 child class has member field FAMILY_TEST_JOB of type Object
+831 child class has member field of type long
+832 child class has member field duration of type long
+833 child class has member field reschedule of type boolean
+834 child class has member field called rescheduleWait
+835 child class has member field rescheduleWait of type long
+836 child class has member field called returnError
+837 child class has member field returnError of type boolean
+838 child class has member field called toBeThrown
+839 child class has member field of type Throwable
+840 child class has member field toBeThrown of type Throwable
+841 child class has member field called throwAfter
+842 child class has member field throwAfter of type long
+843 child class extends class Job
+844 child class has public function belongsTo()
+845 belongsTo() function has parameter of type Object
+846 belongsTo() function returns type boolean
+847 call to constructor of MultiStatus is made in run()
+848 call to constructor of RuntimeException is made in run()
+849 call to constructor of Status is made in run()
+850 run() function has parameter of type IProgressMonitor
+851 run() function returns type IStatus
+852 child class has protected function run()
+853 child class overrides function dispose() in parent class
+854 child class overrides function getId() in parent class
+855 child class overrides function getModes() in parent class
+856 child class extends class FooTab
+857 child class has public function getId()
+858 getId() function returns type String
+859 child class has public function getModes()
+860 getModes() function returns type Set
+861 child class defines constructor with parameter of type CounterThread
+862 child class has member field called fThread
+863 child class has member field of type CounterThread
+864 child class has member field fThread of type CounterThread
+865 child class has member field called fCount
+866 child class has member field fCount of type int
+867 child class extends class CounterDebugElement
+868 child class implements IStackFrame
+869 child class has public function getCharEnd()
+870 getCharEnd() function returns type int
+871 child class has public function getCharStart()
+872 getCharStart() function returns type int
+873 child class has public function getLineNumber()
+874 getLineNumber() function returns type int
+875 getName() function returns output from function call to getLineNumber
+876 child class has public function getRegisterGroups()
+877 getRegisterGroups() function calls constructor in return statement
+878 getRegisterGroups() function returns type IRegisterGroup
+879 child class has public function getThread()
+880 getThread() function returns type IThread
+881 child class has public function getVariables()
+882 getVariables() function calls constructor in return statement
+883 getVariables() function returns type IVariable
+884 child class has public function hasRegisterGroups()
+885 hasRegisterGroups() function returns type boolean
+886 child class has public function hasVariables()
+887 hasVariables() function returns type boolean
+888 child class has public function canStepInto()
+889 canStepInto() function returns output from function call
+890 canStepInto() function returns type boolean
+891 child class has public function canStepOver()
+892 canStepOver() function returns output from function call
+893 canStepOver() function returns type boolean
+894 child class has public function canStepReturn()
+895 canStepReturn() function returns output from function call
+896 canStepReturn() function returns type boolean
+897 child class has public function isStepping()
+898 isStepping() function returns output from function call
+899 isStepping() function returns type boolean
+900 child class has public function stepInto()
+901 child class has void function stepInto()
+902 child class has public function stepOver()
+903 child class has void function stepOver()
+904 child class has public function stepReturn()
+905 child class has void function stepReturn()
+906 child class has public function canResume()
+907 canResume() function returns output from function call
+908 canResume() function returns type boolean
+909 child class has public function canSuspend()
+910 canSuspend() function returns output from function call
+911 canSuspend() function returns type boolean
+912 child class has public function isSuspended()
+913 isSuspended() function returns output from function call
+914 isSuspended() function returns type boolean
+915 child class has public function resume()
+916 child class has void function resume()
+917 child class has public function suspend()
+918 child class has void function suspend()
+919 child class has public function canTerminate()
+920 canTerminate() function returns output from function call
+921 canTerminate() function returns type boolean
+922 child class has public function isTerminated()
+923 isTerminated() function returns output from function call
+924 isTerminated() function returns type boolean
+925 child class has public function terminate()
+926 child class has void function terminate()
+927 child class has public function equals()
+928 equals() function has parameter of type Object
+929 equals() function returns type boolean
+930 child class has public function hashCode()
+931 hashCode() function returns output from function call
+932 hashCode() function returns output from function call to getClass
+933 hashCode() function returns type int
+934 child class defines constructor with parameter of type ILaunch
+935 child class has member field of type IThread
+936 child class has member field fThread of type IThread
+937 child class has member field called fLaunch
+938 child class has member field of type ILaunch
+939 child class has member field fLaunch of type ILaunch
+940 child class has member field called fBreakpoints
+941 child class has member field fBreakpoints of type List
+942 child class implements IDebugTarget
+943 child class has public function getDebugTarget()
+944 getDebugTarget() function returns type IDebugTarget
+945 child class has public function getLaunch()
+946 getLaunch() function returns type ILaunch
+947 child class has public function getProcess()
+948 getProcess() function returns type IProcess
+949 child class has public function getThreads()
+950 getThreads() function calls constructor in return statement
+951 getThreads() function returns type IThread
+952 child class has public function hasThreads()
+953 hasThreads() function returns type boolean
+954 child class has public function supportsBreakpoint()
+955 supportsBreakpoint() function has parameter of type IBreakpoint
+956 supportsBreakpoint() function returns type boolean
+957 child class has public function breakpointAdded()
+958 breakpointAdded() function has parameter of type IBreakpoint
+959 child class has void function breakpointAdded()
+960 child class has public function breakpointChanged()
+961 breakpointChanged() function has parameter of type IBreakpoint
+962 breakpointChanged() function has parameter of type IMarkerDelta
+963 child class has void function breakpointChanged()
+964 child class has public function breakpointRemoved()
+965 breakpointRemoved() function has parameter of type IBreakpoint
+966 breakpointRemoved() function has parameter of type IMarkerDelta
+967 child class has void function breakpointRemoved()
+968 child class has public function canDisconnect()
+969 canDisconnect() function returns type boolean
+970 child class has public function disconnect()
+971 child class has void function disconnect()
+972 child class has public function isDisconnected()
+973 isDisconnected() function returns type boolean
+974 child class has public function getMemoryBlock()
+975 getMemoryBlock() function has parameter of type long
+976 getMemoryBlock() function returns type IMemoryBlock
+977 child class has public function supportsStorageRetrieval()
+978 supportsStorageRetrieval() function returns type boolean
+979 child class has public function getInstalledBreakpoints()
+980 getInstalledBreakpoints() function returns output from function call
+981 getInstalledBreakpoints() function returns type LimitBreakpoint
+982 child class has public function terminated()
+983 child class has void function terminated()
+984 call to constructor of Resume is made in child class constructor
+985 child class defines constructor with parameter of type IDebugTarget
+986 child class has member field called MIN_COUNTER
+987 child class has member field MIN_COUNTER of type int
+988 child class has member field called MAX_COUNTER
+989 child class has member field MAX_COUNTER of type int
+990 child class has member field called TERMINATED
+991 child class has member field TERMINATED of type int
+992 child class has member field called RUNNING
+993 child class has member field RUNNING of type int
+994 child class has member field called STEPPING
+995 child class has member field STEPPING of type int
+996 child class has member field called SUSPENDED
+997 child class has member field SUSPENDED of type int
+998 child class has member field called EVENT_BREAKPOINT
+999 child class has member field EVENT_BREAKPOINT of type int
+1000 child class has member field called EVENT_TERMINATED
+1001 child class has member field EVENT_TERMINATED of type int
+1002 child class has member field called EVENT_SUSPENDED
+1003 child class has member field EVENT_SUSPENDED of type int
+1004 child class has member field called EVENT_NONE
+1005 child class has member field EVENT_NONE of type int
+1006 child class has member field called INSTRUCTION_TIME
+1007 child class has member field INSTRUCTION_TIME of type int
+1008 child class has member field called fState
+1009 child class has member field fState of type int
+1010 child class has member field called fRequest
+1011 child class has member field fRequest of type int
+1012 child class has member field called fBreakpoint
+1013 child class has member field of type IBreakpoint
+1014 child class has member field fBreakpoint of type IBreakpoint
+1015 child class has member field called fExecutionThread
+1016 child class has member field of type Thread
+1017 child class has member field fExecutionThread of type Thread
+1018 child class implements IThread
+1019 child class has public function getBreakpoints()
+1020 getBreakpoints() function calls constructor in return statement
+1021 getBreakpoints() function returns type IBreakpoint
+1022 child class has public function getPriority()
+1023 getPriority() function returns type int
+1024 child class has public function getStackFrames()
+1025 getStackFrames() function calls constructor in return statement
+1026 getStackFrames() function returns type IStackFrame
+1027 child class has public function getTopStackFrame()
+1028 call to constructor of CounterStackFrame is made in getTopStackFrame()
+1029 getTopStackFrame() function returns type IStackFrame
+1030 child class has public function hasStackFrames()
+1031 hasStackFrames() function returns output from function call
+1032 hasStackFrames() function returns output from function call to isSuspended
+1033 hasStackFrames() function returns type boolean
+1034 child class has public synchronized function canResume()
+1035 canResume() function returns output from function call to isSuspended
+1036 child class has public synchronized function canSuspend()
+1037 canSuspend() function returns output from function call to isTerminated
+1038 child class has public synchronized function isSuspended()
+1039 call to constructor of Resume is made in resume()
+1040 canStepOver() function returns output from function call to isSuspended
+1041 child class has public synchronized function isStepping()
+1042 call to constructor of StepOver is made in stepOver()
+1043 canTerminate() function returns output from function call to isTerminated
+1044 child class has public synchronized function isTerminated()
+1045 call to constructor of Resume is made in terminate()
+1046 child class has private function executeNextInstruction()
+1047 executeNextInstruction() function returns type int
+1048 child class has member field called manyStrings
+1049 child class has member field manyStrings of type Object
+1050 child class has member field called a
+1051 child class has member field a of type String
+1052 child class has member field called b
+1053 child class has member field b of type String
+1054 child class has member field called c
+1055 child class has member field c of type String
+1056 child class has member field called x
+1057 child class has member field x of type int
+1058 child class has member field called y
+1059 child class has member field y of type int
+1060 child class has member field called z
+1061 child class has member field z of type int
+1062 child class extends class ALotOfStaticVars
+1063 child class implements ALotOfConstants
+1064 child class overrides function getDebugTarget() in parent class
+1065 child class overrides function isRunToLineBreakpoint() in parent class
+1066 child class overrides function remove() in parent class
+1067 child class defines constructor with parameter of type IFile
+1068 child class has member field called fSourceFile
+1069 child class has member field of type IFile
+1070 child class has member field fSourceFile of type IFile
+1071 child class extends class PDALineBreakpoint
+1072 child class has public function isRunToLineBreakpoint()
+1073 isRunToLineBreakpoint() function returns type boolean
+1074 child class has public function getSourceFile()
+1075 getSourceFile() function returns type IFile
+1076 child class defines constructor with parameter of type IResource
+1077 child class has member field called fLastSuspendType
+1078 child class has member field fLastSuspendType of type String
+1079 child class has member field called ACCESS
+1080 child class has member field ACCESS of type String
+1081 child class has member field called MODIFICATION
+1082 child class has member field MODIFICATION of type String
+1083 child class has member field called FUNCTION_NAME
+1084 child class has member field FUNCTION_NAME of type String
+1085 child class has member field called VAR_NAME
+1086 child class has member field VAR_NAME of type String
+1087 child class implements IWatchpoint
+1088 child class has public function isAccess()
+1089 isAccess() function returns output from function call
+1090 isAccess() function returns output from function call to getMarker
+1091 isAccess() function returns type boolean
+1092 child class has public function setAccess()
+1093 setAccess() function has parameter of type boolean
+1094 child class has void function setAccess()
+1095 child class has public function isModification()
+1096 isModification() function returns output from function call
+1097 isModification() function returns output from function call to getMarker
+1098 isModification() function returns type boolean
+1099 child class has public function setModification()
+1100 setModification() function has parameter of type boolean
+1101 child class has void function setModification()
+1102 child class has public function supportsAccess()
+1103 supportsAccess() function returns type boolean
+1104 child class has public function supportsModification()
+1105 supportsModification() function returns type boolean
+1106 child class has protected function setVariable()
+1107 setVariable() function has parameter of type String
+1108 child class has void function setVariable()
+1109 child class has public function getVariableName()
+1110 getVariableName() function returns output from function call
+1111 getVariableName() function returns output from function call to getMarker
+1112 getVariableName() function returns type String
+1113 child class has public function getFunctionName()
+1114 getFunctionName() function returns output from function call
+1115 getFunctionName() function returns output from function call to getMarker
+1116 getFunctionName() function returns type String
+1117 child class has public function setSuspendType()
+1118 setSuspendType() function has parameter of type String
+1119 child class has void function setSuspendType()
+1120 child class has public function getSuspendType()
+1121 getSuspendType() function returns type String
+1122 child class has protected function createRequest()
+1123 call to constructor of PDAWatchCommand is made in createRequest()
+1124 createRequest() function has parameter of type PDADebugTarget
+1125 child class has void function createRequest()
+1126 child class has protected function clearRequest()
+1127 call to constructor of PDAWatchCommand is made in clearRequest()
+1128 clearRequest() function has parameter of type PDADebugTarget
+1129 child class has void function clearRequest()
+1130 child class has public function handleEvent()
+1131 handleEvent() function has parameter of type PDAEvent
+1132 child class has void function handleEvent()
+1133 child class has private function handleHit()
+1134 handleHit() function has parameter of type PDARunControlEvent
+1135 child class has void function handleHit()
+1136 child class defines constructor with parameter of type PDAThread
+1137 child class has member field of type PDAThread
+1138 child class has member field fThread of type PDAThread
+1139 child class has member field called fValue
+1140 child class has member field fValue of type String
+1141 child class has member field called fIndex
+1142 child class has member field fIndex of type int
+1143 child class extends class PDADebugElement
+1144 child class implements IValue
+1145 getThread() function returns type PDAThread
+1146 child class has public function getValueString()
+1147 getValueString() function returns type String
+1148 child class has public function isAllocated()
+1149 isAllocated() function returns type boolean
+1150 child class has public function getReferenceTypeName()
+1151 getReferenceTypeName() function returns type String
+1152 equals() function returns output from function call
+1153 child class defines constructor with parameter of type PDAFrameData
+1154 child class has member field called fName
+1155 child class has member field fName of type String
+1156 child class has member field called fPC
+1157 child class has member field fPC of type int
+1158 child class has member field called fFilePath
+1159 child class has member field of type IPath
+1160 child class has member field fFilePath of type IPath
+1161 child class has member field called fId
+1162 child class has member field fId of type int
+1163 child class has private function init()
+1164 init() function has parameter of type PDAFrameData
+1165 child class has void function init()
+1166 getVariables() function returns output from function call
+1167 hasVariables() function returns output from function call
+1168 hasVariables() function returns output from function call to getVariables
+1169 canStepInto() function returns output from function call to getThread
+1170 canStepOver() function returns output from function call to getThread
+1171 canStepReturn() function returns output from function call to getThread
+1172 isStepping() function returns output from function call to getThread
+1173 canResume() function returns output from function call to getThread
+1174 canSuspend() function returns output from function call to getThread
+1175 isSuspended() function returns output from function call to getThread
+1176 canTerminate() function returns output from function call to getThread
+1177 isTerminated() function returns output from function call to getThread
+1178 child class has public function getSourcePath()
+1179 getSourcePath() function returns type IPath
+1180 hashCode() function returns output from function call to getSourcePath
+1181 child class has protected function getIdentifier()
+1182 getIdentifier() function returns type int
+1183 child class has protected function getThreadIdentifier()
+1184 getThreadIdentifier() function returns output from function call
+1185 getThreadIdentifier() function returns type int
+1186 child class defines constructor with parameter of type PDAVariable
+1187 child class has member field called fVariable
+1188 child class has member field of type PDAVariable
+1189 child class has member field fVariable of type PDAVariable
+1190 call to constructor of PDAChildrenCommand is made in getVariables()
+1191 child class has public function getVariable()
+1192 getVariable() function returns type PDAVariable
+1193 child class defines constructor with parameter of type PDAStackFrame
+1194 child class has member field called fFrame
+1195 child class has member field of type PDAStackFrame
+1196 child class has member field fFrame of type PDAStackFrame
+1197 child class implements IVariable
+1198 call to constructor of PDAVarCommand is made in getValue()
+1199 call to constructor of PDAValue is made in getValue()
+1200 getValue() function calls constructor in return statement
+1201 getValue() function returns output from function call to PDAValue
+1202 getValue() function returns type IValue
+1203 child class has public function hasValueChanged()
+1204 hasValueChanged() function returns type boolean
+1205 child class has public function setValue()
+1206 call to constructor of PDASetVarCommand is made in setValue()
+1207 setValue() function has parameter of type String
+1208 child class has void function setValue()
+1209 setValue() function has parameter of type IValue
+1210 child class has public function supportsValueModification()
+1211 supportsValueModification() function returns type boolean
+1212 child class has public function verifyValue()
+1213 verifyValue() function has parameter of type String
+1214 verifyValue() function returns type boolean
+1215 verifyValue() function has parameter of type IValue
+1216 child class has public function getStackFrame()
+1217 getStackFrame() function returns type PDAStackFrame
+1218 child class defines constructor with parameter of type PDADebugTarget
+1219 child class has member field called fThreadId
+1220 child class has member field fThreadId of type int
+1221 child class has member field called fStepping
+1222 child class has member field fStepping of type boolean
+1223 child class has member field called fSuspended
+1224 child class has member field fSuspended of type boolean
+1225 child class has member field called fErrorEvent
+1226 child class has member field fErrorEvent of type String
+1227 child class has member field called fVariables
+1228 child class has member field fVariables of type Map
+1229 child class has public function start()
+1230 child class has void function start()
+1231 child class has public function exit()
+1232 child class has void function exit()
+1233 call to constructor of PDAStackCommand is made in getStackFrames()
+1234 child class has public synchronized function getBreakpoints()
+1235 child class has public synchronized function suspendedBy()
+1236 suspendedBy() function has parameter of type IBreakpoint
+1237 child class has void function suspendedBy()
+1238 canSuspend() function returns output from function call to isSuspended
+1239 call to constructor of PDAResumeCommand is made in resume()
+1240 call to constructor of PDASuspendCommand is made in suspend()
+1241 call to constructor of PDAStepCommand is made in stepOver()
+1242 isTerminated() function returns output from function call to getDebugTarget
+1243 child class has private synchronized function setStepping()
+1244 setStepping() function has parameter of type boolean
+1245 child class has void function setStepping()
+1246 child class has private synchronized function setSuspended()
+1247 setSuspended() function has parameter of type boolean
+1248 child class has void function setSuspended()
+1249 child class has private synchronized function setError()
+1250 setError() function has parameter of type String
+1251 child class has void function setError()
+1252 child class has public function getError()
+1253 getError() function returns type Object
+1254 child class has private function resumed()
+1255 resumed() function has parameter of type int
+1256 child class has void function resumed()
+1257 child class has private function suspended()
+1258 suspended() function has parameter of type int
+1259 child class has void function suspended()
+1260 child class has private function exceptionHit()
+1261 child class has void function exceptionHit()
+1262 child class has protected function setVariables()
+1263 setVariables() function has parameter of type IStackFrame
+1264 setVariables() function has parameter of type IVariable
+1265 child class has void function setVariables()
+1266 child class has protected function getVariables()
+1267 getVariables() function has parameter of type IStackFrame
+1268 child class has public function popFrame()
+1269 call to constructor of PDADropFrameCommand is made in popFrame()
+1270 child class has void function popFrame()
+1271 child class has public function canPopFrame()
+1272 canPopFrame() function returns type boolean
+1273 child class has public function getDataStack()
+1274 call to constructor of PDADataCommand is made in getDataStack()
+1275 getDataStack() function calls constructor in return statement
+1276 getDataStack() function returns type IValue
+1277 child class has public function canPopData()
+1278 canPopData() function returns type boolean
+1279 child class has public function popData()
+1280 call to constructor of PDAPopDataCommand is made in popData()
+1281 popData() function returns type IValue
+1282 child class has public function canPushData()
+1283 canPushData() function returns output from function call
+1284 canPushData() function returns output from function call to isTerminated
+1285 canPushData() function returns type boolean
+1286 child class has public function pushData()
+1287 call to constructor of PDAPushDataCommand is made in pushData()
+1288 pushData() function has parameter of type String
+1289 child class has void function pushData()
+1290 child class has public function getIdentifier()
+1291 call to constructor of InputStreamReader is made in child class constructor
+1292 call to constructor of PDAEventStopCommand is made in child class constructor
+1293 child class defines constructor with parameter of type IProcess
+1294 child class has member field called fProcess
+1295 child class has member field of type IProcess
+1296 child class has member field fProcess of type IProcess
+1297 child class has member field called fRequestSocket
+1298 child class has member field of type Socket
+1299 child class has member field fRequestSocket of type Socket
+1300 child class has member field called fRequestWriter
+1301 child class has member field of type PrintWriter
+1302 child class has member field fRequestWriter of type PrintWriter
+1303 child class has member field called fRequestReader
+1304 child class has member field of type BufferedReader
+1305 child class has member field fRequestReader of type BufferedReader
+1306 child class has member field called fEventSocket
+1307 child class has member field fEventSocket of type Socket
+1308 child class has member field called fEventReader
+1309 child class has member field fEventReader of type BufferedReader
+1310 child class has member field called fVMSuspended
+1311 child class has member field fVMSuspended of type boolean
+1312 child class has member field called fTerminated
+1313 child class has member field fTerminated of type boolean
+1314 child class has member field called fThreads
+1315 child class has member field fThreads of type Map
+1316 child class has member field called fEventDispatch
+1317 child class has member field of type EventDispatchJob
+1318 child class has member field fEventDispatch of type EventDispatchJob
+1319 child class has member field called fEventListeners
+1320 child class has member field fEventListeners of type List
+1321 child class has public function addEventListener()
+1322 addEventListener() function has parameter of type IPDAEventListener
+1323 child class has void function addEventListener()
+1324 child class has public function removeEventListener()
+1325 removeEventListener() function has parameter of type IPDAEventListener
+1326 child class has void function removeEventListener()
+1327 getThreads() function returns output from function call
+1328 hasThreads() function returns output from function call
+1329 call to constructor of Path is made in supportsBreakpoint()
+1330 canTerminate() function returns output from function call to getProcess
+1331 isTerminated() function returns output from function call to getProcess
+1332 call to constructor of PDATerminateCommand is made in terminate()
+1333 canResume() function returns output from function call to isTerminated
+1334 isSuspended() function returns output from function call to isTerminated
+1335 call to constructor of PDAVMResumeCommand is made in resume()
+1336 call to constructor of PDAVMSuspendCommand is made in suspend()
+1337 child class has private function vmStarted()
+1338 vmStarted() function has parameter of type PDAVMStartedEvent
+1339 child class has void function vmStarted()
+1340 child class has private function installDeferredBreakpoints()
+1341 child class has void function installDeferredBreakpoints()
+1342 child class has private function vmTerminated()
+1343 child class has void function vmTerminated()
+1344 child class has private function vmResumed()
+1345 vmResumed() function has parameter of type PDAVMResumedEvent
+1346 child class has void function vmResumed()
+1347 child class has private function vmSuspended()
+1348 vmSuspended() function has parameter of type PDAVMSuspendedEvent
+1349 child class has void function vmSuspended()
+1350 child class has private function calcDetail()
+1351 calcDetail() function has parameter of type String
+1352 calcDetail() function returns type int
+1353 child class has private function started()
+1354 call to constructor of PDAThread is made in started()
+1355 call to constructor of Integer is made in started()
+1356 started() function has parameter of type PDAStartedEvent
+1357 child class has void function started()
+1358 child class has private function exited()
+1359 call to constructor of Integer is made in exited()
+1360 exited() function has parameter of type PDAExitedEvent
+1361 child class has void function exited()
+1362 child class has private synchronized function setVMSuspended()
+1363 setVMSuspended() function has parameter of type boolean
+1364 child class has void function setVMSuspended()
+1365 child class has private synchronized function setTerminated()
+1366 setTerminated() function has parameter of type boolean
+1367 child class has void function setTerminated()
+1368 child class has private function sendRequest()
+1369 sendRequest() function has parameter of type String
+1370 sendRequest() function returns type String
+1371 child class has public function sendCommand()
+1372 sendCommand() function returns output from function call
+1373 sendCommand() function has parameter of type PDACommand
+1374 sendCommand() function returns type PDACommandResult
+1375 child class has public function breakpointManagerEnablementChanged()
+1376 breakpointManagerEnablementChanged() function has parameter of type boolean
+1377 child class has void function breakpointManagerEnablementChanged()
+1378 call to constructor of Integer is made in getThread()
+1379 getThread() function has parameter of type int
+1380 child class extends class PDACommand
+1381 child class has public function createResult()
+1382 call to constructor of PDAListResult is made in createResult()
+1383 createResult() function calls constructor in return statement
+1384 createResult() function returns output from function call
+1385 createResult() function returns output from function call to PDAListResult
+1386 createResult() function has parameter of type String
+1387 createResult() function returns type PDACommandResult
+1388 call to constructor of PDACommandResult is made in createResult()
+1389 createResult() function returns output from function call to PDACommandResult
+1390 child class has member field called UNIMPINSTR
+1391 child class has member field UNIMPINSTR of type int
+1392 child class has member field called NOSUCHLABEL
+1393 child class has member field NOSUCHLABEL of type int
+1394 call to constructor of PDAFrameCommandResult is made in createResult()
+1395 createResult() function returns output from function call to PDAFrameCommandResult
+1396 call to constructor of PDARegistersCommandResult is made in createResult()
+1397 createResult() function returns output from function call to PDARegistersCommandResult
+1398 call to constructor of PDAStackCommandResult is made in createResult()
+1399 createResult() function returns output from function call to PDAStackCommandResult
+1400 call to constructor of PDAStackDepthCommandResult is made in createResult()
+1401 createResult() function returns output from function call to PDAStackDepthCommandResult
+1402 child class has member field called READ
+1403 child class has member field READ of type int
+1404 child class has member field called WRITE
+1405 child class has member field WRITE of type int
+1406 child class has member field called BOTH
+1407 child class has member field BOTH of type int
+1408 child class has member field called NONE
+1409 child class has member field NONE of type int
+1410 child class has member field of type PDAFrameData
+1411 child class has member field fFrame of type PDAFrameData
+1412 child class extends class PDACommandResult
+1413 call to constructor of StringTokenizer is made in child class constructor
+1414 call to constructor of ArrayList is made in child class constructor
+1415 child class has member field called fValues
+1416 child class has member field fValues of type String
+1417 call to constructor of PDARegisterData is made in child class constructor
+1418 child class has member field called fRegisters
+1419 child class has member field of type PDARegisterData
+1420 child class has member field fRegisters of type PDARegisterData
+1421 call to constructor of PDAFrameData is made in child class constructor
+1422 child class has member field called fFrames
+1423 child class has member field fFrames of type PDAFrameData
+1424 child class has member field called fDepth
+1425 child class has member field fDepth of type int
+1426 child class has member field called fResult
+1427 child class has member field fResult of type String
+1428 child class extends class PDAEvent
+1429 child class has public static function isEventMessage()
+1430 isEventMessage() function returns output from function call
+1431 isEventMessage() function has parameter of type String
+1432 isEventMessage() function returns type boolean
+1433 child class has member field called fLabel
+1434 child class has member field fLabel of type String
+1435 child class has protected function getName()
+1436 call to constructor of IllegalArgumentException is made in getName()
+1437 getName() function has parameter of type String
+1438 child class has member field called fReason
+1439 child class has member field fReason of type String
+1440 child class has protected function getThreadId()
+1441 call to constructor of IllegalArgumentException is made in getThreadId()
+1442 getThreadId() function returns output from function call
+1443 getThreadId() function has parameter of type String
+1444 getThreadId() function returns type int
+1445 child class has protected function getStateChangeReason()
+1446 getStateChangeReason() function returns output from function call
+1447 getStateChangeReason() function has parameter of type String
+1448 getStateChangeReason() function returns type String
+1449 child class has member field called fOperation
+1450 child class has member field fOperation of type String
+1451 child class overrides function getStateChangeReason() in parent class
+1452 child class overrides function getThreadId() in parent class
+1453 child class overrides function isEventMessage() in parent class
+1454 child class extends class PDARunControlEvent
+1455 child class overrides function canToggleBreakpoints() in parent class
+1456 child class overrides function canToggleWatchpoints() in parent class
+1457 child class overrides function getFunctionName() in parent class
+1458 child class overrides function toggleBreakpoints() in parent class
+1459 child class overrides function toggleWatchpoints() in parent class
+1460 child class has member field called fAccessModeEnabled
+1461 child class has member field fAccessModeEnabled of type boolean
+1462 child class has member field called fModificationModeEnabled
+1463 child class has member field fModificationModeEnabled of type boolean
+1464 child class extends class PDABreakpointAdapter
+1465 child class has public function canToggleWatchpoints()
+1466 canToggleWatchpoints() function has parameter of type IWorkbenchPart
+1467 canToggleWatchpoints() function has parameter of type ISelection
+1468 canToggleWatchpoints() function returns type boolean
+1469 child class has public function toggleWatchpoints()
+1470 call to constructor of schedule is made in toggleWatchpoints()
+1471 toggleWatchpoints() function has parameter of type IWorkbenchPart
+1472 toggleWatchpoints() function has parameter of type ISelection
+1473 child class has void function toggleWatchpoints()
+1474 child class has private function getResource()
+1475 getResource() function has parameter of type PDAStackFrame
+1476 getResource() function returns type IFile
+1477 child class has private function findLine()
+1478 call to constructor of BufferedReader is made in findLine()
+1479 call to constructor of InputStreamReader is made in findLine()
+1480 findLine() function has parameter of type IFile
+1481 findLine() function has parameter of type String
+1482 findLine() function returns type int
+1483 child class has public function toggleBreakpoints()
+1484 toggleBreakpoints() function has parameter of type IWorkbenchPart
+1485 toggleBreakpoints() function has parameter of type ISelection
+1486 child class has void function toggleBreakpoints()
+1487 child class has public function canToggleBreakpoints()
+1488 canToggleBreakpoints() function returns output from function call
+1489 canToggleBreakpoints() function returns output from function call to canToggleLineBreakpoints
+1490 canToggleBreakpoints() function has parameter of type IWorkbenchPart
+1491 canToggleBreakpoints() function has parameter of type ISelection
+1492 canToggleBreakpoints() function returns type boolean
+1493 child class overrides function isWordPart() in parent class
+1494 child class overrides function isWordStart() in parent class
+1495 child class extends class PDAWordDetector
+1496 child class has public function isWordStart()
+1497 isWordStart() function has parameter of type char
+1498 isWordStart() function returns type boolean
+1499 child class has public function isWordPart()
+1500 isWordPart() function returns output from function call
+1501 isWordPart() function has parameter of type char
+1502 isWordPart() function returns type boolean
+1503 child class extends class AbstractDataStackViewHandler
+1504 child class has protected function doExecute()
+1505 call to constructor of ArrayList is made in doExecute()
+1506 call to constructor of ExecutionException is made in doExecute()
+1507 doExecute() function has parameter of type DataStackView
+1508 doExecute() function has parameter of type PDAThread
+1509 doExecute() function has parameter of type ISelection
+1510 child class has void function doExecute()
+1511 call to constructor of InputDialog is made in doExecute()

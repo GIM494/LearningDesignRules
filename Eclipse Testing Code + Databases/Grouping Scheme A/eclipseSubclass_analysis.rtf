@@ -1,0 +1,380 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 FIs from Eclipse Database when run outputting attributes grouped by the same parent class\
+\ulnone All tests conducted with support 60%\
+\
+(1) Parent class: LabelProvider\
+Attribute key -\
+16 is public class\
+63 child class does not define constructor\
+410 child class overrides function getImage() in parent class\
+708 child class overrides function getText() in parent class\
+710 child class implements IDebugModelPresentation\
+711 child class has public function setAttribute()\
+712 setAttribute() function has parameter of type String\
+713 setAttribute() function has parameter of type Object\
+714 child class has void function setAttribute()\
+715 child class has public function getText()\
+716 getText() function has parameter of type Object\
+717 getText() function returns type String\
+718 child class has private function getWatchpointText()\
+719 getWatchpointText() function has parameter of type PDAWatchpoint\
+720 getWatchpointText() function returns type String\
+721 child class has private function getTargetText()\
+722 call to constructor of Path is made in getTargetText()\
+723 getTargetText() function has parameter of type PDADebugTarget\
+724 getTargetText() function returns type String\
+725 child class has private function getStackFrameText()\
+726 getStackFrameText() function has parameter of type PDAStackFrame\
+727 getStackFrameText() function returns type String\
+728 child class has private function getThreadText()\
+729 getThreadText() function has parameter of type PDAThread\
+730 getThreadText() function returns type String\
+731 child class has public function computeDetail()\
+732 computeDetail() function has parameter of type IValue\
+733 computeDetail() function has parameter of type IValueDetailListener\
+734 child class has void function computeDetail()\
+735 child class has public function getEditorInput()\
+736 call to constructor of FileEditorInput is made in getEditorInput()\
+737 getEditorInput() function has parameter of type Object\
+738 getEditorInput() function returns type IEditorInput\
+739 child class has public function getEditorId()\
+740 getEditorId() function has parameter of type IEditorInput\
+741 getEditorId() function has parameter of type Object\
+742 getEditorId() function returns type String\
+\
+\
+16 63 410 708 710 711 712 713 714 715 716 717 718 719 720 721 722 723 724 725 726 727 728 729 730 731 732 733 734 735 736 737 738 739  #SUP: 8\
+    -> Attributes that deal with overriding a function in the parent class:  410 708\
+    -> Attributes that refer to the same function multiple times: 711 712 713 714   |||  715 716 717   |||  718 719 720   |||  721 722 723   |||  725 726 727  |||  728 729 730   |||  731 732 733 734  |||  735 736 737 738 739  740 741 742\
+\
+Note: Notice all the groups of attributes having to do with the same function; one of the things we might try doing is collapsing these attributes about the same function into one attribute. For example, attributes 725, 726, and 727 all have to do the with getStackFrameText() function. The attributes about visibility and return type almost always appear together, so maybe instead we output visibility specifier, static, return type/void all in one attribute. Another similar optimization would be to output all the parameters for a function together. Based off of the results, it is likely that changing the way that we output attributes to be more like this would make smaller, more concise groupings that would be easier to make rules out of and would produce smaller FIs without significantly impacting our ability to find interesting rules. Similar patterns can be observed throughout the rest of the FIs produced.\
+\
+\
+\
+\
+(2) Parent class: PDARunControlEvent\
+1 child class has non-empty-body constructor\
+16 is public class\
+214 child class defines constructor with parameter of type String\
+218 child class overrides function getName() in parent class\
+1429 child class has public static function isEventMessage()\
+1430 isEventMessage() function returns output from function call\
+1431 isEventMessage() function has parameter of type String\
+1432 isEventMessage() function returns type boolean\
+1451 child class overrides function getStateChangeReason() in parent class\
+1452 child class overrides function getThreadId() in parent class\
+1453 child class overrides function isEventMessage() in parent class\
+\
+\
+1 16 214 218 1429 1430 1431 1432 1451 1452 1453 #SUP: 6\
+\
+    -> Attributes that deal with overriding a function in the parent class: 218, 1451, 1452, 1453\
+    -> Attributes that refer to the same function: 1429, 1430, 1431, 1432, 1453   \
+\
+\
+(3) Parent class: PDAEvent\
+1 child class has non-empty-body constructor\
+16 is public class\
+214 child class defines constructor with parameter of type String\
+218 child class overrides function getName() in parent class\
+1429 child class has public static function isEventMessage()\
+1430 isEventMessage() function returns output from function call\
+1431 isEventMessage() function has parameter of type String\
+1432 isEventMessage() function returns type boolean\
+\
+1 16 214 218 1429 1430 1431 1432 #SUP: 8\
+\
+    -> Attributes that deal with overriding a function in the parent class: 218\
+    -> Attributes that refer to the same function: 1429, 1430, 1431, 1432\
+\
+\
+\
+(4) Parent class: PDACommandResult\
+\
+1 child class has non-empty-body constructor\
+16 is public class\
+214 child class defines constructor with parameter of type String\
+1413 call to constructor of StringTokenizer is made in child class constructor\
+1414 call to constructor of ArrayList is made in child class constructor\
+\
+1 16 214 #SUP: 5\
+1 16 214 1413 1414 #SUP: 3\
+\
+    -> None of these attributes have to do with overriding functions, although 1413, 1414 are fairly interesting attributes that could reasonably be made into a rule.\
+\
+\
+\
+\
+(5) Parent class: PDACommand\
+\
+1 child class has non-empty-body constructor\
+16 is public class\
+315 child class defines constructor with parameter of type int\
+1381 child class has public function createResult()\
+1383 createResult() function calls constructor in return statement\
+1384 createResult() function returns output from function call\
+1386 createResult() function has parameter of type String\
+1387 createResult() function returns type PDACommandResult\
+1388 call to constructor of PDACommandResult is made in createResult()\
+1389 createResult() function returns output from function call to PDACommandResult\
+\
+1 16 1381 1383 1384 1386 1387 #SUP: 25\
+1 16 315 1381 1383 1384 1386 1387 #SUP: 20\
+1 16 315 1381 1383 1384 1386 1387 1388 1389 #SUP: 15\
+1 16 1381 1383 1384 1386 1387 1388 1389 #SUP: 18\
+\
+    -> Attributes that refer to the same function: 1381 1383 1384 1386 1387 1388 1389\
+\
+\
+(6) Parent class: PDADebugElement\
+\
+1 child class has non-empty-body constructor\
+13 child class has member field of type String\
+16 is public class\
+230 child class has public function getName()\
+232 getName() function returns type String\
+315 child class defines constructor with parameter of type int\
+883 getVariables() function returns type IVariable\
+\
+1 16 #SUP: 6\
+1 13 16 #SUP: 5\
+1 13 16 883 #SUP: 4\
+1 16 230 232 #SUP: 4\
+1 16 315 #SUP: 4\
+\
+    -> Attributes referring to the same function: 230 232\
+\
+\
+(7) Parent class: MarkerViewHandler\
+\
+16 is public class\
+63 child class does not define constructor\
+481 child class overrides function execute() in parent class\
+483 child class has public function execute()\
+484 call to constructor of DialogTaskProperties is made in execute()\
+485 execute() function has parameter of type ExecutionEvent\
+486 execute() function returns type Object\
+\
+16 63c481 483 485 486 #SUP: 10\
+\
+    -> Attributes referring to the same function: 481 483 485 486\
+\
+(8) Parent class: MarkerField\
+\
+16 is public class\
+205 child class overrides function compare() in parent class\
+406 child class overrides function getColumnHeaderText() in parent class\
+407 child class overrides function getColumnTooltipText() in parent class\
+408 child class overrides function getDefaultColumnWidth() in parent class\
+409 child class overrides function getEditingSupport() in parent class\
+410 child class overrides function getImage() in parent class\
+427 child class has public function getValue()\
+428 getValue() function has parameter of type MarkerItem\
+429 getValue() function returns type String\
+439 compare() function returns output from function call\
+854 child class overrides function getId() in parent class\
+\
+16 205 406 407 408 409 410 427 428 429 854 #SUP: 12\
+16 205 207 208 209 406 407 408 409 410 427 428 429 439 854 #SUP: 8\
+\
+    -> Attributes that deal with overriding a function in the parent class: 205 406 407 408 409 410 854\
+    -> Attributes that refer to the same function: 427 428 429   \
+\
+\
+(8) Parent class: MarkerSupportView\
+1 child class has non-empty-body constructor\
+2 child class defines constructor with no parameters\
+16 is public class\
+\
+1 2 16 # SUP: 5\
+\
+Note: None of these attributes are terribly interesting. I wonder if this would be a good time to try to incorporate some kind of interesting measure for the set of classes that are in this grouping so we can tell if there is really any interest in trying to output rules that have to do with these functions.\
+\
+\
+\
+\
+General notes: \
+(1) It is interesting to compare these results to the results produced by running the LCM algorithm on all of the eclipse database. For one thing, they associated completely different attributes.  When running the LCM algorithm over a database created from the entire Eclipse code base, the vast majority of attributes that are created are ones having to do with overriding functions in the parent class. When running the LCM algorithm on individual groups of classes depending on their parent class, the majority of attributes that are produced have to do with characteristics of functions in the class; additionally, attributes that do have to do with overriding a particular function in the parent class tend to be different functions than the ones found when mining the entire Eclipse database. This means that there might be great benefit in doing both a scan over the entire codebase to associate attributes and a scan through databases created based off of the subclasses.\
+\
+(2) 
+\f1 Some classes that are extended are ones that are imported. Hence, we can\'92t simply traverse the XML file and derive information about classes that have been imported like this. One consideration may be how to include this information; however, it may also simply be the case that there is not good way to include this information. We might restructure how we group classes. Maybe we have lists of groups of classes that all extend the same parent class. And that is how we generate the databases. The question is how much will this help us in identifying rules. I just don\'92t know enough about Java classes and import statements to be sure on how to go about doing this or what kind of information we could include.\
+\
+(3) This note relates points (1) and (2). Simply considering the fact that the names of the overridden functions from the analysis of the entire Eclipse database differs so greatly from those produced from the subclasses should probably raise an alarm. There are a couple of reasons why this might happen. The first is that the attributes that might occur really frequently in the smaller group of classes that are related might not have appeared frequently enough over the entirety of the code base in order to be associated. A second reason this might occur is the fact that the vast majority of classes may well have extended a class that was imported, and thus a smaller database would not have been produced relating those classes together (at least not with this implementation); hence, we don\'92t end up with rules/attributes about overriding the same functions when comparing the databases. A final consideration is that classes with too few lines in the database were not analyzed; this leaves the possibility that many of these classes overrode the same functions that are in the larger Eclipse database, but since we didn\'92t analyze them we wouldn\'92t have found that they were overridden unless we went and inspected each of them. Honestly, I think that it is far more likely that the first two reasons are mostly responsible for what we see, simply because those seem the most likely.\
+\
+(4) Another question to ask is what to do with classes that have fewer than 5 children classes; FP Growth, and really almost any ARM technique works poorly with less than 5 examples. What is the best course of action? One method might be to ignore them until they have a greater number of children classes. Another method might be to combine all of those classes into on large class.\
+\
+(5) One final aspect that should be considered from this is the question is what to do about interfaces; we can do something similar to what we do for subclasses of the same parent functions and output the same kinds of databases to analyze, but then again, that is a question of how often interfaces are used. There is a chance that they occur frequently enough that we could reasonably expect to be able to derive a large enough database to conduct an analysis of the related classes.\
+\
+\
+\
+\
+Analysis of all excluded databases\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+For the sake of understanding, I conducted a test on what rules we could discover if we simply combined all the databases that were too short to be analyzed on their own. So I combined all of the databases into one text file and ran the association rule mining algorithm on them. Below are the results. One quick note about this, is that I hesitate to do use a procedure like this in the tool because it seems rather arbitrary. I mean that I can\'92t think of a reason that this might be a helpful or reasonable thing to do. I simply did this to see what the results would be.\
+\
+Results:\
+\'97\'97\'97\'97\
+\
+-> Support 40-60% didn\'92t yield any interesting results. \
+1 child class has non-empty-body constructor\
+16 is public class\
+\
+Support 60%: \
+1 #SUP: 37\
+1 16 #SUP: 32\
+16 #SUP: 47\
+\
+Support 50%:\
+1 #SUP: 37\
+1 16 #SUP: 32\
+16 #SUP: 47\
+\
+Support 40%:\
+1 #SUP: 37\
+1 16 #SUP: 32\
+16 #SUP: 47\
+------------------ \
+\
+-> Support 30% also does not appear to contain any particularly interesting rules or associations. All the attributes are too broad/general to be terribly useful in this context.\
+\
+1 child class has non-empty-body constructor\
+2 child class defines constructor with no parameters\
+16 is public class\
+63 child class does not define constructor\
+\
+\
+Support 30%:\
+1 #SUP: 37\
+1 2 #SUP: 21\
+1 2 16 #SUP: 20\
+1 16 #SUP: 32\
+16 #SUP: 47\
+63 #SUP: 16\
+------------------ \
+\
+-> Support 20% has the same problem as the rules created with support 30%, 40% for the most part, except attributes 23, 25 are strangely specific. Because of the way that we created the database, it is hard to figure out/understand what this means within this context.\
+\
+1 child class has non-empty-body constructor\
+2 child class defines constructor with no parameters\
+4 child class has member field of type int\
+13 child class has member field of type String\
+16 is public class\
+63 child class does not define constructor\
+23 child class has public function initialize()\
+25 child class has void function initialize()\
+\
+Support 20%:\
+1 #SUP: 37\
+1 2 #SUP: 21\
+1 2 16 #SUP: 20\
+1 4 16 #SUP: 12\
+1 13 #SUP: 12\
+1 13 16 #SUP: 11\
+1 16 #SUP: 32\
+4 16 #SUP: 14\
+13 #SUP: 15\
+13 16 #SUP: 14\
+16 #SUP: 47\
+16 23 25 #SUP: 11\
+16 63 #SUP: 15\
+63 #SUP: 16\
+\
+------------------ \
+\
+-> At this point support is low enough that the more specific groupings don\'92t mean very much. The most specific ones only have 6 or 7 transactions worth of support, which could just be a grouping of subclasses, so really we could just find this information by analyzing the way that the subclasses related together. \
+\
+1 child class has non-empty-body constructor\
+2 child class defines constructor with no parameters\
+4 child class has member field of type int\
+13 child class has member field of type String\
+16 is public class\
+63 child class does not define constructor\
+23 child class has public function initialize()\
+25 child class has void function initialize()\
+108 child class has public function apply()\
+109 apply() function has parameter of type MarkerFieldFilter\
+110 child class has void function apply()\
+111 child class has public function createContents()\
+112 createContents() function has parameter of type Composite\
+113 child class has void function createContents()\
+121 initialize() function has parameter of type MarkerFieldFilter\
+214 child class defines constructor with parameter of type String\
+215 child class extends class ExtendedMarkersView\
+\
+Support 10%:\
+1 #SUP: 37\
+1 2 #SUP: 21\
+1 2 4 16 #SUP: 8\
+1 2 4 16 23 25 #SUP: 7\
+1 2 13 16 #SUP: 7\
+1 2 16 #SUP: 20\
+1 2 16 23 25 #SUP: 9\
+1 4 16 #SUP: 12\
+1 4 13 16 #SUP: 6\
+1 13 #SUP: 12\
+1 13 16 #SUP: 11\
+1 16 #SUP: 32\
+1 16 214 #SUP: 6\
+1 16 315 #SUP: 6\
+1 214 #SUP: 9\
+4 16 #SUP: 14\
+4 13 16 #SUP: 8\
+13 #SUP: 15\
+13 16 #SUP: 14\
+16 #SUP: 47\
+16 23 25 #SUP: 11\
+16 23 25 108 109 110 111 112 113 121 #SUP: 6\
+16 63 #SUP: 15\
+16 230 232 #SUP: 6\
+63 #SUP: 16\
+\
+\
+\
+General Notes: Based off of this result, simply combining all of the databases that were too short to be analyzed on their own, and analyzing the resultant database is not a very good idea. The results don\'92t seem to yield anything interesting that relate the classes together. It may be worth trying again with a different code base, but based off the results for this code base, it doesn\'92t seem like a very fruitful avenue. \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+\f0 \
+ \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}

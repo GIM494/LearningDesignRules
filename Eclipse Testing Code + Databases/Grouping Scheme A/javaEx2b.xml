@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.srcML.org/srcML/src" revision="0.9.5" language="Java" filename="javaEx2b.java"><comment type="line">// Filename: javaEx.java</comment>
+<comment type="line">// Author: Gennie Mansi</comment>
+<comment type="line">// Created: 07/03/1029</comment>
+<comment type="line">// Description: This is just a test file with a bunch of different</comment>
+<comment type="line">// functions and java features; it is created to test the ability</comment>
+<comment type="line">// of the sampleParsing.py file to parse information about a file</comment>
+<comment type="line">// correctly.</comment>
+
+<comment type="line">// Import</comment>
+<import>import <name><name>java</name><operator>.</operator><name>util</name><operator>.</operator><name>Date</name></name>;</import>
+<import>import <name><name>java</name><operator>.</operator><name>io</name><operator>.</operator><name>*</name></name>;</import>
+
+<comment type="line">// Note annotation example and code obtained from:</comment>
+<comment type="line">// https://dzone.com/articles/how-annotations-work-java</comment>
+
+<comment type="line">// Define a custom annotation</comment>
+<annotation_defn><annotation>@<name>Target</name><argument_list>(<argument><expr><name><name>ElementType</name><operator>.</operator><name>METHOD</name></name></expr></argument>)</argument_list></annotation>
+<annotation>@<name>Retention</name><argument_list>(<argument><expr><name><name>RetentionPolicy</name><operator>.</operator><name>RUNTIME</name></name></expr></argument>)</argument_list></annotation>
+@interface <name>Todo</name> <block>{
+<enum><specifier>public</specifier> enum <name>Priority</name> <block>{<decl><name>LOW</name></decl>, <decl><name>MEDIUM</name></decl>, <decl><name>HIGH</name></decl>}</block></enum>
+<enum><specifier>public</specifier> enum <name>Status</name> <block>{<decl><name>STARTED</name></decl>, <decl><name>NOT_STARTED</name></decl>}</block></enum>
+<function_decl><type><name>String</name></type> <name>author</name><parameter_list>()</parameter_list> <default>default <init><expr><literal type="string">"Yash"</literal></expr></init></default>;</function_decl>
+<function_decl><type><name>Priority</name></type> <name>priority</name><parameter_list>()</parameter_list> <default>default <init><expr><name><name>Priority</name><operator>.</operator><name>LOW</name></name></expr></init></default>;</function_decl>
+<function_decl><type><name>Status</name></type> <name>status</name><parameter_list>()</parameter_list> <default>default <init><expr><name><name>Status</name><operator>.</operator><name>NOT_STARTED</name></name></expr></init></default>;</function_decl>
+}</block></annotation_defn>
+
+<annotation_defn><annotation>@<name>Target</name><argument_list>(<argument><expr><name><name>ElementType</name><operator>.</operator><name>METHOD</name></name></expr></argument>)</argument_list></annotation>
+<annotation>@<name>Retention</name><argument_list>(<argument><expr><name><name>RetentionPolicy</name><operator>.</operator><name>RUNTIME</name></name></expr></argument>)</argument_list></annotation>
+@interface <name>TodoAgain</name> <block>{
+<enum><specifier>public</specifier> enum <name>Priority</name> <block>{<decl><name>LOW</name></decl>, <decl><name>MEDIUM</name></decl>, <decl><name>HIGH</name></decl>}</block></enum>
+<enum><specifier>public</specifier> enum <name>Status</name> <block>{<decl><name>STARTED</name></decl>, <decl><name>NOT_STARTED</name></decl>}</block></enum>
+<function_decl><type><name>String</name></type> <name>author2</name><parameter_list>()</parameter_list> <default>default <init><expr><literal type="string">"Yash"</literal></expr></init></default>;</function_decl>
+<function_decl><type><name>Priority</name></type> <name>priority2</name><parameter_list>()</parameter_list> <default>default <init><expr><name><name>Priority</name><operator>.</operator><name>LOW</name></name></expr></init></default>;</function_decl>
+<function_decl><type><name>Status</name></type> <name>status2</name><parameter_list>()</parameter_list> <default>default <init><expr><name><name>Status</name><operator>.</operator><name>NOT_STARTED</name></name></expr></init></default>;</function_decl>
+}</block></annotation_defn>
+
+<comment type="line">// Using the annotation throughout the file on classes and on</comment>
+<comment type="line">// functions</comment>
+<class><annotation>@<name>Todo</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+      <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+      <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>NOT_STARTED</name></name></expr></argument>)</argument_list></annotation>
+<annotation>@<name>TodoAgain</name><argument_list>(<argument><expr><name>priority2</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+      <argument><expr><name>author2</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+      <argument><expr><name>status2</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>NOT_STARTED</name></name></expr></argument>)</argument_list></annotation>
+class <name>Base</name> <block>{
+  <decl_stmt><decl><type><name>int</name></type> <name>x</name></decl>;</decl_stmt>
+  <constructor><name>Base</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>_x</name></decl></parameter>)</parameter_list> <block>{
+    <expr_stmt><expr><name>x</name> <operator>=</operator> <name>_x</name></expr>;</expr_stmt>
+  }</block></constructor>
+}</block></class>
+
+<class>class <name>Derived</name> <super><extends>extends <name>Base</name></extends></super> <block>{
+  <decl_stmt><decl><type><name>int</name></type> <name>y</name></decl>;</decl_stmt>
+  <constructor><name>Derived</name><parameter_list>(<parameter><decl><type><name>int</name></type> <name>_x</name></decl></parameter>, <parameter><decl><type><name>int</name></type> <name>_y</name></decl></parameter>)</parameter_list> <block>{
+    <expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>_x</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><name>y</name> <operator>=</operator> <name>_y</name></expr>;</expr_stmt>
+  }</block></constructor>
+  <function><type><name>void</name></type> <name>Display</name><parameter_list>()</parameter_list> <block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"x = "</literal><operator>+</operator><name>x</name><operator>+</operator><literal type="string">", y = "</literal><operator>+</operator><name>y</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+  <comment type="line">// Using the annotation that we defined above</comment>
+  <function><annotation>@<name>Todo</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>LOW</name></name></expr></argument>,
+        <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+        <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>STARTED</name></name></expr></argument>)</argument_list></annotation>
+  <specifier>private</specifier> <type><name>void</name></type> <name>incompleteMethod1</name><parameter_list>()</parameter_list> <block>{
+    <comment type="line">//Some business logic is written</comment>
+    <comment type="line">// but itâs not complete yet</comment>
+  }</block></function>
+
+  <function><annotation>@<name>TodoAgain</name><argument_list>(<argument><expr><name>priority2</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+        <argument><expr><name>author2</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+        <argument><expr><name>status2</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>NOT_STARTED</name></name></expr></argument>)</argument_list></annotation>
+  <specifier>private</specifier> <type><name>void</name></type> <name>incompleteMethod2</name><parameter_list>()</parameter_list><block>{
+    <comment type="line">// More interesting stuff</comment>
+  }</block></function>
+
+}</block></class>
+
+<comment type="line">// Using an annotation that we defined above</comment>
+<class><annotation>@<name>Todo</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+      <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+      <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>STARTED</name></name></expr></argument>)</argument_list></annotation>
+
+class <name>A</name> <block>{
+  <decl_stmt><decl><type><name>string</name></type> <name>firstName</name></decl>;</decl_stmt>
+  <constructor><name>A</name><parameter_list>(<parameter><decl><type><name>string</name></type> <name>_firstName</name></decl></parameter>)</parameter_list> <block>{
+    <expr_stmt><expr><name>firstName</name> <operator>=</operator> <name>_firstName</name></expr>;</expr_stmt>
+  }</block></constructor>
+
+  <function><type><name>void</name></type> <name>printName</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>printlin</name></name><argument_list>(<argument><expr><literal type="string">"First Name: "</literal> <operator>+</operator> <name>firstName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+  <function><type><name>void</name></type> <name>extraTest</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>printlin</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+  <function><type><name>void</name></type> <name>notPresentInChildren</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>printlin</name></name><argument_list>(<argument><expr><literal type="string">"This one is not in the others!"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+}</block></class>
+
+<class>class <name>B</name> <super><extends>extends <name>A</name></extends></super> <block>{
+  <decl_stmt><decl><type><name>string</name></type> <name>lastName</name></decl>;</decl_stmt>
+
+  <constructor><name>B</name><parameter_list>(<parameter><decl><type><name>string</name></type> <name>_firstName</name></decl></parameter>, <parameter><decl><type><name>string</name></type> <name>_lastName</name></decl></parameter>)</parameter_list><block>{
+    <expr_stmt><expr><call><name>super</name><argument_list>(<argument><expr><name>_firstName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+    <expr_stmt><expr><name>lastName</name> <operator>=</operator> <name>_lastName</name></expr>;</expr_stmt>
+  }</block></constructor>
+
+  <function><type><name>void</name></type> <name>printFullName</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"Last Name: "</literal> <operator>+</operator> <name>lastName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+  <function><type><name>void</name></type> <name>printName</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>printlin</name></name><argument_list>(<argument><expr><literal type="string">"First Name: "</literal> <operator>+</operator> <name>firstName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+}</block></class>
+
+<class>class <name>C</name> <super><extends>extends <name>A</name></extends></super><block>{
+
+  <constructor><name>C</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"Object C created"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></constructor>
+
+  <function><type><name>void</name></type> <name>printName</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>printlin</name></name><argument_list>(<argument><expr><literal type="string">"First Name: "</literal> <operator>+</operator> <name>firstName</name></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+  <function><type><name>void</name></type> <name>extraTest</name><parameter_list>()</parameter_list><block>{
+    <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>printlin</name></name><argument_list>(<argument><expr><literal type="string">"Test"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+  }</block></function>
+
+}</block></class>
+
+<class>class <name>Outer</name> <block>{
+   <comment type="line">// Simple nested inner class</comment>
+   <decl_stmt><decl><type><name>int</name></type> <name>q1</name></decl>;</decl_stmt>
+   <decl_stmt><decl><type><name>int</name></type> <name>q2</name></decl>;</decl_stmt>
+
+   <function><specifier>public</specifier> <type><name>void</name></type> <name>show</name><parameter_list>()</parameter_list> <block>{
+        <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"In a nested class method"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+   }</block></function>
+
+   <class><annotation>@<name>Todo</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+         <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+         <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>STARTED</name></name></expr></argument>)</argument_list></annotation>
+   class <name>Inner</name> <block>{
+      <decl_stmt><decl><type><name>int</name></type> <name>q1</name></decl>;</decl_stmt>
+      <decl_stmt><decl><type><name>boolean</name></type> <name>isInner</name></decl>;</decl_stmt>
+      <decl_stmt><decl><type><name>boolean</name></type> <name>isOuter</name></decl>;</decl_stmt>
+
+      <function><annotation>@<name>TodoAgain</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+            <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+            <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>STARTED</name></name></expr></argument>)</argument_list></annotation>
+      <specifier>public</specifier> <type><name>void</name></type> <name>show</name><parameter_list>()</parameter_list> <block>{
+           <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"In a nested class method"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+      }</block></function>
+
+      <function><specifier>public</specifier> <type><name>int</name></type> <name>returnNum</name><parameter_list>()</parameter_list> <block>{
+           <return>return <expr><literal type="number">5</literal></expr>;</return>
+      }</block></function>
+
+      <function><specifier>public</specifier> <type><name>int</name></type> <name>returnNumAgain</name><parameter_list>()</parameter_list> <block>{
+           <return>return <expr><literal type="number">234</literal></expr>;</return>
+      }</block></function>
+   }</block></class>
+}</block></class>
+
+<class>class <name>OuterEx2</name> <block>{
+   <comment type="line">// Simple nested inner class</comment>
+   <decl_stmt><decl><type><name>int</name></type> <name>q3</name></decl>;</decl_stmt>
+   <decl_stmt><decl><type><name>int</name></type> <name>q4</name></decl>;</decl_stmt>
+
+   <function><specifier>public</specifier> <type><name>void</name></type> <name>show</name><parameter_list>()</parameter_list> <block>{
+        <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"In a nested class method"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+   }</block></function>
+
+   <class><annotation>@<name>Todo</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+         <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+         <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>STARTED</name></name></expr></argument>)</argument_list></annotation>
+   class <name>InnerEx2</name> <block>{
+      <decl_stmt><decl><type><name>int</name></type> <name>q4</name></decl>;</decl_stmt>
+      <decl_stmt><decl><type><name>int</name></type> <name>q5</name></decl>;</decl_stmt>
+
+      <function><annotation>@<name>TodoAgain</name><argument_list>(<argument><expr><name>priority</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Priority</name><operator>.</operator><name>HIGH</name></name></expr></argument>,
+            <argument><expr><name>author</name> <operator>=</operator> <literal type="string">"Yashwant"</literal></expr></argument>,
+            <argument><expr><name>status</name> <operator>=</operator> <name><name>Todo</name><operator>.</operator><name>Status</name><operator>.</operator><name>STARTED</name></name></expr></argument>)</argument_list></annotation>
+
+      <specifier>public</specifier> <type><name>void</name></type> <name>show</name><parameter_list>()</parameter_list> <block>{
+           <expr_stmt><expr><call><name><name>System</name><operator>.</operator><name>out</name><operator>.</operator><name>println</name></name><argument_list>(<argument><expr><literal type="string">"In a nested class method"</literal></expr></argument>)</argument_list></call></expr>;</expr_stmt>
+      }</block></function>
+
+      <function><specifier>public</specifier> <type><name>int</name></type> <name>returnNumAgain</name><parameter_list>()</parameter_list> <block>{
+           <return>return <expr><literal type="number">234</literal></expr>;</return>
+      }</block></function>
+
+      <function><specifier>public</specifier> <type><name>int</name></type> <name>returnDifInt</name><parameter_list>()</parameter_list><block>{
+           <return>return <expr><operator>-</operator><literal type="number">90</literal></expr>;</return>
+      }</block></function>
+   }</block></class>
+}</block></class>
+
+<class><specifier>public</specifier> class <name>Main</name> <block>{
+
+  <function><specifier>public</specifier> <specifier>static</specifier> <type><name>void</name></type> <name>main</name><parameter_list>(<parameter><decl><type><name><name>String</name><index>[]</index></name></type> <name>args</name></decl></parameter>)</parameter_list> <block>{
+
+    <decl_stmt><decl><type><name>Derived</name></type> <name>d</name> <init>= <expr><operator>new</operator> <call><name>Derived</name><argument_list>(<argument><expr><literal type="number">10</literal></expr></argument>, <argument><expr><literal type="number">20</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+    <expr_stmt><expr><call><name><name>d</name><operator>.</operator><name>Display</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+    <decl_stmt><decl><type><name>B</name></type> <name>name</name> <init>= <expr><operator>new</operator> <call><name>B</name><argument_list>(<argument><expr><literal type="string">"Gennie"</literal></expr></argument>, <argument><expr><literal type="string">"Mansi"</literal></expr></argument>)</argument_list></call></expr></init></decl>;</decl_stmt>
+    <expr_stmt><expr><call><name><name>name</name><operator>.</operator><name>printFullName</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+    <decl_stmt><decl><type><name><name>Outer</name><operator>.</operator><name>Inner</name></name></type> <name>in</name> <init>= <expr><operator>new</operator> <call><name>Outer</name><argument_list>()</argument_list></call><operator>.</operator><operator>new</operator> <call><name>Inner</name><argument_list>()</argument_list></call></expr></init></decl>;</decl_stmt>
+       <expr_stmt><expr><call><name><name>in</name><operator>.</operator><name>show</name></name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+
+  }</block></function>
+}</block></class>
+</unit>
