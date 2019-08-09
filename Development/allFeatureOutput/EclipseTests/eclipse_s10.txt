@@ -1,0 +1,65 @@
+SETTINGS
+--------
+File name                = /Users/csdept/Documents/fpGrowth/attributeEncoding_eclipse.txt
+Support (default 20%)    = 10.0
+Confidence (default 80%) = 80.0
+
+Reading input file: /Users/csdept/Documents/fpGrowth/attributeEncoding_eclipse.txt
+Number of records = 395
+Number of columns = 7069
+Min support       = 39.5 (records)
+Generation time = 0.0 seconds (0.0 mins)
+FP tree storage = 584 (bytes)
+FP tree updates = 1034
+FP tree nodes   = 25
+FP TREE
+(1) 7:391 (ref to null)
+(1.1) 24:179 (ref to null)
+(1.1.1) 9:73 (ref to 9:47)
+(1.1.1.1) 3:23 (ref to 3:32)
+(1.1.1.1.1) 81:3 (ref to 81:25)
+(1.1.1.1.1.1) 8:2 (ref to 8:16)
+(1.1.1.1.2) 8:1 (ref to 8:31)
+(1.1.1.2) 81:2 (ref to 81:1)
+(1.1.1.3) 8:1 (ref to 8:1)
+(1.1.2) 3:32 (ref to 3:16)
+(1.1.2.1) 81:22 (ref to null)
+(1.1.3) 81:25 (ref to 81:2)
+(1.2) 1:165 (ref to null)
+(1.2.1) 3:21 (ref to null)
+(1.3) 9:47 (ref to null)
+(1.3.1) 3:16 (ref to 3:21)
+(1.3.1.1) 8:16 (ref to null)
+(1.3.2) 8:31 (ref to 8:2)
+(2) 24:2 (ref to 24:179)
+(2.1) 9:1 (ref to 9:73)
+(2.1.1) 81:1 (ref to 81:22)
+(2.2) 3:1 (ref to 3:23)
+(2.2.1) 81:1 (ref to 81:3)
+(3) 1:2 (ref to 1:165)
+
+Mining FP-tree
+GENERATE ARs:
+-------------
+Generation time = 0.0 seconds (0.0 mins)
+T-tree Storage          = 348 (Bytes)
+Number of frequent sets = 21
+
+ASSOCIATION RULES
+=================
+(1)  {81}  ->  {24}  100.0%
+(2)  {7 81}  ->  {24}  100.0%
+(3)  {8}  ->  {7}  100.0%
+(4)  {8}  ->  {9}  100.0%
+(5)  {7 8}  ->  {9}  100.0%
+(6)  {9 8}  ->  {7}  100.0%
+(7)  {8}  ->  {7 9}  100.0%
+(8)  {9}  ->  {7}  99.17%
+(9)  {3}  ->  {7}  98.92%
+(10)  {24}  ->  {7}  98.89%
+(11)  {1}  ->  {7}  98.8%
+(12)  {24 9}  ->  {7}  98.64%
+(13)  {24 3}  ->  {7}  98.21%
+(14)  {81}  ->  {7}  96.29%
+(15)  {24 81}  ->  {7}  96.29%
+(16)  {81}  ->  {7 24}  96.29%

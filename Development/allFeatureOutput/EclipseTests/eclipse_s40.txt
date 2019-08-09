@@ -1,0 +1,32 @@
+SETTINGS
+--------
+File name                = /Users/csdept/Documents/fpGrowth/attributeEncoding_eclipse.txt
+Support (default 20%)    = 40.0
+Confidence (default 80%) = 80.0
+
+Reading input file: /Users/csdept/Documents/fpGrowth/attributeEncoding_eclipse.txt
+Number of records = 395
+Number of columns = 7069
+Min support       = 158.0 (records)
+Generation time = 0.0 seconds (0.0 mins)
+FP tree storage = 142 (bytes)
+FP tree updates = 734
+FP tree nodes   = 6
+FP TREE
+(1) 7:391 (ref to null)
+(1.1) 24:179 (ref to null)
+(1.2) 1:165 (ref to null)
+(2) 24:2 (ref to 24:179)
+(3) 1:2 (ref to 1:165)
+
+Mining FP-tree
+GENERATE ARs:
+-------------
+Generation time = 0.0 seconds (0.0 mins)
+T-tree Storage          = 76 (Bytes)
+Number of frequent sets = 5
+
+ASSOCIATION RULES
+=================
+(1)  {24}  ->  {7}  98.89%
+(2)  {1}  ->  {7}  98.8%

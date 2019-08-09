@@ -1,0 +1,371 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Eclipse - Package Specific Analysis\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+(A) Eclipse Plugins (Support 20%)\
+\
+\'97> Single focus class used to generate list of possible attributes\
+\'97> Group of files in specific package/directory used to generate database\
+\
+13 is public class\
+96 class does not define constructor\
+98 run() function has parameter of type IProgressMonitor\
+99 class has void function run()\
+\
+ASSOCIATION RULES\
+=================\
+(1)  \{96\}  ->  \{13\}  100.0%\
+(2)  \{1\}  ->  \{13\}  100.0%\
+(3)  \{98\}  ->  \{13\}  100.0%\
+(4)  \{98\}  ->  \{96\}  100.0%\
+(5)  \{13 98\}  ->  \{96\}  100.0%\
+(6)  \{96 98\}  ->  \{13\}  100.0%\
+(7)  \{98\}  ->  \{13 96\}  100.0%\
+(8)  \{99\}  ->  \{13\}  100.0%\
+(9)  \{99\}  ->  \{96\}  100.0%\
+(10)  \{13 99\}  ->  \{96\}  100.0%\
+(11)  \{96 99\}  ->  \{13\}  100.0%\
+(12)  \{99\}  ->  \{13 96\}  100.0%\
+(13)  \{98\}  ->  \{99\}  100.0%\
+(14)  \{99\}  ->  \{98\}  100.0%\
+(15)  \{13 98\}  ->  \{99\}  100.0%\
+(16)  \{13 99\}  ->  \{98\}  100.0%\
+(17)  \{98\}  ->  \{13 99\}  100.0%\
+(18)  \{98 99\}  ->  \{13\}  100.0%\
+(19)  \{99\}  ->  \{13 98\}  100.0%\
+(20)  \{96 98\}  ->  \{99\}  100.0%\
+(21)  \{96 99\}  ->  \{98\}  100.0%\
+(22)  \{98\}  ->  \{96 99\}  100.0%\
+(23)  \{98 99\}  ->  \{96\}  100.0%\
+(24)  \{99\}  ->  \{96 98\}  100.0%\
+(25)  \{13 96 98\}  ->  \{99\}  100.0%\
+(26)  \{13 96 99\}  ->  \{98\}  100.0%\
+(27)  \{13 98\}  ->  \{96 99\}  100.0%\
+(28)  \{13 98 99\}  ->  \{96\}  100.0%\
+(29)  \{13 99\}  ->  \{96 98\}  100.0%\
+(30)  \{96 98\}  ->  \{13 99\}  100.0%\
+(31)  \{96 98 99\}  ->  \{13\}  100.0%\
+(32)  \{96 99\}  ->  \{13 98\}  100.0%\
+(33)  \{98\}  ->  \{13 96 99\}  100.0%\
+(34)  \{98 99\}  ->  \{13 96\}  100.0%\
+(35)  \{99\}  ->  \{13 96 98\}  100.0%\
+\
+Most of these are pretty boring. However, something to note is that there are only 4 attributes used in rules, so trying to specify two or three isn\'92t particularly useful. It seems more useful in the context of when we are analyzing all the attributes output for an entire code base. Another thing to notice (which has been noted before) is the effect of which class is chosen as the focus class. If anything, part of the reason there is so little variety in the rules is because the class chosen as the focus class wasn\'92t the most representative of the other classes. If anything, the attribute list should be generated using all the classes in the package/class grouping; and then the database/rules should be generated based off of that.\
+\
+(B) Eclipse Plugins (Support 20%)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\'97> Entire Eclipse Database used to generate list of possible attributes\
+\'97> Group of files in specific package/directory used to generate database\
+\
+1 class does not define constructor\
+7 is public class\
+703 run() function has parameter of type IProgressMonitor\
+714 has public function run()\
+715 class has void function run()\
+\
+ASSOCIATION RULES\
+=================\
+(1)  \{1\}  ->  \{7\}  100.0%\
+(2)  \{703\}  ->  \{7\}  100.0%\
+(3)  \{703\}  ->  \{1\}  100.0%\
+(4)  \{7 703\}  ->  \{1\}  100.0%\
+(5)  \{1 703\}  ->  \{7\}  100.0%\
+(6)  \{703\}  ->  \{7 1\}  100.0%\
+(7)  \{715\}  ->  \{7\}  100.0%\
+(8)  \{715\}  ->  \{1\}  100.0%\
+(9)  \{7 715\}  ->  \{1\}  100.0%\
+(10)  \{1 715\}  ->  \{7\}  100.0%\
+(11)  \{715\}  ->  \{7 1\}  100.0%\
+(12)  \{703\}  ->  \{715\}  100.0%\
+(13)  \{715\}  ->  \{703\}  100.0%\
+(14)  \{7 703\}  ->  \{715\}  100.0%\
+(15)  \{7 715\}  ->  \{703\}  100.0%\
+(16)  \{703\}  ->  \{7 715\}  100.0%\
+(17)  \{703 715\}  ->  \{7\}  100.0%\
+(18)  \{715\}  ->  \{7 703\}  100.0%\
+(19)  \{1 703\}  ->  \{715\}  100.0%\
+(20)  \{1 715\}  ->  \{703\}  100.0%\
+(21)  \{703\}  ->  \{1 715\}  100.0%\
+(22)  \{703 715\}  ->  \{1\}  100.0%\
+(23)  \{715\}  ->  \{1 703\}  100.0%\
+(24)  \{7 1 703\}  ->  \{715\}  100.0%\
+(25)  \{7 1 715\}  ->  \{703\}  100.0%\
+(26)  \{7 703\}  ->  \{1 715\}  100.0%\
+(27)  \{7 703 715\}  ->  \{1\}  100.0%\
+(28)  \{7 715\}  ->  \{1 703\}  100.0%\
+(29)  \{1 703\}  ->  \{7 715\}  100.0%\
+(30)  \{1 703 715\}  ->  \{7\}  100.0%\
+(31)  \{1 715\}  ->  \{7 703\}  100.0%\
+(32)  \{703\}  ->  \{7 1 715\}  100.0%\
+(33)  \{703 715\}  ->  \{7 1\}  100.0%\
+(34)  \{715\}  ->  \{7 1 703\}  100.0%\
+(35)  \{714\}  ->  \{7\}  100.0%\
+(36)  \{714\}  ->  \{1\}  100.0%\
+(37)  \{7 714\}  ->  \{1\}  100.0%\
+(38)  \{1 714\}  ->  \{7\}  100.0%\
+(39)  \{714\}  ->  \{7 1\}  100.0%\
+(40)  \{714\}  ->  \{703\}  100.0%\
+(41)  \{7 714\}  ->  \{703\}  100.0%\
+(42)  \{703 714\}  ->  \{7\}  100.0%\
+(43)  \{714\}  ->  \{7 703\}  100.0%\
+(44)  \{1 714\}  ->  \{703\}  100.0%\
+(45)  \{703 714\}  ->  \{1\}  100.0%\
+(46)  \{714\}  ->  \{1 703\}  100.0%\
+(47)  \{7 1 714\}  ->  \{703\}  100.0%\
+(48)  \{7 703 714\}  ->  \{1\}  100.0%\
+(49)  \{7 714\}  ->  \{1 703\}  100.0%\
+(50)  \{1 703 714\}  ->  \{7\}  100.0%\
+(51)  \{1 714\}  ->  \{7 703\}  100.0%\
+(52)  \{703 714\}  ->  \{7 1\}  100.0%\
+(53)  \{714\}  ->  \{7 1 703\}  100.0%\
+(54)  \{714\}  ->  \{715\}  100.0%\
+(55)  \{7 714\}  ->  \{715\}  100.0%\
+(56)  \{715 714\}  ->  \{7\}  100.0%\
+(57)  \{714\}  ->  \{7 715\}  100.0%\
+(58)  \{1 714\}  ->  \{715\}  100.0%\
+(59)  \{715 714\}  ->  \{1\}  100.0%\
+(60)  \{714\}  ->  \{1 715\}  100.0%\
+(61)  \{7 1 714\}  ->  \{715\}  100.0%\
+(62)  \{7 715 714\}  ->  \{1\}  100.0%\
+(63)  \{7 714\}  ->  \{1 715\}  100.0%\
+(64)  \{1 715 714\}  ->  \{7\}  100.0%\
+(65)  \{1 714\}  ->  \{7 715\}  100.0%\
+(66)  \{715 714\}  ->  \{7 1\}  100.0%\
+(67)  \{714\}  ->  \{7 1 715\}  100.0%\
+(68)  \{703 714\}  ->  \{715\}  100.0%\
+(69)  \{715 714\}  ->  \{703\}  100.0%\
+(70)  \{714\}  ->  \{703 715\}  100.0%\
+(71)  \{7 703 714\}  ->  \{715\}  100.0%\
+(72)  \{7 715 714\}  ->  \{703\}  100.0%\
+(73)  \{7 714\}  ->  \{703 715\}  100.0%\
+(74)  \{703 715 714\}  ->  \{7\}  100.0%\
+(75)  \{703 714\}  ->  \{7 715\}  100.0%\
+(76)  \{715 714\}  ->  \{7 703\}  100.0%\
+(77)  \{714\}  ->  \{7 703 715\}  100.0%\
+(78)  \{1 703 714\}  ->  \{715\}  100.0%\
+(79)  \{1 715 714\}  ->  \{703\}  100.0%\
+(80)  \{1 714\}  ->  \{703 715\}  100.0%\
+(81)  \{703 715 714\}  ->  \{1\}  100.0%\
+(82)  \{703 714\}  ->  \{1 715\}  100.0%\
+(83)  \{715 714\}  ->  \{1 703\}  100.0%\
+(84)  \{714\}  ->  \{1 703 715\}  100.0%\
+(85)  \{7 1 703 714\}  ->  \{715\}  100.0%\
+(86)  \{7 1 715 714\}  ->  \{703\}  100.0%\
+(87)  \{7 1 714\}  ->  \{703 715\}  100.0%\
+(88)  \{7 703 715 714\}  ->  \{1\}  100.0%\
+(89)  \{7 703 714\}  ->  \{1 715\}  100.0%\
+(90)  \{7 715 714\}  ->  \{1 703\}  100.0%\
+(91)  \{7 714\}  ->  \{1 703 715\}  100.0%\
+(92)  \{1 703 715 714\}  ->  \{7\}  100.0%\
+(93)  \{1 703 714\}  ->  \{7 715\}  100.0%\
+(94)  \{1 715 714\}  ->  \{7 703\}  100.0%\
+(95)  \{1 714\}  ->  \{7 703 715\}  100.0%\
+(96)  \{703 715 714\}  ->  \{7 1\}  100.0%\
+(97)  \{703 714\}  ->  \{7 1 715\}  100.0%\
+(98)  \{715 714\}  ->  \{7 1 703\}  100.0%\
+(99)  \{714\}  ->  \{7 1 703 715\}  100.0%\
+(100)  \{24\}  ->  \{7\}  100.0%\
+(101)  \{703\}  ->  \{714\}  83.33%\
+(102)  \{7 703\}  ->  \{714\}  83.33%\
+(103)  \{703\}  ->  \{7 714\}  83.33%\
+(104)  \{1 703\}  ->  \{714\}  83.33%\
+(105)  \{703\}  ->  \{1 714\}  83.33%\
+(106)  \{7 1 703\}  ->  \{714\}  83.33%\
+(107)  \{7 703\}  ->  \{1 714\}  83.33%\
+(108)  \{1 703\}  ->  \{7 714\}  83.33%\
+(109)  \{703\}  ->  \{7 1 714\}  83.33%\
+(110)  \{715\}  ->  \{714\}  83.33%\
+(111)  \{7 715\}  ->  \{714\}  83.33%\
+(112)  \{715\}  ->  \{7 714\}  83.33%\
+(113)  \{1 715\}  ->  \{714\}  83.33%\
+(114)  \{715\}  ->  \{1 714\}  83.33%\
+(115)  \{7 1 715\}  ->  \{714\}  83.33%\
+(116)  \{7 715\}  ->  \{1 714\}  83.33%\
+(117)  \{1 715\}  ->  \{7 714\}  83.33%\
+(118)  \{715\}  ->  \{7 1 714\}  83.33%\
+(119)  \{703\}  ->  \{715 714\}  83.33%\
+(120)  \{703 715\}  ->  \{714\}  83.33%\
+(121)  \{715\}  ->  \{703 714\}  83.33%\
+(122)  \{7 703\}  ->  \{715 714\}  83.33%\
+(123)  \{7 703 715\}  ->  \{714\}  83.33%\
+(124)  \{7 715\}  ->  \{703 714\}  83.33%\
+(125)  \{703\}  ->  \{7 715 714\}  83.33%\
+(126)  \{703 715\}  ->  \{7 714\}  83.33%\
+(127)  \{715\}  ->  \{7 703 714\}  83.33%\
+(128)  \{1 703\}  ->  \{715 714\}  83.33%\
+(129)  \{1 703 715\}  ->  \{714\}  83.33%\
+(130)  \{1 715\}  ->  \{703 714\}  83.33%\
+(131)  \{703\}  ->  \{1 715 714\}  83.33%\
+(132)  \{703 715\}  ->  \{1 714\}  83.33%\
+(133)  \{715\}  ->  \{1 703 714\}  83.33%\
+(134)  \{7 1 703\}  ->  \{715 714\}  83.33%\
+(135)  \{7 1 703 715\}  ->  \{714\}  83.33%\
+(136)  \{7 1 715\}  ->  \{703 714\}  83.33%\
+(137)  \{7 703\}  ->  \{1 715 714\}  83.33%\
+(138)  \{7 703 715\}  ->  \{1 714\}  83.33%\
+(139)  \{7 715\}  ->  \{1 703 714\}  83.33%\
+(140)  \{1 703\}  ->  \{7 715 714\}  83.33%\
+(141)  \{1 703 715\}  ->  \{7 714\}  83.33%\
+(142)  \{1 715\}  ->  \{7 703 714\}  83.33%\
+(143)  \{703\}  ->  \{7 1 715 714\}  83.33%\
+(144)  \{703 715\}  ->  \{7 1 714\}  83.33%\
+(145)  \{715\}  ->  \{7 1 703 714\}  83.33%\
+(146)  \{7\}  ->  \{1\}  80.0%\
+\
+The interesting thing about this is that the rules output for this class when using the Eclipse codebase to generate the list of attributes to create the database, there isn\'92t actually a large difference in the rules that are output. They include many of the same key attributes that are found in these rules. This might indicate we chose a particularly representative class. That might be one of the ways we assess if our \'93focus\'94 class is a good class or not: the difference in the variety of the rules created when using the particular \'93focus\'94 class versus the entire codebase to establish the original list of attributes.\
+\
+Same comment as the previous test applies.\
+\
+(C) Eclipse code base\
+-> Rules output using TNR, outputting the top 100 non-redundant rules \
+	- Wouldn\'92t run; sometimes this algorithm/implementation gets grumpy so I tried it with regular FP Growth and it also basically just timed out, so I am going ahead and doing another comparison run like tests (A) and (B) with a different set of classes to see what happens\
+\
+\
+(D) LCM on Eclipse Compatibility Group of Files\
+ Tried to do a second grouping with more files than the first grouping where the attributes generated were based off of the entire eclipse database and neither algorithm finished running, so I decided to run LCM to generate top non redundant FIs to see if it could find patterns without getting stopped up.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+1 class does not define constructor\
+7 is public class\
+9 class defines constructor with no parameters\
+24 class has non-empty-body constructor\
+152 has public function widgetSelected()\
+153 widgetSelected() function has parameter of type SelectionEvent\
+154 class has void function widgetSelected()\
+7070 All children classes override function apply() in parent class\
+7071 All children classes override function createContents() in parent class\
+7072 All children classes override function initialize() in parent class\
+7073 All children classes override function loadLegacySettings() in parent class\
+7074 All children classes override function loadSettings() in parent class\
+7075 All children classes override function populateWorkingCopy() in parent class\
+7076 All children classes override function saveSettings() in parent class\
+7077 All children classes override function select() in parent class\
+7078 All children classes override function compare() in parent class\
+7079 All children classes override function calculateFilters() in parent class\
+7080 All children classes override function getID() in parent class\
+7081 All children classes override function getName() in parent class\
+7082 All children classes override function isSystem() in parent class\
+7083 All children classes override function makeWorkingCopy() in parent class\
+7084 All children classes override function execute() in parent class\
+\
+With LCM 10%:\
+1 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 125\
+1 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 123\
+1 7 152 153 154 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 21\
+3 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 27\
+3 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 26\
+3 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 19\
+7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 172\
+7 9 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 32\
+7 9 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 30\
+7 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 47\
+9 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 33\
+9 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 31\
+24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 57\
+7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 184\
+\
+With LCM 20%:\
+1 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 125\
+1 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 123\
+7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 172\
+7 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 47\
+24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 57\
+7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 184\
+\
+\
+With LCM 40%:\
+1 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 125\
+1 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 123\
+7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 172\
+7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 #SUP: 184\
+\
+From these FIs its kind of obvious why the algorithms that actually create rules got so caught up and didn\'92t finish. Most of these have to do with these classes overriding a function in an abstract parent class and most are not redundant. Attributes 152-154 probably refer to the same function but these are the only ones that seem to overlap. In this case, these FIs are almost more helpful than the rules themselves since we can ascertain fairly quickly that all classes in this package/group override these functions in their parent class.\
+\
+I wonder if this doesn\'92t indicate that maybe we should use association rule mining to find FIs; from there we can pick out FIs based off of what we know the developer is interested in, or we can develop a set of heuristics that somehow integrates a concept of interestingness that will allow us to choose the FIs that are most likely to contain the most interesting attributes/design concepts. From there we can develop an algorithm that puts the attributes together in such a way that makes the most sense, and those are the rules that are presented to the user.\
+\
+Out of curiosity I ran LCM on the entire Eclipse database to see what would happen, which is what is reported on in the next test section.\
+\
+(E) LCM on all of eclipse\
+\
+1 class does not define constructor\
+7 is public class\
+152 has public function widgetSelected()\
+153 widgetSelected() function has parameter of type SelectionEvent\
+154 class has void function widgetSelected()\
+7070 All children classes override function apply() in parent class\
+7071 All children classes override function createContents() in parent class\
+7072 All children classes override function initialize() in parent class\
+7073 All children classes override function loadLegacySettings() in parent class\
+7074 All children classes override function loadSettings() in parent class\
+7075 All children classes override function populateWorkingCopy() in parent class\
+7076 All children classes override function saveSettings() in parent class\
+7077 All children classes override function select() in parent class\
+7078 All children classes override function compare() in parent class\
+7079 All children classes override function calculateFilters() in parent class\
+7080 All children classes override function getID() in parent class\
+7081 All children classes override function getName() in parent class\
+7082 All children classes override function isSystem() in parent class\
+7083 All children classes override function makeWorkingCopy() in parent class\
+7084 All children classes override function execute() in parent class\
+7085 All children classes override function getText() in parent class\
+7086 All children classes override function internal_init() in parent class\
+7087 All children classes override function createAnnotationModel() in parent class\
+7088 All children classes override function setupDocument() in parent class\
+7089 All children classes override function run() in parent class\
+7090 All children classes override function getId() in parent class\
+7091 All children classes override function getModes() in parent class\
+7092 All children classes override function isEventMessage() in parent class\
+7093 All children classes override function canToggleBreakpoints() in parent class\
+7094 All children classes override function canToggleWatchpoints() in parent class\
+7095 All children classes override function toggleBreakpoints() in parent class\
+7096 All children classes override function toggleWatchpoints() in parent class\
+7097 All children classes override function isWordPart() in parent class\
+7098 All children classes override function isWordStart() in parent class\
+\
+\
+\
+LCM with support 10%:\
+\
+1 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 195\
+1 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 189\
+1 7 152 153 154 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 40\
+1 152 153 154 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 42\
+3 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 51\
+3 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 50\
+3 7 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 31\
+3 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 32\
+7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 273\
+7 9 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 54\
+7 9 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 47\
+7 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 77\
+9 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 56\
+9 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 49\
+24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 89\
+152 153 154 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 44\
+7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 291\
+\
+LCM with support  20%:\
+1 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 195\
+1 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 189\
+7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 273\
+7 24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 77\
+24 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 89\
+7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 291\
+\
+LCM with support 40%:\
+1 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 195\
+1 7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 189\
+7 7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 273\
+7070 7071 7072 7073 7074 7075 7076 7077 7078 7079 7080 7081 7082 7083 7084 7085 7086 7087 7088 7089 7090 7091 7092 7093 7094 7095 7096 7097 7098 #SUP: 291\
+\
+The pattern of how many FIs are output with this test is similar to the previous test. Also note that there are a lot of overlapping attributes between the FIs generated in this test and the FIs generated in the previous test. This makes a fair amount of sense considering that the previous test had (I believe) the most classes in it, but it\'92s interesting that the FIs only grew in size, which I didn\'92t expect. I would expect fewer attributes to happen so frequently together. One thing to note is that these FIs overlap enough that even if we only selected FIs that had 2-3 select attributes present, that would still probably be most of the FIs generated here. \
+\
+\
+}
