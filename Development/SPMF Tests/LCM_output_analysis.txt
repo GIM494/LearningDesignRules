@@ -1,0 +1,607 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 LCM Output Analysis\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+For each of the package groupings for the CrowdCode package, the LCM algorithm was run with support 15, 25, and 50%. The LCM algorithm outputs frequent itemsets\
+\
+GENERAL COMMENTS:\
+So for all of these, the main take away seems to be that the usefulness and interestingness of an FI relies on the presence of at least one \'93critical\'94 attribute that is specific to a coherently related subset of classes. Examples of critical attributes are \'93extends X\'94, \'93has annotation Y\'94, or \'93has function Z\'94. For example, take the following attributes:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 1 class has empty-body constructor\
+2 class defines constructor with no parameters\
+4 class has member field of type String\
+6 class extends class DTO\
+7 is public class\
+58 class has member field type of type String\
+And consider also the following FIs:\
+     (A)  1 2 4 7\
+     (B) 1 2 4 6 7 \
+     (C) 1 2 4 6 7 58 \
+     (D) 1 2 4 7 58\
+The first FI (A) is not very interesting or useful because all the features are very general and could apply to any number of classes that are completely unrelated. However, the second FI (B) is significantly more interesting simply because of the presence of attribute 6 since it restricts the application of the broader characteristics around it to a set of coherently related classes (i.e., the classes that all extend the DTO class); attribute 6 is a \'93critical\'94 attribute because without it the FI would be too general.\
+\
+We have discussed possibly trying to make some sort of interestingness measure or specifying a few attributes that are particularly interesting. We might be able to use this concept of a critical attribute when trying to quantify interestingness or specifying more specific attributes to highlight more interesting rules that are produced.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+UTIL package\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+For support 15%:\
+-> Here all the the FIs created -\
+1 2 #SUP: 2 (Not useful)\
+1 2 3 4 5 6 7 8 9 #SUP: 1 (Not useful)\
+1 2 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 #SUP: 1 (Not useful)\
+2 #SUP: 3 (Not useful)\
+2 10 11 12 13 14 15 16 17 18 19 20 #SUP: 1 ((Not useful)\
+-> the FIs with more than 10 items (particularly the third one) is not terribly useful since there are *so* many rules that could be created; the other FIs with fewer attributes are not useful because the groupings are fairly general and without some sort of rule specification/structure, the relationships between these attributes is not particularly clear\
+\
+For support 25%:\
+-> same rules generated as support 15%\
+\
+For support 50%:\
+1 2 #SUP: 2\
+2 #SUP: 3\
+-> Too general, so rules are not useful\
+\
+\
+\
+SERVLETS package \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 For support 15%:\
+1 3 #SUP: 3\
+1 2 3 4 5 6 7 8 9 10 11 12 13 #SUP: 1\
+1 3 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 #SUP: 1\
+1 3 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 #SUP: 1\
+\
+-> 1st FI has attributes that are too general\
+-> 2nd FI actually has some useful information, particularly about the classes in the package that implement the Filter interface; maybe we use the output of LCM to choose what variables are variables of interest (i.e. pick the more specific attributes and then look for rules with those attributes)\
+-> 3rd FI close to not being useful since it has over 235 attributes \
+-> 4th FI not particularly useful since there are too many items\
+\
+For support 25%:\
+-> same output as support 15%\
+\
+For support 50%:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 1 3 #SUP: 3\
+-> Not useful; both attributes are too general (1 class does not define constructor; 3 is public class)\
+\
+HISTORY package\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Attributes included in FIs:\
+1 class has non-empty-body constructor\
+2 class defines constructor with parameter of type Artifact\
+3 class has member field called eventType\
+4 class has member field of type String\
+5 class has member field eventType of type String\
+6 class extends class HistoryEvent\
+7 is public class\
+8 has public function getEventType()\
+9 getEventType() function returns type String\
+41 class defines constructor with parameter of type String\
+44 constructor sets member variables workerID\
+45 class defines constructor with parameter of type Microtask\
+46 class has member field called workerID\
+47 class has member field workerID of type String\
+48 class extends class MicrotaskEvent\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 For support 15%:\
+1 7 #SUP: 19 (Not useful) \
+1 2 3 4 5 6 7 #SUP: 3 \
+-> This group could be useful because it includes the member field extends class HistoryEvent and it has attributes dealing with more specific facets of the class\
+1 3 4 5 7 #SUP: 7\
+-> not particularly useful because it lacks an attribute that connects these specific attributes with a broader category\
+1 3 4 5 6 7 #SUP: 6\
+-> Exactly the same as the previous but it is more useful because it has attribute 6\
+1 3 4 5 6 7 8 9 #SUP: 4\
+-> attributes 8 and 9 are redundant; the FI right above this one is a tad bit more useful for identifying key attributes/features that are central to this group\
+1 3 4 5 6 7 8 9 41 #SUP: 3\
+-> same comment as above FI, except 41 does make this slightly more useful\
+1 3 4 5 6 7 41 #SUP: 4\
+-> This is a really interesting grouping and could be very helpful in identifying key attributes/features\
+1 4 7 #SUP: 16\
+-> All attributes too general so info not useful\
+1 4 7 8 9 #SUP: 5\
+-> more useful, but still not as helpful as other groupings because everything here is too general\
+1 4 7 41 #SUP: 12\
+-> more useful, but still not as helpful as other groupings because everything here is too general\
+1 4 7 41 44 45 46 47 48 #SUP: 6\
+-> This is a helpful grouping because it ties lots of broader attributes to the specific set of classes that extend MicrotaskEvent (attribute 48)\
+1 4 7 41 45 #SUP: 8\
+-> Still an ok grouping but not as helpful because it doesn\'92t have an attribute that ties everything to a particular subset go classes\
+1 4 7 41 45 46 47 48 #SUP: 7\
+-> More specific helpful grouping; has slightly higher support count than previous FI that was similar (other FI also had attribute 44)\
+1 4 7 45 #SUP: 9\
+-> OK but would be better if there was specific information about broader category of classes that it belonged to\
+1 4 7 45 48 #SUP: 8\
+-> Very helpful FI because it ties a variety of attributes to a specific class category (attribute 48)\
+1 7 45 #SUP: 12\
+-> OK but would be better if there was specific information about broader category of classes that it \
+1 7 45 48 #SUP: 11\
+-> Very helpful FI because it ties a variety of attributes to a specific class category (attribute 48)\
+7 #SUP: 20\
+-> Not helpful; too general\
+7 12 #SUP: 3\
+-> Not helpful; too general\
+\
+*If simply stating a 2-3 attributes as interesting doesn\'92t help us get interesting associations, then maybe what we can do is create an \'93interestingness\'94 score where appearing in an FI increases the score for that attribute \
+\
+\
+For support 25%:\
+\
+1 7 #SUP: 19\
+1 3 4 5 7 #SUP: 7\
+1 3 4 5 6 7 #SUP: 6\
+1 4 7 #SUP: 16\
+1 4 7 8 9 #SUP: 5\
+1 4 7 41 #SUP: 12\
+1 4 7 41 44 45 46 47 48 #SUP: 6\
+1 4 7 41 45 #SUP: 8\
+1 4 7 41 45 46 47 48 #SUP: 7\
+1 4 7 45 #SUP: 9\
+1 4 7 45 48 #SUP: 8\
+1 7 45 #SUP: 12\
+1 7 45 48 #SUP: 11\
+7 #SUP: 20\
+\
+-> See notes on above rules; note that the most helpful rules from the previous section/trial are present while some of the less helpful ones have been pruned out\
+\
+\
+For support 50%:\
+\
+1 7 #SUP: 19\
+1 4 7 #SUP: 16\
+1 4 7 41 #SUP: 12\
+1 7 45 #SUP: 12\
+**1 7 45 48 #SUP: 11**\
+7 #SUP: 20\
+\
+-> Starred grouping here is a key grouping that has key features we would want to find rules with; it is present at this level\
+-> Also note that we lose some of the more interesting FIs that we found with smaller supports\
+\
+\
+ENTITIES package\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Attributes found in rules:\
+1 class has empty-body constructor\
+2 class defines constructor with no parameters\
+3 class has non-empty-body constructor\
+4 constructor sets member variables condition, current, message, requirement, title\
+5 class defines constructor with parameter of type String\
+6 class defines constructor with parameter of type int\
+7 constructor stores all parameters as member variables\
+9 class has member field of type String\
+14 class has member field of type int\
+20 is public class\
+31 class with annotation @Entity\
+47 class with annotation @Subclass with \
+index = true \
+51 class defines constructor with parameter of type long\
+53 class has member field of type Long\
+55 class extends class Questioning\
+61 class has member field called id\
+62 class has member field called id with annotation @Id\
+63 class has member field id of type Long\
+64 class has member field called projectId\
+65 class has member field called projectId with annotation @Index\
+66 class has member field projectId of type String\
+74 class has member field of type List\
+81 class has member field of type boolean\
+90 class has member field of type long\
+96 has public function getKey()\
+97 getKey() function returns output from function call\
+98 getKey() function returns type Key\
+99 has public static function getKey()\
+101 has public function getID()\
+200 class has void function storeToFirebase()\
+251 has public function storeToFirebase()\
+278 class has member field of type Ref\
+360 class has member field called functionId\
+385 class defines constructor with parameter of type boolean\
+399 has public function getName()\
+400 getName() function returns type String\
+422 has public static function find()\
+423 find() function returns output from function call\
+424 find() function returns output from function call to ofy\
+\
+For support 15%:\
+1 2 3 5 20 #SUP: 17\
+-> Not useful; all attributes too general\
+1 2 3 5 6 9 14 20 #SUP: 3\
+-> all features still too general\
+1 2 3 5 7 9 20 #SUP: 6\
+-> Not useful; all attributes too general\
+1 2 3 5 7 9 14 20 #SUP: 4\
+-> Not useful; all attributes too general\
+1 2 3 5 7 9 14 20 31 53 61 62 63 64 65 66 81 96 98 #SUP: 3\
+-> Could be more useful if there were less features\
+1 2 3 5 7 9 20 31 #SUP: 5\
+-> attributes 7 and 31 are particularly useful in this grouping, but the rest are not as helpful\
+1 2 3 5 7 9 20 31 61 62 96 98 #SUP: 4\
+-> attributes 7, 31, 62, and 98 are particularly useful; attributes 61/62 and 96/98 are slightly redundant but could be helpful\
+1 2 3 5 7 9 20 31 61 62 96 97 98 #SUP: 3\
+-> same as above except attribute 97 might also be helpful\
+1 2 3 5 7 9 20 31 61 62 96 98 101 #SUP: 3\
+->  This is also an interesting grouping with attribute 101 being especially interesting\
+1 2 3 5 9 20 #SUP: 15\
+-> Not useful; attributes too general\
+1 2 3 5 9 14 20 #SUP: 9\
+-> Not useful; attributes too general\
+1 2 3 5 9 14 20 31 96 98 #SUP: 4\
+-> Again, more specific attributes are helpful but the large group of really general attributes is not\
+1 2 3 5 9 14 20 31 96 97 98 99 #SUP: 3\
+-> The more specific attributes (96-99) are more useful here, especially when considered in addition to attribute 31; \
+1 2 3 5 9 14 20 47 #SUP: 4\
+-> A little helpful since attribute 47 is present but many of the other attributes are still too general to make this FI as useful as it could be\
+1 2 3 5 9 14 20 47 74 #SUP: 3\
+-> This is an interesting combination of attributes with a fair mix of general and interesting; attributes 5, 14, 47, and 74 are the most interesting attributes in this group\
+1 2 3 5 9 14 20 47 90 #SUP: 3\
+-> attribute 90 is the most interesting one in this group\
+1 2 3 5 9 14 20 47 278 #SUP: 3\
+-> This is a moderately interesting group as well; 5, 14, 47, and 278 are the most interesting attributes in the FI\
+1 2 3 5 9 14 20 53 96 98 #SUP: 4\
+-> Most things in here are too general and are not attached to a specific class; however, attributes 5, 14, 53, 96, and 98 together might be interesting and useful\
+1 2 3 5 9 14 20 53 90 96 98 #SUP: 3\
+-> Same comment as previous rule applying to more specific attributes\
+1 2 3 5 9 14 20 53 96 97 98 #SUP: 3\
+-> Same comment as previous rule applying to more specific attributes\
+1 2 3 5 9 14 20 74 #SUP: 5\
+-> All of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 74 81 #SUP: 3\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 74 90 #SUP: 3\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 74 96 97 98 #SUP: 3\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 74 200 #SUP: 3\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 81 #SUP: 5\
+1 2 3 5 9 14 20 81 90 #SUP: 3\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 81 200 #SUP: 3\
+-> Maybe 81 and 200 might be good together but I knew that only by looking at what they represented and making an educated guess\
+1 2 3 5 9 14 20 90 #SUP: 5\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 90 96 98 #SUP: 4\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 90 96 97 98 #SUP: 3\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 90 96 98 294 299 300 308 309 310 311 314 315 319 321 322 323 324 325 #SUP: 3\
+-> This is too large of a group to be useful \
+1 2 3 5 9 14 20 96 98 #SUP: 6\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 96 97 98 #SUP: 5\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 200 #SUP: 4\
+-> Again, all  of these seem too general to be a useful grouping\
+1 2 3 5 9 14 20 200 251 #SUP: 3\
+-> maybe the combination of attributes 200 and 251 might be helpful but otherwise the rest of the group feels a bit too general\
+1 2 3 5 9 20 31 #SUP: 6\
+-> really similar to other groups above, but having attribute 31 makes this group far more interesting/useful than if it didn\'92t have that attribute\
+1 2 3 5 9 20 31 96 98 #SUP: 5\
+-> 31, 96,98 might be useful, plus maybe some of the stuff about member fields might be helpful\
+1 2 3 5 9 20 31 96 97 98 #SUP: 4\
+-> Same comment as above plus attribute 97\
+1 2 3 5 9 20 47 #SUP: 8\
+->really similar to other groups above, but having attribute 47 makes this group far more interesting/useful than if it didn\'92t have that attribute\
+1 2 3 5 9 20 47 51 #SUP: 4\
+-> Attributes 47 and 51 are the really interesting ones here; the rule below this has the additional attribute 90, which makes it significantly more helpful than this one\
+1 2 3 5 9 20 47 51 90 #SUP: 3\
+-> see comment on above rule\
+1 2 3 5 9 20 47 51 96 97 98 278 293 294 296 297 299 300 308 309 310 311 314 315 319 320 321 322 323 324 325 #SUP: 3\
+-> Too big to be useful \
+1 2 3 5 9 20 47 74 #SUP: 5\
+-> More helpful because attributes 47, 74 are together\
+1 2 3 5 9 20 47 74 81 200 #SUP: 3\
+-> More than above rule because of the presence of more specific attributes tied to an attribute that has info about annotation\
+1 2 3 5 9 20 47 74 90 #SUP: 3\
+-> Similar comments as the above, related/similar FIs\
+1 2 3 5 9 20 47 74 200 #SUP: 4\
+-> Similar comments as the above, related/similar FIs\
+1 2 3 5 9 20 47 74 200 383 385 386 387 396 397 398 399 400 417 418 419 420 422 423 424 425 #SUP: 3\
+-> Too big to be useful \
+1 2 3 5 9 20 47 90 #SUP: 4\
+-> Similar comments as the above, related/similar FIs\
+1 2 3 5 9 20 47 278 #SUP: 5\
+-> Similar comments as the above, related/similar FIs\
+1 2 3 5 9 20 47 96 97 98 278 293 294 296 297 299 300 308 309 310 311 314 315 319 320 321 322 323 324 325 #SUP: 4\
+-> Too big to be useful \
+1 2 3 5 9 20 74 #SUP: 7\
+1 2 3 5 9 20 74 81 #SUP: 4\
+1 2 3 5 9 20 74 81 90 #SUP: 3\
+1 2 3 5 9 20 74 90 #SUP: 4\
+-> FIs above this comment all have the same problem that they don\'92t have some sort of central tying feature that could be used to produce a logical/coherent design rule\
+1 2 3 5 9 20 74 200 #SUP: 5\
+1 2 3 5 9 20 74 200 251 #SUP: 3\
+-> The presence of attributes 200 and/or 251 in these FIs make it possible to imagine a coherent design rule that could be produced; maybe have this particular function requires a field of a specific type\
+1 2 3 5 9 20 81 #SUP: 6\
+1 2 3 5 9 20 81 90 #SUP: 4\
+-> These are a bit too general as well\
+1 2 3 5 9 20 81 200 #SUP: 4\
+1 2 3 5 9 20 81 200 385 399 400 #SUP: 3\
+-> Again, some of the more specific attributes here that refer to the presence of a particular function make this grouping more useful\
+1 2 3 5 9 20 81 422 423 424 #SUP: 3\
+-> Same comment as previous rule\
+1 2 3 5 9 20 90 #SUP: 6\
+-> No central tying/broad feature problem as above\
+1 2 3 5 9 20 90 360 #SUP: 3\
+-> Maybe the presence of attribute 360 might make this FI more useful/interesting\
+1 2 3 5 9 20 96 98 #SUP: 9\
+1 2 3 5 9 20 96 97 98 #SUP: 8\
+-> Maybe presence of attributes 96-98 might make these FIs more useful/interesting\
+1 2 3 5 9 20 96 97 98 205 #SUP: 3\
+1 2 3 5 9 20 96 98 294 299 300 308 309 310 311 314 315 319 321 322 323 324 325 #SUP: 5\
+-> Too big to be useful ; although these attributes on their own are all fairly interesting attributes\
+1 2 3 5 9 20 200 #SUP: 6\
+1 2 3 5 9 20 200 251 #SUP: 4\
+1 2 3 5 9 20 200 251 385 399 400 #SUP: 3\
+1 2 3 5 9 20 200 385 399 400 #SUP: 4\
+1 2 3 5 9 20 422 423 424 #SUP: 4\
+-> Again, some of the more specific attributes here that refer to the presence of a particular function might make these FIs more useful\
+1 2 3 5 20 47 #SUP: 10\
+-> Attribute 47 makes this more interesting; also this is a smaller sized FI with fewer of the more general attributes\
+1 2 3 5 20 47 51 #SUP: 6\
+1 2 3 5 20 47 51 53 #SUP: 3\
+-> Same general comments apply to these two FIs as the previous ones; \
+1 2 3 5 20 47 55 #SUP: 3\
+-> Attributes 47 and 55 make this FI truly very interesting\
+1 2 3 5 20 53 #SUP: 6\
+-> All largely too general\
+\
+\
+For support 25%:\
+1 2 3 5 20 #SUP: 17\
+1 2 3 5 7 9 20 #SUP: 6\
+1 2 3 5 7 9 20 31 #SUP: 5\
+1 2 3 5 9 20 #SUP: 15\
+1 2 3 5 9 14 20 #SUP: 9\
+1 2 3 5 9 14 20 74 #SUP: 5\
+1 2 3 5 9 14 20 81 #SUP: 5\
+1 2 3 5 9 14 20 90 #SUP: 5\
+1 2 3 5 9 14 20 96 98 #SUP: 6\
+1 2 3 5 9 14 20 96 97 98 #SUP: 5\
+1 2 3 5 9 20 31 #SUP: 6\
+1 2 3 5 9 20 31 96 98 #SUP: 5\
+1 2 3 5 9 20 47 #SUP: 8\
+1 2 3 5 9 20 47 74 #SUP: 5\
+1 2 3 5 9 20 47 278 #SUP: 5\
+1 2 3 5 9 20 74 #SUP: 7\
+1 2 3 5 9 20 74 200 #SUP: 5\
+1 2 3 5 9 20 81 #SUP: 6\
+1 2 3 5 9 20 90 #SUP: 6\
+1 2 3 5 9 20 96 98 #SUP: 9\
+1 2 3 5 9 20 96 97 98 #SUP: 8\
+1 2 3 5 9 20 96 98 294 299 300 308 309 310 311 314 315 319 321 322 323 324 325 #SUP: 5\
+1 2 3 5 9 20 200 #SUP: 6\
+1 2 3 5 20 47 #SUP: 10\
+1 2 3 5 20 47 51 #SUP: 6\
+1 2 3 5 20 53 #SUP: 6\
+\
+For support 50%:\
+1 2 3 5 20 #SUP: 17\
+1 2 3 5 9 20 #SUP: 15\
+1 2 3 5 9 14 20 #SUP: 9\
+1 2 3 5 9 20 96 98 #SUP: 9\
+1 2 3 5 20 47 #SUP: 10\
+\
+-> For support 25% and support 50%, see comments on rules produced from support 15%\
+\
+\
+DTO package\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+1 class has empty-body constructor\
+2 class defines constructor with no parameters\
+4 class has member field of type String\
+5 class has member field challengeText of type String\
+6 class extends class DTO\
+7 is public class\
+8 class has member field called messageType\
+9 class has member field messageType of type String\
+11 class has member field of type List\
+28 class has non-empty-body constructor\
+30 class defines constructor with parameter of type int\
+31 class defines constructor with parameter of type String\
+32 constructor stores all parameters as member variables\
+34 class has member field of type int\
+66 class has member field of type boolean\
+69 class defines constructor with parameter of type List\
+86 class defines constructor with parameter of type long\
+87 class has member field called id\
+88 class has member field of type long\
+89 class has member field id of type long\
+210 class has member field called description\
+211 class has member field description of type String\
+\
+For support 15%:\
+1 2 7 #SUP: 44\
+1 2 4 7 #SUP: 38\
+-> These FIs are too general\
+1 2 4 6 7 #SUP: 28\
+-> Presence of attribute 6 makes this more interesting\
+1 2 4 6 7 8 9 #SUP: 16\
+-> Attributes 6,8,9 all make this group both interesting and useful\
+1 2 4 6 7 8 9 11 #SUP: 11\
+1 2 4 6 7 8 9 11 28 #SUP: 8\
+1 2 4 6 7 8 9 28 #SUP: 11\
+1 2 4 6 7 8 9 28 30 31 34 #SUP: 10\
+1 2 4 6 7 8 9 28 30 31 34 86 87 88 89 #SUP: 8\
+1 2 4 6 7 8 9 28 32 #SUP: 8\
+1 2 4 6 7 8 9 66 #SUP: 8\
+1 2 4 6 7 8 9 87 88 89 #SUP: 9\
+1 2 4 6 7 8 9 88 #SUP: 11\
+-> Similar comments to previous rule; addition of more specific attributes in combination with the presence of attribute 6 makes this rule more interesting\
+1 2 4 6 7 11 #SUP: 14\
+1 2 4 6 7 11 34 #SUP: 8\
+1 2 4 6 7 11 66 #SUP: 8\
+1 2 4 6 7 11 87 88 89 #SUP: 8\
+1 2 4 6 7 28 #SUP: 19\
+1 2 4 6 7 28 30 31 34 #SUP: 12\
+1 2 4 6 7 28 30 31 32 34 #SUP: 8\
+1 2 4 6 7 28 31 #SUP: 18\
+1 2 4 6 7 28 31 32 #SUP: 14\
+1 2 4 6 7 28 31 87 #SUP: 9\
+1 2 4 6 7 28 31 88 #SUP: 9\
+1 2 4 6 7 28 32 #SUP: 15\
+1 2 4 6 7 34 #SUP: 13\
+1 2 4 6 7 34 66 #SUP: 8\
+1 2 4 6 7 36 37 #SUP: 8\
+1 2 4 6 7 66 #SUP: 11\
+1 2 4 6 7 66 87 88 89 #SUP: 8\
+1 2 4 6 7 87 #SUP: 11\
+\'85\'85\'85\'85. STOPPED COMMENTING HERE \'85\'85\'85.\
+1 2 4 6 7 87 88 89 #SUP: 10\
+1 2 4 6 7 88 #SUP: 13\
+1 2 4 6 7 210 211 #SUP: 8\
+1 2 4 7 11 #SUP: 15\
+1 2 4 7 11 28 #SUP: 9\
+1 2 4 7 11 28 30 31 #SUP: 8\
+1 2 4 7 28 #SUP: 29\
+1 2 4 7 28 30 31 #SUP: 17\
+1 2 4 7 28 30 31 34 #SUP: 13\
+1 2 4 7 28 30 31 86 #SUP: 12\
+1 2 4 7 28 30 31 86 88 #SUP: 9\
+1 2 4 7 28 31 #SUP: 28\
+1 2 4 7 28 31 86 #SUP: 15\
+1 2 4 7 28 31 86 88 #SUP: 12\
+1 2 4 7 28 31 88 #SUP: 13\
+1 2 4 7 34 #SUP: 14\
+1 2 4 7 88 #SUP: 17\
+1 2 4 7 88 90 91 #SUP: 8\
+1 2 6 7 #SUP: 34\
+1 2 6 7 11 #SUP: 20\
+1 2 6 7 11 28 #SUP: 13\
+1 2 6 7 11 28 32 #SUP: 11\
+1 2 6 7 11 28 32 69 #SUP: 8\
+1 2 6 7 11 28 69 #SUP: 9\
+1 2 6 7 11 66 #SUP: 9\
+1 2 6 7 11 88 #SUP: 9\
+1 2 6 7 28 #SUP: 24\
+1 2 6 7 28 32 #SUP: 20\
+1 2 6 7 66 #SUP: 12\
+1 2 6 7 66 88 #SUP: 9\
+1 2 6 7 88 #SUP: 14\
+1 2 7 11 #SUP: 21\
+1 2 7 11 28 #SUP: 14\
+1 2 7 11 28 69 #SUP: 10\
+1 2 7 28 #SUP: 34\
+1 2 7 88 #SUP: 18\
+4 7 #SUP: 41\
+4 6 7 #SUP: 31\
+4 6 7 8 9 #SUP: 18\
+4 6 7 8 9 11 #SUP: 13\
+4 6 7 8 9 11 87 #SUP: 8\
+4 6 7 8 9 87 #SUP: 10\
+4 6 7 11 #SUP: 16\
+4 6 7 11 87 #SUP: 9\
+4 6 7 34 #SUP: 14\
+4 6 7 34 66 #SUP: 9\
+4 6 7 36 37 #SUP: 9\
+4 6 7 66 #SUP: 12\
+4 6 7 87 #SUP: 12\
+4 6 7 210 211 #SUP: 9\
+4 7 11 #SUP: 17\
+4 7 34 #SUP: 15\
+6 7 #SUP: 38\
+6 7 11 #SUP: 22\
+6 7 66 #SUP: 13\
+7 #SUP: 49\
+7 11 #SUP: 23\
+\
+For support 25%:\
+1 2 7 #SUP: 44\
+1 2 4 7 #SUP: 38\
+1 2 4 6 7 #SUP: 28\
+1 2 4 6 7 8 9 #SUP: 16\
+1 2 4 6 7 11 #SUP: 14\
+1 2 4 6 7 28 #SUP: 19\
+1 2 4 6 7 28 31 #SUP: 18\
+1 2 4 6 7 28 31 32 #SUP: 14\
+1 2 4 6 7 28 32 #SUP: 15\
+1 2 4 6 7 34 #SUP: 13\
+1 2 4 6 7 88 #SUP: 13\
+1 2 4 7 11 #SUP: 15\
+1 2 4 7 28 #SUP: 29\
+1 2 4 7 28 30 31 #SUP: 17\
+1 2 4 7 28 30 31 34 #SUP: 13\
+1 2 4 7 28 31 #SUP: 28\
+1 2 4 7 28 31 86 #SUP: 15\
+1 2 4 7 28 31 88 #SUP: 13\
+1 2 4 7 34 #SUP: 14\
+1 2 4 7 88 #SUP: 17\
+1 2 6 7 #SUP: 34\
+1 2 6 7 11 #SUP: 20\
+1 2 6 7 11 28 #SUP: 13\
+1 2 6 7 28 #SUP: 24\
+1 2 6 7 28 32 #SUP: 20\
+1 2 6 7 88 #SUP: 14\
+1 2 7 11 #SUP: 21\
+1 2 7 11 28 #SUP: 14\
+1 2 7 28 #SUP: 34\
+1 2 7 88 #SUP: 18\
+4 7 #SUP: 41\
+4 6 7 #SUP: 31\
+4 6 7 8 9 #SUP: 18\
+4 6 7 8 9 11 #SUP: 13\
+4 6 7 11 #SUP: 16\
+4 6 7 34 #SUP: 14\
+4 7 11 #SUP: 17\
+4 7 34 #SUP: 15\
+6 7 #SUP: 38\
+6 7 11 #SUP: 22\
+6 7 66 #SUP: 13\
+7 #SUP: 49\
+7 11 #SUP: 23\
+\
+For support 50%:\
+1 2 7 #SUP: 44\
+1 2 4 7 #SUP: 38\
+1 2 4 6 7 #SUP: 28\
+1 2 4 7 28 #SUP: 29\
+1 2 4 7 28 31 #SUP: 28\
+1 2 6 7 #SUP: 34\
+1 2 7 28 #SUP: 34\
+4 7 #SUP: 41\
+4 6 7 #SUP: 31\
+6 7 #SUP: 38\
+7 #SUP: 49\
+\
+\
+\
+COMMANDS package\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+For support 15%:\
+2 #SUP: 8\
+2 3 10 36 37 38 39 40 41 #SUP: 7\
+2 3 5 6 8 10 11 12 13 14 15 18 36 37 38 39 40 41 #SUP: 3\
+2 3 5 6 8 10 11 12 13 14 15 18 20 21 22 23 24 29 30 31 32 33 36 37 38 39 40 41 #SUP: 2\
+2 3 6 10 36 37 38 39 40 41 #SUP: 6\
+2 3 6 8 10 36 37 38 39 40 41 #SUP: 4\
+2 3 6 10 36 37 38 39 40 41 43 47 254 255 256 #SUP: 2\
+2 3 6 10 36 37 38 39 40 41 254 255 256 #SUP: 3\
+\
+\
+For support 25%:\
+2 #SUP: 8\
+2 3 10 36 37 38 39 40 41 #SUP: 7\
+2 3 5 6 8 10 11 12 13 14 15 18 36 37 38 39 40 41 #SUP: 3\
+2 3 5 6 8 10 11 12 13 14 15 18 20 21 22 23 24 29 30 31 32 33 36 37 38 39 40 41 #SUP: 2\
+2 3 6 10 36 37 38 39 40 41 #SUP: 6\
+2 3 6 8 10 36 37 38 39 40 41 #SUP: 4\
+2 3 6 10 36 37 38 39 40 41 43 47 254 255 256 #SUP: 2\
+2 3 6 10 36 37 38 39 40 41 254 255 256 #SUP: 3\
+\
+\
+For support 50%:\
+2 #SUP: 8\
+2 3 10 36 37 38 39 40 41 #SUP: 7\
+2 3 6 10 36 37 38 39 40 41 #SUP: 6\
+2 3 6 8 10 36 37 38 39 40 41 #SUP: 4\
+}
